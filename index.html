@@ -10,6 +10,12 @@
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
   body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: 50px; overflow-x: hidden; }
   
+  /* NOVO: CONTROLE DE EXIBIÇÃO INICIAL */
+  #tela-login, #painel { display: none; } 
+  #tela-carregando { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: var(--dourado-claro); font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+  .spinner { border: 3px solid rgba(212,175,55,0.3); border-top: 3px solid var(--dourado); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
   /* LOGIN */
   .login-box { background: var(--card); padding: 40px 20px; border-radius: 10px; text-align: center; max-width: 400px; margin: 80px auto; border: 1px solid var(--dourado); }
   .login-box h1 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
@@ -17,7 +23,7 @@
   .btn-google:hover { background: #eee; transform: scale(0.98); }
   
   /* PAINEL */
-  #painel { display: none; max-width: 600px; margin: 0 auto; }
+  #painel { max-width: 600px; margin: 0 auto; }
   .header-admin { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--borda); padding-bottom: 15px; margin-bottom: 20px; }
   .header-admin h1 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.3rem; }
   .btn-sair { background: transparent; border: 1px solid #c94a4a; color: #c94a4a; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
@@ -110,14 +116,22 @@
 </head>
 <body>
 
+<!-- NOVO: TELA DE CARREGAMENTO -->
+<div id="tela-carregando">
+  <div class="spinner"></div>
+  Verificando acesso...
+</div>
+
 <!-- LOGIN -->
-<div class="login-box" id="tela-login">
-  <h1>Painel THRUST</h1>
-  <p style="color:#888; font-size:0.9rem;">Acesso restrito.</p>
-  <button class="btn-google" id="btn-google">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="24">
-    Entrar com o Google
-  </button>
+<div id="tela-login">
+  <div class="login-box">
+    <h1>Painel THRUST</h1>
+    <p style="color:#888; font-size:0.9rem;">Acesso restrito.</p>
+    <button class="btn-google" id="btn-google">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="24">
+      Entrar com o Google
+    </button>
+  </div>
 </div>
 
 <!-- PAINEL -->
@@ -157,7 +171,6 @@
         <div class="grid-inputs">
           <div class="input-group">
             <label>Categoria *</label>
-            <!-- AQUI ESTÁ O AJUSTE DA CATEGORIA -->
             <select id="cat" required>
               <option value="" disabled selected>Selecione...</option>
               <option value="feminino">Feminino</option>
@@ -232,13 +245,11 @@
 
   <!-- ACCORDION: LISTA DE PERFUMES -->
   <div class="accordion-item" id="accordion-lista">
-    <!-- AQUI ESTÁ O AJUSTE: A CLASSE ACTIVE FOI REMOVIDA DO HEADER -->
     <div class="accordion-header" id="header-lista" onclick="toggleAccordion('lista')">
       <h2>Perfumes no Catálogo</h2>
       <span class="accordion-icon">▼</span>
     </div>
     
-    <!-- AQUI ESTÁ O AJUSTE: O DISPLAY BLOCK FOI REMOVIDO DO CONTENT -->
     <div class="accordion-content" id="content-lista">
       <div class="lista-header-actions">
         <input type="text" class="search-admin" id="search-admin" placeholder="🔍 Buscar por nome ou inspiração...">
@@ -275,6 +286,7 @@
 
   const ADMIN_EMAIL = "ewerton.andriel@gmail.com"; 
 
+  const telaCarregando = document.getElementById('tela-carregando');
   const telaLogin = document.getElementById('tela-login');
   const painel = document.getElementById('painel');
   const btnGoogle = document.getElementById('btn-google');
@@ -294,7 +306,6 @@
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
-  // --- CONTROLE DO ACORDEON (SANFONA) ---
   window.toggleAccordion = function(secao) {
     const header = document.getElementById('header-' + secao);
     const content = document.getElementById('content-' + secao);
@@ -312,22 +323,27 @@
     }
   };
 
-  // Login / Logout
   btnGoogle.addEventListener('click', () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).catch(err => alert("Erro ao logar: " + err.message));
   });
+  
   btnSair.addEventListener('click', () => signOut(auth));
 
+  // AQUI ESTÁ A CORREÇÃO DO PISCA-PISCA
   onAuthStateChanged(auth, (user) => {
+    // Esconde a tela de carregamento independentemente do resultado
+    telaCarregando.style.display = 'none';
+
     if (user) {
       if (user.email === ADMIN_EMAIL) {
         telaLogin.style.display = 'none';
         painel.style.display = 'block';
         if(todosPerfumesAdmin.length === 0) carregarListaAdmin();
       } else {
-        alert("Acesso negado.");
+        alert("Acesso negado. E-mail não autorizado.");
         signOut(auth);
+        telaLogin.style.display = 'block';
       }
     } else {
       telaLogin.style.display = 'block';
@@ -335,7 +351,6 @@
     }
   });
 
-  // Salvar / Editar Perfume
   formPerfume.addEventListener('submit', async (e) => {
     e.preventDefault();
     
