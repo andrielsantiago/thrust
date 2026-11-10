@@ -157,7 +157,9 @@
         <div class="grid-inputs">
           <div class="input-group">
             <label>Categoria *</label>
+            <!-- AQUI ESTÁ O AJUSTE DA CATEGORIA -->
             <select id="cat" required>
+              <option value="" disabled selected>Selecione...</option>
               <option value="feminino">Feminino</option>
               <option value="masculino">Masculino</option>
               <option value="compartilhado">Compartilhado</option>
@@ -230,12 +232,14 @@
 
   <!-- ACCORDION: LISTA DE PERFUMES -->
   <div class="accordion-item" id="accordion-lista">
-    <div class="accordion-header active" id="header-lista" onclick="toggleAccordion('lista')">
+    <!-- AQUI ESTÁ O AJUSTE: A CLASSE ACTIVE FOI REMOVIDA DO HEADER -->
+    <div class="accordion-header" id="header-lista" onclick="toggleAccordion('lista')">
       <h2>Perfumes no Catálogo</h2>
       <span class="accordion-icon">▼</span>
     </div>
     
-    <div class="accordion-content" id="content-lista" style="display: block;">
+    <!-- AQUI ESTÁ O AJUSTE: O DISPLAY BLOCK FOI REMOVIDO DO CONTENT -->
+    <div class="accordion-content" id="content-lista">
       <div class="lista-header-actions">
         <input type="text" class="search-admin" id="search-admin" placeholder="🔍 Buscar por nome ou inspiração...">
         <div class="abas-admin">
@@ -481,7 +485,6 @@
       listaFiltrada = listaFiltrada.filter(p => p.cat === categoriaFiltroAdmin);
     }
     
-    // AQUI ESTÁ O AJUSTE: A BUSCA AGORA FILTRA NOME OU INSPIRAÇÃO
     if (termoBuscaAdmin) {
       listaFiltrada = listaFiltrada.filter(p => 
         p.nome.toLowerCase().includes(termoBuscaAdmin) || 
