@@ -1,1 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Admin - THRUST PARFUMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --dourado: #c9a227; --dourado-claro: #f5d97a; --fundo: #0d0d0d; --card: #1a1a1a; --borda: rgba(212,175,55,0.25); }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
+  body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: 50px; overflow-x: hidden; }
+  
+  /* LOGIN */
+  .login-box { background: var(--card); padding: 40px 20px; border-radius: 10px; text-align: center; max-width: 400px; margin: 80px auto; border: 1px solid var(--dourado); }
+  .login-box h1 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
+  .btn-google { background: #fff; color: #333; border: none; padding: 15px 20px; font-size: 1rem; font-weight: bold; border-radius: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 30px; transition: 0.3s; }
+  .btn-google:hover { background: #eee; transform: scale(0.98); }
+  
+  /* PAINEL */
+  #painel { display: none; max-width: 600px; margin: 0 auto; }
+  .header-admin { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--borda); padding-bottom: 15px; margin-bottom: 20px; }
+  .header-admin h1 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.3rem; }
+  .btn-sair { background: transparent; border: 1px solid #c94a4a; color: #c94a4a; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+  .btn-sair:hover { background: #c94a4a; color: #fff; }
+  
+  /* MENSAGENS */
+  .msg { padding: 12px; border-radius: 6px; margin-bottom: 15px; display: none; text-align: center; font-size: 0.85rem; font-weight: bold; }
+  .msg.sucesso { background: rgba(37,211,102,0.15); color: #25D366; border: 1px solid #25D366; display: block; }
+  .msg.erro { background: rgba(255,0,0,0.15); color: #ff4444; border: 1px solid #ff4444; display: block; }
 
+  /* ACCORDION (SANFONA) */
+  .accordion-item { background: var(--card); border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; overflow: hidden; }
+  .accordion-header { background: #151515; padding: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid transparent; transition: 0.3s; }
+  .accordion-header.active { border-bottom-color: var(--borda); background: #1a1a1a; }
+  .accordion-header h2 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; font-size: 1.1rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+  .accordion-icon { color: var(--dourado); font-size: 0.8rem; transition: transform 0.3s; }
+  .accordion-header.active .accordion-icon { transform: rotate(180deg); }
+  
+  .accordion-content { display: none; padding: 15px; animation: slideDown 0.3s ease-out; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* FORMULÁRIO */
+  .form-add h2 { display: none; } 
+  .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; margin-left: auto; }
+  
+  .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-full { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  
+  .input-group { margin-bottom: 10px; }
+  .input-group label { display: block; font-size: 0.7rem; color: #aaa; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
+  .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--dourado); }
+  
+  /* BOX DE TAMANHOS */
+  .tamanhos-box { border: 1px dashed #444; padding: 12px; border-radius: 6px; margin-bottom: 15px; background: rgba(255,255,255,0.02); }
+  .tamanhos-box h3 { font-size: 0.8rem; color: var(--dourado); margin-bottom: 10px; text-transform: uppercase; }
+  .tamanho-row { display: grid; grid-template-columns: 30px 50px 1fr; align-items: center; gap: 8px; margin-bottom: 8px; background: #222; padding: 8px 10px; border-radius: 6px; }
+  .tamanho-row:last-child { margin-bottom: 0; }
+  .tamanho-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--dourado); cursor: pointer; }
+  .tamanho-row .label-tam { font-weight: bold; color: #fff; font-size: 0.85rem; }
+  .tamanho-row input[type="number"] { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff; font-size: 0.85rem; }
+  
+  /* TOGGLES */
+  .toggles-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+  .check-box { display: flex; align-items: center; gap: 8px; background: rgba(212,175,55,0.1); border: 1px solid var(--dourado); padding: 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+  .check-box.danger { border-color: #c94a4a; background: rgba(201,74,74,0.1); }
+  .check-box input { width: 18px; height: 18px; accent-color: var(--dourado); cursor: pointer; }
+  .check-box.danger input { accent-color: #c94a4a; }
+  .check-box span { font-weight: 600; color: var(--dourado-claro); font-size: 0.75rem; line-height: 1.2; }
+  .check-box.danger span { color: #ff6b6b; }
+
+  .btn-salvar { background: linear-gradient(180deg, var(--dourado-claro), var(--dourado)); color: #0d0d0d; border: none; padding: 14px; width: 100%; font-weight: bold; border-radius: 30px; cursor: pointer; font-size: 0.95rem; transition: 0.3s; margin-top: 10px; }
+  .btn-salvar:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+  .btn-salvar:disabled { opacity: 0.5; cursor: not-allowed; }
+  
+  /* LISTA DE PERFUMES */
+  .lista-header-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+  .search-admin { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
+  .search-admin:focus { outline: none; border-color: var(--dourado); }
+
+  .abas-admin { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+  .abas-admin::-webkit-scrollbar { display: none; }
+  .aba-btn { background: none; border: 1px solid #444; color: #888; font-weight: 600; font-size: 0.75rem; cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
+  .aba-btn.active { color: #0d0d0d; background: var(--dourado); border-color: var(--dourado); }
+  
+  .item-admin { display: flex; flex-direction: column; border-bottom: 1px solid #333; padding: 12px 0; gap: 10px; }
+  .item-admin:last-child { border-bottom: none; }
+  
+  .item-topo { display: flex; align-items: flex-start; gap: 12px; }
+  .item-topo img { width: 45px; height: 45px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
+  .item-dados { flex: 1; min-width: 0; }
+  .item-dados .nome { color: var(--dourado-claro); font-weight: bold; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+  .item-dados .detalhes { color: #888; font-size: 0.7rem; margin-top: 3px; line-height: 1.4; }
+  .status-off { color: #ff6b6b; font-size: 0.65rem; font-weight: bold; background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
+  
+  .item-acoes { display: flex; gap: 8px; justify-content: flex-end; }
+  .btn-acao { background: transparent; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; flex: 1; text-align: center; }
+  .btn-editar { border-color: var(--dourado); color: var(--dourado); }
+  .btn-editar:active { background: var(--dourado); color: #0d0d0d; }
+  .btn-excluir { border-color: #c94a4a; color: #c94a4a; }
+  .btn-excluir:active { background: #c94a4a; color: white; }
+
+  @media (min-width: 600px) {
+    .item-admin { flex-direction: row; align-items: center; justify-content: space-between; }
+    .item-acoes { flex: none; }
+    .btn-acao { flex: none; }
+    .item-dados .nome { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-box" id="tela-login">
+  <h1>Painel THRUST</h1>
+  <p style="color:#888; font-size:0.9rem;">Acesso restrito.</p>
+  <button class="btn-google" id="btn-google">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="24">
+    Entrar com o Google
+  </button>
+</div>
+
+<!-- PAINEL -->
+<div id="painel">
+  <div class="header-admin">
+    <h1>Gerenciar Catálogo</h1>
+    <button class="btn-sair" id="btn-sair">Sair</button>
+  </div>
+
+  <div class="msg" id="mensagem"></div>
+
+  <!-- ACCORDION: FORMULÁRIO -->
+  <div class="accordion-item" id="accordion-form">
+    <div class="accordion-header" id="header-form" onclick="toggleAccordion('form')">
+      <h2><span id="form-titulo">Adicionar Novo Perfume</span></h2>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="event.stopPropagation(); cancelarEdicao()">Cancelar Edição</button>
+        <span class="accordion-icon">▼</span>
+      </div>
+    </div>
+    
+    <div class="accordion-content" id="content-form">
+      <form id="form-perfume">
+        <input type="hidden" id="edit-id" value="">
+        
+        <div class="grid-inputs">
+          <div class="input-group">
+            <label>Nome *</label>
+            <input type="text" id="nome" required placeholder="Ex: Femme Fatale">
+          </div>
+          <div class="input-group">
+            <label>Inspirado em *</label>
+            <input type="text" id="insp" required placeholder="Ex: Good Girl">
+          </div>
+        </div>
+
+        <div class="grid-inputs">
+          <div class="input-group">
+            <label>Categoria *</label>
+            <select id="cat" required>
+              <option value="feminino">Feminino</option>
+              <option value="masculino">Masculino</option>
+              <option value="compartilhado">Compartilhado</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Link Imagem</label>
+            <input type="url" id="img" placeholder="https://...">
+          </div>
+        </div>
+
+        <div class="tamanhos-box">
+          <h3>Tamanhos e Preços *</h3>
+          <div class="tamanho-row">
+            <input type="checkbox" id="chk-30">
+            <span class="label-tam">30ml</span>
+            <input type="number" step="0.01" id="preco-30" placeholder="R$ 59,90">
+          </div>
+          <div class="tamanho-row">
+            <input type="checkbox" id="chk-50" checked>
+            <span class="label-tam">50ml</span>
+            <input type="number" step="0.01" id="preco-50" placeholder="R$ 79,90">
+          </div>
+          <div class="tamanho-row">
+            <input type="checkbox" id="chk-100">
+            <span class="label-tam">100ml</span>
+            <input type="number" step="0.01" id="preco-100" placeholder="R$ 139,90">
+          </div>
+        </div>
+
+        <div class="toggles-row">
+          <label class="check-box">
+            <input type="checkbox" id="vendido">
+            <span>🔥 Mais Vendido</span>
+          </label>
+          <label class="check-box danger">
+            <input type="checkbox" id="indisponivel">
+            <span>Indisponível</span>
+          </label>
+        </div>
+
+        <div class="grid-full">
+          <div class="input-group">
+            <label>Descrição *</label>
+            <textarea id="desc" rows="2" required placeholder="Sobre a fragrância..."></textarea>
+          </div>
+        </div>
+
+        <div class="grid-inputs">
+          <div class="input-group">
+            <label>Notas Topo *</label>
+            <input type="text" id="topo" required placeholder="Amêndoa...">
+          </div>
+          <div class="input-group">
+            <label>Notas Coração *</label>
+            <input type="text" id="coracao" required placeholder="Jasmim...">
+          </div>
+        </div>
+        <div class="grid-full">
+          <div class="input-group">
+            <label>Notas Fundo *</label>
+            <input type="text" id="fundo" required placeholder="Baunilha...">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-salvar" id="btn-submit">Salvar no Catálogo</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ACCORDION: LISTA DE PERFUMES -->
+  <div class="accordion-item" id="accordion-lista">
+    <div class="accordion-header active" id="header-lista" onclick="toggleAccordion('lista')">
+      <h2>Perfumes no Catálogo</h2>
+      <span class="accordion-icon">▼</span>
+    </div>
+    
+    <div class="accordion-content" id="content-lista" style="display: block;">
+      <div class="lista-header-actions">
+        <input type="text" class="search-admin" id="search-admin" placeholder="🔍 Buscar por nome ou inspiração...">
+        <div class="abas-admin">
+          <button class="aba-btn active" data-cat="todos">Todos</button>
+          <button class="aba-btn" data-cat="feminino">Fem</button>
+          <button class="aba-btn" data-cat="masculino">Masc</button>
+          <button class="aba-btn" data-cat="compartilhado">Uni</button>
+        </div>
+      </div>
+      <div id="lista-perfumes-admin"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LÓGICA FIREBASE -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCtdszBtbQiaZnWcLLKBPnwo_3yHRtp2mA",
+    authDomain: "thrustperfumes.firebaseapp.com",
+    projectId: "thrustperfumes",
+    storageBucket: "thrustperfumes.firebasestorage.app",
+    messagingSenderId: "772745912522",
+    appId: "1:772745912522:web:efaa2b56877dc4b880d433"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const ADMIN_EMAIL = "ewerton.andriel@gmail.com"; 
+
+  const telaLogin = document.getElementById('tela-login');
+  const painel = document.getElementById('painel');
+  const btnGoogle = document.getElementById('btn-google');
+  const btnSair = document.getElementById('btn-sair');
+  const listaAdmin = document.getElementById('lista-perfumes-admin');
+  const formPerfume = document.getElementById('form-perfume');
+  const msgDiv = document.getElementById('mensagem');
+  const btnSubmit = document.getElementById('btn-submit');
+  
+  const searchAdmin = document.getElementById('search-admin');
+  const abasAdmin = document.querySelectorAll('.aba-btn');
+  let categoriaFiltroAdmin = 'todos';
+  let termoBuscaAdmin = '';
+  let todosPerfumesAdmin = []; 
+
+  const editId = document.getElementById('edit-id');
+  const formTitulo = document.getElementById('form-titulo');
+  const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
+
+  // --- CONTROLE DO ACORDEON (SANFONA) ---
+  window.toggleAccordion = function(secao) {
+    const header = document.getElementById('header-' + secao);
+    const content = document.getElementById('content-' + secao);
+    
+    const isOpen = header.classList.contains('active');
+
+    ['form', 'lista'].forEach(s => {
+      document.getElementById('header-' + s).classList.remove('active');
+      document.getElementById('content-' + s).style.display = 'none';
+    });
+
+    if (!isOpen) {
+      header.classList.add('active');
+      content.style.display = 'block';
+    }
+  };
+
+  // Login / Logout
+  btnGoogle.addEventListener('click', () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).catch(err => alert("Erro ao logar: " + err.message));
+  });
+  btnSair.addEventListener('click', () => signOut(auth));
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      if (user.email === ADMIN_EMAIL) {
+        telaLogin.style.display = 'none';
+        painel.style.display = 'block';
+        if(todosPerfumesAdmin.length === 0) carregarListaAdmin();
+      } else {
+        alert("Acesso negado.");
+        signOut(auth);
+      }
+    } else {
+      telaLogin.style.display = 'block';
+      painel.style.display = 'none';
+    }
+  });
+
+  // Salvar / Editar Perfume
+  formPerfume.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    let temTamanho = false;
+    if(document.getElementById('chk-30').checked && document.getElementById('preco-30').value) temTamanho = true;
+    if(document.getElementById('chk-50').checked && document.getElementById('preco-50').value) temTamanho = true;
+    if(document.getElementById('chk-100').checked && document.getElementById('preco-100').value) temTamanho = true;
+    
+    if(!temTamanho) {
+      mostrarMsg("Obrigatório: Marque pelo menos um tamanho e insira o preço.", "erro");
+      return;
+    }
+
+    btnSubmit.innerText = "Salvando...";
+    btnSubmit.disabled = true;
+
+    const tamanhos = {};
+    if(document.getElementById('chk-30').checked && document.getElementById('preco-30').value) tamanhos["30ml"] = parseFloat(document.getElementById('preco-30').value);
+    if(document.getElementById('chk-50').checked && document.getElementById('preco-50').value) tamanhos["50ml"] = parseFloat(document.getElementById('preco-50').value);
+    if(document.getElementById('chk-100').checked && document.getElementById('preco-100').value) tamanhos["100ml"] = parseFloat(document.getElementById('preco-100').value);
+
+    const dadosPerfume = {
+      nome: document.getElementById('nome').value,
+      insp: document.getElementById('insp').value,
+      cat: document.getElementById('cat').value,
+      img: document.getElementById('img').value || "COLE_O_LINK_AQUI",
+      tamanhos: tamanhos,
+      vendido: document.getElementById('vendido').checked,
+      indisponivel: document.getElementById('indisponivel').checked,
+      desc: document.getElementById('desc').value,
+      notas: {
+        topo: document.getElementById('topo').value,
+        coracao: document.getElementById('coracao').value,
+        fundo: document.getElementById('fundo').value
+      }
+    };
+
+    try {
+      if (editId.value) {
+        await updateDoc(doc(db, "perfumes", editId.value), dadosPerfume);
+        mostrarMsg("Perfume atualizado!", "sucesso");
+        limparFormulario(); 
+      } else {
+        dadosPerfume.criadoEm = new Date();
+        await addDoc(collection(db, "perfumes"), dadosPerfume);
+        mostrarMsg("Perfume cadastrado!", "sucesso");
+        limparFormulario();
+      }
+      toggleAccordion('lista'); 
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao salvar.", "erro");
+    } finally {
+      btnSubmit.innerText = editId.value ? "Atualizar Perfume" : "Salvar no Catálogo";
+      btnSubmit.disabled = false;
+    }
+  });
+
+  function limparFormulario() {
+    formPerfume.reset();
+    document.getElementById('chk-50').checked = true;
+    editId.value = '';
+    formTitulo.innerText = "Adicionar Novo Perfume";
+    btnSubmit.innerText = "Salvar no Catálogo";
+    btnCancelarEdit.style.display = 'none';
+  }
+
+  window.cancelarEdicao = function() {
+    limparFormulario();
+    toggleAccordion('lista');
+  };
+
+  window.prepararEdicao = function(id) {
+    const p = todosPerfumesAdmin.find(item => item.id === id);
+    if(!p) return;
+
+    document.getElementById('nome').value = p.nome;
+    document.getElementById('insp').value = p.insp;
+    document.getElementById('cat').value = p.cat;
+    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
+    
+    document.getElementById('chk-30').checked = !!p.tamanhos?.["30ml"];
+    document.getElementById('preco-30').value = p.tamanhos?.["30ml"] || '';
+    document.getElementById('chk-50').checked = !!p.tamanhos?.["50ml"];
+    document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
+    document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
+    document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
+    
+    document.getElementById('vendido').checked = p.vendido || false;
+    document.getElementById('indisponivel').checked = p.indisponivel || false;
+
+    document.getElementById('desc').value = p.desc || '';
+    document.getElementById('topo').value = p.notas?.topo || '';
+    document.getElementById('coracao').value = p.notas?.coracao || '';
+    document.getElementById('fundo').value = p.notas?.fundo || '';
+
+    editId.value = id;
+    formTitulo.innerText = "Editando...";
+    btnSubmit.innerText = "Atualizar Perfume";
+    btnCancelarEdit.style.display = 'block';
+
+    const headerForm = document.getElementById('header-form');
+    const contentForm = document.getElementById('content-form');
+    const headerLista = document.getElementById('header-lista');
+    const contentLista = document.getElementById('content-lista');
+
+    headerLista.classList.remove('active');
+    contentLista.style.display = 'none';
+
+    headerForm.classList.add('active');
+    contentForm.style.display = 'block';
+    
+    document.getElementById('accordion-form').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  function carregarListaAdmin() {
+    const q = query(collection(db, "perfumes"), orderBy("nome"));
+    onSnapshot(q, (snapshot) => {
+      todosPerfumesAdmin = [];
+      snapshot.forEach((docSnap) => {
+        todosPerfumesAdmin.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      renderizarListaAdmin(); 
+    });
+  }
+
+  abasAdmin.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      abasAdmin.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      categoriaFiltroAdmin = e.target.getAttribute('data-cat');
+      renderizarListaAdmin();
+    });
+  });
+
+  searchAdmin.addEventListener('input', (e) => {
+    termoBuscaAdmin = e.target.value.toLowerCase();
+    renderizarListaAdmin();
+  });
+
+  function renderizarListaAdmin() {
+    listaAdmin.innerHTML = '';
+    
+    let listaFiltrada = todosPerfumesAdmin;
+
+    if (categoriaFiltroAdmin !== 'todos') {
+      listaFiltrada = listaFiltrada.filter(p => p.cat === categoriaFiltroAdmin);
+    }
+    
+    // AQUI ESTÁ O AJUSTE: A BUSCA AGORA FILTRA NOME OU INSPIRAÇÃO
+    if (termoBuscaAdmin) {
+      listaFiltrada = listaFiltrada.filter(p => 
+        p.nome.toLowerCase().includes(termoBuscaAdmin) || 
+        (p.insp && p.insp.toLowerCase().includes(termoBuscaAdmin))
+      );
+    }
+
+    if (listaFiltrada.length === 0) {
+      listaAdmin.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum perfume encontrado.</p>';
+      return;
+    }
+
+    listaFiltrada.forEach((p) => {
+      let precoExibir = "Preço indisponível";
+      if(p.tamanhos) {
+        const keys = Object.keys(p.tamanhos);
+        if (keys.length > 0) {
+          let tamEscolhido = p.tamanhos["50ml"] ? "50ml" : keys[0];
+          precoExibir = `R$ ${p.tamanhos[tamEscolhido].toFixed(2).replace('.', ',')} (${tamEscolhido})`;
+        }
+      }
+
+      const div = document.createElement('div');
+      div.className = 'item-admin';
+      div.innerHTML = `
+        <div class="item-topo">
+          <img src="${p.img !== 'COLE_O_LINK_AQUI' ? p.img : 'https://via.placeholder.com/45'}" alt="">
+          <div class="item-dados">
+            <div class="nome">
+              ${p.nome} 
+              ${p.vendido ? '🔥' : ''} 
+              ${p.indisponivel ? '<span class="status-off">Indisponível</span>' : ''}
+            </div>
+            <div class="detalhes">Insp: ${p.insp} | ${precoExibir}</div>
+          </div>
+        </div>
+        <div class="item-acoes">
+          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">Editar</button>
+          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">Excluir</button>
+        </div>
+      `;
+      listaAdmin.appendChild(div);
+    });
+  }
+
+  window.excluirPerfume = async function(id) {
+    if (confirm("Tem certeza que deseja excluir este perfume?")) {
+      try {
+        await deleteDoc(doc(db, "perfumes", id));
+        mostrarMsg("Perfume excluído!", "sucesso");
+      } catch (error) {
+        mostrarMsg("Erro ao excluir.", "erro");
+      }
+    }
+  };
+
+  function mostrarMsg(texto, tipo) {
+    msgDiv.innerText = texto;
+    msgDiv.className = `msg ${tipo}`;
+    setTimeout(() => { msgDiv.className = 'msg'; }, 3000);
+  }
+</script>
+
+</body>
+</html>
