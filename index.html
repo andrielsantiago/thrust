@@ -10,7 +10,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
   body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: 50px; overflow-x: hidden; }
   
-  /* NOVO: CONTROLE DE EXIBIÇÃO INICIAL */
+  /* CONTROLE DE EXIBIÇÃO INICIAL */
   #tela-login, #painel { display: none; } 
   #tela-carregando { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: var(--dourado-claro); font-family: 'Playfair Display', serif; font-size: 1.2rem; }
   .spinner { border: 3px solid rgba(212,175,55,0.3); border-top: 3px solid var(--dourado); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
@@ -30,9 +30,9 @@
   .btn-sair:hover { background: #c94a4a; color: #fff; }
   
   /* MENSAGENS */
-  .msg { padding: 12px; border-radius: 6px; margin-bottom: 15px; display: none; text-align: center; font-size: 0.85rem; font-weight: bold; }
-  .msg.sucesso { background: rgba(37,211,102,0.15); color: #25D366; border: 1px solid #25D366; display: block; }
-  .msg.erro { background: rgba(255,0,0,0.15); color: #ff4444; border: 1px solid #ff4444; display: block; }
+  .msg { padding: 12px; border-radius: 6px; margin-bottom: 15px; display: none; text-align: center; font-size: 0.85rem; font-weight: bold; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+  .msg.sucesso { background: #111; color: #25D366; border: 1px solid #25D366; display: block; }
+  .msg.erro { background: #111; color: #ff4444; border: 1px solid #ff4444; display: block; }
 
   /* ACCORDION (SANFONA) */
   .accordion-item { background: var(--card); border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; overflow: hidden; }
@@ -46,7 +46,6 @@
   @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* FORMULÁRIO */
-  .form-add h2 { display: none; } 
   .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; margin-left: auto; }
   
   .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -88,6 +87,7 @@
   .abas-admin::-webkit-scrollbar { display: none; }
   .aba-btn { background: none; border: 1px solid #444; color: #888; font-weight: 600; font-size: 0.75rem; cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
   .aba-btn.active { color: #0d0d0d; background: var(--dourado); border-color: var(--dourado); }
+  .aba-btn.esgotados.active { background: #c94a4a; border-color: #c94a4a; color: #fff; }
   
   .item-admin { display: flex; flex-direction: column; border-bottom: 1px solid #333; padding: 12px 0; gap: 10px; }
   .item-admin:last-child { border-bottom: none; }
@@ -99,30 +99,37 @@
   .item-dados .detalhes { color: #888; font-size: 0.7rem; margin-top: 3px; line-height: 1.4; }
   .status-off { color: #ff6b6b; font-size: 0.65rem; font-weight: bold; background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
   
-  .item-acoes { display: flex; gap: 8px; justify-content: flex-end; }
-  .btn-acao { background: transparent; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; flex: 1; text-align: center; }
+  .item-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; }
+  @media (max-width: 500px) {
+    .item-acoes { grid-template-columns: 1fr 1fr; }
+  }
+  
+  .btn-acao { background: transparent; padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .btn-editar { border-color: var(--dourado); color: var(--dourado); }
   .btn-editar:active { background: var(--dourado); color: #0d0d0d; }
+  .btn-copiar { border-color: #4a90e2; color: #4a90e2; }
+  .btn-copiar:active { background: #4a90e2; color: #fff; }
+  .btn-pausar { border-color: #ff9800; color: #ff9800; }
+  .btn-pausar:active { background: #ff9800; color: #fff; }
+  .btn-ativar { border-color: #25D366; color: #25D366; background: rgba(37,211,102,0.05); }
+  .btn-ativar:active { background: #25D366; color: #fff; }
   .btn-excluir { border-color: #c94a4a; color: #c94a4a; }
   .btn-excluir:active { background: #c94a4a; color: white; }
 
   @media (min-width: 600px) {
     .item-admin { flex-direction: row; align-items: center; justify-content: space-between; }
-    .item-acoes { flex: none; }
-    .btn-acao { flex: none; }
+    .item-acoes { grid-template-columns: repeat(4, 1fr); }
     .item-dados .nome { font-size: 1rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- NOVO: TELA DE CARREGAMENTO -->
 <div id="tela-carregando">
   <div class="spinner"></div>
   Verificando acesso...
 </div>
 
-<!-- LOGIN -->
 <div id="tela-login">
   <div class="login-box">
     <h1>Painel THRUST</h1>
@@ -134,7 +141,6 @@
   </div>
 </div>
 
-<!-- PAINEL -->
 <div id="painel">
   <div class="header-admin">
     <h1>Gerenciar Catálogo</h1>
@@ -148,7 +154,7 @@
     <div class="accordion-header" id="header-form" onclick="toggleAccordion('form')">
       <h2><span id="form-titulo">Adicionar Novo Perfume</span></h2>
       <div style="display:flex; align-items:center; gap:10px;">
-        <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="event.stopPropagation(); cancelarEdicao()">Cancelar Edição</button>
+        <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="event.stopPropagation(); cancelarEdicao()">Cancelar</button>
         <span class="accordion-icon">▼</span>
       </div>
     </div>
@@ -258,6 +264,8 @@
           <button class="aba-btn" data-cat="feminino">Fem</button>
           <button class="aba-btn" data-cat="masculino">Masc</button>
           <button class="aba-btn" data-cat="compartilhado">Uni</button>
+          <!-- NOVA ABA: ESGOTADOS -->
+          <button class="aba-btn esgotados" data-cat="esgotados">🚫 Esgotados</button>
         </div>
       </div>
       <div id="lista-perfumes-admin"></div>
@@ -285,6 +293,8 @@
   const db = getFirestore(app);
 
   const ADMIN_EMAIL = "ewerton.andriel@gmail.com"; 
+  // LINK DO CATÁLOGO OFICIAL INCLUÍDO AQUI:
+  const URL_CATALOGO = "https://thrustperfumes.store/"; 
 
   const telaCarregando = document.getElementById('tela-carregando');
   const telaLogin = document.getElementById('tela-login');
@@ -309,14 +319,11 @@
   window.toggleAccordion = function(secao) {
     const header = document.getElementById('header-' + secao);
     const content = document.getElementById('content-' + secao);
-    
     const isOpen = header.classList.contains('active');
-
     ['form', 'lista'].forEach(s => {
       document.getElementById('header-' + s).classList.remove('active');
       document.getElementById('content-' + s).style.display = 'none';
     });
-
     if (!isOpen) {
       header.classList.add('active');
       content.style.display = 'block';
@@ -327,14 +334,10 @@
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).catch(err => alert("Erro ao logar: " + err.message));
   });
-  
   btnSair.addEventListener('click', () => signOut(auth));
 
-  // AQUI ESTÁ A CORREÇÃO DO PISCA-PISCA
   onAuthStateChanged(auth, (user) => {
-    // Esconde a tela de carregamento independentemente do resultado
     telaCarregando.style.display = 'none';
-
     if (user) {
       if (user.email === ADMIN_EMAIL) {
         telaLogin.style.display = 'none';
@@ -438,7 +441,7 @@
     document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
     document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
     document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
-    
+
     document.getElementById('vendido').checked = p.vendido || false;
     document.getElementById('indisponivel').checked = p.indisponivel || false;
 
@@ -496,7 +499,9 @@
     
     let listaFiltrada = todosPerfumesAdmin;
 
-    if (categoriaFiltroAdmin !== 'todos') {
+    if (categoriaFiltroAdmin === 'esgotados') {
+      listaFiltrada = listaFiltrada.filter(p => p.indisponivel === true);
+    } else if (categoriaFiltroAdmin !== 'todos') {
       listaFiltrada = listaFiltrada.filter(p => p.cat === categoriaFiltroAdmin);
     }
     
@@ -522,6 +527,13 @@
         }
       }
 
+      let btnStatus = '';
+      if (p.indisponivel) {
+        btnStatus = `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${p.id}', false)" title="Ativar Vendas">▶ Ativar</button>`;
+      } else {
+        btnStatus = `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${p.id}', true)" title="Pausar Vendas">⏸ Pausar</button>`;
+      }
+
       const div = document.createElement('div');
       div.className = 'item-admin';
       div.innerHTML = `
@@ -537,13 +549,43 @@
           </div>
         </div>
         <div class="item-acoes">
-          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">Editar</button>
-          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">Excluir</button>
+          <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link para WhatsApp">📋 Link</button>
+          ${btnStatus}
+          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️ Editar</button>
+          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️ Excluir</button>
         </div>
       `;
       listaAdmin.appendChild(div);
     });
   }
+
+  window.copiarLink = function(id) {
+    const linkCompleto = URL_CATALOGO + '#' + id;
+    navigator.clipboard.writeText(linkCompleto).then(() => {
+      mostrarMsg("Link copiado! Cole no WhatsApp.", "sucesso");
+    }).catch(err => {
+      const textarea = document.createElement('textarea');
+      textarea.value = linkCompleto;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      mostrarMsg("Link copiado! Cole no WhatsApp.", "sucesso");
+    });
+  };
+
+  window.toggleEstoque = async function(id, novoStatusIndisponivel) {
+    try {
+      const perfumeRef = doc(db, "perfumes", id);
+      await updateDoc(perfumeRef, {
+        indisponivel: novoStatusIndisponivel
+      });
+      mostrarMsg(novoStatusIndisponivel ? "Produto pausado!" : "Produto ativado!", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao alterar status.", "erro");
+    }
+  };
 
   window.excluirPerfume = async function(id) {
     if (confirm("Tem certeza que deseja excluir este perfume?")) {
