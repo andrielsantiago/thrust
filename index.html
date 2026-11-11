@@ -50,7 +50,6 @@
   .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
   .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--dourado); }
   
-  /* ESTILO DO UPLOAD DE IMAGEM */
   .upload-area { display: flex; flex-direction: column; gap: 8px; }
   .upload-btn { background: rgba(212,175,55,0.1); border: 1px dashed var(--dourado); color: var(--dourado-claro); padding: 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center; transition: 0.2s; position: relative; }
   .upload-btn:hover { background: rgba(212,175,55,0.2); }
@@ -64,6 +63,11 @@
   .tamanho-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--dourado); cursor: pointer; }
   .tamanho-row .label-tam { font-weight: bold; color: #fff; font-size: 0.85rem; }
   .tamanho-row input[type="number"] { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff; font-size: 0.85rem; }
+
+  .estoque-box { display: flex; align-items: center; gap: 10px; margin-top: 10px; background: #222; padding: 10px; border-radius: 6px; border: 1px solid #444; }
+  .estoque-box label { font-size: 0.75rem; color: #aaa; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+  .estoque-box input { flex: 1; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff; font-size: 0.9rem; text-align: center; font-weight: bold; }
+  .estoque-box input:focus { border-color: var(--dourado); outline: none; }
   
   .toggles-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
   .check-box { display: flex; align-items: center; gap: 8px; background: rgba(212,175,55,0.1); border: 1px solid var(--dourado); padding: 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
@@ -96,6 +100,7 @@
   .item-dados .nome { color: var(--dourado-claro); font-weight: bold; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
   .item-dados .detalhes { color: #888; font-size: 0.7rem; margin-top: 3px; line-height: 1.4; }
   .status-off { color: #ff6b6b; font-size: 0.65rem; font-weight: bold; background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
+  .status-estoque { color: #4a90e2; font-size: 0.7rem; font-weight: bold; margin-left: 5px; }
   
   .item-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; }
   @media (max-width: 500px) {
@@ -113,10 +118,21 @@
   .btn-ativar:active { background: #25D366; color: #fff; }
   .btn-excluir { border-color: #c94a4a; color: #c94a4a; }
   .btn-excluir:active { background: #c94a4a; color: white; }
+  .btn-duplicar { border-color: #9b59b6; color: #9b59b6; }
+  .btn-duplicar:active { background: #9b59b6; color: #fff; }
+
+  /* NOVO: ESTILO DOS PEDIDOS */
+  .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
+  .pedido-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 8px; }
+  .pedido-data { font-size: 0.75rem; color: #888; }
+  .pedido-total { font-size: 1rem; font-weight: bold; color: var(--dourado-claro); }
+  .pedido-itens { list-style: none; padding: 0; margin: 0; }
+  .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed #333; }
+  .pedido-itens li:last-child { border-bottom: none; }
 
   @media (min-width: 600px) {
     .item-admin { flex-direction: row; align-items: center; justify-content: space-between; }
-    .item-acoes { grid-template-columns: repeat(4, 1fr); }
+    .item-acoes { grid-template-columns: repeat(5, 1fr); }
     .item-dados .nome { font-size: 1rem; }
   }
 </style>
@@ -147,6 +163,7 @@
 
   <div class="msg" id="mensagem"></div>
 
+  <!-- ACCORDION: FORMULÁRIO -->
   <div class="accordion-item" id="accordion-form">
     <div class="accordion-header" id="header-form" onclick="toggleAccordion('form')">
       <h2><span id="form-titulo">Adicionar Novo Perfume</span></h2>
@@ -191,7 +208,7 @@
               </div>
               <div class="upload-status" id="upload-status">Enviando...</div>
             </div>
-            <input type="url" id="img" placeholder="Ou cole o link aqui: https://..." style="margin-top: 8px;">
+            <input type="url" id="img" placeholder="Ou cole o link: https://..." style="margin-top: 8px;">
           </div>
         </div>
 
@@ -212,6 +229,12 @@
             <span class="label-tam">100ml</span>
             <input type="number" step="0.01" id="preco-100" placeholder="R$ 139,90">
           </div>
+          
+          <div class="estoque-box">
+            <label>📦 Estoque:</label>
+            <input type="number" id="estoque" min="0" value="10" placeholder="Qtd">
+            <span style="font-size: 0.7rem; color: #888;">(0 = autom. indisponível)</span>
+          </div>
         </div>
 
         <div class="toggles-row">
@@ -221,7 +244,7 @@
           </label>
           <label class="check-box danger">
             <input type="checkbox" id="indisponivel">
-            <span>Indisponível</span>
+            <span>Forçar Indisponível</span>
           </label>
         </div>
 
@@ -254,6 +277,7 @@
     </div>
   </div>
 
+  <!-- ACCORDION: LISTA DE PERFUMES -->
   <div class="accordion-item" id="accordion-lista">
     <div class="accordion-header" id="header-lista" onclick="toggleAccordion('lista')">
       <h2>Perfumes no Catálogo</h2>
@@ -272,6 +296,18 @@
         </div>
       </div>
       <div id="lista-perfumes-admin"></div>
+    </div>
+  </div>
+
+  <!-- ACCORDION: PEDIDOS (NOVO) -->
+  <div class="accordion-item" id="accordion-pedidos">
+    <div class="accordion-header" id="header-pedidos" onclick="toggleAccordion('pedidos')">
+      <h2>Histórico de Pedidos</h2>
+      <span class="accordion-icon">▼</span>
+    </div>
+    
+    <div class="accordion-content" id="content-pedidos">
+      <div id="lista-pedidos"></div>
     </div>
   </div>
 </div>
@@ -296,8 +332,6 @@
 
   const ADMIN_EMAIL = "ewerton.andriel@gmail.com"; 
   const URL_CATALOGO = "https://thrustperfumes.store/"; 
-  
-  // CHAVE DA API DO IMGBB INCLUÍDA AQUI
   const IMGBB_API_KEY = "8c63b7330444870944b040c580b44ab0"; 
 
   const telaCarregando = document.getElementById('tela-carregando');
@@ -306,6 +340,7 @@
   const btnGoogle = document.getElementById('btn-google');
   const btnSair = document.getElementById('btn-sair');
   const listaAdmin = document.getElementById('lista-perfumes-admin');
+  const listaPedidos = document.getElementById('lista-pedidos');
   const formPerfume = document.getElementById('form-perfume');
   const msgDiv = document.getElementById('mensagem');
   const btnSubmit = document.getElementById('btn-submit');
@@ -320,7 +355,6 @@
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
-  // --- LÓGICA DE UPLOAD DA IMAGEM (IMGBB) ---
   window.fazerUpload = async function(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -329,7 +363,6 @@
     const statusUpload = document.getElementById('upload-status');
     const inputLink = document.getElementById('img');
 
-    // Feedback visual
     btnUpload.style.display = 'none';
     statusUpload.style.display = 'block';
     statusUpload.innerText = "Fazendo upload...";
@@ -339,7 +372,6 @@
       const formData = new FormData();
       formData.append("image", file);
 
-      // Faz a chamada para a API do ImgBB
       const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
         method: "POST",
         body: formData
@@ -348,13 +380,9 @@
       const data = await response.json();
 
       if (data.success) {
-        // Pega o link direto da imagem gerada
-        const linkImagem = data.data.url;
-        inputLink.value = linkImagem;
-        
+        inputLink.value = data.data.url;
         statusUpload.innerText = "✓ Upload concluído!";
         statusUpload.style.color = "#25D366";
-        
         setTimeout(() => {
           btnUpload.style.display = 'block';
           statusUpload.style.display = 'none';
@@ -364,7 +392,7 @@
       }
     } catch (error) {
       console.error(error);
-      statusUpload.innerText = "❌ Erro ao enviar. Tente novamente.";
+      statusUpload.innerText = "❌ Erro ao enviar.";
       statusUpload.style.color = "#ff4444";
       setTimeout(() => {
         btnUpload.style.display = 'block';
@@ -377,7 +405,7 @@
     const header = document.getElementById('header-' + secao);
     const content = document.getElementById('content-' + secao);
     const isOpen = header.classList.contains('active');
-    ['form', 'lista'].forEach(s => {
+    ['form', 'lista', 'pedidos'].forEach(s => {
       document.getElementById('header-' + s).classList.remove('active');
       document.getElementById('content-' + s).style.display = 'none';
     });
@@ -400,8 +428,9 @@
         telaLogin.style.display = 'none';
         painel.style.display = 'block';
         if(todosPerfumesAdmin.length === 0) carregarListaAdmin();
+        carregarPedidos();
       } else {
-        alert("Acesso negado. E-mail não autorizado.");
+        alert("Acesso negado.");
         signOut(auth);
         telaLogin.style.display = 'block';
       }
@@ -427,6 +456,9 @@
     btnSubmit.innerText = "Salvando...";
     btnSubmit.disabled = true;
 
+    const estoque = parseInt(document.getElementById('estoque').value) || 0;
+    const isIndisponivel = document.getElementById('indisponivel').checked || estoque === 0;
+
     const tamanhos = {};
     if(document.getElementById('chk-30').checked && document.getElementById('preco-30').value) tamanhos["30ml"] = parseFloat(document.getElementById('preco-30').value);
     if(document.getElementById('chk-50').checked && document.getElementById('preco-50').value) tamanhos["50ml"] = parseFloat(document.getElementById('preco-50').value);
@@ -439,7 +471,8 @@
       img: document.getElementById('img').value || "COLE_O_LINK_AQUI",
       tamanhos: tamanhos,
       vendido: document.getElementById('vendido').checked,
-      indisponivel: document.getElementById('indisponivel').checked,
+      indisponivel: isIndisponivel,
+      estoque: estoque,
       desc: document.getElementById('desc').value,
       notas: {
         topo: document.getElementById('topo').value,
@@ -472,6 +505,7 @@
   function limparFormulario() {
     formPerfume.reset();
     document.getElementById('chk-50').checked = true;
+    document.getElementById('estoque').value = 10;
     editId.value = '';
     formTitulo.innerText = "Adicionar Novo Perfume";
     btnSubmit.innerText = "Salvar no Catálogo";
@@ -498,7 +532,8 @@
     document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
     document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
     document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
-
+    
+    document.getElementById('estoque').value = p.estoque !== undefined ? p.estoque : 10;
     document.getElementById('vendido').checked = p.vendido || false;
     document.getElementById('indisponivel').checked = p.indisponivel || false;
 
@@ -516,10 +551,52 @@
     const contentForm = document.getElementById('content-form');
     const headerLista = document.getElementById('header-lista');
     const contentLista = document.getElementById('content-lista');
+    const headerPedidos = document.getElementById('header-pedidos');
+    const contentPedidos = document.getElementById('content-pedidos');
 
     headerLista.classList.remove('active');
     contentLista.style.display = 'none';
+    headerPedidos.classList.remove('active');
+    contentPedidos.style.display = 'none';
 
+    headerForm.classList.add('active');
+    contentForm.style.display = 'block';
+    
+    document.getElementById('accordion-form').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  window.duplicarPerfume = function(id) {
+    const p = todosPerfumesAdmin.find(item => item.id === id);
+    if(!p) return;
+
+    document.getElementById('nome').value = p.nome + " (Cópia)";
+    document.getElementById('insp').value = p.insp;
+    document.getElementById('cat').value = p.cat;
+    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
+    
+    document.getElementById('chk-30').checked = !!p.tamanhos?.["30ml"];
+    document.getElementById('preco-30').value = p.tamanhos?.["30ml"] || '';
+    document.getElementById('chk-50').checked = !!p.tamanhos?.["50ml"];
+    document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
+    document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
+    document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
+    
+    document.getElementById('estoque').value = p.estoque || 10;
+    document.getElementById('vendido').checked = false;
+    document.getElementById('indisponivel').checked = false;
+
+    document.getElementById('desc').value = p.desc || '';
+    document.getElementById('topo').value = p.notas?.topo || '';
+    document.getElementById('coracao').value = p.notas?.coracao || '';
+    document.getElementById('fundo').value = p.notas?.fundo || '';
+
+    editId.value = '';
+    formTitulo.innerText = "Duplicando Perfume";
+    btnSubmit.innerText = "Salvar Cópia";
+    btnCancelarEdit.style.display = 'block';
+
+    const headerForm = document.getElementById('header-form');
+    const contentForm = document.getElementById('content-form');
     headerForm.classList.add('active');
     contentForm.style.display = 'block';
     
@@ -557,7 +634,7 @@
     let listaFiltrada = todosPerfumesAdmin;
 
     if (categoriaFiltroAdmin === 'esgotados') {
-      listaFiltrada = listaFiltrada.filter(p => p.indisponivel === true);
+      listaFiltrada = listaFiltrada.filter(p => p.indisponivel === true || p.estoque === 0);
     } else if (categoriaFiltroAdmin !== 'todos') {
       listaFiltrada = listaFiltrada.filter(p => p.cat === categoriaFiltroAdmin);
     }
@@ -584,8 +661,17 @@
         }
       }
 
+      let estoqueHtml = '';
+      if (p.estoque !== undefined) {
+        if (p.estoque > 0) {
+          estoqueHtml = `<span class="status-estoque">📦 ${p.estoque} un.</span>`;
+        } else {
+          estoqueHtml = `<span class="status-off">Sem Estoque</span>`;
+        }
+      }
+
       let btnStatus = '';
-      if (p.indisponivel) {
+      if (p.indisponivel || p.estoque === 0) {
         btnStatus = `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${p.id}', false)" title="Ativar Vendas">▶ Ativar</button>`;
       } else {
         btnStatus = `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${p.id}', true)" title="Pausar Vendas">⏸ Pausar</button>`;
@@ -600,19 +686,59 @@
             <div class="nome">
               ${p.nome} 
               ${p.vendido ? '🔥' : ''} 
-              ${p.indisponivel ? '<span class="status-off">Indisponível</span>' : ''}
+              ${estoqueHtml}
             </div>
             <div class="detalhes">Insp: ${p.insp} | ${precoExibir}</div>
           </div>
         </div>
         <div class="item-acoes">
-          <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link para WhatsApp">📋 Link</button>
+          <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link">📋</button>
           ${btnStatus}
-          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️ Editar</button>
-          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️ Excluir</button>
+          <button class="btn-acao btn-duplicar" onclick="duplicarPerfume('${p.id}')" title="Duplicar">📑</button>
+          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️</button>
+          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️</button>
         </div>
       `;
       listaAdmin.appendChild(div);
+    });
+  }
+
+  // NOVA FUNÇÃO: CARREGAR PEDIDOS
+  function carregarPedidos() {
+    const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
+    onSnapshot(q, (snapshot) => {
+      listaPedidos.innerHTML = '';
+      if (snapshot.empty) {
+        listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido registrado ainda.</p>';
+        return;
+      }
+
+      snapshot.forEach((docSnap) => {
+        const pedido = docSnap.data();
+        let dataFormatada = "Data desconhecida";
+        if (pedido.data) {
+          const d = pedido.data.toDate ? pedido.data.toDate() : new Date(pedido.data);
+          dataFormatada = d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        let itensHtml = '';
+        if (pedido.itens && Array.isArray(pedido.itens)) {
+          pedido.itens.forEach(item => {
+            itensHtml += `<li><span>${item.qtd}x ${item.nome} (${item.tamanho})</span> <span>R$ ${(item.preco * item.qtd).toFixed(2).replace('.', ',')}</span></li>`;
+          });
+        }
+
+        const div = document.createElement('div');
+        div.className = 'pedido-item';
+        div.innerHTML = `
+          <div class="pedido-header">
+            <span class="pedido-data">📅 ${dataFormatada}</span>
+            <span class="pedido-total">R$ ${pedido.total.toFixed(2).replace('.', ',')}</span>
+          </div>
+          <ul class="pedido-itens">${itensHtml}</ul>
+        `;
+        listaPedidos.appendChild(div);
+      });
     });
   }
 
@@ -627,16 +753,20 @@
       textarea.select();
       document.execCommand('copy');
       document.body.removeChild(textarea);
-      mostrarMsg("Link copiado! Cole no WhatsApp.", "sucesso");
+      mostrarMsg("Link copiado!", "sucesso");
     });
   };
 
   window.toggleEstoque = async function(id, novoStatusIndisponivel) {
     try {
       const perfumeRef = doc(db, "perfumes", id);
-      await updateDoc(perfumeRef, {
-        indisponivel: novoStatusIndisponivel
-      });
+      const p = todosPerfumesAdmin.find(item => item.id === id);
+      let novosDados = { indisponivel: novoStatusIndisponivel };
+      if (!novoStatusIndisponivel && p.estoque === 0) {
+        novosDados.estoque = 10;
+      }
+      
+      await updateDoc(perfumeRef, novosDados);
       mostrarMsg(novoStatusIndisponivel ? "Produto pausado!" : "Produto ativado!", "sucesso");
     } catch (error) {
       console.error(error);
