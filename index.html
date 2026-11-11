@@ -15,12 +15,14 @@
   .spinner { border: 3px solid rgba(212,175,55,0.3); border-top: 3px solid var(--dourado); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+  /* LOGIN */
   .login-box { background: var(--card); padding: 40px 20px; border-radius: 10px; text-align: center; max-width: 400px; margin: 80px auto; border: 1px solid var(--dourado); }
   .login-box h1 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
   .btn-google { background: #fff; color: #333; border: none; padding: 15px 20px; font-size: 1rem; font-weight: bold; border-radius: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 30px; transition: 0.3s; }
   .btn-google:hover { background: #eee; transform: scale(0.98); }
   
-  #painel { max-width: 600px; margin: 0 auto; }
+  /* PAINEL */
+  #painel { max-width: 700px; margin: 0 auto; }
   .header-admin { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--borda); padding-bottom: 15px; margin-bottom: 20px; }
   .header-admin h1 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.3rem; }
   .btn-sair { background: transparent; border: 1px solid #c94a4a; color: #c94a4a; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
@@ -30,16 +32,72 @@
   .msg.sucesso { background: #111; color: #25D366; border: 1px solid #25D366; display: block; }
   .msg.erro { background: #111; color: #ff4444; border: 1px solid #ff4444; display: block; }
 
-  .accordion-item { background: var(--card); border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; overflow: hidden; }
-  .accordion-header { background: #151515; padding: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid transparent; transition: 0.3s; }
-  .accordion-header.active { border-bottom-color: var(--borda); background: #1a1a1a; }
-  .accordion-header h2 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; font-size: 1.1rem; margin: 0; display: flex; align-items: center; gap: 10px; }
-  .accordion-icon { color: var(--dourado); font-size: 0.8rem; transition: transform 0.3s; }
-  .accordion-header.active .accordion-icon { transform: rotate(180deg); }
-  
-  .accordion-content { display: none; padding: 15px; animation: slideDown 0.3s ease-out; }
-  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  /* MENU COM CARDS GRANDES */
+  .menu-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  @media (max-width: 400px) {
+    .menu-cards { grid-template-columns: 1fr 1fr; }
+  }
 
+  .menu-card {
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 120px;
+  }
+  .menu-card:hover, .menu-card.active {
+    border-color: var(--dourado);
+    background: rgba(212,175,55,0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(212,175,55,0.2);
+  }
+  .menu-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+  .menu-card span {
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--dourado-claro);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  .menu-card.active span { color: #fff; }
+
+  /* CONTEÚDO DAS SEÇÕES */
+  .section-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .section-content.active { display: block; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--dourado-claro);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  /* FORMULÁRIO */
   .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; margin-left: auto; }
   
   .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -81,6 +139,7 @@
   .btn-salvar:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
   .btn-salvar:disabled { opacity: 0.5; cursor: not-allowed; }
   
+  /* LISTA */
   .lista-header-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
   .search-admin { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
   .search-admin:focus { outline: none; border-color: var(--dourado); }
@@ -121,14 +180,30 @@
   .btn-duplicar { border-color: #9b59b6; color: #9b59b6; }
   .btn-duplicar:active { background: #9b59b6; color: #fff; }
 
-  /* NOVO: ESTILO DOS PEDIDOS */
+  /* PEDIDOS */
   .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
-  .pedido-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 8px; }
+  .pedido-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 8px; flex-wrap: wrap; gap: 5px; }
   .pedido-data { font-size: 0.75rem; color: #888; }
   .pedido-total { font-size: 1rem; font-weight: bold; color: var(--dourado-claro); }
   .pedido-itens { list-style: none; padding: 0; margin: 0; }
-  .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed #333; }
+  .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed #333; gap: 10px; }
   .pedido-itens li:last-child { border-bottom: none; }
+
+  .btn-limpar-pedidos {
+    background: transparent;
+    border: 1px solid #c94a4a;
+    color: #c94a4a;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.2s;
+  }
+  .btn-limpar-pedidos:hover { background: #c94a4a; color: #fff; }
+  .btn-limpar-pedidos:disabled { opacity: 0.5; cursor: not-allowed; }
 
   @media (min-width: 600px) {
     .item-admin { flex-direction: row; align-items: center; justify-content: space-between; }
@@ -163,159 +238,161 @@
 
   <div class="msg" id="mensagem"></div>
 
-  <!-- ACCORDION: FORMULÁRIO -->
-  <div class="accordion-item" id="accordion-form">
-    <div class="accordion-header" id="header-form" onclick="toggleAccordion('form')">
-      <h2><span id="form-titulo">Adicionar Novo Perfume</span></h2>
-      <div style="display:flex; align-items:center; gap:10px;">
-        <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="event.stopPropagation(); cancelarEdicao()">Cancelar</button>
-        <span class="accordion-icon">▼</span>
-      </div>
+  <!-- MENU DE CARDS GRANDES -->
+  <div class="menu-cards">
+    <div class="menu-card" onclick="abrirSecao('form', this)">
+      <img src="https://img.icons8.com/color/96/add-property.png" alt="Cadastrar">
+      <span>Cadastrar</span>
     </div>
+    <div class="menu-card active" onclick="abrirSecao('lista', this)">
+      <img src="https://img.icons8.com/color/96/stack-of-photos.png" alt="Catálogo">
+      <span>Catálogo</span>
+    </div>
+    <div class="menu-card" onclick="abrirSecao('pedidos', this)">
+      <img src="https://img.icons8.com/color/96/shopping-cart--v1.png" alt="Pedidos">
+      <span>Pedidos</span>
+    </div>
+  </div>
+
+  <!-- SEÇÃO CADASTRAR -->
+  <div class="section-content" id="section-form">
+    <h2 class="section-title"><span id="form-titulo">Adicionar Novo Perfume</span> <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="cancelarEdicao()">Cancelar Edição</button></h2>
     
-    <div class="accordion-content" id="content-form">
-      <form id="form-perfume">
-        <input type="hidden" id="edit-id" value="">
+    <form id="form-perfume">
+      <input type="hidden" id="edit-id" value="">
+      
+      <div class="grid-inputs">
+        <div class="input-group">
+          <label>Nome *</label>
+          <input type="text" id="nome" required placeholder="Ex: Femme Fatale">
+        </div>
+        <div class="input-group">
+          <label>Inspirado em *</label>
+          <input type="text" id="insp" required placeholder="Ex: Good Girl">
+        </div>
+      </div>
+
+      <div class="grid-inputs">
+        <div class="input-group">
+          <label>Categoria *</label>
+          <select id="cat" required>
+            <option value="" disabled selected>Selecione...</option>
+            <option value="feminino">Feminino</option>
+            <option value="masculino">Masculino</option>
+            <option value="compartilhado">Compartilhado</option>
+          </select>
+        </div>
         
-        <div class="grid-inputs">
-          <div class="input-group">
-            <label>Nome *</label>
-            <input type="text" id="nome" required placeholder="Ex: Femme Fatale">
-          </div>
-          <div class="input-group">
-            <label>Inspirado em *</label>
-            <input type="text" id="insp" required placeholder="Ex: Good Girl">
-          </div>
-        </div>
-
-        <div class="grid-inputs">
-          <div class="input-group">
-            <label>Categoria *</label>
-            <select id="cat" required>
-              <option value="" disabled selected>Selecione...</option>
-              <option value="feminino">Feminino</option>
-              <option value="masculino">Masculino</option>
-              <option value="compartilhado">Compartilhado</option>
-            </select>
-          </div>
-          
-          <div class="input-group">
-            <label>Imagem do Perfume</label>
-            <div class="upload-area">
-              <div class="upload-btn" id="btn-upload">
-                <input type="file" id="file-img" accept="image/*" onchange="fazerUpload(event)">
-                📷 Escolher Imagem
-              </div>
-              <div class="upload-status" id="upload-status">Enviando...</div>
+        <div class="input-group">
+          <label>Imagem do Perfume</label>
+          <div class="upload-area">
+            <div class="upload-btn" id="btn-upload">
+              <input type="file" id="file-img" accept="image/*" onchange="fazerUpload(event)">
+              📷 Escolher Imagem
             </div>
-            <input type="url" id="img" placeholder="Ou cole o link: https://..." style="margin-top: 8px;">
+            <div class="upload-status" id="upload-status">Enviando...</div>
           </div>
-        </div>
-
-        <div class="tamanhos-box">
-          <h3>Tamanhos e Preços *</h3>
-          <div class="tamanho-row">
-            <input type="checkbox" id="chk-30">
-            <span class="label-tam">30ml</span>
-            <input type="number" step="0.01" id="preco-30" placeholder="R$ 59,90">
-          </div>
-          <div class="tamanho-row">
-            <input type="checkbox" id="chk-50" checked>
-            <span class="label-tam">50ml</span>
-            <input type="number" step="0.01" id="preco-50" placeholder="R$ 79,90">
-          </div>
-          <div class="tamanho-row">
-            <input type="checkbox" id="chk-100">
-            <span class="label-tam">100ml</span>
-            <input type="number" step="0.01" id="preco-100" placeholder="R$ 139,90">
-          </div>
-          
-          <div class="estoque-box">
-            <label>📦 Estoque:</label>
-            <input type="number" id="estoque" min="0" value="10" placeholder="Qtd">
-            <span style="font-size: 0.7rem; color: #888;">(0 = autom. indisponível)</span>
-          </div>
-        </div>
-
-        <div class="toggles-row">
-          <label class="check-box">
-            <input type="checkbox" id="vendido">
-            <span>🔥 Mais Vendido</span>
-          </label>
-          <label class="check-box danger">
-            <input type="checkbox" id="indisponivel">
-            <span>Forçar Indisponível</span>
-          </label>
-        </div>
-
-        <div class="grid-full">
-          <div class="input-group">
-            <label>Descrição *</label>
-            <textarea id="desc" rows="2" required placeholder="Sobre a fragrância..."></textarea>
-          </div>
-        </div>
-
-        <div class="grid-inputs">
-          <div class="input-group">
-            <label>Notas Topo *</label>
-            <input type="text" id="topo" required placeholder="Amêndoa...">
-          </div>
-          <div class="input-group">
-            <label>Notas Coração *</label>
-            <input type="text" id="coracao" required placeholder="Jasmim...">
-          </div>
-        </div>
-        <div class="grid-full">
-          <div class="input-group">
-            <label>Notas Fundo *</label>
-            <input type="text" id="fundo" required placeholder="Baunilha...">
-          </div>
-        </div>
-
-        <button type="submit" class="btn-salvar" id="btn-submit">Salvar no Catálogo</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ACCORDION: LISTA DE PERFUMES -->
-  <div class="accordion-item" id="accordion-lista">
-    <div class="accordion-header" id="header-lista" onclick="toggleAccordion('lista')">
-      <h2>Perfumes no Catálogo</h2>
-      <span class="accordion-icon">▼</span>
-    </div>
-    
-    <div class="accordion-content" id="content-lista">
-      <div class="lista-header-actions">
-        <input type="text" class="search-admin" id="search-admin" placeholder="🔍 Buscar por nome ou inspiração...">
-        <div class="abas-admin">
-          <button class="aba-btn active" data-cat="todos">Todos</button>
-          <button class="aba-btn" data-cat="feminino">Fem</button>
-          <button class="aba-btn" data-cat="masculino">Masc</button>
-          <button class="aba-btn" data-cat="compartilhado">Uni</button>
-          <button class="aba-btn esgotados" data-cat="esgotados">🚫 Esgotados</button>
+          <input type="url" id="img" placeholder="Ou cole o link: https://..." style="margin-top: 8px;">
         </div>
       </div>
-      <div id="lista-perfumes-admin"></div>
-    </div>
+
+      <div class="tamanhos-box">
+        <h3>Tamanhos e Preços *</h3>
+        <div class="tamanho-row">
+          <input type="checkbox" id="chk-30">
+          <span class="label-tam">30ml</span>
+          <input type="number" step="0.01" id="preco-30" placeholder="R$ 59,90">
+        </div>
+        <div class="tamanho-row">
+          <input type="checkbox" id="chk-50" checked>
+          <span class="label-tam">50ml</span>
+          <input type="number" step="0.01" id="preco-50" placeholder="R$ 79,90">
+        </div>
+        <div class="tamanho-row">
+          <input type="checkbox" id="chk-100">
+          <span class="label-tam">100ml</span>
+          <input type="number" step="0.01" id="preco-100" placeholder="R$ 139,90">
+        </div>
+        
+        <div class="estoque-box">
+          <label>📦 Estoque:</label>
+          <input type="number" id="estoque" min="0" value="10" placeholder="Qtd">
+          <span style="font-size: 0.7rem; color: #888;">(0 = autom. indisp.)</span>
+        </div>
+      </div>
+
+      <div class="toggles-row">
+        <label class="check-box">
+          <input type="checkbox" id="vendido">
+          <span>🔥 Mais Vendido</span>
+        </label>
+        <label class="check-box danger">
+          <input type="checkbox" id="indisponivel">
+          <span>Forçar Indisponível</span>
+        </label>
+      </div>
+
+      <div class="grid-full">
+        <div class="input-group">
+          <label>Descrição *</label>
+          <textarea id="desc" rows="2" required placeholder="Sobre a fragrância..."></textarea>
+        </div>
+      </div>
+
+      <div class="grid-inputs">
+        <div class="input-group">
+          <label>Notas Topo *</label>
+          <input type="text" id="topo" required placeholder="Amêndoa...">
+        </div>
+        <div class="input-group">
+          <label>Notas Coração *</label>
+          <input type="text" id="coracao" required placeholder="Jasmim...">
+        </div>
+      </div>
+      <div class="grid-full">
+        <div class="input-group">
+          <label>Notas Fundo *</label>
+          <input type="text" id="fundo" required placeholder="Baunilha...">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-salvar" id="btn-submit">Salvar no Catálogo</button>
+    </form>
   </div>
 
-  <!-- ACCORDION: PEDIDOS (NOVO) -->
-  <div class="accordion-item" id="accordion-pedidos">
-    <div class="accordion-header" id="header-pedidos" onclick="toggleAccordion('pedidos')">
-      <h2>Histórico de Pedidos</h2>
-      <span class="accordion-icon">▼</span>
-    </div>
+  <!-- SEÇÃO CATÁLOGO -->
+  <div class="section-content active" id="section-lista">
+    <h2 class="section-title">Perfumes no Catálogo</h2>
     
-    <div class="accordion-content" id="content-pedidos">
-      <div id="lista-pedidos"></div>
+    <div class="lista-header-actions">
+      <input type="text" class="search-admin" id="search-admin" placeholder="🔍 Buscar por nome ou inspiração...">
+      <div class="abas-admin">
+        <button class="aba-btn active" data-cat="todos">Todos</button>
+        <button class="aba-btn" data-cat="feminino">Fem</button>
+        <button class="aba-btn" data-cat="masculino">Masc</button>
+        <button class="aba-btn" data-cat="compartilhado">Uni</button>
+        <button class="aba-btn esgotados" data-cat="esgotados">🚫 Esgotados</button>
+      </div>
     </div>
+    <div id="lista-perfumes-admin"></div>
+  </div>
+
+  <!-- SEÇÃO PEDIDOS -->
+  <div class="section-content" id="section-pedidos">
+    <h2 class="section-title">Histórico de Pedidos</h2>
+    
+    <div id="lista-pedidos"></div>
+    
+    <button class="btn-limpar-pedidos" id="btn-limpar-pedidos" onclick="limparPedidos()">
+      🗑️ Limpar Todo o Histórico
+    </button>
   </div>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtdszBtbQiaZnWcLLKBPnwo_3yHRtp2mA",
@@ -344,6 +421,7 @@
   const formPerfume = document.getElementById('form-perfume');
   const msgDiv = document.getElementById('mensagem');
   const btnSubmit = document.getElementById('btn-submit');
+  const btnLimparPedidos = document.getElementById('btn-limpar-pedidos');
   
   const searchAdmin = document.getElementById('search-admin');
   const abasAdmin = document.querySelectorAll('.aba-btn');
@@ -354,6 +432,19 @@
   const editId = document.getElementById('edit-id');
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
+
+  // CONTROLE DE SEÇÕES
+  window.abrirSecao = function(secao, el) {
+    document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+    
+    if (el) el.classList.add('active');
+    document.getElementById('section-' + secao).classList.add('active');
+    
+    if(secao === 'lista') document.getElementById('section-lista').scrollIntoView({ behavior: 'smooth' });
+    else if(secao === 'pedidos') document.getElementById('section-pedidos').scrollIntoView({ behavior: 'smooth' });
+    else if(secao === 'form') document.getElementById('section-form').scrollIntoView({ behavior: 'smooth' });
+  };
 
   window.fazerUpload = async function(event) {
     const file = event.target.files[0];
@@ -398,20 +489,6 @@
         btnUpload.style.display = 'block';
         statusUpload.style.display = 'none';
       }, 3000);
-    }
-  };
-
-  window.toggleAccordion = function(secao) {
-    const header = document.getElementById('header-' + secao);
-    const content = document.getElementById('content-' + secao);
-    const isOpen = header.classList.contains('active');
-    ['form', 'lista', 'pedidos'].forEach(s => {
-      document.getElementById('header-' + s).classList.remove('active');
-      document.getElementById('content-' + s).style.display = 'none';
-    });
-    if (!isOpen) {
-      header.classList.add('active');
-      content.style.display = 'block';
     }
   };
 
@@ -492,7 +569,7 @@
         mostrarMsg("Perfume cadastrado!", "sucesso");
         limparFormulario();
       }
-      toggleAccordion('lista'); 
+      abrirSecao('lista', document.querySelectorAll('.menu-card')[1]); 
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao salvar.", "erro");
@@ -514,7 +591,7 @@
 
   window.cancelarEdicao = function() {
     limparFormulario();
-    toggleAccordion('lista');
+    abrirSecao('lista', document.querySelectorAll('.menu-card')[1]);
   };
 
   window.prepararEdicao = function(id) {
@@ -547,22 +624,7 @@
     btnSubmit.innerText = "Atualizar Perfume";
     btnCancelarEdit.style.display = 'block';
 
-    const headerForm = document.getElementById('header-form');
-    const contentForm = document.getElementById('content-form');
-    const headerLista = document.getElementById('header-lista');
-    const contentLista = document.getElementById('content-lista');
-    const headerPedidos = document.getElementById('header-pedidos');
-    const contentPedidos = document.getElementById('content-pedidos');
-
-    headerLista.classList.remove('active');
-    contentLista.style.display = 'none';
-    headerPedidos.classList.remove('active');
-    contentPedidos.style.display = 'none';
-
-    headerForm.classList.add('active');
-    contentForm.style.display = 'block';
-    
-    document.getElementById('accordion-form').scrollIntoView({ behavior: 'smooth' });
+    abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
   };
 
   window.duplicarPerfume = function(id) {
@@ -595,12 +657,7 @@
     btnSubmit.innerText = "Salvar Cópia";
     btnCancelarEdit.style.display = 'block';
 
-    const headerForm = document.getElementById('header-form');
-    const contentForm = document.getElementById('content-form');
-    headerForm.classList.add('active');
-    contentForm.style.display = 'block';
-    
-    document.getElementById('accordion-form').scrollIntoView({ behavior: 'smooth' });
+    abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
   };
 
   function carregarListaAdmin() {
@@ -703,15 +760,16 @@
     });
   }
 
-  // NOVA FUNÇÃO: CARREGAR PEDIDOS
   function carregarPedidos() {
     const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
     onSnapshot(q, (snapshot) => {
       listaPedidos.innerHTML = '';
       if (snapshot.empty) {
         listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido registrado ainda.</p>';
+        btnLimparPedidos.disabled = true;
         return;
       }
+      btnLimparPedidos.disabled = false;
 
       snapshot.forEach((docSnap) => {
         const pedido = docSnap.data();
@@ -741,6 +799,33 @@
       });
     });
   }
+
+  window.limparPedidos = async function() {
+    if (!confirm("Tem certeza que deseja apagar TODO o histórico de pedidos? Essa ação não pode ser desfeita.")) return;
+    
+    btnLimparPedidos.innerText = "Limpando...";
+    btnLimparPedidos.disabled = true;
+
+    try {
+      const q = query(collection(db, "pedidos"));
+      const snapshot = await onSnapshot(q, async (snap) => {
+        // Pega todos os documentos e deleta um por um
+        const docs = snap.docs;
+        for (let i = 0; i < docs.length; i++) {
+          await deleteDoc(doc(db, "pedidos", docs[i].id));
+        }
+        
+        mostrarMsg("Histórico limpo com sucesso!", "sucesso");
+        btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
+        btnLimparPedidos.disabled = false;
+      });
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao limpar histórico.", "erro");
+      btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
+      btnLimparPedidos.disabled = false;
+    }
+  };
 
   window.copiarLink = function(id) {
     const linkCompleto = URL_CATALOGO + '#' + id;
