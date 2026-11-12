@@ -608,7 +608,7 @@
         limparFormulario(); 
       } else {
         dadosPerfume.criadoEm = new Date();
-        dadosPerfume.estoque = 5; // Padrão 5 unidades
+        dadosPerfume.estoque = 5;
         await addDoc(collection(db, "perfumes"), dadosPerfume);
         mostrarMsg("Perfume cadastrado com 5 unidades em estoque!", "sucesso");
         limparFormulario();
@@ -799,13 +799,11 @@
     const input = document.getElementById('estoque-input-' + id);
     let novoEstoque = parseInt(input.value);
     
-    // Se o usuário deixar em branco, ou digitar algo inválido, força 0
     if (isNaN(novoEstoque) || novoEstoque < 0) {
       novoEstoque = 0;
-      input.value = 0; // Atualiza o campo na tela
+      input.value = 0;
     }
 
-    // Se for maior que 0, fica disponível. Se for 0, fica indisponível.
     const estaIndisponivel = novoEstoque === 0;
 
     try {
@@ -887,7 +885,15 @@
       if (!pedidoData) return;
 
       for (const item of pedidoData.itens) {
-        const perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
+        // Prioridade: casar pelo ID (novos pedidos). Fallback: nome (pedidos antigos).
+        let perfume = null;
+        if (item.id) {
+          perfume = todosPerfumesAdmin.find(p => p.id === item.id);
+        }
+        if (!perfume) {
+          perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
+        }
+        
         if (perfume) {
           const novoEstoque = Math.max(0, (perfume.estoque || 0) - item.qtd);
           await updateDoc(doc(db, "perfumes", perfume.id), {
