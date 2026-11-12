@@ -32,6 +32,19 @@
   .msg.sucesso { background: #111; color: #25D366; border: 1px solid #25D366; display: block; }
   .msg.erro { background: #111; color: #ff4444; border: 1px solid #ff4444; display: block; }
 
+  /* DASHBOARD DE ALERTAS (#1) */
+  .dashboard { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+  .dash-card { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: 0.2s; }
+  .dash-card:hover { border-color: var(--dourado); background: rgba(212,175,55,0.05); }
+  .dash-card.dash-alerta { border-color: #ff9800; background: rgba(255,152,0,0.08); }
+  .dash-card.dash-alerta:hover { background: rgba(255,152,0,0.15); }
+  .dash-card.dash-esgotado { border-color: #c94a4a; background: rgba(201,74,74,0.08); }
+  .dash-card.dash-esgotado:hover { background: rgba(201,74,74,0.15); }
+  .dash-card .num { font-size: 1.6rem; font-weight: 800; color: var(--dourado-claro); line-height: 1.1; }
+  .dash-card.dash-alerta .num { color: #ff9800; }
+  .dash-card.dash-esgotado .num { color: #ff6b6b; }
+  .dash-card .lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-top: 3px; font-weight: 600; line-height: 1.2; }
+
   /* MENU CARDS */
   .menu-cards {
     display: grid;
@@ -136,38 +149,44 @@
   .btn-salvar:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
   .btn-salvar:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* ESTOQUE SECTION */
+  /* ESTOQUE SECTION (#3 + #4) */
   .estoque-item {
     background: #151515;
     border: 1px solid #333;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
   }
-  .estoque-item .info { flex: 1; min-width: 150px; }
+  .estoque-item .info { margin-bottom: 12px; }
   .estoque-item .info strong { color: var(--dourado-claro); display: block; font-size: 0.95rem; }
   .estoque-item .info small { color: #888; font-size: 0.7rem; }
-  .estoque-item .controle { display: flex; align-items: center; gap: 8px; }
-  .estoque-item input {
-    width: 70px;
-    padding: 10px;
-    font-size: 1.1rem;
+  
+  .estoque-tamanhos { display: flex; flex-direction: column; gap: 8px; }
+  .estoque-linha { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #111; padding: 8px 10px; border-radius: 8px; border: 1px solid #2a2a2a; }
+  .estoque-linha .tam-label { font-weight: 700; color: var(--dourado); font-size: 0.85rem; min-width: 55px; }
+  .estoque-linha .ctrl-tam { display: flex; align-items: center; gap: 6px; }
+  .estoque-linha button { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--dourado); background: transparent; color: var(--dourado-claro); font-size: 1.1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.15s; }
+  .estoque-linha button:hover { background: rgba(212,175,55,0.15); }
+  .estoque-linha button:active { background: var(--dourado); color: #0d0d0d; transform: scale(0.95); }
+  .estoque-linha button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .estoque-linha input {
+    width: 60px;
+    padding: 9px 4px;
+    font-size: 1rem;
     font-weight: bold;
     text-align: center;
     border: 2px solid var(--dourado);
     border-radius: 8px;
-    background: #111;
+    background: #0d0d0d;
     color: var(--dourado-claro);
     font-family: inherit;
     outline: none;
   }
-  .estoque-item input:focus { border-color: var(--dourado-claro); }
-  .btn-salvar-estoque { background: var(--dourado); color: #0d0d0d; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+  .estoque-linha input:focus { border-color: var(--dourado-claro); }
+  .estoque-linha.zerado input { border-color: #c94a4a; color: #ff6b6b; }
+  .estoque-linha.zerado .tam-label { color: #ff6b6b; }
+  .estoque-status-salvando { font-size: 0.65rem; color: #888; margin-left: 5px; font-weight: 500; }
+  .estoque-status-salvo { font-size: 0.65rem; color: #25D366; margin-left: 5px; font-weight: 600; }
 
   /* LISTA CATÁLOGO */
   .lista-header-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
@@ -279,6 +298,22 @@
   </div>
 
   <div class="msg" id="mensagem"></div>
+
+  <!-- DASHBOARD DE ALERTAS (#1) -->
+  <div class="dashboard" id="dashboard">
+    <div class="dash-card" onclick="abrirSecao('lista', document.querySelectorAll('.menu-card')[1])">
+      <div class="num" id="dash-total">0</div>
+      <div class="lbl">📦 Produtos</div>
+    </div>
+    <div class="dash-card dash-esgotado" onclick="irParaEsgotados()">
+      <div class="num" id="dash-esgotados">0</div>
+      <div class="lbl">🚫 Esgotados</div>
+    </div>
+    <div class="dash-card dash-alerta" onclick="irParaEstoqueBaixo()">
+      <div class="num" id="dash-baixo">0</div>
+      <div class="lbl">⚠️ Estoque baixo</div>
+    </div>
+  </div>
 
   <!-- MENU -->
   <div class="menu-cards">
@@ -415,6 +450,7 @@
         <button class="aba-btn" data-cat="masculino">Masc</button>
         <button class="aba-btn" data-cat="compartilhado">Uni</button>
         <button class="aba-btn esgotados" data-cat="esgotados">🚫 Esgotados</button>
+        <button class="aba-btn" data-cat="estoque-baixo">⚠️ Estoque Baixo</button>
       </div>
     </div>
     <div id="lista-perfumes-admin"></div>
@@ -423,6 +459,9 @@
   <!-- ESTOQUE -->
   <div class="section-content" id="section-estoque">
     <h2 class="section-title">Controle de Estoque</h2>
+    <p style="font-size:0.72rem; color:#888; margin-bottom:15px; line-height:1.5;">
+      💡 Clique em <strong>+</strong> ou <strong>−</strong> para alterar. O salvamento é automático. O número 0 marca o tamanho como esgotado.
+    </p>
     <div id="lista-estoque"></div>
   </div>
 
@@ -457,6 +496,7 @@
   const ADMIN_EMAIL = "ewerton.andriel@gmail.com"; 
   const URL_CATALOGO = "https://thrustperfumes.store/"; 
   const IMGBB_API_KEY = "8c63b7330444870944b040c580b44ab0"; 
+  const TAMANHOS = ['30ml', '50ml', '100ml'];
 
   const telaCarregando = document.getElementById('tela-carregando');
   const telaLogin = document.getElementById('tela-login');
@@ -481,6 +521,78 @@
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
+  /* ============================================================
+     NORMALIZAÇÃO DE ESTOQUE (#4)
+     Converte estoque número antigo → objeto por tamanho.
+     Padrão: 50ml recebe o valor, outros tamanhos habilitados = 0
+     ============================================================ */
+  function normalizarEstoque(p) {
+    if (p.estoque && typeof p.estoque === 'object') {
+      return p.estoque;
+    }
+    const num = (typeof p.estoque === 'number') ? p.estoque : 0;
+    const obj = { "50ml": num };
+    if (p.tamanhos) {
+      Object.keys(p.tamanhos).forEach(tam => {
+        if (tam !== "50ml") obj[tam] = 0;
+      });
+    }
+    return obj;
+  }
+
+  function totalEstoque(p) {
+    const est = normalizarEstoque(p);
+    return Object.values(est).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
+  }
+
+  function temTamanhoComUm(p) {
+    const est = normalizarEstoque(p);
+    return Object.keys(est).some(tam => est[tam] === 1);
+  }
+
+  /* ============================================================
+     DASHBOARD (#1)
+     ============================================================ */
+  function atualizarDashboard() {
+    const total = todosPerfumesAdmin.length;
+    const esgotados = todosPerfumesAdmin.filter(p => {
+      if (p.indisponivel) return true;
+      return totalEstoque(p) === 0;
+    }).length;
+    const baixo = todosPerfumesAdmin.filter(p => {
+      if (p.indisponivel) return false;
+      if (totalEstoque(p) === 0) return false;
+      return temTamanhoComUm(p);
+    }).length;
+
+    document.getElementById('dash-total').innerText = total;
+    document.getElementById('dash-esgotados').innerText = esgotados;
+    document.getElementById('dash-baixo').innerText = baixo;
+  }
+
+  window.irParaEsgotados = function() {
+    abrirSecao('lista', document.querySelectorAll('.menu-card')[1]);
+    categoriaFiltroAdmin = 'esgotados';
+    abasAdmin.forEach(b => {
+      b.classList.remove('active');
+      if (b.getAttribute('data-cat') === 'esgotados') b.classList.add('active');
+    });
+    renderizarListaAdmin();
+  };
+
+  window.irParaEstoqueBaixo = function() {
+    abrirSecao('lista', document.querySelectorAll('.menu-card')[1]);
+    categoriaFiltroAdmin = 'estoque-baixo';
+    abasAdmin.forEach(b => {
+      b.classList.remove('active');
+      if (b.getAttribute('data-cat') === 'estoque-baixo') b.classList.add('active');
+    });
+    renderizarListaAdmin();
+  };
+
+  /* ============================================================
+     NAVEGAÇÃO
+     ============================================================ */
   window.abrirSecao = function(secao, el) {
     document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
@@ -493,6 +605,9 @@
     document.getElementById('section-' + secao).scrollIntoView({ behavior: 'smooth' });
   };
 
+  /* ============================================================
+     UPLOAD IMGBB
+     ============================================================ */
   window.fazerUpload = async function(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -539,6 +654,9 @@
     }
   };
 
+  /* ============================================================
+     AUTH
+     ============================================================ */
   btnGoogle.addEventListener('click', () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).catch(err => alert("Erro ao logar: " + err.message));
@@ -564,6 +682,11 @@
     }
   });
 
+  /* ============================================================
+     FORMULÁRIO CADASTRAR / EDITAR
+     Cadastro: cria estoque = { "50ml": 5, <outros habilitados>: 0 }
+     Edição: preserva estoque existente (só tamanhos novos entram com 0)
+     ============================================================ */
   formPerfume.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -603,14 +726,28 @@
 
     try {
       if (editId.value) {
+        // Edição: preserva estoque dos tamanhos que já existiam
+        const perfumeAtual = todosPerfumesAdmin.find(x => x.id === editId.value);
+        const estoqueAtual = normalizarEstoque(perfumeAtual || {});
+        const novoEstoque = {};
+        Object.keys(tamanhos).forEach(tam => {
+          novoEstoque[tam] = (typeof estoqueAtual[tam] === 'number') ? estoqueAtual[tam] : 0;
+        });
+        dadosPerfume.estoque = novoEstoque;
+
         await updateDoc(doc(db, "perfumes", editId.value), dadosPerfume);
         mostrarMsg("Perfume atualizado!", "sucesso");
         limparFormulario(); 
       } else {
+        // Cadastro novo: 50ml com 5, outros tamanhos habilitados = 0
         dadosPerfume.criadoEm = new Date();
-        dadosPerfume.estoque = 5;
+        const estoqueInicial = {};
+        Object.keys(tamanhos).forEach(tam => {
+          estoqueInicial[tam] = (tam === "50ml") ? 5 : 0;
+        });
+        dadosPerfume.estoque = estoqueInicial;
         await addDoc(collection(db, "perfumes"), dadosPerfume);
-        mostrarMsg("Perfume cadastrado com 5 unidades em estoque!", "sucesso");
+        mostrarMsg("Perfume cadastrado! Estoque inicial: 5 un. no 50ml.", "sucesso");
         limparFormulario();
       }
       abrirSecao('lista', document.querySelectorAll('.menu-card')[1]); 
@@ -669,6 +806,9 @@
     abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
   };
 
+  /* ============================================================
+     LISTA DE PERFUMES (TEMPO REAL)
+     ============================================================ */
   function carregarListaAdmin() {
     const q = query(collection(db, "perfumes"), orderBy("nome"));
     onSnapshot(q, (snapshot) => {
@@ -676,7 +816,8 @@
       snapshot.forEach((docSnap) => {
         todosPerfumesAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
-      renderizarListaAdmin(); 
+      renderizarListaAdmin();
+      atualizarDashboard();
       if (document.getElementById('section-estoque').classList.contains('active')) {
         renderizarEstoque();
       }
@@ -703,7 +844,13 @@
     let listaFiltrada = todosPerfumesAdmin;
 
     if (categoriaFiltroAdmin === 'esgotados') {
-      listaFiltrada = listaFiltrada.filter(p => p.indisponivel === true || p.estoque === 0);
+      listaFiltrada = listaFiltrada.filter(p => p.indisponivel === true || totalEstoque(p) === 0);
+    } else if (categoriaFiltroAdmin === 'estoque-baixo') {
+      listaFiltrada = listaFiltrada.filter(p => {
+        if (p.indisponivel) return false;
+        if (totalEstoque(p) === 0) return false;
+        return temTamanhoComUm(p);
+      });
     } else if (categoriaFiltroAdmin !== 'todos') {
       listaFiltrada = listaFiltrada.filter(p => p.cat === categoriaFiltroAdmin);
     }
@@ -730,17 +877,16 @@
         }
       }
 
+      const totalEst = totalEstoque(p);
       let estoqueHtml = '';
-      if (p.estoque !== undefined) {
-        if (p.estoque > 0) {
-          estoqueHtml = `<span class="status-estoque">📦 ${p.estoque} un.</span>`;
-        } else {
-          estoqueHtml = `<span class="status-off">Sem Estoque</span>`;
-        }
+      if (totalEst > 0) {
+        estoqueHtml = `<span class="status-estoque">📦 ${totalEst} un.</span>`;
+      } else {
+        estoqueHtml = `<span class="status-off">Sem Estoque</span>`;
       }
 
       let btnStatus = '';
-      if (p.indisponivel || p.estoque === 0) {
+      if (p.indisponivel || totalEst === 0) {
         btnStatus = `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${p.id}', false)" title="Ativar Vendas">▶️ Ativar</button>`;
       } else {
         btnStatus = `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${p.id}', true)" title="Pausar Vendas">⏸️ Pausar</button>`;
@@ -771,6 +917,14 @@
     });
   }
 
+  /* ============================================================
+     ESTOQUE POR TAMANHO (#3 + #4)
+     - Inputs por tamanho
+     - + e − com auto-save (debounce)
+     - Input com auto-save (debounce)
+     ============================================================ */
+  const estoqueDebounceTimers = {};
+
   function renderizarEstoque() {
     listaEstoque.innerHTML = '';
     if (todosPerfumesAdmin.length === 0) {
@@ -779,51 +933,139 @@
     }
 
     todosPerfumesAdmin.forEach((p) => {
+      const est = normalizarEstoque(p);
+      const tamanhosDoPerfume = p.tamanhos ? Object.keys(p.tamanhos) : [];
+      
+      if (tamanhosDoPerfume.length === 0) return;
+
+      // Ordena: 30, 50, 100
+      tamanhosDoPerfume.sort((a, b) => TAMANHOS.indexOf(a) - TAMANHOS.indexOf(b));
+
+      let linhasHtml = '';
+      tamanhosDoPerfume.forEach(tam => {
+        const qtd = (typeof est[tam] === 'number') ? est[tam] : 0;
+        const zerado = qtd === 0;
+        linhasHtml += `
+          <div class="estoque-linha ${zerado ? 'zerado' : ''}" data-id="${p.id}" data-tam="${tam}">
+            <span class="tam-label">${tam}</span>
+            <div class="ctrl-tam">
+              <button onclick="alterarEstoque('${p.id}', '${tam}', -1)" ${qtd === 0 ? 'disabled' : ''} title="Diminuir">−</button>
+              <input type="number" min="0" value="${qtd}" oninput="inputEstoque('${p.id}', '${tam}', this)" onblur="inputEstoqueBlur('${p.id}', '${tam}', this)">
+              <button onclick="alterarEstoque('${p.id}', '${tam}', 1)" title="Aumentar">+</button>
+            </div>
+          </div>
+        `;
+      });
+
       const div = document.createElement('div');
       div.className = 'estoque-item';
       div.innerHTML = `
         <div class="info">
-          <strong>${p.nome}</strong>
+          <strong>${p.nome} <span class="estoque-status-salvo" id="status-${p.id}" style="display:none;">✓ Salvo</span></strong>
           <small>Insp: ${p.insp}</small>
         </div>
-        <div class="controle">
-          <input type="number" id="estoque-input-${p.id}" value="${p.estoque !== undefined ? p.estoque : 5}" min="0">
-          <button class="btn-salvar-estoque" onclick="salvarEstoque('${p.id}')">Salvar</button>
-        </div>
+        <div class="estoque-tamanhos">${linhasHtml}</div>
       `;
       listaEstoque.appendChild(div);
     });
   }
 
-  window.salvarEstoque = async function(id) {
-    const input = document.getElementById('estoque-input-' + id);
-    let novoEstoque = parseInt(input.value);
-    
-    if (isNaN(novoEstoque) || novoEstoque < 0) {
-      novoEstoque = 0;
-      input.value = 0;
-    }
+  function mostrarStatusSalvo(id) {
+    const el = document.getElementById('status-' + id);
+    if (!el) return;
+    el.style.display = 'inline';
+    setTimeout(() => { el.style.display = 'none'; }, 1500);
+  }
 
-    const estaIndisponivel = novoEstoque === 0;
+  async function salvarEstoqueTamanho(id, tamanho, novaQtd) {
+    const p = todosPerfumesAdmin.find(x => x.id === id);
+    if (!p) return;
+    
+    const estAtual = normalizarEstoque(p);
+    const novoEstoqueObj = { ...estAtual };
+    novoEstoqueObj[tamanho] = novaQtd;
+
+    // Atualiza estado local para UI responder rápido
+    p.estoque = novoEstoqueObj;
 
     try {
       await updateDoc(doc(db, "perfumes", id), {
-        estoque: novoEstoque,
-        indisponivel: estaIndisponivel
+        estoque: novoEstoqueObj
       });
-      
-      if (estaIndisponivel) {
-        mostrarMsg("Estoque zerado. Produto marcado como Indisponível.", "sucesso");
-      } else {
-        mostrarMsg("Estoque atualizado! Produto Disponível.", "sucesso");
-      }
-      
+      mostrarStatusSalvo(id);
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao salvar estoque.", "erro");
     }
+  }
+
+  window.alterarEstoque = function(id, tamanho, delta) {
+    const p = todosPerfumesAdmin.find(x => x.id === id);
+    if (!p) return;
+    const est = normalizarEstoque(p);
+    let atual = (typeof est[tamanho] === 'number') ? est[tamanho] : 0;
+    let novo = atual + delta;
+    if (novo < 0) novo = 0;
+
+    // Atualiza UI imediatamente
+    const linha = document.querySelector(`.estoque-linha[data-id="${id}"][data-tam="${tamanho}"]`);
+    if (linha) {
+      const input = linha.querySelector('input');
+      const btnMenos = linha.querySelector('button');
+      input.value = novo;
+      if (novo === 0) {
+        linha.classList.add('zerado');
+        btnMenos.disabled = true;
+      } else {
+        linha.classList.remove('zerado');
+        btnMenos.disabled = false;
+      }
+    }
+
+    // Debounce do salvamento (600ms)
+    const key = id + '_' + tamanho;
+    if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
+    estoqueDebounceTimers[key] = setTimeout(() => {
+      salvarEstoqueTamanho(id, tamanho, novo);
+    }, 600);
   };
 
+  window.inputEstoque = function(id, tamanho, el) {
+    let val = parseInt(el.value);
+    if (isNaN(val) || val < 0) val = 0;
+    el.value = val;
+
+    const linha = el.closest('.estoque-linha');
+    const btnMenos = linha.querySelector('button');
+    if (val === 0) {
+      linha.classList.add('zerado');
+      btnMenos.disabled = true;
+    } else {
+      linha.classList.remove('zerado');
+      btnMenos.disabled = false;
+    }
+
+    // Debounce
+    const key = id + '_' + tamanho;
+    if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
+    estoqueDebounceTimers[key] = setTimeout(() => {
+      salvarEstoqueTamanho(id, tamanho, val);
+    }, 800);
+  };
+
+  window.inputEstoqueBlur = function(id, tamanho, el) {
+    // Ao sair do campo, salva imediatamente
+    let val = parseInt(el.value);
+    if (isNaN(val) || val < 0) val = 0;
+    el.value = val;
+    const key = id + '_' + tamanho;
+    if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
+    salvarEstoqueTamanho(id, tamanho, val);
+  };
+
+  /* ============================================================
+     PEDIDOS
+     ============================================================ */
   function carregarPedidos() {
     const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
     onSnapshot(q, (snapshot) => {
@@ -873,6 +1115,10 @@
     });
   }
 
+  /* ============================================================
+     CONCRETIZAR VENDA (#4 + correção por ID)
+     Abate do tamanho correto, casando por ID (fallback: nome)
+     ============================================================ */
   window.marcarConcretizada = async function(pedidoId, jaConcretizada) {
     if (jaConcretizada) return;
     if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
@@ -885,7 +1131,7 @@
       if (!pedidoData) return;
 
       for (const item of pedidoData.itens) {
-        // Prioridade: casar pelo ID (novos pedidos). Fallback: nome (pedidos antigos).
+        // Prioridade: casar pelo ID. Fallback: nome (pedidos antigos).
         let perfume = null;
         if (item.id) {
           perfume = todosPerfumesAdmin.find(p => p.id === item.id);
@@ -895,10 +1141,16 @@
         }
         
         if (perfume) {
-          const novoEstoque = Math.max(0, (perfume.estoque || 0) - item.qtd);
+          const estAtual = normalizarEstoque(perfume);
+          const tamanhoItem = item.tamanho || '50ml';
+          const estoqueAtualTam = (typeof estAtual[tamanhoItem] === 'number') ? estAtual[tamanhoItem] : 0;
+          const novoEstoqueTam = Math.max(0, estoqueAtualTam - item.qtd);
+          
+          const novoEstoqueObj = { ...estAtual };
+          novoEstoqueObj[tamanhoItem] = novoEstoqueTam;
+
           await updateDoc(doc(db, "perfumes", perfume.id), {
-            estoque: novoEstoque,
-            indisponivel: novoEstoque === 0 ? true : false
+            estoque: novoEstoqueObj
           });
         }
       }
@@ -937,6 +1189,9 @@
     }
   };
 
+  /* ============================================================
+     AÇÕES DO CATÁLOGO
+     ============================================================ */
   window.copiarLink = function(id) {
     const linkCompleto = URL_CATALOGO + '#' + id;
     navigator.clipboard.writeText(linkCompleto).then(() => {
@@ -957,8 +1212,21 @@
       const perfumeRef = doc(db, "perfumes", id);
       const p = todosPerfumesAdmin.find(item => item.id === id);
       let novosDados = { indisponivel: novoStatusIndisponivel };
-      if (!novoStatusIndisponivel && p.estoque === 0) {
-        novosDados.estoque = 5;
+      
+      // Se está ativando e todos os tamanhos estão zerados, dá 5 no 50ml
+      if (!novoStatusIndisponivel) {
+        const est = normalizarEstoque(p);
+        const total = Object.values(est).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
+        if (total === 0) {
+          const novoEstoque = { ...est };
+          if (p.tamanhos && p.tamanhos["50ml"]) {
+            novoEstoque["50ml"] = 5;
+          } else if (p.tamanhos) {
+            const primeiraKey = Object.keys(p.tamanhos)[0];
+            novoEstoque[primeiraKey] = 5;
+          }
+          novosDados.estoque = novoEstoque;
+        }
       }
       
       await updateDoc(perfumeRef, novosDados);
