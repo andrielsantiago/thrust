@@ -797,14 +797,29 @@
 
   window.salvarEstoque = async function(id) {
     const input = document.getElementById('estoque-input-' + id);
-    const novoEstoque = parseInt(input.value) || 0;
+    let novoEstoque = parseInt(input.value);
+    
+    // Se o usuário deixar em branco, ou digitar algo inválido, força 0
+    if (isNaN(novoEstoque) || novoEstoque < 0) {
+      novoEstoque = 0;
+      input.value = 0; // Atualiza o campo na tela
+    }
+
+    // Se for maior que 0, fica disponível. Se for 0, fica indisponível.
+    const estaIndisponivel = novoEstoque === 0;
 
     try {
       await updateDoc(doc(db, "perfumes", id), {
         estoque: novoEstoque,
-        indisponivel: novoEstoque === 0 ? true : false
+        indisponivel: estaIndisponivel
       });
-      mostrarMsg("Estoque atualizado!", "sucesso");
+      
+      if (estaIndisponivel) {
+        mostrarMsg("Estoque zerado. Produto marcado como Indisponível.", "sucesso");
+      } else {
+        mostrarMsg("Estoque atualizado! Produto Disponível.", "sucesso");
+      }
+      
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao salvar estoque.", "erro");
@@ -865,16 +880,13 @@
     if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
 
     try {
-      // Pega os dados do pedido
       const pedidoSnap = await getDocs(collection(db, "pedidos"));
       let pedidoData = null;
       pedidoSnap.forEach(d => { if(d.id === pedidoId) pedidoData = d.data(); });
 
       if (!pedidoData) return;
 
-      // Desconta do estoque de cada item
       for (const item of pedidoData.itens) {
-        // Encontra o perfume pelo nome
         const perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
         if (perfume) {
           const novoEstoque = Math.max(0, (perfume.estoque || 0) - item.qtd);
@@ -885,7 +897,6 @@
         }
       }
 
-      // Marca o pedido como concretizado
       await updateDoc(doc(db, "pedidos", pedidoId), {
         concretizada: true
       });
