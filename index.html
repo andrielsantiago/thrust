@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Admin - THRUST PARFUMS</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root { --dourado: #c9a227; --dourado-claro: #f5d97a; --fundo: #0d0d0d; --card: #1a1a1a; --borda: rgba(212,175,55,0.25); }
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -32,15 +32,15 @@
   .msg.sucesso { background: #111; color: #25D366; border: 1px solid #25D366; display: block; }
   .msg.erro { background: #111; color: #ff4444; border: 1px solid #ff4444; display: block; }
 
-  /* MENU COM CARDS GRANDES */
+  /* MENU CARDS */
   .menu-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-bottom: 25px;
   }
-  @media (max-width: 400px) {
-    .menu-cards { grid-template-columns: 1fr 1fr; }
+  @media (min-width: 600px) {
+    .menu-cards { grid-template-columns: 1fr 1fr 1fr 1fr; }
   }
 
   .menu-card {
@@ -56,7 +56,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    min-height: 120px;
+    min-height: 110px;
   }
   .menu-card:hover, .menu-card.active {
     border-color: var(--dourado);
@@ -65,14 +65,14 @@
     box-shadow: 0 5px 15px rgba(212,175,55,0.2);
   }
   .menu-card img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
   }
   .menu-card span {
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--dourado-claro);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -80,11 +80,8 @@
   }
   .menu-card.active span { color: #fff; }
 
-  /* CONTEÚDO DAS SEÇÕES */
-  .section-content {
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
+  /* SEÇÕES */
+  .section-content { display: none; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .section-content.active { display: block; }
 
@@ -95,10 +92,15 @@
     margin-bottom: 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--borda);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   /* FORMULÁRIO */
-  .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; margin-left: auto; }
+  .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; }
   
   .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .grid-full { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -122,11 +124,6 @@
   .tamanho-row .label-tam { font-weight: bold; color: #fff; font-size: 0.85rem; }
   .tamanho-row input[type="number"] { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff; font-size: 0.85rem; }
 
-  .estoque-box { display: flex; align-items: center; gap: 10px; margin-top: 10px; background: #222; padding: 10px; border-radius: 6px; border: 1px solid #444; }
-  .estoque-box label { font-size: 0.75rem; color: #aaa; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
-  .estoque-box input { flex: 1; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff; font-size: 0.9rem; text-align: center; font-weight: bold; }
-  .estoque-box input:focus { border-color: var(--dourado); outline: none; }
-  
   .toggles-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
   .check-box { display: flex; align-items: center; gap: 8px; background: rgba(212,175,55,0.1); border: 1px solid var(--dourado); padding: 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
   .check-box.danger { border-color: #c94a4a; background: rgba(201,74,74,0.1); }
@@ -138,8 +135,41 @@
   .btn-salvar { background: linear-gradient(180deg, var(--dourado-claro), var(--dourado)); color: #0d0d0d; border: none; padding: 14px; width: 100%; font-weight: bold; border-radius: 30px; cursor: pointer; font-size: 0.95rem; transition: 0.3s; margin-top: 10px; }
   .btn-salvar:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
   .btn-salvar:disabled { opacity: 0.5; cursor: not-allowed; }
-  
-  /* LISTA */
+
+  /* ESTOQUE SECTION */
+  .estoque-item {
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .estoque-item .info { flex: 1; min-width: 150px; }
+  .estoque-item .info strong { color: var(--dourado-claro); display: block; font-size: 0.95rem; }
+  .estoque-item .info small { color: #888; font-size: 0.7rem; }
+  .estoque-item .controle { display: flex; align-items: center; gap: 8px; }
+  .estoque-item input {
+    width: 70px;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid var(--dourado);
+    border-radius: 8px;
+    background: #111;
+    color: var(--dourado-claro);
+    font-family: inherit;
+    outline: none;
+  }
+  .estoque-item input:focus { border-color: var(--dourado-claro); }
+  .btn-salvar-estoque { background: var(--dourado); color: #0d0d0d; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+  /* LISTA CATÁLOGO */
   .lista-header-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
   .search-admin { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
   .search-admin:focus { outline: none; border-color: var(--dourado); }
@@ -161,33 +191,46 @@
   .status-off { color: #ff6b6b; font-size: 0.65rem; font-weight: bold; background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
   .status-estoque { color: #4a90e2; font-size: 0.7rem; font-weight: bold; margin-left: 5px; }
   
-  .item-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; }
-  @media (max-width: 500px) {
-    .item-acoes { grid-template-columns: 1fr 1fr; }
-  }
+  .item-acoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  @media (max-width: 500px) { .item-acoes { grid-template-columns: 1fr 1fr; } }
   
-  .btn-acao { background: transparent; padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px; }
-  .btn-editar { border-color: var(--dourado); color: var(--dourado); }
-  .btn-editar:active { background: var(--dourado); color: #0d0d0d; }
+  .btn-acao { background: transparent; padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 0.72rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .btn-copiar { border-color: #4a90e2; color: #4a90e2; }
   .btn-copiar:active { background: #4a90e2; color: #fff; }
+  .btn-editar { border-color: var(--dourado); color: var(--dourado); }
+  .btn-editar:active { background: var(--dourado); color: #0d0d0d; }
   .btn-pausar { border-color: #ff9800; color: #ff9800; }
   .btn-pausar:active { background: #ff9800; color: #fff; }
   .btn-ativar { border-color: #25D366; color: #25D366; background: rgba(37,211,102,0.05); }
   .btn-ativar:active { background: #25D366; color: #fff; }
   .btn-excluir { border-color: #c94a4a; color: #c94a4a; }
   .btn-excluir:active { background: #c94a4a; color: white; }
-  .btn-duplicar { border-color: #9b59b6; color: #9b59b6; }
-  .btn-duplicar:active { background: #9b59b6; color: #fff; }
 
   /* PEDIDOS */
   .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
+  .pedido-item.concretizado { border-color: #25D366; opacity: 0.7; }
   .pedido-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 8px; flex-wrap: wrap; gap: 5px; }
   .pedido-data { font-size: 0.75rem; color: #888; }
   .pedido-total { font-size: 1rem; font-weight: bold; color: var(--dourado-claro); }
-  .pedido-itens { list-style: none; padding: 0; margin: 0; }
+  .pedido-itens { list-style: none; padding: 0; margin: 0 0 10px 0; }
   .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed #333; gap: 10px; }
   .pedido-itens li:last-child { border-bottom: none; }
+  
+  .btn-concretizada {
+    background: rgba(37,211,102,0.15);
+    border: 1px solid #25D366;
+    color: #25D366;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 5px;
+  }
+  .btn-concretizada:hover { background: #25D366; color: #0d0d0d; }
+  .btn-concretizada.concretizada { background: #25D366; color: #0d0d0d; cursor: default; }
 
   .btn-limpar-pedidos {
     background: transparent;
@@ -207,7 +250,6 @@
 
   @media (min-width: 600px) {
     .item-admin { flex-direction: row; align-items: center; justify-content: space-between; }
-    .item-acoes { grid-template-columns: repeat(5, 1fr); }
     .item-dados .nome { font-size: 1rem; }
   }
 </style>
@@ -232,21 +274,25 @@
 
 <div id="painel">
   <div class="header-admin">
-    <h1>Gerenciar Catálogo</h1>
+    <h1>Painel Admin</h1>
     <button class="btn-sair" id="btn-sair">Sair</button>
   </div>
 
   <div class="msg" id="mensagem"></div>
 
-  <!-- MENU DE CARDS GRANDES -->
+  <!-- MENU -->
   <div class="menu-cards">
     <div class="menu-card" onclick="abrirSecao('form', this)">
       <img src="https://img.icons8.com/color/96/add-property.png" alt="Cadastrar">
       <span>Cadastrar</span>
     </div>
-    <div class="menu-card active" onclick="abrirSecao('lista', this)">
+    <div class="menu-card" onclick="abrirSecao('lista', this)">
       <img src="https://img.icons8.com/color/96/stack-of-photos.png" alt="Catálogo">
       <span>Catálogo</span>
+    </div>
+    <div class="menu-card" onclick="abrirSecao('estoque', this)">
+      <img src="https://img.icons8.com/color/96/box.png" alt="Estoque">
+      <span>Estoque</span>
     </div>
     <div class="menu-card" onclick="abrirSecao('pedidos', this)">
       <img src="https://img.icons8.com/color/96/shopping-cart--v1.png" alt="Pedidos">
@@ -254,9 +300,12 @@
     </div>
   </div>
 
-  <!-- SEÇÃO CADASTRAR -->
+  <!-- CADASTRAR -->
   <div class="section-content" id="section-form">
-    <h2 class="section-title"><span id="form-titulo">Adicionar Novo Perfume</span> <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="cancelarEdicao()">Cancelar Edição</button></h2>
+    <h2 class="section-title">
+      <span id="form-titulo">Adicionar Novo Perfume</span>
+      <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="cancelarEdicao()">Cancelar</button>
+    </h2>
     
     <form id="form-perfume">
       <input type="hidden" id="edit-id" value="">
@@ -313,12 +362,6 @@
           <span class="label-tam">100ml</span>
           <input type="number" step="0.01" id="preco-100" placeholder="R$ 139,90">
         </div>
-        
-        <div class="estoque-box">
-          <label>📦 Estoque:</label>
-          <input type="number" id="estoque" min="0" value="10" placeholder="Qtd">
-          <span style="font-size: 0.7rem; color: #888;">(0 = autom. indisp.)</span>
-        </div>
       </div>
 
       <div class="toggles-row">
@@ -360,8 +403,8 @@
     </form>
   </div>
 
-  <!-- SEÇÃO CATÁLOGO -->
-  <div class="section-content active" id="section-lista">
+  <!-- CATÁLOGO -->
+  <div class="section-content" id="section-lista">
     <h2 class="section-title">Perfumes no Catálogo</h2>
     
     <div class="lista-header-actions">
@@ -377,12 +420,16 @@
     <div id="lista-perfumes-admin"></div>
   </div>
 
-  <!-- SEÇÃO PEDIDOS -->
+  <!-- ESTOQUE -->
+  <div class="section-content" id="section-estoque">
+    <h2 class="section-title">Controle de Estoque</h2>
+    <div id="lista-estoque"></div>
+  </div>
+
+  <!-- PEDIDOS -->
   <div class="section-content" id="section-pedidos">
     <h2 class="section-title">Histórico de Pedidos</h2>
-    
     <div id="lista-pedidos"></div>
-    
     <button class="btn-limpar-pedidos" id="btn-limpar-pedidos" onclick="limparPedidos()">
       🗑️ Limpar Todo o Histórico
     </button>
@@ -392,7 +439,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtdszBtbQiaZnWcLLKBPnwo_3yHRtp2mA",
@@ -418,6 +465,7 @@
   const btnSair = document.getElementById('btn-sair');
   const listaAdmin = document.getElementById('lista-perfumes-admin');
   const listaPedidos = document.getElementById('lista-pedidos');
+  const listaEstoque = document.getElementById('lista-estoque');
   const formPerfume = document.getElementById('form-perfume');
   const msgDiv = document.getElementById('mensagem');
   const btnSubmit = document.getElementById('btn-submit');
@@ -433,7 +481,6 @@
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
-  // CONTROLE DE SEÇÕES
   window.abrirSecao = function(secao, el) {
     document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
@@ -441,9 +488,9 @@
     if (el) el.classList.add('active');
     document.getElementById('section-' + secao).classList.add('active');
     
-    if(secao === 'lista') document.getElementById('section-lista').scrollIntoView({ behavior: 'smooth' });
-    else if(secao === 'pedidos') document.getElementById('section-pedidos').scrollIntoView({ behavior: 'smooth' });
-    else if(secao === 'form') document.getElementById('section-form').scrollIntoView({ behavior: 'smooth' });
+    if (secao === 'estoque') renderizarEstoque();
+
+    document.getElementById('section-' + secao).scrollIntoView({ behavior: 'smooth' });
   };
 
   window.fazerUpload = async function(event) {
@@ -533,9 +580,6 @@
     btnSubmit.innerText = "Salvando...";
     btnSubmit.disabled = true;
 
-    const estoque = parseInt(document.getElementById('estoque').value) || 0;
-    const isIndisponivel = document.getElementById('indisponivel').checked || estoque === 0;
-
     const tamanhos = {};
     if(document.getElementById('chk-30').checked && document.getElementById('preco-30').value) tamanhos["30ml"] = parseFloat(document.getElementById('preco-30').value);
     if(document.getElementById('chk-50').checked && document.getElementById('preco-50').value) tamanhos["50ml"] = parseFloat(document.getElementById('preco-50').value);
@@ -548,8 +592,7 @@
       img: document.getElementById('img').value || "COLE_O_LINK_AQUI",
       tamanhos: tamanhos,
       vendido: document.getElementById('vendido').checked,
-      indisponivel: isIndisponivel,
-      estoque: estoque,
+      indisponivel: document.getElementById('indisponivel').checked,
       desc: document.getElementById('desc').value,
       notas: {
         topo: document.getElementById('topo').value,
@@ -565,8 +608,9 @@
         limparFormulario(); 
       } else {
         dadosPerfume.criadoEm = new Date();
+        dadosPerfume.estoque = 5; // Padrão 5 unidades
         await addDoc(collection(db, "perfumes"), dadosPerfume);
-        mostrarMsg("Perfume cadastrado!", "sucesso");
+        mostrarMsg("Perfume cadastrado com 5 unidades em estoque!", "sucesso");
         limparFormulario();
       }
       abrirSecao('lista', document.querySelectorAll('.menu-card')[1]); 
@@ -582,7 +626,6 @@
   function limparFormulario() {
     formPerfume.reset();
     document.getElementById('chk-50').checked = true;
-    document.getElementById('estoque').value = 10;
     editId.value = '';
     formTitulo.innerText = "Adicionar Novo Perfume";
     btnSubmit.innerText = "Salvar no Catálogo";
@@ -610,7 +653,6 @@
     document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
     document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
     
-    document.getElementById('estoque').value = p.estoque !== undefined ? p.estoque : 10;
     document.getElementById('vendido').checked = p.vendido || false;
     document.getElementById('indisponivel').checked = p.indisponivel || false;
 
@@ -627,39 +669,6 @@
     abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
   };
 
-  window.duplicarPerfume = function(id) {
-    const p = todosPerfumesAdmin.find(item => item.id === id);
-    if(!p) return;
-
-    document.getElementById('nome').value = p.nome + " (Cópia)";
-    document.getElementById('insp').value = p.insp;
-    document.getElementById('cat').value = p.cat;
-    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
-    
-    document.getElementById('chk-30').checked = !!p.tamanhos?.["30ml"];
-    document.getElementById('preco-30').value = p.tamanhos?.["30ml"] || '';
-    document.getElementById('chk-50').checked = !!p.tamanhos?.["50ml"];
-    document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
-    document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
-    document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
-    
-    document.getElementById('estoque').value = p.estoque || 10;
-    document.getElementById('vendido').checked = false;
-    document.getElementById('indisponivel').checked = false;
-
-    document.getElementById('desc').value = p.desc || '';
-    document.getElementById('topo').value = p.notas?.topo || '';
-    document.getElementById('coracao').value = p.notas?.coracao || '';
-    document.getElementById('fundo').value = p.notas?.fundo || '';
-
-    editId.value = '';
-    formTitulo.innerText = "Duplicando Perfume";
-    btnSubmit.innerText = "Salvar Cópia";
-    btnCancelarEdit.style.display = 'block';
-
-    abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
-  };
-
   function carregarListaAdmin() {
     const q = query(collection(db, "perfumes"), orderBy("nome"));
     onSnapshot(q, (snapshot) => {
@@ -668,6 +677,9 @@
         todosPerfumesAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
       renderizarListaAdmin(); 
+      if (document.getElementById('section-estoque').classList.contains('active')) {
+        renderizarEstoque();
+      }
     });
   }
 
@@ -729,9 +741,9 @@
 
       let btnStatus = '';
       if (p.indisponivel || p.estoque === 0) {
-        btnStatus = `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${p.id}', false)" title="Ativar Vendas">▶ Ativar</button>`;
+        btnStatus = `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${p.id}', false)" title="Ativar Vendas">▶️ Ativar</button>`;
       } else {
-        btnStatus = `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${p.id}', true)" title="Pausar Vendas">⏸ Pausar</button>`;
+        btnStatus = `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${p.id}', true)" title="Pausar Vendas">⏸️ Pausar</button>`;
       }
 
       const div = document.createElement('div');
@@ -749,16 +761,55 @@
           </div>
         </div>
         <div class="item-acoes">
-          <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link">📋</button>
+          <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link">📋 Copiar</button>
+          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️ Editar</button>
           ${btnStatus}
-          <button class="btn-acao btn-duplicar" onclick="duplicarPerfume('${p.id}')" title="Duplicar">📑</button>
-          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️</button>
-          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️</button>
+          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️ Excluir</button>
         </div>
       `;
       listaAdmin.appendChild(div);
     });
   }
+
+  function renderizarEstoque() {
+    listaEstoque.innerHTML = '';
+    if (todosPerfumesAdmin.length === 0) {
+      listaEstoque.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum perfume cadastrado.</p>';
+      return;
+    }
+
+    todosPerfumesAdmin.forEach((p) => {
+      const div = document.createElement('div');
+      div.className = 'estoque-item';
+      div.innerHTML = `
+        <div class="info">
+          <strong>${p.nome}</strong>
+          <small>Insp: ${p.insp}</small>
+        </div>
+        <div class="controle">
+          <input type="number" id="estoque-input-${p.id}" value="${p.estoque !== undefined ? p.estoque : 5}" min="0">
+          <button class="btn-salvar-estoque" onclick="salvarEstoque('${p.id}')">Salvar</button>
+        </div>
+      `;
+      listaEstoque.appendChild(div);
+    });
+  }
+
+  window.salvarEstoque = async function(id) {
+    const input = document.getElementById('estoque-input-' + id);
+    const novoEstoque = parseInt(input.value) || 0;
+
+    try {
+      await updateDoc(doc(db, "perfumes", id), {
+        estoque: novoEstoque,
+        indisponivel: novoEstoque === 0 ? true : false
+      });
+      mostrarMsg("Estoque atualizado!", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao salvar estoque.", "erro");
+    }
+  };
 
   function carregarPedidos() {
     const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
@@ -773,6 +824,8 @@
 
       snapshot.forEach((docSnap) => {
         const pedido = docSnap.data();
+        const pedidoId = docSnap.id;
+        
         let dataFormatada = "Data desconhecida";
         if (pedido.data) {
           const d = pedido.data.toDate ? pedido.data.toDate() : new Date(pedido.data);
@@ -786,19 +839,63 @@
           });
         }
 
+        const isConcretizada = pedido.concretizada || false;
+        
         const div = document.createElement('div');
-        div.className = 'pedido-item';
+        div.className = 'pedido-item ' + (isConcretizada ? 'concretizado' : '');
         div.innerHTML = `
           <div class="pedido-header">
             <span class="pedido-data">📅 ${dataFormatada}</span>
             <span class="pedido-total">R$ ${pedido.total.toFixed(2).replace('.', ',')}</span>
           </div>
           <ul class="pedido-itens">${itensHtml}</ul>
+          <button class="btn-concretizada ${isConcretizada ? 'concretizada' : ''}" 
+                  onclick="marcarConcretizada('${pedidoId}', ${isConcretizada})"
+                  ${isConcretizada ? 'disabled' : ''}>
+            ${isConcretizada ? '✅ Venda Concretizada' : '✔️ Marcar como Concretizada'}
+          </button>
         `;
         listaPedidos.appendChild(div);
       });
     });
   }
+
+  window.marcarConcretizada = async function(pedidoId, jaConcretizada) {
+    if (jaConcretizada) return;
+    if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
+
+    try {
+      // Pega os dados do pedido
+      const pedidoSnap = await getDocs(collection(db, "pedidos"));
+      let pedidoData = null;
+      pedidoSnap.forEach(d => { if(d.id === pedidoId) pedidoData = d.data(); });
+
+      if (!pedidoData) return;
+
+      // Desconta do estoque de cada item
+      for (const item of pedidoData.itens) {
+        // Encontra o perfume pelo nome
+        const perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
+        if (perfume) {
+          const novoEstoque = Math.max(0, (perfume.estoque || 0) - item.qtd);
+          await updateDoc(doc(db, "perfumes", perfume.id), {
+            estoque: novoEstoque,
+            indisponivel: novoEstoque === 0 ? true : false
+          });
+        }
+      }
+
+      // Marca o pedido como concretizado
+      await updateDoc(doc(db, "pedidos", pedidoId), {
+        concretizada: true
+      });
+
+      mostrarMsg("Venda concretizada! Estoque abatido.", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao concretizar venda.", "erro");
+    }
+  };
 
   window.limparPedidos = async function() {
     if (!confirm("Tem certeza que deseja apagar TODO o histórico de pedidos? Essa ação não pode ser desfeita.")) return;
@@ -807,18 +904,14 @@
     btnLimparPedidos.disabled = true;
 
     try {
-      const q = query(collection(db, "pedidos"));
-      const snapshot = await onSnapshot(q, async (snap) => {
-        // Pega todos os documentos e deleta um por um
-        const docs = snap.docs;
-        for (let i = 0; i < docs.length; i++) {
-          await deleteDoc(doc(db, "pedidos", docs[i].id));
-        }
-        
-        mostrarMsg("Histórico limpo com sucesso!", "sucesso");
-        btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
-        btnLimparPedidos.disabled = false;
-      });
+      const snapshot = await getDocs(collection(db, "pedidos"));
+      for (const docSnap of snapshot.docs) {
+        await deleteDoc(doc(db, "pedidos", docSnap.id));
+      }
+      
+      mostrarMsg("Histórico limpo com sucesso!", "sucesso");
+      btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
+      btnLimparPedidos.disabled = false;
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao limpar histórico.", "erro");
@@ -848,7 +941,7 @@
       const p = todosPerfumesAdmin.find(item => item.id === id);
       let novosDados = { indisponivel: novoStatusIndisponivel };
       if (!novoStatusIndisponivel && p.estoque === 0) {
-        novosDados.estoque = 10;
+        novosDados.estoque = 5;
       }
       
       await updateDoc(perfumeRef, novosDados);
