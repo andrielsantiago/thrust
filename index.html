@@ -6,7 +6,7 @@
 <title>Admin - THRUST PARFUMS</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --dourado: #c9a227; --dourado-claro: #f5d97a; --fundo: #0d0d0d; --card: #1a1a1a; --borda: rgba(212,175,55,0.25); }
+  :root { --dourado: #c9a227; --dourado-claro: #f5d97a; --fundo: #0d0d0d; --card: #1a1a1a; --borda: rgba(212,175,55,0.25); --verde-whats: #25D366; }
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
   body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: 50px; overflow-x: hidden; }
   
@@ -43,7 +43,7 @@
   .dash-card .lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-top: 3px; font-weight: 600; line-height: 1.2; }
 
   .menu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
-  @media (min-width: 600px) { .menu-cards { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+  @media (min-width: 600px) { .menu-cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; } }
 
   .menu-card { background: #151515; border: 1px solid #333; border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 110px; }
   .menu-card:hover, .menu-card.active { border-color: var(--dourado); background: rgba(212,175,55,0.1); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
@@ -163,8 +163,8 @@
   .selo-concretizado { background: rgba(37,211,102,0.15); color: #25D366; border: 1px solid #25D366; }
   .selo-cancelado { background: rgba(201,74,74,0.15); color: #ff6b6b; border: 1px solid #c94a4a; }
   .selo-pendente { background: rgba(255,152,0,0.15); color: #ff9800; border: 1px solid #ff9800; }
+  .selo-cupom { background: rgba(212,175,55,0.15); color: var(--dourado-claro); border: 1px solid var(--dourado); }
 
-  /* NÚMERO DO PEDIDO */
   .numero-pedido-badge { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(245,217,122,0.15)); border: 1px solid var(--dourado); border-radius: 8px; padding: 6px 10px; cursor: pointer; transition: 0.2s; margin-bottom: 10px; }
   .numero-pedido-badge:hover { background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(245,217,122,0.25)); box-shadow: 0 0 12px rgba(212,175,55,0.3); }
   .numero-pedido-badge:active { transform: scale(0.97); }
@@ -174,12 +174,10 @@
   .numero-pedido-badge.copiado { background: linear-gradient(135deg, rgba(37,211,102,0.2), rgba(37,211,102,0.15)); border-color: #25D366; }
   .numero-pedido-badge.copiado .lbl, .numero-pedido-badge.copiado .num { color: #25D366; }
 
-  /* WHATSAPP DO CLIENTE */
   .cliente-whats { background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.4); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .cliente-whats-info { flex: 1; min-width: 0; }
   .cliente-whats-info small { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
   .cliente-whats-info strong { font-size: 0.9rem; color: var(--dourado-claro); font-weight: 700; }
-  .cliente-whats-info .sem-whats { color: #666; font-size: 0.78rem; font-style: italic; }
   .btn-whats-cliente { background: var(--verde-whats); color: #fff; border: none; padding: 9px 14px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; flex-shrink: 0; text-decoration: none; }
   .btn-whats-cliente:hover { box-shadow: 0 0 15px rgba(37,211,102,0.5); transform: scale(1.02); }
   .btn-whats-cliente svg { width: 14px; height: 14px; fill: #fff; }
@@ -247,10 +245,55 @@
   .btn-limpar-pedidos:hover { background: #c94a4a; color: #fff; }
   .btn-limpar-pedidos:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  @media (min-width: 600px) {
-    .item-admin { flex-direction: row; align-items: center; justify-content: space-between; }
-    .item-dados .nome { font-size: 1rem; }
-  }
+  /* CUPONS */
+  .cupom-contador { display: flex; align-items: center; gap: 10px; background: #151515; border: 1px solid #333; border-radius: 10px; padding: 12px 15px; margin-bottom: 15px; }
+  .cupom-contador .num { font-size: 1.4rem; font-weight: 800; color: var(--dourado-claro); }
+  .cupom-contador .lbl { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; }
+  .cupom-contador.completo { border-color: #ff9800; background: rgba(255,152,0,0.08); }
+  .cupom-contador.completo .num { color: #ff9800; }
+
+  .btn-add-cupom { background: linear-gradient(180deg, var(--dourado-claro), var(--dourado)); color: #0d0d0d; border: none; padding: 12px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: 0.3s; width: 100%; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+  .btn-add-cupom:hover { box-shadow: 0 0 20px rgba(212,175,55,0.5); }
+  .btn-add-cupom:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .cupom-item { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 10px; }
+  .cupom-item.inativo { border-color: #444; opacity: 0.6; }
+  .cupom-item.esgotado { border-color: #c94a4a; opacity: 0.65; }
+  .cupom-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .cupom-codigo { font-family: 'Courier New', monospace; font-size: 1.05rem; font-weight: 800; color: var(--dourado-claro); letter-spacing: 1px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+  .cupom-codigo:hover { color: #fff; }
+  .cupom-codigo .icone-copiar { font-size: 0.75rem; opacity: 0.6; }
+  .cupom-codigo.copiado { color: #25D366; }
+  .cupom-pct-badge { background: linear-gradient(135deg, var(--dourado), var(--dourado-claro)); color: #0d0d0d; font-weight: 800; font-size: 0.85rem; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+  .cupom-detalhes { font-size: 0.75rem; color: #888; line-height: 1.6; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .cupom-detalhes span { display: inline-flex; align-items: center; gap: 4px; }
+  .cupom-detalhes span.aviso { color: #ff9800; font-weight: 700; }
+  .cupom-detalhes span.esgotado { color: #ff6b6b; font-weight: 700; }
+
+  .cupom-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-cupom-acao { padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.78rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
+  .btn-cupom-pausar { background: rgba(255,152,0,0.15); border-color: #ff9800; color: #ff9800; }
+  .btn-cupom-pausar:hover { background: #ff9800; color: #0d0d0d; }
+  .btn-cupom-ativar { background: rgba(37,211,102,0.15); border-color: #25D366; color: #25D366; }
+  .btn-cupom-ativar:hover { background: #25D366; color: #0d0d0d; }
+  .btn-cupom-excluir { background: rgba(201,74,74,0.15); border-color: #c94a4a; color: #ff6b6b; }
+  .btn-cupom-excluir:hover { background: #c94a4a; color: #fff; }
+
+  /* MODAL NOVO CUPOM */
+  .modal-cupom-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 8500; justify-content: center; align-items: center; padding: 15px; }
+  .modal-cupom-overlay.ativo { display: flex; }
+  .modal-cupom-content { background: var(--card); padding: 25px 20px; border-radius: 12px; border: 1px solid var(--dourado); width: 100%; max-width: 440px; box-shadow: 0 20px 60px rgba(212,175,55,0.3); }
+  .modal-cupom-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); }
+  .modal-cupom-header h3 { color: var(--dourado-claro); font-size: 1.15rem; }
+  .modal-cupom-header button { background: none; border: none; color: var(--dourado); font-size: 1.5rem; cursor: pointer; }
+
+  .cupom-codigo-input { display: flex; gap: 6px; }
+  .cupom-codigo-input input { flex: 1; padding: 12px; border-radius: 6px; border: 2px solid var(--dourado); background: #0d0d0d; color: var(--dourado-claro); font-family: 'Courier New', monospace; font-size: 1rem; font-weight: 800; letter-spacing: 1px; text-align: center; text-transform: uppercase; outline: none; min-width: 0; }
+  .cupom-codigo-input input:focus { border-color: var(--dourado-claro); box-shadow: 0 0 12px rgba(212,175,55,0.3); }
+  .btn-gerar-codigo { background: rgba(212,175,55,0.15); border: 1px solid var(--dourado); color: var(--dourado); padding: 10px 14px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+  .btn-gerar-codigo:hover { background: var(--dourado); color: #0d0d0d; }
+
+  .cupom-info-aviso { background: rgba(212,175,55,0.06); border: 1px dashed var(--dourado); border-radius: 8px; padding: 10px 12px; font-size: 0.72rem; color: #ccc; line-height: 1.5; margin-top: 12px; }
 </style>
 </head>
 <body>
@@ -310,6 +353,10 @@
     <div class="menu-card" onclick="abrirSecao('pedidos', this)">
       <img src="https://img.icons8.com/color/96/shopping-cart--v1.png" alt="Pedidos">
       <span>Pedidos</span>
+    </div>
+    <div class="menu-card" onclick="abrirSecao('cupons', this)">
+      <img src="https://img.icons8.com/color/96/discount-ticket.png" alt="Cupons">
+      <span>Cupons</span>
     </div>
   </div>
 
@@ -448,6 +495,21 @@
       🗑️ Limpar Todo o Histórico
     </button>
   </div>
+
+  <div class="section-content" id="section-cupons">
+    <h2 class="section-title">Cupons de Desconto</h2>
+    
+    <div class="cupom-contador" id="cupomContador">
+      <div class="num" id="cupomContadorNum">0</div>
+      <div class="lbl">de 2 cupons<br>ativos</div>
+    </div>
+
+    <button class="btn-add-cupom" id="btnAddCupom" onclick="abrirModalNovoCupom()">
+      ➕ Gerar Novo Cupom
+    </button>
+
+    <div id="lista-cupons"></div>
+  </div>
 </div>
 
 <div class="modal-editar-overlay" id="modalEditarPedido">
@@ -473,10 +535,44 @@
   </div>
 </div>
 
+<div class="modal-cupom-overlay" id="modalNovoCupom">
+  <div class="modal-cupom-content">
+    <div class="modal-cupom-header">
+      <h3>🎟️ Novo Cupom</h3>
+      <button onclick="fecharModalNovoCupom()">✕</button>
+    </div>
+    
+    <div class="input-group">
+      <label>Código do Cupom *</label>
+      <div class="cupom-codigo-input">
+        <input type="text" id="novoCupomCodigo" placeholder="THRUST10" maxlength="30" autocomplete="off">
+        <button class="btn-gerar-codigo" onclick="gerarCodigoAleatorio()">🎲 Gerar</button>
+      </div>
+    </div>
+
+    <div class="grid-inputs">
+      <div class="input-group">
+        <label>Desconto (%) *</label>
+        <input type="number" id="novoCupomPct" min="1" max="100" step="1" placeholder="10" value="10">
+      </div>
+      <div class="input-group">
+        <label>Limite de uso</label>
+        <input type="number" id="novoCupomLimite" min="1" step="1" placeholder="Ilimitado">
+      </div>
+    </div>
+
+    <div class="cupom-info-aviso">
+      💡 Deixe o campo "Limite de uso" <strong>vazio</strong> para cupom ilimitado. O cupom começa <strong>ativo</strong>. Máximo de 2 cupons ativos simultâneos.
+    </div>
+
+    <button class="btn-salvar" id="btnSalvarCupom" onclick="salvarNovoCupom()" style="margin-top:15px;">Criar Cupom</button>
+  </div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, getDocs, where, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtdszBtbQiaZnWcLLKBPnwo_3yHRtp2mA",
@@ -497,6 +593,7 @@
   const TAMANHOS = ['30ml', '50ml', '100ml'];
   const DESCONTO_MIN = 3;
   const DESCONTO_PCT = 0.05;
+  const MAX_CUPONS_ATIVOS = 2;
 
   const telaCarregando = document.getElementById('tela-carregando');
   const telaLogin = document.getElementById('tela-login');
@@ -506,6 +603,7 @@
   const listaAdmin = document.getElementById('lista-perfumes-admin');
   const listaPedidos = document.getElementById('lista-pedidos');
   const listaEstoque = document.getElementById('lista-estoque');
+  const listaCupons = document.getElementById('lista-cupons');
   const formPerfume = document.getElementById('form-perfume');
   const msgDiv = document.getElementById('mensagem');
   const btnSubmit = document.getElementById('btn-submit');
@@ -519,6 +617,7 @@
   let termoBuscaPedido = '';
   let todosPerfumesAdmin = []; 
   let todosPedidosAdmin = [];
+  let todosCuponsAdmin = [];
 
   const editId = document.getElementById('edit-id');
   const formTitulo = document.getElementById('form-titulo');
@@ -557,10 +656,6 @@
     return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
   }
 
-  function formatarTelefoneExibir(v) {
-    return formatarTelefoneInput(v);
-  }
-
   function telefoneParaWa(v) {
     const d = String(v).replace(/\D/g, '');
     return '55' + d;
@@ -569,6 +664,16 @@
   function telefoneValido(v) {
     const d = String(v).replace(/\D/g, '');
     return d.length === 10 || d.length === 11;
+  }
+
+  function cupomUsosMostrar(c) {
+    const usos = c.usos || 0;
+    if (c.limiteUso) return usos + '/' + c.limiteUso;
+    return usos + ' (ilimitado)';
+  }
+
+  function cupomEsgotado(c) {
+    return c.limiteUso && (c.usos || 0) >= c.limiteUso;
   }
 
   function atualizarDashboard() {
@@ -586,6 +691,25 @@
     document.getElementById('dash-total').innerText = total;
     document.getElementById('dash-esgotados').innerText = esgotados;
     document.getElementById('dash-baixo').innerText = baixo;
+  }
+
+  function atualizarContadorCupons() {
+    const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c)).length;
+    document.getElementById('cupomContadorNum').innerText = ativos;
+    const cont = document.getElementById('cupomContador');
+    if (ativos >= MAX_CUPONS_ATIVOS) {
+      cont.classList.add('completo');
+    } else {
+      cont.classList.remove('completo');
+    }
+    const btnAdd = document.getElementById('btnAddCupom');
+    if (ativos >= MAX_CUPONS_ATIVOS) {
+      btnAdd.disabled = true;
+      btnAdd.innerText = '🚫 Limite de 2 cupons ativos atingido';
+    } else {
+      btnAdd.disabled = false;
+      btnAdd.innerText = '➕ Gerar Novo Cupom';
+    }
   }
 
   window.irParaEsgotados = function() {
@@ -680,6 +804,7 @@
         painel.style.display = 'block';
         if(todosPerfumesAdmin.length === 0) carregarListaAdmin();
         carregarPedidos();
+        carregarCupons();
       } else {
         alert("Acesso negado.");
         signOut(auth);
@@ -903,11 +1028,11 @@
           <img src="${p.img !== 'COLE_O_LINK_AQUI' ? p.img : 'https://via.placeholder.com/45'}" alt="">
           <div class="item-dados">
             <div class="nome">
-              ${p.nome} 
+              ${esc(p.nome)} 
               ${p.vendido ? '🔥' : ''} 
               ${estoqueHtml}
             </div>
-            <div class="detalhes">Insp: ${p.insp} | ${precoExibir}</div>
+            <div class="detalhes">Insp: ${esc(p.insp)} | ${precoExibir}</div>
           </div>
         </div>
         <div class="item-acoes">
@@ -958,8 +1083,8 @@
       div.className = 'estoque-item';
       div.innerHTML = `
         <div class="info">
-          <strong>${p.nome} <span class="estoque-status-salvo" id="status-${p.id}" style="display:none;">✓ Salvo</span></strong>
-          <small>Insp: ${p.insp}</small>
+          <strong>${esc(p.nome)} <span class="estoque-status-salvo" id="status-${p.id}" style="display:none;">✓ Salvo</span></strong>
+          <small>Insp: ${esc(p.insp)}</small>
         </div>
         <div class="estoque-tamanhos">${linhasHtml}</div>
       `;
@@ -1074,7 +1199,6 @@
       return;
     }
 
-    // Filtra por termo de busca
     let pedidosFiltrados = todosPedidosAdmin;
     if (termoBuscaPedido) {
       pedidosFiltrados = pedidosFiltrados.filter(p => {
@@ -1103,7 +1227,7 @@
       let itensHtml = '';
       if (pedido.itens && Array.isArray(pedido.itens)) {
         pedido.itens.forEach(item => {
-          itensHtml += `<li><span>${item.qtd}x ${item.nome} (${item.tamanho})</span> <span>${fmt(item.preco * item.qtd)}</span></li>`;
+          itensHtml += `<li><span>${item.qtd}x ${esc(item.nome)} (${item.tamanho})</span> <span>${fmt(item.preco * item.qtd)}</span></li>`;
         });
       }
 
@@ -1115,14 +1239,14 @@
       if (isConcretizada) selosHtml += '<span class="selo-pedido selo-concretizado">✅ Concretizada</span>';
       if (isCancelada) selosHtml += '<span class="selo-pedido selo-cancelado">❌ Cancelada</span>';
       if (isPendente) selosHtml += '<span class="selo-pedido selo-pendente">⏳ Pendente</span>';
+      if (pedido.cupomCodigo) selosHtml += '<span class="selo-pedido selo-cupom">🎟️ ' + esc(pedido.cupomCodigo) + ' (' + pedido.cupomPercentual + '%)</span>';
 
-      // Número do pedido (clicável para copiar)
       let numeroPedidoHtml = '';
       if (pedido.numero) {
         numeroPedidoHtml = `
-          <div class="numero-pedido-badge" id="badge-${pedidoId}" onclick="copiarNumeroPedido('${pedidoId}', '${pedido.numero}')">
+          <div class="numero-pedido-badge" id="badge-${pedidoId}" onclick="copiarNumeroPedido('${pedidoId}', '${esc(pedido.numero)}')">
             <span class="lbl">Pedido</span>
-            <span class="num">${pedido.numero}</span>
+            <span class="num">${esc(pedido.numero)}</span>
             <span class="icone-copiar">📋</span>
           </div>
         `;
@@ -1135,10 +1259,9 @@
         `;
       }
 
-      // WhatsApp do cliente
       let whatsHtml = '';
       if (pedido.clienteWhats && telefoneValido(pedido.clienteWhats)) {
-        const telExibir = formatarTelefoneExibir(pedido.clienteWhats);
+        const telExibir = formatarTelefoneInput(pedido.clienteWhats);
         const telWa = telefoneParaWa(pedido.clienteWhats);
         whatsHtml = `
           <div class="cliente-whats">
@@ -1156,7 +1279,10 @@
 
       let totaisHtml = `<span>Subtotal: <strong>${fmt(pedido.subtotal || 0)}</strong></span>`;
       if (pedido.desconto && pedido.desconto > 0) {
-        totaisHtml += `<span class="desconto">Desconto (5%): <strong>− ${fmt(pedido.desconto)}</strong></span>`;
+        let label = 'Desconto:';
+        if (pedido.cupomCodigo) label = 'Desconto cupom (' + pedido.cupomPercentual + '%):';
+        else label = 'Desconto (5%):';
+        totaisHtml += `<span class="desconto">${label} <strong>− ${fmt(pedido.desconto)}</strong></span>`;
       }
 
       let botoesHtml = '';
@@ -1334,7 +1460,6 @@
         total: r.total
       };
 
-      // Só grava clienteWhats se for válido ou vazio
       if (whatsEmEdicao && telefoneValido(whatsEmEdicao)) {
         dadosAtualizados.clienteWhats = whatsEmEdicao;
       } else if (whatsEmEdicao === '') {
@@ -1364,6 +1489,7 @@
     if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
 
     try {
+      // Abate estoque
       for (const item of pedido.itens) {
         let perfume = null;
         if (item.id) perfume = todosPerfumesAdmin.find(p => p.id === item.id);
@@ -1380,6 +1506,15 @@
 
           await updateDoc(doc(db, "perfumes", perfume.id), { estoque: novoEstoqueObj });
         }
+      }
+
+      // Incrementa uso do cupom se aplicável
+      if (pedido.cupomId) {
+        try {
+          await updateDoc(doc(db, "cupons", pedido.cupomId), {
+            usos: increment(1)
+          });
+        } catch(err) { console.error("Erro ao incrementar cupom:", err); }
       }
 
       await updateDoc(doc(db, "pedidos", pedidoId), { concretizada: true });
@@ -1422,6 +1557,17 @@
 
             await updateDoc(doc(db, "perfumes", perfume.id), { estoque: novoEstoqueObj });
           }
+        }
+
+        // Decrementa uso do cupom (não pode ser abaixo de 0)
+        if (pedido.cupomId) {
+          try {
+            const cupomRef = doc(db, "cupons", pedido.cupomId);
+            const snap = await getDocs(query(collection(db, "cupons"), where("__name__", "==", pedido.cupomId)));
+            let usosAtuais = 0;
+            snap.forEach(d => { usosAtuais = d.data().usos || 0; });
+            await updateDoc(cupomRef, { usos: Math.max(0, usosAtuais - 1) });
+          } catch(err) { console.error("Erro ao decrementar cupom:", err); }
         }
       }
 
@@ -1509,6 +1655,198 @@
       } catch (error) {
         mostrarMsg("Erro ao excluir.", "erro");
       }
+    }
+  };
+
+  /* ============================================================
+     CUPONS
+     ============================================================ */
+  function carregarCupons() {
+    const q = query(collection(db, "cupons"), orderBy("criadoEm", "desc"));
+    onSnapshot(q, (snapshot) => {
+      todosCuponsAdmin = [];
+      snapshot.forEach((docSnap) => {
+        todosCuponsAdmin.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      renderizarCupons();
+      atualizarContadorCupons();
+    });
+  }
+
+  function renderizarCupons() {
+    listaCupons.innerHTML = '';
+    if (todosCuponsAdmin.length === 0) {
+      listaCupons.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum cupom cadastrado ainda.</p>';
+      return;
+    }
+
+    todosCuponsAdmin.forEach((c) => {
+      const esgotado = cupomEsgotado(c);
+      const inativo = !c.ativo;
+      
+      let classeStatus = '';
+      if (esgotado) classeStatus = 'esgotado';
+      else if (inativo) classeStatus = 'inativo';
+
+      const div = document.createElement('div');
+      div.className = 'cupom-item ' + classeStatus;
+      div.innerHTML = `
+        <div class="cupom-item-header">
+          <span class="cupom-codigo" id="cod-${c.id}" onclick="copiarCodigoCupom('${c.id}', '${esc(c.codigo)}')">
+            ${esc(c.codigo)}
+            <span class="icone-copiar">📋</span>
+          </span>
+          <span class="cupom-pct-badge">${c.percentual}% OFF</span>
+        </div>
+        <div class="cupom-detalhes">
+          <span>📊 Usos: <strong style="color:var(--dourado-claro);">${cupomUsosMostrar(c)}</strong></span>
+          ${esgotado ? '<span class="esgotado">🚫 Esgotado</span>' : ''}
+          ${inativo && !esgotado ? '<span class="aviso">⏸️ Pausado</span>' : ''}
+          ${c.ativo && !esgotado ? '<span style="color:#25D366; font-weight:700;">● Ativo</span>' : ''}
+        </div>
+        <div class="cupom-acoes">
+          ${!esgotado ? `<button class="btn-cupom-acao ${c.ativo ? 'btn-cupom-pausar' : 'btn-cupom-ativar'}" onclick="toggleCupom('${c.id}', ${!c.ativo})">${c.ativo ? '⏸️ Pausar' : '▶️ Ativar'}</button>` : '<button class="btn-cupom-acao btn-cupom-ativar" disabled style="opacity:0.4;">Esgotado</button>'}
+          <button class="btn-cupom-acao btn-cupom-excluir" onclick="excluirCupom('${c.id}')">🗑️ Excluir</button>
+        </div>
+      `;
+      listaCupons.appendChild(div);
+    });
+  }
+
+  window.copiarCodigoCupom = function(id, codigo) {
+    navigator.clipboard.writeText(codigo).then(() => {
+      const el = document.getElementById('cod-' + id);
+      if (el) {
+        el.classList.add('copiado');
+        const icone = el.querySelector('.icone-copiar');
+        const original = icone.textContent;
+        icone.textContent = '✓';
+        setTimeout(() => {
+          el.classList.remove('copiado');
+          icone.textContent = original;
+        }, 1500);
+      }
+      mostrarMsg("Código copiado: " + codigo, "sucesso");
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = codigo;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      mostrarMsg("Código copiado!", "sucesso");
+    });
+  };
+
+  window.abrirModalNovoCupom = function() {
+    const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c)).length;
+    if (ativos >= MAX_CUPONS_ATIVOS) {
+      mostrarMsg("Você já tem " + MAX_CUPONS_ATIVOS + " cupons ativos. Desative um antes.", "erro");
+      return;
+    }
+    
+    document.getElementById('novoCupomCodigo').value = '';
+    document.getElementById('novoCupomPct').value = '10';
+    document.getElementById('novoCupomLimite').value = '';
+    
+    document.getElementById('modalNovoCupom').classList.add('ativo');
+  };
+
+  window.fecharModalNovoCupom = function() {
+    document.getElementById('modalNovoCupom').classList.remove('ativo');
+  };
+
+  window.gerarCodigoAleatorio = function() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let codigo = 'THRUST-';
+    for (let i = 0; i < 4; i++) {
+      codigo += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    document.getElementById('novoCupomCodigo').value = codigo;
+  };
+
+  window.salvarNovoCupom = async function() {
+    const codigoInput = document.getElementById('novoCupomCodigo');
+    const pctInput = document.getElementById('novoCupomPct');
+    const limiteInput = document.getElementById('novoCupomLimite');
+    const btn = document.getElementById('btnSalvarCupom');
+    
+    const codigo = codigoInput.value.trim().toUpperCase().replace(/\s+/g, '');
+    const pct = parseInt(pctInput.value);
+    const limite = limiteInput.value.trim() === '' ? null : parseInt(limiteInput.value);
+    
+    if (!codigo || codigo.length < 3) {
+      mostrarMsg("Código deve ter no mínimo 3 caracteres.", "erro");
+      return;
+    }
+    
+    if (isNaN(pct) || pct < 1 || pct > 100) {
+      mostrarMsg("Desconto deve ser entre 1% e 100%.", "erro");
+      return;
+    }
+    
+    if (limite !== null && (isNaN(limite) || limite < 1)) {
+      mostrarMsg("Limite de uso deve ser no mínimo 1 (ou vazio para ilimitado).", "erro");
+      return;
+    }
+    
+    // Verifica duplicidade
+    const q = query(collection(db, "cupons"), where("codigo", "==", codigo));
+    const snap = await getDocs(q);
+    if (!snap.empty) {
+      mostrarMsg("Já existe um cupom com este código.", "erro");
+      return;
+    }
+    
+    btn.disabled = true;
+    btn.innerText = "Criando...";
+    
+    try {
+      await addDoc(collection(db, "cupons"), {
+        codigo: codigo,
+        percentual: pct,
+        limiteUso: limite,
+        usos: 0,
+        ativo: true,
+        criadoEm: new Date()
+      });
+      mostrarMsg("Cupom criado: " + codigo, "sucesso");
+      fecharModalNovoCupom();
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao criar cupom.", "erro");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Criar Cupom";
+    }
+  };
+
+  window.toggleCupom = async function(id, novoAtivo) {
+    if (novoAtivo) {
+      const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c) && c.id !== id).length;
+      if (ativos >= MAX_CUPONS_ATIVOS) {
+        mostrarMsg("Limite de " + MAX_CUPONS_ATIVOS + " cupons ativos atingido. Desative outro antes.", "erro");
+        return;
+      }
+    }
+    
+    try {
+      await updateDoc(doc(db, "cupons", id), { ativo: novoAtivo });
+      mostrarMsg(novoAtivo ? "Cupom ativado!" : "Cupom pausado!", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao alterar cupom.", "erro");
+    }
+  };
+
+  window.excluirCupom = async function(id) {
+    if (!confirm("Tem certeza que deseja excluir este cupom? Pedidos antigos que usaram ele não serão afetados.")) return;
+    try {
+      await deleteDoc(doc(db, "cupons", id));
+      mostrarMsg("Cupom excluído!", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao excluir cupom.", "erro");
     }
   };
 
