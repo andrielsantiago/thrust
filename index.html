@@ -481,6 +481,7 @@
 
   <div class="section-content" id="section-estoque">
     <h2 class="section-title">Controle de Estoque</h2>
+    <input type="text" class="search-admin" id="search-estoque" placeholder="🔍 Buscar por nome ou inspiração..." style="margin-bottom:15px;">
     <p style="font-size:0.72rem; color:#888; margin-bottom:15px; line-height:1.5;">
       💡 Clique em <strong>+</strong> ou <strong>−</strong> para alterar. O salvamento é automático. O número 0 marca o tamanho como esgotado.
     </p>
@@ -609,12 +610,14 @@
   const btnSubmit = document.getElementById('btn-submit');
   const btnLimparPedidos = document.getElementById('btn-limpar-pedidos');
   const buscaPedido = document.getElementById('busca-pedido');
+  const searchEstoque = document.getElementById('search-estoque');
   
   const searchAdmin = document.getElementById('search-admin');
   const abasAdmin = document.querySelectorAll('.aba-btn');
   let categoriaFiltroAdmin = 'todos';
   let termoBuscaAdmin = '';
   let termoBuscaPedido = '';
+  let termoBuscaEstoque = '';
   let todosPerfumesAdmin = []; 
   let todosPedidosAdmin = [];
   let todosCuponsAdmin = [];
@@ -967,6 +970,11 @@
     renderizarPedidos();
   });
 
+  searchEstoque.addEventListener('input', (e) => {
+    termoBuscaEstoque = e.target.value.toLowerCase().trim();
+    renderizarEstoque();
+  });
+
   function renderizarListaAdmin() {
     listaAdmin.innerHTML = '';
     
@@ -1055,7 +1063,20 @@
       return;
     }
 
-    todosPerfumesAdmin.forEach((p) => {
+    let listaFiltrada = todosPerfumesAdmin;
+    if (termoBuscaEstoque) {
+      listaFiltrada = listaFiltrada.filter(p => 
+        p.nome.toLowerCase().includes(termoBuscaEstoque) || 
+        (p.insp && p.insp.toLowerCase().includes(termoBuscaEstoque))
+      );
+    }
+
+    if (listaFiltrada.length === 0) {
+      listaEstoque.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum perfume encontrado.</p>';
+      return;
+    }
+
+    listaFiltrada.forEach((p) => {
       const est = normalizarEstoque(p);
       const tamanhosDoPerfume = p.tamanhos ? Object.keys(p.tamanhos) : [];
       
@@ -1489,7 +1510,6 @@
     if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
 
     try {
-      // Abate estoque
       for (const item of pedido.itens) {
         let perfume = null;
         if (item.id) perfume = todosPerfumesAdmin.find(p => p.id === item.id);
@@ -1508,7 +1528,6 @@
         }
       }
 
-      // Incrementa uso do cupom se aplicável
       if (pedido.cupomId) {
         try {
           await updateDoc(doc(db, "cupons", pedido.cupomId), {
@@ -1559,7 +1578,6 @@
           }
         }
 
-        // Decrementa uso do cupom (não pode ser abaixo de 0)
         if (pedido.cupomId) {
           try {
             const cupomRef = doc(db, "cupons", pedido.cupomId);
@@ -1658,9 +1676,6 @@
     }
   };
 
-  /* ============================================================
-     CUPONS
-     ============================================================ */
   function carregarCupons() {
     const q = query(collection(db, "cupons"), orderBy("criadoEm", "desc"));
     onSnapshot(q, (snapshot) => {
@@ -1790,7 +1805,6 @@
       return;
     }
     
-    // Verifica duplicidade
     const q = query(collection(db, "cupons"), where("codigo", "==", codigo));
     const snap = await getDocs(q);
     if (!snap.empty) {
