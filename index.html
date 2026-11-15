@@ -149,6 +149,9 @@
   .btn-excluir:active { background: #c94a4a; color: white; }
 
   /* PEDIDOS */
+  .pedido-busca { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; margin-bottom: 15px; }
+  .pedido-busca:focus { outline: none; border-color: var(--dourado); }
+
   .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; transition: 0.2s; }
   .pedido-item.concretizado { border-color: #25D366; opacity: 0.75; }
   .pedido-item.cancelado { border-color: #c94a4a; opacity: 0.7; background: rgba(201,74,74,0.04); }
@@ -160,6 +163,27 @@
   .selo-concretizado { background: rgba(37,211,102,0.15); color: #25D366; border: 1px solid #25D366; }
   .selo-cancelado { background: rgba(201,74,74,0.15); color: #ff6b6b; border: 1px solid #c94a4a; }
   .selo-pendente { background: rgba(255,152,0,0.15); color: #ff9800; border: 1px solid #ff9800; }
+
+  /* NÚMERO DO PEDIDO */
+  .numero-pedido-badge { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(245,217,122,0.15)); border: 1px solid var(--dourado); border-radius: 8px; padding: 6px 10px; cursor: pointer; transition: 0.2s; margin-bottom: 10px; }
+  .numero-pedido-badge:hover { background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(245,217,122,0.25)); box-shadow: 0 0 12px rgba(212,175,55,0.3); }
+  .numero-pedido-badge:active { transform: scale(0.97); }
+  .numero-pedido-badge .lbl { font-size: 0.6rem; color: var(--dourado); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+  .numero-pedido-badge .num { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 800; color: var(--dourado-claro); letter-spacing: 0.5px; }
+  .numero-pedido-badge .icone-copiar { font-size: 0.8rem; margin-left: 2px; opacity: 0.7; }
+  .numero-pedido-badge.copiado { background: linear-gradient(135deg, rgba(37,211,102,0.2), rgba(37,211,102,0.15)); border-color: #25D366; }
+  .numero-pedido-badge.copiado .lbl, .numero-pedido-badge.copiado .num { color: #25D366; }
+
+  /* WHATSAPP DO CLIENTE */
+  .cliente-whats { background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.4); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .cliente-whats-info { flex: 1; min-width: 0; }
+  .cliente-whats-info small { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+  .cliente-whats-info strong { font-size: 0.9rem; color: var(--dourado-claro); font-weight: 700; }
+  .cliente-whats-info .sem-whats { color: #666; font-size: 0.78rem; font-style: italic; }
+  .btn-whats-cliente { background: var(--verde-whats); color: #fff; border: none; padding: 9px 14px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; flex-shrink: 0; text-decoration: none; }
+  .btn-whats-cliente:hover { box-shadow: 0 0 15px rgba(37,211,102,0.5); transform: scale(1.02); }
+  .btn-whats-cliente svg { width: 14px; height: 14px; fill: #fff; }
+
   .pedido-itens { list-style: none; padding: 0; margin: 0 0 10px 0; }
   .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed #333; gap: 10px; }
   .pedido-itens li:last-child { border-bottom: none; }
@@ -187,6 +211,16 @@
   .modal-editar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); }
   .modal-editar-header h3 { color: var(--dourado-claro); font-size: 1.15rem; }
   .modal-editar-header button { background: none; border: none; color: var(--dourado); font-size: 1.5rem; cursor: pointer; }
+
+  .modal-editar-secao-titulo { font-size: 0.72rem; color: var(--dourado); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin: 15px 0 8px; padding-bottom: 5px; border-bottom: 1px dashed var(--borda); }
+  .modal-editar-secao-titulo:first-child { margin-top: 0; }
+
+  .edit-whats-group { background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.4); border-radius: 8px; padding: 12px; margin-bottom: 15px; }
+  .edit-whats-group label { display: block; font-size: 0.7rem; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .edit-whats-group label span { color: #888; font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 0.65rem; }
+  .edit-whats-group input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 2px solid #2a2a2a; background: #0d0d0d; color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; transition: 0.2s; letter-spacing: 0.5px; }
+  .edit-whats-group input:focus { border-color: var(--verde-whats); box-shadow: 0 0 10px rgba(37,211,102,0.25); }
+
   .edit-item-linha { background: #111; border: 1px solid #333; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
   .edit-item-info { margin-bottom: 8px; }
   .edit-item-info strong { color: var(--dourado-claro); font-size: 0.85rem; display: block; }
@@ -408,6 +442,7 @@
 
   <div class="section-content" id="section-pedidos">
     <h2 class="section-title">Histórico de Pedidos</h2>
+    <input type="text" class="pedido-busca" id="busca-pedido" placeholder="🔍 Buscar por número do pedido...">
     <div id="lista-pedidos"></div>
     <button class="btn-limpar-pedidos" id="btn-limpar-pedidos" onclick="limparPedidos()">
       🗑️ Limpar Todo o Histórico
@@ -415,13 +450,20 @@
   </div>
 </div>
 
-<!-- MODAL EDIÇÃO DE PEDIDO -->
 <div class="modal-editar-overlay" id="modalEditarPedido">
   <div class="modal-editar-content">
     <div class="modal-editar-header">
       <h3>✏️ Editar Pedido</h3>
       <button onclick="fecharModalEditar()">✕</button>
     </div>
+    
+    <div class="modal-editar-secao-titulo">📱 WhatsApp do cliente (opcional)</div>
+    <div class="edit-whats-group">
+      <label>Número com DDD <span>— preencha se desejar contato futuro</span></label>
+      <input type="tel" id="editWhatsCliente" placeholder="(11) 99999-9999" maxlength="15" oninput="onInputEditWhats(this)">
+    </div>
+
+    <div class="modal-editar-secao-titulo">🛒 Itens do pedido</div>
     <div id="modalEditarItens"></div>
     <div class="modal-editar-resumo" id="modalEditarResumo"></div>
     <div class="modal-editar-acoes">
@@ -468,11 +510,13 @@
   const msgDiv = document.getElementById('mensagem');
   const btnSubmit = document.getElementById('btn-submit');
   const btnLimparPedidos = document.getElementById('btn-limpar-pedidos');
+  const buscaPedido = document.getElementById('busca-pedido');
   
   const searchAdmin = document.getElementById('search-admin');
   const abasAdmin = document.querySelectorAll('.aba-btn');
   let categoriaFiltroAdmin = 'todos';
   let termoBuscaAdmin = '';
+  let termoBuscaPedido = '';
   let todosPerfumesAdmin = []; 
   let todosPedidosAdmin = [];
 
@@ -480,23 +524,15 @@
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
-  /* ============================================================
-     EDIÇÃO DE PEDIDO - ESTADO
-     ============================================================ */
   let pedidoEmEdicao = null;
   let itensEmEdicao = [];
+  let whatsEmEdicao = '';
 
   function normalizarEstoque(p) {
-    if (p.estoque && typeof p.estoque === 'object') {
-      return p.estoque;
-    }
+    if (p.estoque && typeof p.estoque === 'object') return p.estoque;
     const num = (typeof p.estoque === 'number') ? p.estoque : 0;
     const obj = { "50ml": num };
-    if (p.tamanhos) {
-      Object.keys(p.tamanhos).forEach(tam => {
-        if (tam !== "50ml") obj[tam] = 0;
-      });
-    }
+    if (p.tamanhos) Object.keys(p.tamanhos).forEach(tam => { if (tam !== "50ml") obj[tam] = 0; });
     return obj;
   }
 
@@ -511,6 +547,29 @@
   }
 
   function fmt(v) { return 'R$ ' + Number(v).toFixed(2).replace('.', ','); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function formatarTelefoneInput(v) {
+    let d = String(v).replace(/\D/g, '').slice(0, 11);
+    if (d.length <= 2) return d;
+    if (d.length <= 6) return '(' + d.slice(0,2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+  }
+
+  function formatarTelefoneExibir(v) {
+    return formatarTelefoneInput(v);
+  }
+
+  function telefoneParaWa(v) {
+    const d = String(v).replace(/\D/g, '');
+    return '55' + d;
+  }
+
+  function telefoneValido(v) {
+    const d = String(v).replace(/\D/g, '');
+    return d.length === 10 || d.length === 11;
+  }
 
   function atualizarDashboard() {
     const total = todosPerfumesAdmin.length;
@@ -778,6 +837,11 @@
     renderizarListaAdmin();
   });
 
+  buscaPedido.addEventListener('input', (e) => {
+    termoBuscaPedido = e.target.value.toLowerCase().trim();
+    renderizarPedidos();
+  });
+
   function renderizarListaAdmin() {
     listaAdmin.innerHTML = '';
     
@@ -991,9 +1055,6 @@
     salvarEstoqueTamanho(id, tamanho, val);
   };
 
-  /* ============================================================
-     PEDIDOS — LISTAGEM
-     ============================================================ */
   function carregarPedidos() {
     const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
     onSnapshot(q, (snapshot) => {
@@ -1012,9 +1073,25 @@
       btnLimparPedidos.disabled = true;
       return;
     }
+
+    // Filtra por termo de busca
+    let pedidosFiltrados = todosPedidosAdmin;
+    if (termoBuscaPedido) {
+      pedidosFiltrados = pedidosFiltrados.filter(p => {
+        const numero = (p.numero || '').toLowerCase();
+        return numero.includes(termoBuscaPedido);
+      });
+    }
+
+    if (pedidosFiltrados.length === 0) {
+      listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido encontrado com esse número.</p>';
+      btnLimparPedidos.disabled = false;
+      return;
+    }
+
     btnLimparPedidos.disabled = false;
 
-    todosPedidosAdmin.forEach((pedido) => {
+    pedidosFiltrados.forEach((pedido) => {
       const pedidoId = pedido.id;
       
       let dataFormatada = "Data desconhecida";
@@ -1039,13 +1116,49 @@
       if (isCancelada) selosHtml += '<span class="selo-pedido selo-cancelado">❌ Cancelada</span>';
       if (isPendente) selosHtml += '<span class="selo-pedido selo-pendente">⏳ Pendente</span>';
 
-      // Totais
+      // Número do pedido (clicável para copiar)
+      let numeroPedidoHtml = '';
+      if (pedido.numero) {
+        numeroPedidoHtml = `
+          <div class="numero-pedido-badge" id="badge-${pedidoId}" onclick="copiarNumeroPedido('${pedidoId}', '${pedido.numero}')">
+            <span class="lbl">Pedido</span>
+            <span class="num">${pedido.numero}</span>
+            <span class="icone-copiar">📋</span>
+          </div>
+        `;
+      } else {
+        numeroPedidoHtml = `
+          <div class="numero-pedido-badge" style="cursor:default; opacity:0.5;">
+            <span class="lbl">Pedido</span>
+            <span class="num">—</span>
+          </div>
+        `;
+      }
+
+      // WhatsApp do cliente
+      let whatsHtml = '';
+      if (pedido.clienteWhats && telefoneValido(pedido.clienteWhats)) {
+        const telExibir = formatarTelefoneExibir(pedido.clienteWhats);
+        const telWa = telefoneParaWa(pedido.clienteWhats);
+        whatsHtml = `
+          <div class="cliente-whats">
+            <div class="cliente-whats-info">
+              <small>WhatsApp do cliente</small>
+              <strong>${telExibir}</strong>
+            </div>
+            <a class="btn-whats-cliente" href="https://wa.me/${telWa}" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Conversar
+            </a>
+          </div>
+        `;
+      }
+
       let totaisHtml = `<span>Subtotal: <strong>${fmt(pedido.subtotal || 0)}</strong></span>`;
       if (pedido.desconto && pedido.desconto > 0) {
         totaisHtml += `<span class="desconto">Desconto (5%): <strong>− ${fmt(pedido.desconto)}</strong></span>`;
       }
 
-      // Botões de ação
       let botoesHtml = '';
       if (isPendente) {
         botoesHtml = `
@@ -1073,6 +1186,8 @@
           <span class="pedido-total">${fmt(pedido.total || 0)}</span>
         </div>
         <div class="pedido-selos">${selosHtml}</div>
+        ${numeroPedidoHtml}
+        ${whatsHtml}
         <ul class="pedido-itens">${itensHtml}</ul>
         <div class="pedido-totais">${totaisHtml}</div>
         ${botoesHtml}
@@ -1081,9 +1196,34 @@
     });
   }
 
-  /* ============================================================
-     EDITAR PEDIDO
-     ============================================================ */
+  window.copiarNumeroPedido = function(pedidoId, numero) {
+    navigator.clipboard.writeText(numero).then(() => {
+      const badge = document.getElementById('badge-' + pedidoId);
+      if (badge) {
+        badge.classList.add('copiado');
+        const icone = badge.querySelector('.icone-copiar');
+        const original = icone.textContent;
+        icone.textContent = '✓';
+        setTimeout(() => {
+          badge.classList.remove('copiado');
+          icone.textContent = original;
+        }, 1500);
+      }
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = numero;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    });
+  };
+
+  window.onInputEditWhats = function(el) {
+    whatsEmEdicao = formatarTelefoneInput(el.value);
+    el.value = whatsEmEdicao;
+  };
+
   window.abrirEdicaoPedido = function(pedidoId) {
     const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
     if (!pedido) return;
@@ -1094,6 +1234,9 @@
 
     pedidoEmEdicao = pedido;
     itensEmEdicao = JSON.parse(JSON.stringify(pedido.itens || []));
+    whatsEmEdicao = pedido.clienteWhats || '';
+    
+    document.getElementById('editWhatsCliente').value = whatsEmEdicao;
     
     renderizarModalEditar();
     document.getElementById('modalEditarPedido').classList.add('ativo');
@@ -1103,6 +1246,7 @@
     document.getElementById('modalEditarPedido').classList.remove('ativo');
     pedidoEmEdicao = null;
     itensEmEdicao = [];
+    whatsEmEdicao = '';
   };
 
   function calcularResumoEdicao() {
@@ -1130,8 +1274,8 @@
       container.innerHTML = itensEmEdicao.map((item, idx) => `
         <div class="edit-item-linha">
           <div class="edit-item-info">
-            <strong>${item.nome}</strong>
-            <small>Insp: ${item.insp || '-'} · ${item.tamanho} · ${fmt(item.preco)} un.</small>
+            <strong>${esc(item.nome)}</strong>
+            <small>Insp: ${esc(item.insp || '-')} · ${item.tamanho} · ${fmt(item.preco)} un.</small>
           </div>
           <div class="edit-item-controles">
             <div class="ctrl-qtd">
@@ -1183,12 +1327,21 @@
 
     try {
       const r = calcularResumoEdicao();
-      await updateDoc(doc(db, "pedidos", pedidoEmEdicao.id), {
+      const dadosAtualizados = {
         itens: itensEmEdicao,
         subtotal: r.subtotal,
         desconto: r.desconto,
         total: r.total
-      });
+      };
+
+      // Só grava clienteWhats se for válido ou vazio
+      if (whatsEmEdicao && telefoneValido(whatsEmEdicao)) {
+        dadosAtualizados.clienteWhats = whatsEmEdicao;
+      } else if (whatsEmEdicao === '') {
+        dadosAtualizados.clienteWhats = '';
+      }
+
+      await updateDoc(doc(db, "pedidos", pedidoEmEdicao.id), dadosAtualizados);
       mostrarMsg("Pedido atualizado!", "sucesso");
       fecharModalEditar();
     } catch (error) {
@@ -1200,9 +1353,6 @@
     }
   };
 
-  /* ============================================================
-     CONCRETIZAR VENDA
-     ============================================================ */
   window.marcarConcretizada = async function(pedidoId) {
     const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
     if (!pedido) return;
@@ -1216,12 +1366,8 @@
     try {
       for (const item of pedido.itens) {
         let perfume = null;
-        if (item.id) {
-          perfume = todosPerfumesAdmin.find(p => p.id === item.id);
-        }
-        if (!perfume) {
-          perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
-        }
+        if (item.id) perfume = todosPerfumesAdmin.find(p => p.id === item.id);
+        if (!perfume) perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
         
         if (perfume) {
           const estAtual = normalizarEstoque(perfume);
@@ -1232,15 +1378,11 @@
           const novoEstoqueObj = { ...estAtual };
           novoEstoqueObj[tamanhoItem] = novoEstoqueTam;
 
-          await updateDoc(doc(db, "perfumes", perfume.id), {
-            estoque: novoEstoqueObj
-          });
+          await updateDoc(doc(db, "perfumes", perfume.id), { estoque: novoEstoqueObj });
         }
       }
 
-      await updateDoc(doc(db, "pedidos", pedidoId), {
-        concretizada: true
-      });
+      await updateDoc(doc(db, "pedidos", pedidoId), { concretizada: true });
 
       mostrarMsg("Venda concretizada! Estoque abatido.", "sucesso");
     } catch (error) {
@@ -1249,10 +1391,6 @@
     }
   };
 
-  /* ============================================================
-     CANCELAR VENDA
-     Se já concretizada, devolve estoque. Se pendente, só marca cancelada.
-     ============================================================ */
   window.cancelarPedido = async function(pedidoId) {
     const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
     if (!pedido) return;
@@ -1267,16 +1405,11 @@
     if (!confirm(msgConfirm)) return;
 
     try {
-      // Se já estava concretizada, devolve estoque
       if (eraConcretizada) {
         for (const item of pedido.itens) {
           let perfume = null;
-          if (item.id) {
-            perfume = todosPerfumesAdmin.find(p => p.id === item.id);
-          }
-          if (!perfume) {
-            perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
-          }
+          if (item.id) perfume = todosPerfumesAdmin.find(p => p.id === item.id);
+          if (!perfume) perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
           
           if (perfume) {
             const estAtual = normalizarEstoque(perfume);
@@ -1287,22 +1420,14 @@
             const novoEstoqueObj = { ...estAtual };
             novoEstoqueObj[tamanhoItem] = novoEstoqueTam;
 
-            await updateDoc(doc(db, "perfumes", perfume.id), {
-              estoque: novoEstoqueObj
-            });
+            await updateDoc(doc(db, "perfumes", perfume.id), { estoque: novoEstoqueObj });
           }
         }
       }
 
-      await updateDoc(doc(db, "pedidos", pedidoId), {
-        cancelada: true
-      });
+      await updateDoc(doc(db, "pedidos", pedidoId), { cancelada: true });
 
-      if (eraConcretizada) {
-        mostrarMsg("Venda cancelada! Estoque devolvido.", "sucesso");
-      } else {
-        mostrarMsg("Pedido cancelado.", "sucesso");
-      }
+      mostrarMsg(eraConcretizada ? "Venda cancelada! Estoque devolvido." : "Pedido cancelado.", "sucesso");
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao cancelar pedido.", "erro");
