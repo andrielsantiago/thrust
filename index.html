@@ -15,13 +15,11 @@
   .spinner { border: 3px solid rgba(212,175,55,0.3); border-top: 3px solid var(--dourado); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-  /* LOGIN */
   .login-box { background: var(--card); padding: 40px 20px; border-radius: 10px; text-align: center; max-width: 400px; margin: 80px auto; border: 1px solid var(--dourado); }
   .login-box h1 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
   .btn-google { background: #fff; color: #333; border: none; padding: 15px 20px; font-size: 1rem; font-weight: bold; border-radius: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 30px; transition: 0.3s; }
   .btn-google:hover { background: #eee; transform: scale(0.98); }
   
-  /* PAINEL */
   #painel { max-width: 700px; margin: 0 auto; }
   .header-admin { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--borda); padding-bottom: 15px; margin-bottom: 20px; }
   .header-admin h1 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.3rem; }
@@ -32,7 +30,6 @@
   .msg.sucesso { background: #111; color: #25D366; border: 1px solid #25D366; display: block; }
   .msg.erro { background: #111; color: #ff4444; border: 1px solid #ff4444; display: block; }
 
-  /* DASHBOARD DE ALERTAS (#1) */
   .dashboard { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; }
   .dash-card { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: 0.2s; }
   .dash-card:hover { border-color: var(--dourado); background: rgba(212,175,55,0.05); }
@@ -45,74 +42,21 @@
   .dash-card.dash-esgotado .num { color: #ff6b6b; }
   .dash-card .lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-top: 3px; font-weight: 600; line-height: 1.2; }
 
-  /* MENU CARDS */
-  .menu-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 25px;
-  }
-  @media (min-width: 600px) {
-    .menu-cards { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  }
+  .menu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+  @media (min-width: 600px) { .menu-cards { grid-template-columns: 1fr 1fr 1fr 1fr; } }
 
-  .menu-card {
-    background: #151515;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 15px 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 110px;
-  }
-  .menu-card:hover, .menu-card.active {
-    border-color: var(--dourado);
-    background: rgba(212,175,55,0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(212,175,55,0.2);
-  }
-  .menu-card img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
-  .menu-card span {
-    font-weight: 700;
-    font-size: 0.7rem;
-    color: var(--dourado-claro);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    line-height: 1.2;
-  }
+  .menu-card { background: #151515; border: 1px solid #333; border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 110px; }
+  .menu-card:hover, .menu-card.active { border-color: var(--dourado); background: rgba(212,175,55,0.1); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
+  .menu-card img { width: 36px; height: 36px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+  .menu-card span { font-weight: 700; font-size: 0.7rem; color: var(--dourado-claro); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; }
   .menu-card.active span { color: #fff; }
 
-  /* SEÇÕES */
   .section-content { display: none; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .section-content.active { display: block; }
 
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    color: var(--dourado-claro);
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--borda);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  .section-title { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 
-  /* FORMULÁRIO */
   .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; }
   
   .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -149,14 +93,7 @@
   .btn-salvar:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
   .btn-salvar:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* ESTOQUE SECTION (#3 + #4) */
-  .estoque-item {
-    background: #151515;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 10px;
-  }
+  .estoque-item { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 10px; }
   .estoque-item .info { margin-bottom: 12px; }
   .estoque-item .info strong { color: var(--dourado-claro); display: block; font-size: 0.95rem; }
   .estoque-item .info small { color: #888; font-size: 0.7rem; }
@@ -169,26 +106,12 @@
   .estoque-linha button:hover { background: rgba(212,175,55,0.15); }
   .estoque-linha button:active { background: var(--dourado); color: #0d0d0d; transform: scale(0.95); }
   .estoque-linha button:disabled { opacity: 0.3; cursor: not-allowed; }
-  .estoque-linha input {
-    width: 60px;
-    padding: 9px 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    border: 2px solid var(--dourado);
-    border-radius: 8px;
-    background: #0d0d0d;
-    color: var(--dourado-claro);
-    font-family: inherit;
-    outline: none;
-  }
+  .estoque-linha input { width: 60px; padding: 9px 4px; font-size: 1rem; font-weight: bold; text-align: center; border: 2px solid var(--dourado); border-radius: 8px; background: #0d0d0d; color: var(--dourado-claro); font-family: inherit; outline: none; }
   .estoque-linha input:focus { border-color: var(--dourado-claro); }
   .estoque-linha.zerado input { border-color: #c94a4a; color: #ff6b6b; }
   .estoque-linha.zerado .tam-label { color: #ff6b6b; }
-  .estoque-status-salvando { font-size: 0.65rem; color: #888; margin-left: 5px; font-weight: 500; }
   .estoque-status-salvo { font-size: 0.65rem; color: #25D366; margin-left: 5px; font-weight: 600; }
 
-  /* LISTA CATÁLOGO */
   .lista-header-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
   .search-admin { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
   .search-admin:focus { outline: none; border-color: var(--dourado); }
@@ -226,44 +149,67 @@
   .btn-excluir:active { background: #c94a4a; color: white; }
 
   /* PEDIDOS */
-  .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
-  .pedido-item.concretizado { border-color: #25D366; opacity: 0.7; }
+  .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; transition: 0.2s; }
+  .pedido-item.concretizado { border-color: #25D366; opacity: 0.75; }
+  .pedido-item.cancelado { border-color: #c94a4a; opacity: 0.7; background: rgba(201,74,74,0.04); }
   .pedido-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 8px; flex-wrap: wrap; gap: 5px; }
   .pedido-data { font-size: 0.75rem; color: #888; }
   .pedido-total { font-size: 1rem; font-weight: bold; color: var(--dourado-claro); }
+  .pedido-selos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .selo-pedido { font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .selo-concretizado { background: rgba(37,211,102,0.15); color: #25D366; border: 1px solid #25D366; }
+  .selo-cancelado { background: rgba(201,74,74,0.15); color: #ff6b6b; border: 1px solid #c94a4a; }
+  .selo-pendente { background: rgba(255,152,0,0.15); color: #ff9800; border: 1px solid #ff9800; }
   .pedido-itens { list-style: none; padding: 0; margin: 0 0 10px 0; }
   .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed #333; gap: 10px; }
   .pedido-itens li:last-child { border-bottom: none; }
-  
-  .btn-concretizada {
-    background: rgba(37,211,102,0.15);
-    border: 1px solid #25D366;
-    color: #25D366;
-    padding: 10px;
-    border-radius: 8px;
-    width: 100%;
-    font-weight: bold;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: 0.2s;
-    margin-top: 5px;
-  }
-  .btn-concretizada:hover { background: #25D366; color: #0d0d0d; }
-  .btn-concretizada.concretizada { background: #25D366; color: #0d0d0d; cursor: default; }
 
-  .btn-limpar-pedidos {
-    background: transparent;
-    border: 1px solid #c94a4a;
-    color: #c94a4a;
-    padding: 10px;
-    border-radius: 8px;
-    width: 100%;
-    font-weight: bold;
-    font-size: 0.85rem;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: 0.2s;
-  }
+  .pedido-totais { font-size: 0.75rem; color: #888; margin-bottom: 10px; padding-top: 8px; border-top: 1px dashed #333; line-height: 1.6; }
+  .pedido-totais span { display: block; display: flex; justify-content: space-between; }
+  .pedido-totais .desconto { color: #25D366; }
+
+  .pedido-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px; }
+  .pedido-acoes.uma { grid-template-columns: 1fr; }
+  
+  .btn-pedido { padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.78rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
+  .btn-pedido:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-pedido-concretizar { background: rgba(37,211,102,0.15); border-color: #25D366; color: #25D366; }
+  .btn-pedido-concretizar:hover:not(:disabled) { background: #25D366; color: #0d0d0d; }
+  .btn-pedido-editar { background: rgba(212,175,55,0.15); border-color: var(--dourado); color: var(--dourado-claro); }
+  .btn-pedido-editar:hover:not(:disabled) { background: var(--dourado); color: #0d0d0d; }
+  .btn-pedido-cancelar { background: rgba(201,74,74,0.15); border-color: #c94a4a; color: #ff6b6b; }
+  .btn-pedido-cancelar:hover:not(:disabled) { background: #c94a4a; color: #fff; }
+
+  /* MODAL EDIÇÃO DE PEDIDO */
+  .modal-editar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 8000; justify-content: center; align-items: center; padding: 15px; }
+  .modal-editar-overlay.ativo { display: flex; }
+  .modal-editar-content { background: var(--card); padding: 25px 20px; border-radius: 12px; border: 1px solid var(--dourado); width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(212,175,55,0.3); }
+  .modal-editar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); }
+  .modal-editar-header h3 { color: var(--dourado-claro); font-size: 1.15rem; }
+  .modal-editar-header button { background: none; border: none; color: var(--dourado); font-size: 1.5rem; cursor: pointer; }
+  .edit-item-linha { background: #111; border: 1px solid #333; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .edit-item-info { margin-bottom: 8px; }
+  .edit-item-info strong { color: var(--dourado-claro); font-size: 0.85rem; display: block; }
+  .edit-item-info small { color: #888; font-size: 0.7rem; }
+  .edit-item-controles { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .edit-item-controles .ctrl-qtd { display: flex; align-items: center; gap: 6px; }
+  .edit-item-controles button { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--dourado); background: transparent; color: var(--dourado); cursor: pointer; font-weight: bold; font-size: 1rem; }
+  .edit-item-controles button:active { background: var(--dourado); color: #0d0d0d; }
+  .edit-item-controles button.remover { border-color: #c94a4a; color: #ff6b6b; width: auto; padding: 0 10px; font-size: 0.72rem; }
+  .edit-item-controles span { min-width: 24px; text-align: center; font-weight: bold; color: #fff; }
+  .edit-item-controles .preco-linha { font-weight: bold; color: var(--dourado); font-size: 0.85rem; }
+  .modal-editar-resumo { background: rgba(212,175,55,0.06); border: 1px dashed var(--dourado); border-radius: 8px; padding: 12px; margin: 15px 0; font-size: 0.8rem; color: #ccc; line-height: 1.6; }
+  .modal-editar-resumo span { display: block; display: flex; justify-content: space-between; }
+  .modal-editar-resumo .total { font-weight: bold; color: var(--dourado-claro); font-size: 1rem; padding-top: 6px; margin-top: 6px; border-top: 1px solid var(--borda); }
+  .modal-editar-resumo .desconto { color: #25D366; }
+  .modal-editar-acoes { display: flex; gap: 8px; margin-top: 10px; }
+  .modal-editar-acoes button { flex: 1; padding: 12px; border-radius: 30px; font-weight: bold; font-size: 0.85rem; cursor: pointer; border: none; }
+  .btn-modal-cancelar { background: transparent; border: 1px solid #666 !important; color: #aaa; }
+  .btn-modal-salvar { background: linear-gradient(180deg, var(--dourado-claro), var(--dourado)); color: #0d0d0d; }
+  .btn-modal-salvar:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+  .btn-modal-salvar:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-limpar-pedidos { background: transparent; border: 1px solid #c94a4a; color: #c94a4a; padding: 10px; border-radius: 8px; width: 100%; font-weight: bold; font-size: 0.85rem; cursor: pointer; margin-top: 15px; transition: 0.2s; }
   .btn-limpar-pedidos:hover { background: #c94a4a; color: #fff; }
   .btn-limpar-pedidos:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -299,7 +245,6 @@
 
   <div class="msg" id="mensagem"></div>
 
-  <!-- DASHBOARD DE ALERTAS (#1) -->
   <div class="dashboard" id="dashboard">
     <div class="dash-card" onclick="abrirSecao('lista', document.querySelectorAll('.menu-card')[1])">
       <div class="num" id="dash-total">0</div>
@@ -315,7 +260,6 @@
     </div>
   </div>
 
-  <!-- MENU -->
   <div class="menu-cards">
     <div class="menu-card" onclick="abrirSecao('form', this)">
       <img src="https://img.icons8.com/color/96/add-property.png" alt="Cadastrar">
@@ -335,7 +279,6 @@
     </div>
   </div>
 
-  <!-- CADASTRAR -->
   <div class="section-content" id="section-form">
     <h2 class="section-title">
       <span id="form-titulo">Adicionar Novo Perfume</span>
@@ -438,7 +381,6 @@
     </form>
   </div>
 
-  <!-- CATÁLOGO -->
   <div class="section-content" id="section-lista">
     <h2 class="section-title">Perfumes no Catálogo</h2>
     
@@ -456,7 +398,6 @@
     <div id="lista-perfumes-admin"></div>
   </div>
 
-  <!-- ESTOQUE -->
   <div class="section-content" id="section-estoque">
     <h2 class="section-title">Controle de Estoque</h2>
     <p style="font-size:0.72rem; color:#888; margin-bottom:15px; line-height:1.5;">
@@ -465,13 +406,28 @@
     <div id="lista-estoque"></div>
   </div>
 
-  <!-- PEDIDOS -->
   <div class="section-content" id="section-pedidos">
     <h2 class="section-title">Histórico de Pedidos</h2>
     <div id="lista-pedidos"></div>
     <button class="btn-limpar-pedidos" id="btn-limpar-pedidos" onclick="limparPedidos()">
       🗑️ Limpar Todo o Histórico
     </button>
+  </div>
+</div>
+
+<!-- MODAL EDIÇÃO DE PEDIDO -->
+<div class="modal-editar-overlay" id="modalEditarPedido">
+  <div class="modal-editar-content">
+    <div class="modal-editar-header">
+      <h3>✏️ Editar Pedido</h3>
+      <button onclick="fecharModalEditar()">✕</button>
+    </div>
+    <div id="modalEditarItens"></div>
+    <div class="modal-editar-resumo" id="modalEditarResumo"></div>
+    <div class="modal-editar-acoes">
+      <button class="btn-modal-cancelar" onclick="fecharModalEditar()">Cancelar</button>
+      <button class="btn-modal-salvar" id="btn-salvar-edicao" onclick="salvarEdicaoPedido()">Salvar Alterações</button>
+    </div>
   </div>
 </div>
 
@@ -497,6 +453,8 @@
   const URL_CATALOGO = "https://thrustperfumes.store/"; 
   const IMGBB_API_KEY = "8c63b7330444870944b040c580b44ab0"; 
   const TAMANHOS = ['30ml', '50ml', '100ml'];
+  const DESCONTO_MIN = 3;
+  const DESCONTO_PCT = 0.05;
 
   const telaCarregando = document.getElementById('tela-carregando');
   const telaLogin = document.getElementById('tela-login');
@@ -516,16 +474,18 @@
   let categoriaFiltroAdmin = 'todos';
   let termoBuscaAdmin = '';
   let todosPerfumesAdmin = []; 
+  let todosPedidosAdmin = [];
 
   const editId = document.getElementById('edit-id');
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
   /* ============================================================
-     NORMALIZAÇÃO DE ESTOQUE (#4)
-     Converte estoque número antigo → objeto por tamanho.
-     Padrão: 50ml recebe o valor, outros tamanhos habilitados = 0
+     EDIÇÃO DE PEDIDO - ESTADO
      ============================================================ */
+  let pedidoEmEdicao = null;
+  let itensEmEdicao = [];
+
   function normalizarEstoque(p) {
     if (p.estoque && typeof p.estoque === 'object') {
       return p.estoque;
@@ -550,9 +510,8 @@
     return Object.keys(est).some(tam => est[tam] === 1);
   }
 
-  /* ============================================================
-     DASHBOARD (#1)
-     ============================================================ */
+  function fmt(v) { return 'R$ ' + Number(v).toFixed(2).replace('.', ','); }
+
   function atualizarDashboard() {
     const total = todosPerfumesAdmin.length;
     const esgotados = todosPerfumesAdmin.filter(p => {
@@ -590,9 +549,6 @@
     renderizarListaAdmin();
   };
 
-  /* ============================================================
-     NAVEGAÇÃO
-     ============================================================ */
   window.abrirSecao = function(secao, el) {
     document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
@@ -605,9 +561,6 @@
     document.getElementById('section-' + secao).scrollIntoView({ behavior: 'smooth' });
   };
 
-  /* ============================================================
-     UPLOAD IMGBB
-     ============================================================ */
   window.fazerUpload = async function(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -654,9 +607,6 @@
     }
   };
 
-  /* ============================================================
-     AUTH
-     ============================================================ */
   btnGoogle.addEventListener('click', () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).catch(err => alert("Erro ao logar: " + err.message));
@@ -682,11 +632,6 @@
     }
   });
 
-  /* ============================================================
-     FORMULÁRIO CADASTRAR / EDITAR
-     Cadastro: cria estoque = { "50ml": 5, <outros habilitados>: 0 }
-     Edição: preserva estoque existente (só tamanhos novos entram com 0)
-     ============================================================ */
   formPerfume.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -726,7 +671,6 @@
 
     try {
       if (editId.value) {
-        // Edição: preserva estoque dos tamanhos que já existiam
         const perfumeAtual = todosPerfumesAdmin.find(x => x.id === editId.value);
         const estoqueAtual = normalizarEstoque(perfumeAtual || {});
         const novoEstoque = {};
@@ -739,7 +683,6 @@
         mostrarMsg("Perfume atualizado!", "sucesso");
         limparFormulario(); 
       } else {
-        // Cadastro novo: 50ml com 5, outros tamanhos habilitados = 0
         dadosPerfume.criadoEm = new Date();
         const estoqueInicial = {};
         Object.keys(tamanhos).forEach(tam => {
@@ -789,7 +732,7 @@
     document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
     document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
     document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
-    
+
     document.getElementById('vendido').checked = p.vendido || false;
     document.getElementById('indisponivel').checked = p.indisponivel || false;
 
@@ -806,9 +749,6 @@
     abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
   };
 
-  /* ============================================================
-     LISTA DE PERFUMES (TEMPO REAL)
-     ============================================================ */
   function carregarListaAdmin() {
     const q = query(collection(db, "perfumes"), orderBy("nome"));
     onSnapshot(q, (snapshot) => {
@@ -917,12 +857,6 @@
     });
   }
 
-  /* ============================================================
-     ESTOQUE POR TAMANHO (#3 + #4)
-     - Inputs por tamanho
-     - + e − com auto-save (debounce)
-     - Input com auto-save (debounce)
-     ============================================================ */
   const estoqueDebounceTimers = {};
 
   function renderizarEstoque() {
@@ -938,7 +872,6 @@
       
       if (tamanhosDoPerfume.length === 0) return;
 
-      // Ordena: 30, 50, 100
       tamanhosDoPerfume.sort((a, b) => TAMANHOS.indexOf(a) - TAMANHOS.indexOf(b));
 
       let linhasHtml = '';
@@ -985,7 +918,6 @@
     const novoEstoqueObj = { ...estAtual };
     novoEstoqueObj[tamanho] = novaQtd;
 
-    // Atualiza estado local para UI responder rápido
     p.estoque = novoEstoqueObj;
 
     try {
@@ -1007,7 +939,6 @@
     let novo = atual + delta;
     if (novo < 0) novo = 0;
 
-    // Atualiza UI imediatamente
     const linha = document.querySelector(`.estoque-linha[data-id="${id}"][data-tam="${tamanho}"]`);
     if (linha) {
       const input = linha.querySelector('input');
@@ -1022,7 +953,6 @@
       }
     }
 
-    // Debounce do salvamento (600ms)
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
     estoqueDebounceTimers[key] = setTimeout(() => {
@@ -1045,7 +975,6 @@
       btnMenos.disabled = false;
     }
 
-    // Debounce
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
     estoqueDebounceTimers[key] = setTimeout(() => {
@@ -1054,7 +983,6 @@
   };
 
   window.inputEstoqueBlur = function(id, tamanho, el) {
-    // Ao sair do campo, salva imediatamente
     let val = parseInt(el.value);
     if (isNaN(val) || val < 0) val = 0;
     el.value = val;
@@ -1064,74 +992,229 @@
   };
 
   /* ============================================================
-     PEDIDOS
+     PEDIDOS — LISTAGEM
      ============================================================ */
   function carregarPedidos() {
     const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
     onSnapshot(q, (snapshot) => {
-      listaPedidos.innerHTML = '';
-      if (snapshot.empty) {
-        listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido registrado ainda.</p>';
-        btnLimparPedidos.disabled = true;
-        return;
-      }
-      btnLimparPedidos.disabled = false;
-
+      todosPedidosAdmin = [];
       snapshot.forEach((docSnap) => {
-        const pedido = docSnap.data();
-        const pedidoId = docSnap.id;
-        
-        let dataFormatada = "Data desconhecida";
-        if (pedido.data) {
-          const d = pedido.data.toDate ? pedido.data.toDate() : new Date(pedido.data);
-          dataFormatada = d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-        }
-
-        let itensHtml = '';
-        if (pedido.itens && Array.isArray(pedido.itens)) {
-          pedido.itens.forEach(item => {
-            itensHtml += `<li><span>${item.qtd}x ${item.nome} (${item.tamanho})</span> <span>R$ ${(item.preco * item.qtd).toFixed(2).replace('.', ',')}</span></li>`;
-          });
-        }
-
-        const isConcretizada = pedido.concretizada || false;
-        
-        const div = document.createElement('div');
-        div.className = 'pedido-item ' + (isConcretizada ? 'concretizado' : '');
-        div.innerHTML = `
-          <div class="pedido-header">
-            <span class="pedido-data">📅 ${dataFormatada}</span>
-            <span class="pedido-total">R$ ${pedido.total.toFixed(2).replace('.', ',')}</span>
-          </div>
-          <ul class="pedido-itens">${itensHtml}</ul>
-          <button class="btn-concretizada ${isConcretizada ? 'concretizada' : ''}" 
-                  onclick="marcarConcretizada('${pedidoId}', ${isConcretizada})"
-                  ${isConcretizada ? 'disabled' : ''}>
-            ${isConcretizada ? '✅ Venda Concretizada' : '✔️ Marcar como Concretizada'}
-          </button>
-        `;
-        listaPedidos.appendChild(div);
+        todosPedidosAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
+      renderizarPedidos();
+    });
+  }
+
+  function renderizarPedidos() {
+    listaPedidos.innerHTML = '';
+    if (todosPedidosAdmin.length === 0) {
+      listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido registrado ainda.</p>';
+      btnLimparPedidos.disabled = true;
+      return;
+    }
+    btnLimparPedidos.disabled = false;
+
+    todosPedidosAdmin.forEach((pedido) => {
+      const pedidoId = pedido.id;
+      
+      let dataFormatada = "Data desconhecida";
+      if (pedido.data) {
+        const d = pedido.data.toDate ? pedido.data.toDate() : new Date(pedido.data);
+        dataFormatada = d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      }
+
+      let itensHtml = '';
+      if (pedido.itens && Array.isArray(pedido.itens)) {
+        pedido.itens.forEach(item => {
+          itensHtml += `<li><span>${item.qtd}x ${item.nome} (${item.tamanho})</span> <span>${fmt(item.preco * item.qtd)}</span></li>`;
+        });
+      }
+
+      const isConcretizada = pedido.concretizada || false;
+      const isCancelada = pedido.cancelada || false;
+      const isPendente = !isConcretizada && !isCancelada;
+
+      let selosHtml = '';
+      if (isConcretizada) selosHtml += '<span class="selo-pedido selo-concretizado">✅ Concretizada</span>';
+      if (isCancelada) selosHtml += '<span class="selo-pedido selo-cancelado">❌ Cancelada</span>';
+      if (isPendente) selosHtml += '<span class="selo-pedido selo-pendente">⏳ Pendente</span>';
+
+      // Totais
+      let totaisHtml = `<span>Subtotal: <strong>${fmt(pedido.subtotal || 0)}</strong></span>`;
+      if (pedido.desconto && pedido.desconto > 0) {
+        totaisHtml += `<span class="desconto">Desconto (5%): <strong>− ${fmt(pedido.desconto)}</strong></span>`;
+      }
+
+      // Botões de ação
+      let botoesHtml = '';
+      if (isPendente) {
+        botoesHtml = `
+          <div class="pedido-acoes">
+            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${pedidoId}')">✏️ Editar</button>
+            <button class="btn-pedido btn-pedido-concretizar" onclick="marcarConcretizada('${pedidoId}')">✔️ Concretizar</button>
+            <button class="btn-pedido btn-pedido-cancelar" onclick="cancelarPedido('${pedidoId}')" style="grid-column: 1/-1;">❌ Cancelar Venda</button>
+          </div>
+        `;
+      } else if (isConcretizada) {
+        botoesHtml = `
+          <div class="pedido-acoes uma">
+            <button class="btn-pedido btn-pedido-cancelar" onclick="cancelarPedido('${pedidoId}')">❌ Cancelar (devolve estoque)</button>
+          </div>
+        `;
+      } else if (isCancelada) {
+        botoesHtml = `<div class="pedido-acoes uma"><button class="btn-pedido btn-pedido-cancelar" disabled>❌ Pedido Cancelado</button></div>`;
+      }
+
+      const div = document.createElement('div');
+      div.className = 'pedido-item ' + (isConcretizada ? 'concretizado' : '') + (isCancelada ? ' cancelado' : '');
+      div.innerHTML = `
+        <div class="pedido-header">
+          <span class="pedido-data">📅 ${dataFormatada}</span>
+          <span class="pedido-total">${fmt(pedido.total || 0)}</span>
+        </div>
+        <div class="pedido-selos">${selosHtml}</div>
+        <ul class="pedido-itens">${itensHtml}</ul>
+        <div class="pedido-totais">${totaisHtml}</div>
+        ${botoesHtml}
+      `;
+      listaPedidos.appendChild(div);
     });
   }
 
   /* ============================================================
-     CONCRETIZAR VENDA (#4 + correção por ID)
-     Abate do tamanho correto, casando por ID (fallback: nome)
+     EDITAR PEDIDO
      ============================================================ */
-  window.marcarConcretizada = async function(pedidoId, jaConcretizada) {
-    if (jaConcretizada) return;
+  window.abrirEdicaoPedido = function(pedidoId) {
+    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
+    if (!pedido) return;
+    if (pedido.concretizada || pedido.cancelada) {
+      mostrarMsg("Não é possível editar pedidos já concretizados ou cancelados.", "erro");
+      return;
+    }
+
+    pedidoEmEdicao = pedido;
+    itensEmEdicao = JSON.parse(JSON.stringify(pedido.itens || []));
+    
+    renderizarModalEditar();
+    document.getElementById('modalEditarPedido').classList.add('ativo');
+  };
+
+  window.fecharModalEditar = function() {
+    document.getElementById('modalEditarPedido').classList.remove('ativo');
+    pedidoEmEdicao = null;
+    itensEmEdicao = [];
+  };
+
+  function calcularResumoEdicao() {
+    let subtotal = 0;
+    let qtdTotal = 0;
+    itensEmEdicao.forEach(item => {
+      subtotal += item.qtd * item.preco;
+      qtdTotal += item.qtd;
+    });
+    let temDesconto = qtdTotal >= DESCONTO_MIN;
+    let desconto = temDesconto ? subtotal * DESCONTO_PCT : 0;
+    let total = subtotal - desconto;
+    return { subtotal, desconto, total, qtdTotal, temDesconto };
+  }
+
+  function renderizarModalEditar() {
+    const container = document.getElementById('modalEditarItens');
+    const resumoEl = document.getElementById('modalEditarResumo');
+
+    if (itensEmEdicao.length === 0) {
+      container.innerHTML = '<p style="color:#ff6b6b; text-align:center; padding:15px; font-size:0.85rem;">Todos os itens foram removidos. O pedido será cancelado ao salvar (ou cancele manualmente).</p>';
+      document.getElementById('btn-salvar-edicao').disabled = true;
+    } else {
+      document.getElementById('btn-salvar-edicao').disabled = false;
+      container.innerHTML = itensEmEdicao.map((item, idx) => `
+        <div class="edit-item-linha">
+          <div class="edit-item-info">
+            <strong>${item.nome}</strong>
+            <small>Insp: ${item.insp || '-'} · ${item.tamanho} · ${fmt(item.preco)} un.</small>
+          </div>
+          <div class="edit-item-controles">
+            <div class="ctrl-qtd">
+              <button onclick="alterarQtdEdicao(${idx}, -1)">−</button>
+              <span>${item.qtd}</span>
+              <button onclick="alterarQtdEdicao(${idx}, 1)">+</button>
+            </div>
+            <span class="preco-linha">${fmt(item.preco * item.qtd)}</span>
+            <button class="remover" onclick="removerItemEdicao(${idx})">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const r = calcularResumoEdicao();
+    let resumoHtml = `<span>Subtotal: <strong>${fmt(r.subtotal)}</strong></span>`;
+    if (r.temDesconto) {
+      resumoHtml += `<span class="desconto">Desconto (5%): <strong>− ${fmt(r.desconto)}</strong></span>`;
+    }
+    resumoHtml += `<span class="total">Total: <strong>${fmt(r.total)}</strong></span>`;
+    resumoEl.innerHTML = resumoHtml;
+  }
+
+  window.alterarQtdEdicao = function(idx, delta) {
+    if (!itensEmEdicao[idx]) return;
+    let novo = itensEmEdicao[idx].qtd + delta;
+    if (novo < 1) novo = 1;
+    itensEmEdicao[idx].qtd = novo;
+    renderizarModalEditar();
+  };
+
+  window.removerItemEdicao = function(idx) {
+    if (!itensEmEdicao[idx]) return;
+    if (!confirm(`Remover "${itensEmEdicao[idx].nome} (${itensEmEdicao[idx].tamanho})" deste pedido?`)) return;
+    itensEmEdicao.splice(idx, 1);
+    renderizarModalEditar();
+  };
+
+  window.salvarEdicaoPedido = async function() {
+    if (!pedidoEmEdicao) return;
+    if (itensEmEdicao.length === 0) {
+      mostrarMsg("Pedido sem itens. Use o botão de cancelar.", "erro");
+      return;
+    }
+
+    const btn = document.getElementById('btn-salvar-edicao');
+    btn.disabled = true;
+    btn.innerText = "Salvando...";
+
+    try {
+      const r = calcularResumoEdicao();
+      await updateDoc(doc(db, "pedidos", pedidoEmEdicao.id), {
+        itens: itensEmEdicao,
+        subtotal: r.subtotal,
+        desconto: r.desconto,
+        total: r.total
+      });
+      mostrarMsg("Pedido atualizado!", "sucesso");
+      fecharModalEditar();
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao atualizar pedido.", "erro");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Salvar Alterações";
+    }
+  };
+
+  /* ============================================================
+     CONCRETIZAR VENDA
+     ============================================================ */
+  window.marcarConcretizada = async function(pedidoId) {
+    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
+    if (!pedido) return;
+    if (pedido.concretizada) return;
+    if (pedido.cancelada) {
+      mostrarMsg("Pedido cancelado não pode ser concretizado.", "erro");
+      return;
+    }
     if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
 
     try {
-      const pedidoSnap = await getDocs(collection(db, "pedidos"));
-      let pedidoData = null;
-      pedidoSnap.forEach(d => { if(d.id === pedidoId) pedidoData = d.data(); });
-
-      if (!pedidoData) return;
-
-      for (const item of pedidoData.itens) {
-        // Prioridade: casar pelo ID. Fallback: nome (pedidos antigos).
+      for (const item of pedido.itens) {
         let perfume = null;
         if (item.id) {
           perfume = todosPerfumesAdmin.find(p => p.id === item.id);
@@ -1166,6 +1249,66 @@
     }
   };
 
+  /* ============================================================
+     CANCELAR VENDA
+     Se já concretizada, devolve estoque. Se pendente, só marca cancelada.
+     ============================================================ */
+  window.cancelarPedido = async function(pedidoId) {
+    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
+    if (!pedido) return;
+    if (pedido.cancelada) return;
+
+    const eraConcretizada = pedido.concretizada === true;
+    
+    let msgConfirm = eraConcretizada
+      ? "Cancelar esta venda CONCRETIZADA? O estoque dos itens será DEVOLVIDO automaticamente."
+      : "Cancelar este pedido? Ele será marcado como cancelado.";
+    
+    if (!confirm(msgConfirm)) return;
+
+    try {
+      // Se já estava concretizada, devolve estoque
+      if (eraConcretizada) {
+        for (const item of pedido.itens) {
+          let perfume = null;
+          if (item.id) {
+            perfume = todosPerfumesAdmin.find(p => p.id === item.id);
+          }
+          if (!perfume) {
+            perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
+          }
+          
+          if (perfume) {
+            const estAtual = normalizarEstoque(perfume);
+            const tamanhoItem = item.tamanho || '50ml';
+            const estoqueAtualTam = (typeof estAtual[tamanhoItem] === 'number') ? estAtual[tamanhoItem] : 0;
+            const novoEstoqueTam = estoqueAtualTam + item.qtd;
+
+            const novoEstoqueObj = { ...estAtual };
+            novoEstoqueObj[tamanhoItem] = novoEstoqueTam;
+
+            await updateDoc(doc(db, "perfumes", perfume.id), {
+              estoque: novoEstoqueObj
+            });
+          }
+        }
+      }
+
+      await updateDoc(doc(db, "pedidos", pedidoId), {
+        cancelada: true
+      });
+
+      if (eraConcretizada) {
+        mostrarMsg("Venda cancelada! Estoque devolvido.", "sucesso");
+      } else {
+        mostrarMsg("Pedido cancelado.", "sucesso");
+      }
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao cancelar pedido.", "erro");
+    }
+  };
+
   window.limparPedidos = async function() {
     if (!confirm("Tem certeza que deseja apagar TODO o histórico de pedidos? Essa ação não pode ser desfeita.")) return;
     
@@ -1189,9 +1332,6 @@
     }
   };
 
-  /* ============================================================
-     AÇÕES DO CATÁLOGO
-     ============================================================ */
   window.copiarLink = function(id) {
     const linkCompleto = URL_CATALOGO + '#' + id;
     navigator.clipboard.writeText(linkCompleto).then(() => {
@@ -1213,7 +1353,6 @@
       const p = todosPerfumesAdmin.find(item => item.id === id);
       let novosDados = { indisponivel: novoStatusIndisponivel };
       
-      // Se está ativando e todos os tamanhos estão zerados, dá 5 no 50ml
       if (!novoStatusIndisponivel) {
         const est = normalizarEstoque(p);
         const total = Object.values(est).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
