@@ -133,14 +133,16 @@
   .status-off { color: #ff6b6b; font-size: 0.65rem; font-weight: bold; background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
   .status-estoque { color: #4a90e2; font-size: 0.7rem; font-weight: bold; margin-left: 5px; }
   
-  .item-acoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-  @media (max-width: 500px) { .item-acoes { grid-template-columns: 1fr 1fr; } }
+  .item-acoes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  @media (max-width: 600px) { .item-acoes { grid-template-columns: 1fr 1fr 1fr; } }
   
   .btn-acao { background: transparent; padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 0.72rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .btn-copiar { border-color: #4a90e2; color: #4a90e2; }
   .btn-copiar:active { background: #4a90e2; color: #fff; }
   .btn-editar { border-color: var(--dourado); color: var(--dourado); }
   .btn-editar:active { background: var(--dourado); color: #0d0d0d; }
+  .btn-duplicar { border-color: #9c27b0; color: #ce93d8; }
+  .btn-duplicar:active { background: #9c27b0; color: #fff; }
   .btn-pausar { border-color: #ff9800; color: #ff9800; }
   .btn-pausar:active { background: #ff9800; color: #fff; }
   .btn-ativar { border-color: #25D366; color: #25D366; background: rgba(37,211,102,0.05); }
@@ -148,9 +150,25 @@
   .btn-excluir { border-color: #c94a4a; color: #c94a4a; }
   .btn-excluir:active { background: #c94a4a; color: white; }
 
+  /* EXPORTAR CSV */
+  .btn-exportar { background: transparent; border: 1px solid #4a90e2; color: #4a90e2; padding: 10px 16px; border-radius: 8px; font-weight: bold; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%; margin-bottom: 15px; }
+  .btn-exportar:hover { background: #4a90e2; color: #fff; }
+
   /* PEDIDOS */
   .pedido-busca { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; margin-bottom: 15px; }
   .pedido-busca:focus { outline: none; border-color: var(--dourado); }
+
+  /* FILTRO DE PERÍODO + TOTALIZADOR */
+  .periodo-filtros { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 3px; scrollbar-width: none; }
+  .periodo-filtros::-webkit-scrollbar { display: none; }
+  .periodo-btn { background: none; border: 1px solid #444; color: #888; font-weight: 600; font-size: 0.72rem; cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
+  .periodo-btn.active { color: #0d0d0d; background: var(--dourado); border-color: var(--dourado); }
+
+  .totalizador { background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(245,217,122,0.08)); border: 1px solid var(--dourado); border-radius: 10px; padding: 12px 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .totalizador .info-tot { display: flex; flex-direction: column; }
+  .totalizador .qtd { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .totalizador .valor { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: var(--dourado-claro); }
+  .totalizador .mini-detalhe { font-size: 0.65rem; color: #888; margin-top: 2px; }
 
   .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; transition: 0.2s; }
   .pedido-item.concretizado { border-color: #25D366; opacity: 0.75; }
@@ -475,6 +493,7 @@
         <button class="aba-btn esgotados" data-cat="esgotados">🚫 Esgotados</button>
         <button class="aba-btn" data-cat="estoque-baixo">⚠️ Estoque Baixo</button>
       </div>
+      <button class="btn-exportar" onclick="exportarCSV()">📥 Exportar Catálogo (CSV)</button>
     </div>
     <div id="lista-perfumes-admin"></div>
   </div>
@@ -491,6 +510,25 @@
   <div class="section-content" id="section-pedidos">
     <h2 class="section-title">Histórico de Pedidos</h2>
     <input type="text" class="pedido-busca" id="busca-pedido" placeholder="🔍 Buscar por número do pedido...">
+    
+    <div class="periodo-filtros">
+      <button class="periodo-btn active" data-periodo="todos" onclick="mudarPeriodo('todos', this)">Todos</button>
+      <button class="periodo-btn" data-periodo="hoje" onclick="mudarPeriodo('hoje', this)">Hoje</button>
+      <button class="periodo-btn" data-periodo="7dias" onclick="mudarPeriodo('7dias', this)">Últimos 7 dias</button>
+      <button class="periodo-btn" data-periodo="mes" onclick="mudarPeriodo('mes', this)">Este mês</button>
+    </div>
+
+    <div class="totalizador">
+      <div class="info-tot">
+        <div class="qtd" id="totQtd">0 pedidos no período</div>
+        <div class="mini-detalhe" id="totDetalhe">Pendentes: 0 · Concretizados: 0</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="qtd">Total em vendas</div>
+        <div class="valor" id="totValor">R$ 0,00</div>
+      </div>
+    </div>
+
     <div id="lista-pedidos"></div>
     <button class="btn-limpar-pedidos" id="btn-limpar-pedidos" onclick="limparPedidos()">
       🗑️ Limpar Todo o Histórico
@@ -618,6 +656,7 @@
   let termoBuscaAdmin = '';
   let termoBuscaPedido = '';
   let termoBuscaEstoque = '';
+  let periodoFiltro = 'todos';
   let todosPerfumesAdmin = []; 
   let todosPedidosAdmin = [];
   let todosCuponsAdmin = [];
@@ -679,6 +718,29 @@
     return c.limiteUso && (c.usos || 0) >= c.limiteUso;
   }
 
+  function dataPedido(p) {
+    if (!p.data) return null;
+    return p.data.toDate ? p.data.toDate() : new Date(p.data);
+  }
+
+  function pedidoDentroPeriodo(p, periodo) {
+    if (periodo === 'todos') return true;
+    const d = dataPedido(p);
+    if (!d) return false;
+    const agora = new Date();
+    if (periodo === 'hoje') {
+      return d.getDate() === agora.getDate() && d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
+    }
+    if (periodo === '7dias') {
+      const limite = new Date(agora.getTime() - 7 * 24 * 60 * 60 * 1000);
+      return d >= limite;
+    }
+    if (periodo === 'mes') {
+      return d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
+    }
+    return true;
+  }
+
   function atualizarDashboard() {
     const total = todosPerfumesAdmin.length;
     const esgotados = todosPerfumesAdmin.filter(p => {
@@ -700,11 +762,8 @@
     const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c)).length;
     document.getElementById('cupomContadorNum').innerText = ativos;
     const cont = document.getElementById('cupomContador');
-    if (ativos >= MAX_CUPONS_ATIVOS) {
-      cont.classList.add('completo');
-    } else {
-      cont.classList.remove('completo');
-    }
+    if (ativos >= MAX_CUPONS_ATIVOS) cont.classList.add('completo');
+    else cont.classList.remove('completo');
     const btnAdd = document.getElementById('btnAddCupom');
     if (ativos >= MAX_CUPONS_ATIVOS) {
       btnAdd.disabled = true;
@@ -743,6 +802,7 @@
     document.getElementById('section-' + secao).classList.add('active');
     
     if (secao === 'estoque') renderizarEstoque();
+    if (secao === 'pedidos') renderizarPedidos();
 
     document.getElementById('section-' + secao).scrollIntoView({ behavior: 'smooth' });
   };
@@ -936,6 +996,96 @@
     abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
   };
 
+  window.duplicarPerfume = function(id) {
+    const p = todosPerfumesAdmin.find(item => item.id === id);
+    if (!p) return;
+    if (!confirm('Duplicar "' + p.nome + '"?\n\nO formulário abrirá com os dados preenchidos. Altere o nome e a inspiração antes de salvar.')) return;
+
+    document.getElementById('nome').value = p.nome + ' (cópia)';
+    document.getElementById('insp').value = p.insp;
+    document.getElementById('cat').value = p.cat;
+    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
+    
+    document.getElementById('chk-30').checked = !!p.tamanhos?.["30ml"];
+    document.getElementById('preco-30').value = p.tamanhos?.["30ml"] || '';
+    document.getElementById('chk-50').checked = !!p.tamanhos?.["50ml"];
+    document.getElementById('preco-50').value = p.tamanhos?.["50ml"] || '';
+    document.getElementById('chk-100').checked = !!p.tamanhos?.["100ml"];
+    document.getElementById('preco-100').value = p.tamanhos?.["100ml"] || '';
+
+    document.getElementById('vendido').checked = p.vendido || false;
+    document.getElementById('indisponivel').checked = p.indisponivel || false;
+
+    document.getElementById('desc').value = p.desc || '';
+    document.getElementById('topo').value = p.notas?.topo || '';
+    document.getElementById('coracao').value = p.notas?.coracao || '';
+    document.getElementById('fundo').value = p.notas?.fundo || '';
+
+    editId.value = '';
+    formTitulo.innerText = "Duplicando Perfume";
+    btnSubmit.innerText = "Salvar no Catálogo";
+    btnCancelarEdit.style.display = 'block';
+
+    abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
+    mostrarMsg("Preencha os dados novos e clique em Salvar.", "sucesso");
+  };
+
+  /* ============================================================
+     EXPORTAR CSV
+     ============================================================ */
+  window.exportarCSV = function() {
+    if (todosPerfumesAdmin.length === 0) {
+      mostrarMsg("Nenhum perfume para exportar.", "erro");
+      return;
+    }
+
+    const linhas = [];
+    linhas.push(['Nome', 'Inspiração', 'Categoria', 'Preço 30ml', 'Preço 50ml', 'Preço 100ml', 'Estoque 30ml', 'Estoque 50ml', 'Estoque 100ml', 'Estoque Total', 'Mais Vendido', 'Indisponível', 'Criado em']);
+    
+    todosPerfumesAdmin.forEach(p => {
+      const est = normalizarEstoque(p);
+      const dataCriado = p.criadoEm && p.criadoEm.toDate ? p.criadoEm.toDate().toLocaleString('pt-BR') : (p.criadoEm ? new Date(p.criadoEm).toLocaleString('pt-BR') : '');
+      linhas.push([
+        p.nome || '',
+        p.insp || '',
+        p.cat || '',
+        (p.tamanhos && p.tamanhos['30ml']) ? p.tamanhos['30ml'].toFixed(2).replace('.', ',') : '',
+        (p.tamanhos && p.tamanhos['50ml']) ? p.tamanhos['50ml'].toFixed(2).replace('.', ',') : '',
+        (p.tamanhos && p.tamanhos['100ml']) ? p.tamanhos['100ml'].toFixed(2).replace('.', ',') : '',
+        est['30ml'] || 0,
+        est['50ml'] || 0,
+        est['100ml'] || 0,
+        totalEstoque(p),
+        p.vendido ? 'Sim' : 'Não',
+        p.indisponivel ? 'Sim' : 'Não',
+        dataCriado
+      ]);
+    });
+
+    const csvContent = '\uFEFF' + linhas.map(row => 
+      row.map(cell => {
+        const s = String(cell == null ? '' : cell);
+        if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+          return '"' + s.replace(/"/g, '""') + '"';
+        }
+        return s;
+      }).join(',')
+    ).join('\r\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const dataHoje = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = 'thrust-catalogo-' + dataHoje + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    mostrarMsg("CSV exportado com " + todosPerfumesAdmin.length + " perfumes!", "sucesso");
+  };
+
   function carregarListaAdmin() {
     const q = query(collection(db, "perfumes"), orderBy("nome"));
     onSnapshot(q, (snapshot) => {
@@ -1046,6 +1196,7 @@
         <div class="item-acoes">
           <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link">📋 Copiar</button>
           <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️ Editar</button>
+          <button class="btn-acao btn-duplicar" onclick="duplicarPerfume('${p.id}')" title="Duplicar">📋 Duplicar</button>
           ${btnStatus}
           <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️ Excluir</button>
         </div>
@@ -1131,9 +1282,7 @@
     p.estoque = novoEstoqueObj;
 
     try {
-      await updateDoc(doc(db, "perfumes", id), {
-        estoque: novoEstoqueObj
-      });
+      await updateDoc(doc(db, "perfumes", id), { estoque: novoEstoqueObj });
       mostrarStatusSalvo(id);
     } catch (error) {
       console.error(error);
@@ -1154,20 +1303,13 @@
       const input = linha.querySelector('input');
       const btnMenos = linha.querySelector('button');
       input.value = novo;
-      if (novo === 0) {
-        linha.classList.add('zerado');
-        btnMenos.disabled = true;
-      } else {
-        linha.classList.remove('zerado');
-        btnMenos.disabled = false;
-      }
+      if (novo === 0) { linha.classList.add('zerado'); btnMenos.disabled = true; }
+      else { linha.classList.remove('zerado'); btnMenos.disabled = false; }
     }
 
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
-    estoqueDebounceTimers[key] = setTimeout(() => {
-      salvarEstoqueTamanho(id, tamanho, novo);
-    }, 600);
+    estoqueDebounceTimers[key] = setTimeout(() => { salvarEstoqueTamanho(id, tamanho, novo); }, 600);
   };
 
   window.inputEstoque = function(id, tamanho, el) {
@@ -1177,19 +1319,12 @@
 
     const linha = el.closest('.estoque-linha');
     const btnMenos = linha.querySelector('button');
-    if (val === 0) {
-      linha.classList.add('zerado');
-      btnMenos.disabled = true;
-    } else {
-      linha.classList.remove('zerado');
-      btnMenos.disabled = false;
-    }
+    if (val === 0) { linha.classList.add('zerado'); btnMenos.disabled = true; }
+    else { linha.classList.remove('zerado'); btnMenos.disabled = false; }
 
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
-    estoqueDebounceTimers[key] = setTimeout(() => {
-      salvarEstoqueTamanho(id, tamanho, val);
-    }, 800);
+    estoqueDebounceTimers[key] = setTimeout(() => { salvarEstoqueTamanho(id, tamanho, val); }, 800);
   };
 
   window.inputEstoqueBlur = function(id, tamanho, el) {
@@ -1199,6 +1334,16 @@
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
     salvarEstoqueTamanho(id, tamanho, val);
+  };
+
+  /* ============================================================
+     PEDIDOS: PERÍODO + TOTALIZADOR
+     ============================================================ */
+  window.mudarPeriodo = function(periodo, el) {
+    periodoFiltro = periodo;
+    document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderizarPedidos();
   };
 
   function carregarPedidos() {
@@ -1217,31 +1362,35 @@
     if (todosPedidosAdmin.length === 0) {
       listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido registrado ainda.</p>';
       btnLimparPedidos.disabled = true;
+      atualizarTotalizador([]);
       return;
     }
 
-    let pedidosFiltrados = todosPedidosAdmin;
+    let filtrados = todosPedidosAdmin.filter(p => pedidoDentroPeriodo(p, periodoFiltro));
+
     if (termoBuscaPedido) {
-      pedidosFiltrados = pedidosFiltrados.filter(p => {
+      filtrados = filtrados.filter(p => {
         const numero = (p.numero || '').toLowerCase();
         return numero.includes(termoBuscaPedido);
       });
     }
 
-    if (pedidosFiltrados.length === 0) {
-      listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido encontrado com esse número.</p>';
+    atualizarTotalizador(filtrados);
+
+    if (filtrados.length === 0) {
+      listaPedidos.innerHTML = '<p style="color:#666; text-align:center; padding:20px; font-size:0.85rem;">Nenhum pedido encontrado com esse filtro.</p>';
       btnLimparPedidos.disabled = false;
       return;
     }
 
     btnLimparPedidos.disabled = false;
 
-    pedidosFiltrados.forEach((pedido) => {
+    filtrados.forEach((pedido) => {
       const pedidoId = pedido.id;
       
       let dataFormatada = "Data desconhecida";
       if (pedido.data) {
-        const d = pedido.data.toDate ? pedido.data.toDate() : new Date(pedido.data);
+        const d = dataPedido(pedido);
         dataFormatada = d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
       }
 
@@ -1341,6 +1490,20 @@
       `;
       listaPedidos.appendChild(div);
     });
+  }
+
+  function atualizarTotalizador(pedidos) {
+    const totalQtd = pedidos.length;
+    const totalValor = pedidos
+      .filter(p => !p.cancelada)
+      .reduce((acc, p) => acc + (p.total || 0), 0);
+    const pendentes = pedidos.filter(p => !p.concretizada && !p.cancelada).length;
+    const concretizados = pedidos.filter(p => p.concretizada && !p.cancelada).length;
+    const cancelados = pedidos.filter(p => p.cancelada).length;
+
+    document.getElementById('totQtd').innerText = totalQtd + ' ' + (totalQtd === 1 ? 'pedido' : 'pedidos') + ' no período';
+    document.getElementById('totDetalhe').innerText = 'Pendentes: ' + pendentes + ' · Concretizados: ' + concretizados + (cancelados > 0 ? ' · Cancelados: ' + cancelados : '');
+    document.getElementById('totValor').innerText = fmt(totalValor);
   }
 
   window.copiarNumeroPedido = function(pedidoId, numero) {
@@ -1530,9 +1693,7 @@
 
       if (pedido.cupomId) {
         try {
-          await updateDoc(doc(db, "cupons", pedido.cupomId), {
-            usos: increment(1)
-          });
+          await updateDoc(doc(db, "cupons", pedido.cupomId), { usos: increment(1) });
         } catch(err) { console.error("Erro ao incrementar cupom:", err); }
       }
 
@@ -1609,7 +1770,6 @@
       for (const docSnap of snapshot.docs) {
         await deleteDoc(doc(db, "pedidos", docSnap.id));
       }
-      
       mostrarMsg("Histórico limpo com sucesso!", "sucesso");
       btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
       btnLimparPedidos.disabled = false;
@@ -1647,9 +1807,8 @@
         const total = Object.values(est).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
         if (total === 0) {
           const novoEstoque = { ...est };
-          if (p.tamanhos && p.tamanhos["50ml"]) {
-            novoEstoque["50ml"] = 5;
-          } else if (p.tamanhos) {
+          if (p.tamanhos && p.tamanhos["50ml"]) novoEstoque["50ml"] = 5;
+          else if (p.tamanhos) {
             const primeiraKey = Object.keys(p.tamanhos)[0];
             novoEstoque[primeiraKey] = 5;
           }
@@ -1676,6 +1835,9 @@
     }
   };
 
+  /* ============================================================
+     CUPONS
+     ============================================================ */
   function carregarCupons() {
     const q = query(collection(db, "cupons"), orderBy("criadoEm", "desc"));
     onSnapshot(q, (snapshot) => {
