@@ -197,7 +197,6 @@
   .btn-whats-cliente:hover { box-shadow: 0 0 15px rgba(37,211,102,0.5); transform: scale(1.02); }
   .btn-whats-cliente svg { width: 14px; height: 14px; fill: #fff; }
 
-  /* ITENS DO PEDIDO - inspiração abaixo do nome */
   .pedido-itens { list-style: none; padding: 0; margin: 0 0 10px 0; }
   .pedido-itens li { font-size: 0.8rem; color: #ccc; padding: 8px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; gap: 10px; }
   .pedido-itens li:last-child { border-bottom: none; }
@@ -226,6 +225,8 @@
   .btn-pedido-cancelar:hover:not(:disabled) { background: #c94a4a; color: #fff; }
   .btn-pedido-excluir { background: rgba(120,120,120,0.15); border-color: #666; color: #ccc; }
   .btn-pedido-excluir:hover:not(:disabled) { background: #666; color: #fff; }
+  .btn-pedido-reativar { background: rgba(37,211,102,0.15); border-color: #25D366; color: #25D366; }
+  .btn-pedido-reativar:hover:not(:disabled) { background: #25D366; color: #0d0d0d; }
 
   /* MODAL EDIÇÃO DE PEDIDO */
   .modal-editar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 8000; justify-content: center; align-items: center; padding: 15px; }
@@ -279,12 +280,9 @@
   .cupom-contador { display: flex; align-items: center; gap: 10px; background: #151515; border: 1px solid #333; border-radius: 10px; padding: 12px 15px; margin-bottom: 15px; }
   .cupom-contador .num { font-size: 1.4rem; font-weight: 800; color: var(--dourado-claro); }
   .cupom-contador .lbl { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; }
-  .cupom-contador.completo { border-color: #ff9800; background: rgba(255,152,0,0.08); }
-  .cupom-contador.completo .num { color: #ff9800; }
 
   .btn-add-cupom { background: linear-gradient(180deg, var(--dourado-claro), var(--dourado)); color: #0d0d0d; border: none; padding: 12px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: 0.3s; width: 100%; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
   .btn-add-cupom:hover { box-shadow: 0 0 20px rgba(212,175,55,0.5); }
-  .btn-add-cupom:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .cupom-item { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 10px; }
   .cupom-item.inativo { border-color: #444; opacity: 0.6; }
@@ -295,24 +293,27 @@
   .cupom-codigo .icone-copiar { font-size: 0.75rem; opacity: 0.6; }
   .cupom-codigo.copiado { color: #25D366; }
   .cupom-pct-badge { background: linear-gradient(135deg, var(--dourado), var(--dourado-claro)); color: #0d0d0d; font-weight: 800; font-size: 0.85rem; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+  .cupom-nome { font-size: 0.8rem; color: #ccc; font-style: italic; margin-bottom: 6px; }
   .cupom-detalhes { font-size: 0.75rem; color: #888; line-height: 1.6; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
   .cupom-detalhes span { display: inline-flex; align-items: center; gap: 4px; }
   .cupom-detalhes span.aviso { color: #ff9800; font-weight: 700; }
   .cupom-detalhes span.esgotado { color: #ff6b6b; font-weight: 700; }
 
-  .cupom-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .btn-cupom-acao { padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.78rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
+  .cupom-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .btn-cupom-acao { padding: 10px 4px; border-radius: 8px; font-weight: bold; font-size: 0.72rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
   .btn-cupom-pausar { background: rgba(255,152,0,0.15); border-color: #ff9800; color: #ff9800; }
   .btn-cupom-pausar:hover { background: #ff9800; color: #0d0d0d; }
   .btn-cupom-ativar { background: rgba(37,211,102,0.15); border-color: #25D366; color: #25D366; }
   .btn-cupom-ativar:hover { background: #25D366; color: #0d0d0d; }
+  .btn-cupom-editar { background: rgba(212,175,55,0.15); border-color: var(--dourado); color: var(--dourado-claro); }
+  .btn-cupom-editar:hover { background: var(--dourado); color: #0d0d0d; }
   .btn-cupom-excluir { background: rgba(201,74,74,0.15); border-color: #c94a4a; color: #ff6b6b; }
   .btn-cupom-excluir:hover { background: #c94a4a; color: #fff; }
 
-  /* MODAL NOVO CUPOM */
+  /* MODAL NOVO/EDITAR CUPOM */
   .modal-cupom-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 8500; justify-content: center; align-items: center; padding: 15px; }
   .modal-cupom-overlay.ativo { display: flex; }
-  .modal-cupom-content { background: var(--card); padding: 25px 20px; border-radius: 12px; border: 1px solid var(--dourado); width: 100%; max-width: 440px; box-shadow: 0 20px 60px rgba(212,175,55,0.3); }
+  .modal-cupom-content { background: var(--card); padding: 25px 20px; border-radius: 12px; border: 1px solid var(--dourado); width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(212,175,55,0.3); }
   .modal-cupom-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); }
   .modal-cupom-header h3 { color: var(--dourado-claro); font-size: 1.15rem; }
   .modal-cupom-header button { background: none; border: none; color: var(--dourado); font-size: 1.5rem; cursor: pointer; }
@@ -323,7 +324,16 @@
   .btn-gerar-codigo { background: rgba(212,175,55,0.15); border: 1px solid var(--dourado); color: var(--dourado); padding: 10px 14px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: 0.2s; white-space: nowrap; }
   .btn-gerar-codigo:hover { background: var(--dourado); color: #0d0d0d; }
 
+  .tipo-desconto-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .tipo-opcao { background: #151515; border: 2px solid #333; border-radius: 8px; padding: 12px 8px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 700; font-size: 0.8rem; color: #888; }
+  .tipo-opcao:hover { border-color: var(--dourado); }
+  .tipo-opcao.ativo { border-color: var(--dourado); background: rgba(212,175,55,0.1); color: var(--dourado-claro); }
+  .tipo-opcao .icone { display: block; font-size: 1.4rem; margin-bottom: 4px; }
+
   .cupom-info-aviso { background: rgba(212,175,55,0.06); border: 1px dashed var(--dourado); border-radius: 8px; padding: 10px 12px; font-size: 0.72rem; color: #ccc; line-height: 1.5; margin-top: 12px; }
+
+  .btn-resetar-usos { background: transparent; border: 1px dashed #ff9800; color: #ff9800; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.2s; }
+  .btn-resetar-usos:hover { background: rgba(255,152,0,0.1); }
 </style>
 </head>
 <body>
@@ -552,10 +562,10 @@
     
     <div class="cupom-contador" id="cupomContador">
       <div class="num" id="cupomContadorNum">0</div>
-      <div class="lbl">de 2 cupons<br>ativos</div>
+      <div class="lbl" id="cupomContadorLbl">cupons ativos</div>
     </div>
 
-    <button class="btn-add-cupom" id="btnAddCupom" onclick="abrirModalNovoCupom()">
+    <button class="btn-add-cupom" onclick="abrirModalNovoCupom()">
       ➕ Gerar Novo Cupom
     </button>
 
@@ -588,37 +598,57 @@
   </div>
 </div>
 
-<div class="modal-cupom-overlay" id="modalNovoCupom">
+<div class="modal-cupom-overlay" id="modalCupom">
   <div class="modal-cupom-content">
     <div class="modal-cupom-header">
-      <h3>🎟️ Novo Cupom</h3>
-      <button onclick="fecharModalNovoCupom()">✕</button>
+      <h3 id="modalCupomTitulo">🎟️ Novo Cupom</h3>
+      <button onclick="fecharModalCupom()">✕</button>
     </div>
     
     <div class="input-group">
       <label>Código do Cupom *</label>
       <div class="cupom-codigo-input">
-        <input type="text" id="novoCupomCodigo" placeholder="THRUST10" maxlength="30" autocomplete="off">
+        <input type="text" id="cupomCodigo" placeholder="THRUST10" maxlength="30" autocomplete="off">
         <button class="btn-gerar-codigo" onclick="gerarCodigoAleatorio()">🎲 Gerar</button>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Nome personalizado (opcional)</label>
+      <input type="text" id="cupomNome" placeholder="Ex: Cupom de Aniversário" maxlength="60" autocomplete="off">
+    </div>
+
+    <div class="input-group">
+      <label>Tipo de Desconto *</label>
+      <div class="tipo-desconto-row">
+        <div class="tipo-opcao ativo" id="tipoPercentual" onclick="selecionarTipo('percentual')">
+          <span class="icone">%</span>
+          Porcentagem
+        </div>
+        <div class="tipo-opcao" id="tipoFixo" onclick="selecionarTipo('fixo')">
+          <span class="icone">R$</span>
+          Valor Fixo
+        </div>
       </div>
     </div>
 
     <div class="grid-inputs">
       <div class="input-group">
-        <label>Desconto (%) *</label>
-        <input type="number" id="novoCupomPct" min="1" max="100" step="1" placeholder="10" value="10">
+        <label id="labelValorDesconto">Desconto (%) *</label>
+        <input type="number" id="cupomValorDesconto" min="1" step="0.01" placeholder="10" value="10">
       </div>
       <div class="input-group">
         <label>Limite de uso</label>
-        <input type="number" id="novoCupomLimite" min="1" step="1" placeholder="Ilimitado">
+        <input type="number" id="cupomLimite" min="1" step="1" placeholder="Ilimitado">
       </div>
     </div>
 
-    <div class="cupom-info-aviso">
-      💡 Deixe o campo "Limite de uso" <strong>vazio</strong> para cupom ilimitado. O cupom começa <strong>ativo</strong>. Máximo de 2 cupons ativos simultâneos.
+    <div class="cupom-info-aviso" id="cupomInfoAviso">
+      💡 Deixe o campo "Limite de uso" <strong>vazio</strong> para cupom ilimitado. O cupom começa <strong>ativo</strong>.
     </div>
 
-    <button class="btn-salvar" id="btnSalvarCupom" onclick="salvarNovoCupom()" style="margin-top:15px;">Criar Cupom</button>
+    <button class="btn-salvar" id="btnSalvarCupom" onclick="salvarCupom()" style="margin-top:15px;">Criar Cupom</button>
+    <button class="btn-resetar-usos" id="btnResetarUsos" onclick="resetarUsosCupom()" style="display:none;">🔄 Resetar Contador de Usos</button>
   </div>
 </div>
 
@@ -646,7 +676,6 @@
   const TAMANHOS = ['30ml', '50ml', '100ml'];
   const DESCONTO_MIN = 3;
   const DESCONTO_PCT = 0.05;
-  const MAX_CUPONS_ATIVOS = 2;
 
   const telaCarregando = document.getElementById('tela-carregando');
   const telaLogin = document.getElementById('tela-login');
@@ -682,6 +711,43 @@
   let pedidoEmEdicao = null;
   let itensEmEdicao = [];
   let whatsEmEdicao = '';
+
+  // Cupom em edição
+  let cupomEmEdicao = null;
+  let tipoDescontoAtual = 'percentual';
+
+  /* ============================================================
+     CAPITALIZAÇÃO AUTOMÁTICA
+     Cada palavra começa com maiúscula
+     ============================================================ */
+  function capitalizeWords(str) {
+    if (!str) return str;
+    return str.replace(/\s+/g, ' ').replace(/(^|\s)\S/g, function(l) {
+      return l.toUpperCase();
+    });
+  }
+
+  // Aplica nos campos Nome e Inspirado em
+  document.getElementById('nome').addEventListener('input', function(e) {
+    const pos = e.target.selectionStart;
+    const antigo = e.target.value;
+    const novo = capitalizeWords(antigo);
+    if (antigo !== novo) {
+      e.target.value = novo;
+      // Tenta restaurar o cursor
+      try { e.target.setSelectionRange(pos, pos); } catch(err) {}
+    }
+  });
+
+  document.getElementById('insp').addEventListener('input', function(e) {
+    const pos = e.target.selectionStart;
+    const antigo = e.target.value;
+    const novo = capitalizeWords(antigo);
+    if (antigo !== novo) {
+      e.target.value = novo;
+      try { e.target.setSelectionRange(pos, pos); } catch(err) {}
+    }
+  });
 
   function normalizarEstoque(p) {
     if (p.estoque && typeof p.estoque === 'object') return p.estoque;
@@ -732,6 +798,20 @@
     return c.limiteUso && (c.usos || 0) >= c.limiteUso;
   }
 
+  function cupomDescricao(c) {
+    const tipo = c.tipoDesconto || 'percentual';
+    const valor = c.valorDesconto != null ? c.valorDesconto : (c.percentual || 0);
+    if (tipo === 'fixo') return fmt(valor) + ' de desconto';
+    return valor + '% de desconto';
+  }
+
+  function cupomBadge(c) {
+    const tipo = c.tipoDesconto || 'percentual';
+    const valor = c.valorDesconto != null ? c.valorDesconto : (c.percentual || 0);
+    if (tipo === 'fixo') return 'R$ ' + Number(valor).toFixed(2).replace('.', ',') + ' OFF';
+    return valor + '% OFF';
+  }
+
   function dataPedido(p) {
     if (!p.data) return null;
     return p.data.toDate ? p.data.toDate() : new Date(p.data);
@@ -775,17 +855,8 @@
   function atualizarContadorCupons() {
     const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c)).length;
     document.getElementById('cupomContadorNum').innerText = ativos;
-    const cont = document.getElementById('cupomContador');
-    if (ativos >= MAX_CUPONS_ATIVOS) cont.classList.add('completo');
-    else cont.classList.remove('completo');
-    const btnAdd = document.getElementById('btnAddCupom');
-    if (ativos >= MAX_CUPONS_ATIVOS) {
-      btnAdd.disabled = true;
-      btnAdd.innerText = '🚫 Limite de 2 cupons ativos atingido';
-    } else {
-      btnAdd.disabled = false;
-      btnAdd.innerText = '➕ Gerar Novo Cupom';
-    }
+    const lbl = document.getElementById('cupomContadorLbl');
+    lbl.innerHTML = ativos === 1 ? 'cupom ativo' : 'cupons ativos';
   }
 
   window.irParaEsgotados = function() {
@@ -915,8 +986,8 @@
     if(document.getElementById('chk-100').checked && document.getElementById('preco-100').value) tamanhos["100ml"] = parseFloat(document.getElementById('preco-100').value);
 
     const dadosPerfume = {
-      nome: document.getElementById('nome').value,
-      insp: document.getElementById('insp').value,
+      nome: capitalizeWords(document.getElementById('nome').value),
+      insp: capitalizeWords(document.getElementById('insp').value),
       cat: document.getElementById('cat').value,
       img: document.getElementById('img').value || "COLE_O_LINK_AQUI",
       tamanhos: tamanhos,
@@ -1015,7 +1086,7 @@
     if (!p) return;
     if (!confirm('Duplicar "' + p.nome + '"?\n\nO formulário abrirá com os dados preenchidos. Altere o nome e a inspiração antes de salvar.')) return;
 
-    document.getElementById('nome').value = p.nome + ' (cópia)';
+    document.getElementById('nome').value = p.nome + ' (Cópia)';
     document.getElementById('insp').value = p.insp;
     document.getElementById('cat').value = p.cat;
     document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
@@ -1427,7 +1498,13 @@
       if (isConcretizada) selosHtml += '<span class="selo-pedido selo-concretizado">✅ Concretizada</span>';
       if (isCancelada) selosHtml += '<span class="selo-pedido selo-cancelado">❌ Cancelada</span>';
       if (isPendente) selosHtml += '<span class="selo-pedido selo-pendente">⏳ Pendente</span>';
-      if (pedido.cupomCodigo) selosHtml += '<span class="selo-pedido selo-cupom">🎟️ ' + esc(pedido.cupomCodigo) + ' (' + pedido.cupomPercentual + '%)</span>';
+      if (pedido.cupomCodigo) {
+        let badgeCupom = pedido.cupomCodigo;
+        if (pedido.cupomNome) badgeCupom = pedido.cupomNome;
+        else if (pedido.cupomTipo === 'fixo') badgeCupom += ' (R$ ' + Number(pedido.cupomValor || 0).toFixed(2).replace('.', ',') + ')';
+        else if (pedido.cupomPercentual) badgeCupom += ' (' + pedido.cupomPercentual + '%)';
+        selosHtml += '<span class="selo-pedido selo-cupom">🎟️ ' + esc(badgeCupom) + '</span>';
+      }
 
       let numeroPedidoHtml = '';
       if (pedido.numero) {
@@ -1468,8 +1545,13 @@
       let totaisHtml = `<span>Subtotal: <strong>${fmt(pedido.subtotal || 0)}</strong></span>`;
       if (pedido.desconto && pedido.desconto > 0) {
         let label = 'Desconto:';
-        if (pedido.cupomCodigo) label = 'Desconto cupom (' + pedido.cupomPercentual + '%):';
-        else label = 'Desconto (5%):';
+        if (pedido.cupomCodigo) {
+          if (pedido.cupomNome) label = 'Desconto cupom (' + pedido.cupomNome + '):';
+          else if (pedido.cupomTipo === 'fixo') label = 'Desconto cupom (' + pedido.cupomCodigo + '):';
+          else label = 'Desconto cupom (' + (pedido.cupomPercentual || pedido.cupomValor || 0) + '%):';
+        } else {
+          label = 'Desconto (5%):';
+        }
         totaisHtml += `<span class="desconto">${label} <strong>− ${fmt(pedido.desconto)}</strong></span>`;
       }
 
@@ -1495,7 +1577,8 @@
         `;
       } else if (isCancelada) {
         botoesHtml = `
-          <div class="pedido-acoes" style="margin-top:6px;">
+          <div class="pedido-acoes tres" style="margin-top:6px;">
+            <button class="btn-pedido btn-pedido-reativar" onclick="reativarPedido('${pedidoId}')">♻️ Reativar</button>
             <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${pedidoId}')">✏️ Editar</button>
             <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${pedidoId}')">🗑️ Excluir</button>
           </div>
@@ -1562,10 +1645,6 @@
     el.value = whatsEmEdicao;
   };
 
-  /* ============================================================
-     EDITAR PEDIDO — agora funciona em qualquer estado
-     Ajusta estoque automaticamente quando salva
-     ============================================================ */
   window.abrirEdicaoPedido = function(pedidoId) {
     const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
     if (!pedido) return;
@@ -1576,7 +1655,6 @@
     
     document.getElementById('editWhatsCliente').value = whatsEmEdicao;
 
-    // Aviso de status
     const avisoEl = document.getElementById('editAvisoStatus');
     avisoEl.style.display = 'block';
     if (pedido.cancelada) {
@@ -1666,76 +1744,6 @@
     renderizarModalEditar();
   };
 
-  /* ============================================================
-     SALVAR EDIÇÃO + AJUSTE DE ESTOQUE
-     ============================================================ */
-  window.salvarEdicaoPedido = async function() {
-    if (!pedidoEmEdicao) return;
-    if (itensEmEdicao.length === 0) {
-      mostrarMsg("Pedido sem itens. Use o botão de cancelar.", "erro");
-      return;
-    }
-
-    const btn = document.getElementById('btn-salvar-edicao');
-    btn.disabled = true;
-    btn.innerText = "Salvando...";
-
-    try {
-      const pedidoOriginal = pedidoEmEdicao;
-      const eraConcretizada = pedidoOriginal.concretizada === true;
-      const eraCancelada = pedidoOriginal.cancelada === true;
-      
-      // Só ajusta estoque se o pedido já foi concretizado (estoque abatido) ou cancelado (estoque devolvido)
-      // Se estava pendente, o estoque ainda não foi mexido — nada a ajustar
-      if (eraConcretizada || eraCancelada) {
-        // Reverte o estado atual no estoque primeiro (desfaz o que estava)
-        if (eraConcretizada) {
-          // Reverte: devolve o estoque dos itens antigos
-          await ajustarEstoquePedido(pedidoOriginal.itens, 'devolver');
-        } else if (eraCancelada) {
-          // Pedido cancelado = estoque já devolvido, agora re-abaixa para refletir a edição
-          await ajustarEstoquePedido(pedidoOriginal.itens, 'abater');
-        }
-      }
-
-      // Recalcula e atualiza pedido
-      const r = calcularResumoEdicao();
-      const dadosAtualizados = {
-        itens: itensEmEdicao,
-        subtotal: r.subtotal,
-        desconto: r.desconto,
-        total: r.total
-      };
-
-      if (whatsEmEdicao && telefoneValido(whatsEmEdicao)) {
-        dadosAtualizados.clienteWhats = whatsEmEdicao;
-      } else if (whatsEmEdicao === '') {
-        dadosAtualizados.clienteWhats = '';
-      }
-
-      await updateDoc(doc(db, "pedidos", pedidoOriginal.id), dadosAtualizados);
-
-      // Re-aplica o novo estado no estoque
-      if (eraConcretizada) {
-        // Novo estado = concretizado → abate os itens novos
-        await ajustarEstoquePedido(itensEmEdicao, 'abater');
-      } else if (eraCancelada) {
-        // Novo estado = cancelado → devolve os itens novos
-        await ajustarEstoquePedido(itensEmEdicao, 'devolver');
-      }
-
-      mostrarMsg("Pedido atualizado!" + ((eraConcretizada || eraCancelada) ? " Estoque re-ajustado." : ""), "sucesso");
-      fecharModalEditar();
-    } catch (error) {
-      console.error(error);
-      mostrarMsg("Erro ao atualizar pedido.", "erro");
-    } finally {
-      btn.disabled = false;
-      btn.innerText = "Salvar Alterações";
-    }
-  };
-
-  // Ajusta estoque de um pedido (abater ou devolver)
   async function ajustarEstoquePedido(itens, acao) {
     if (!itens || !Array.isArray(itens)) return;
     for (const item of itens) {
@@ -1752,7 +1760,7 @@
       let novoEstoqueTam;
       if (acao === 'abater') {
         novoEstoqueTam = Math.max(0, estoqueAtualTam - item.qtd);
-      } else { // devolver
+      } else {
         novoEstoqueTam = estoqueAtualTam + item.qtd;
       }
 
@@ -1763,9 +1771,107 @@
     }
   }
 
+  window.salvarEdicaoPedido = async function() {
+    if (!pedidoEmEdicao) return;
+    if (itensEmEdicao.length === 0) {
+      mostrarMsg("Pedido sem itens. Use o botão de cancelar.", "erro");
+      return;
+    }
+
+    const btn = document.getElementById('btn-salvar-edicao');
+    btn.disabled = true;
+    btn.innerText = "Salvando...";
+
+    try {
+      const pedidoOriginal = pedidoEmEdicao;
+      const eraConcretizada = pedidoOriginal.concretizada === true;
+      const eraCancelada = pedidoOriginal.cancelada === true;
+      
+      if (eraConcretizada || eraCancelada) {
+        if (eraConcretizada) {
+          await ajustarEstoquePedido(pedidoOriginal.itens, 'devolver');
+        } else if (eraCancelada) {
+          await ajustarEstoquePedido(pedidoOriginal.itens, 'abater');
+        }
+      }
+
+      const r = calcularResumoEdicao();
+      const dadosAtualizados = {
+        itens: itensEmEdicao,
+        subtotal: r.subtotal,
+        desconto: r.desconto,
+        total: r.total
+      };
+
+      if (whatsEmEdicao && telefoneValido(whatsEmEdicao)) {
+        dadosAtualizados.clienteWhats = whatsEmEdicao;
+      } else if (whatsEmEdicao === '') {
+        dadosAtualizados.clienteWhats = '';
+      }
+
+      await updateDoc(doc(db, "pedidos", pedidoOriginal.id), dadosAtualizados);
+
+      if (eraConcretizada) {
+        await ajustarEstoquePedido(itensEmEdicao, 'abater');
+      } else if (eraCancelada) {
+        await ajustarEstoquePedido(itensEmEdicao, 'devolver');
+      }
+
+      mostrarMsg("Pedido atualizado!" + ((eraConcretizada || eraCancelada) ? " Estoque re-ajustado." : ""), "sucesso");
+      fecharModalEditar();
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao atualizar pedido.", "erro");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Salvar Alterações";
+    }
+  };
+
   /* ============================================================
-     EXCLUIR PEDIDO
+     REATIVAR PEDIDO CANCELADO
+     Volta ao estado anterior: se era concretizado, volta a
+     concretizado e re-abaixa o estoque.
      ============================================================ */
+  window.reativarPedido = async function(pedidoId) {
+    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
+    if (!pedido) return;
+    if (!pedido.cancelada) return;
+
+    const eraConcretizada = pedido.concretizada === true;
+    
+    let msgConfirm = '♻️ Reativar este pedido?\n\n';
+    if (eraConcretizada) {
+      msgConfirm += 'Como ele era CONCRETIZADO antes de ser cancelado, ele voltará como CONCRETIZADO e o estoque será re-abaixado automaticamente.';
+    } else {
+      msgConfirm += 'Ele era PENDENTE. Voltará como PENDENTE, sem mexer no estoque.';
+    }
+    msgConfirm += '\n\nConfirmar?';
+    
+    if (!confirm(msgConfirm)) return;
+
+    try {
+      // Re-abaixa o estoque se era concretizado
+      if (eraConcretizada) {
+        await ajustarEstoquePedido(pedido.itens, 'abater');
+      }
+
+      // Se tinha cupom, re-incrementa o uso
+      if (pedido.cupomId && eraConcretizada) {
+        try {
+          await updateDoc(doc(db, "cupons", pedido.cupomId), { usos: increment(1) });
+        } catch(err) { console.error("Erro ao incrementar cupom:", err); }
+      }
+
+      await updateDoc(doc(db, "pedidos", pedidoId), { cancelada: false });
+
+      mostrarMsg("Pedido reativado!" + (eraConcretizada ? " Estoque re-abaixado." : ""), "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao reativar pedido.", "erro");
+    }
+  };
+
   window.excluirPedido = async function(pedidoId) {
     const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
     if (!pedido) return;
@@ -1796,7 +1902,7 @@
     if (!pedido) return;
     if (pedido.concretizada) return;
     if (pedido.cancelada) {
-      mostrarMsg("Pedido cancelado não pode ser concretizado.", "erro");
+      mostrarMsg("Pedido cancelado não pode ser concretizado. Reative primeiro.", "erro");
       return;
     }
     if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
@@ -1935,7 +2041,7 @@
   };
 
   /* ============================================================
-     CUPONS
+     CUPONS - SEM LIMITE, COM % OU R$ FIXO, NOME, EDIÇÃO
      ============================================================ */
   function carregarCupons() {
     const q = query(collection(db, "cupons"), orderBy("criadoEm", "desc"));
@@ -1972,8 +2078,9 @@
             ${esc(c.codigo)}
             <span class="icone-copiar">📋</span>
           </span>
-          <span class="cupom-pct-badge">${c.percentual}% OFF</span>
+          <span class="cupom-pct-badge">${cupomBadge(c)}</span>
         </div>
+        ${c.nome ? '<div class="cupom-nome">🎁 ' + esc(c.nome) + '</div>' : ''}
         <div class="cupom-detalhes">
           <span>📊 Usos: <strong style="color:var(--dourado-claro);">${cupomUsosMostrar(c)}</strong></span>
           ${esgotado ? '<span class="esgotado">🚫 Esgotado</span>' : ''}
@@ -1982,6 +2089,7 @@
         </div>
         <div class="cupom-acoes">
           ${!esgotado ? `<button class="btn-cupom-acao ${c.ativo ? 'btn-cupom-pausar' : 'btn-cupom-ativar'}" onclick="toggleCupom('${c.id}', ${!c.ativo})">${c.ativo ? '⏸️ Pausar' : '▶️ Ativar'}</button>` : '<button class="btn-cupom-acao btn-cupom-ativar" disabled style="opacity:0.4;">Esgotado</button>'}
+          <button class="btn-cupom-acao btn-cupom-editar" onclick="abrirEdicaoCupom('${c.id}')">✏️ Editar</button>
           <button class="btn-cupom-acao btn-cupom-excluir" onclick="excluirCupom('${c.id}')">🗑️ Excluir</button>
         </div>
       `;
@@ -2014,22 +2122,65 @@
     });
   };
 
+  function limparModalCupom() {
+    cupomEmEdicao = null;
+    tipoDescontoAtual = 'percentual';
+    document.getElementById('cupomCodigo').value = '';
+    document.getElementById('cupomNome').value = '';
+    document.getElementById('cupomValorDesconto').value = '10';
+    document.getElementById('cupomLimite').value = '';
+    document.getElementById('modalCupomTitulo').innerText = '🎟️ Novo Cupom';
+    document.getElementById('btnSalvarCupom').innerText = 'Criar Cupom';
+    document.getElementById('btnResetarUsos').style.display = 'none';
+    selecionarTipo('percentual');
+  }
+
   window.abrirModalNovoCupom = function() {
-    const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c)).length;
-    if (ativos >= MAX_CUPONS_ATIVOS) {
-      mostrarMsg("Você já tem " + MAX_CUPONS_ATIVOS + " cupons ativos. Desative um antes.", "erro");
-      return;
-    }
-    
-    document.getElementById('novoCupomCodigo').value = '';
-    document.getElementById('novoCupomPct').value = '10';
-    document.getElementById('novoCupomLimite').value = '';
-    
-    document.getElementById('modalNovoCupom').classList.add('ativo');
+    limparModalCupom();
+    document.getElementById('modalCupom').classList.add('ativo');
   };
 
-  window.fecharModalNovoCupom = function() {
-    document.getElementById('modalNovoCupom').classList.remove('ativo');
+  window.abrirEdicaoCupom = function(id) {
+    const c = todosCuponsAdmin.find(x => x.id === id);
+    if (!c) return;
+    
+    cupomEmEdicao = c;
+    tipoDescontoAtual = c.tipoDesconto || 'percentual';
+    
+    document.getElementById('cupomCodigo').value = c.codigo || '';
+    document.getElementById('cupomNome').value = c.nome || '';
+    
+    const valor = c.valorDesconto != null ? c.valorDesconto : (c.percentual || 0);
+    document.getElementById('cupomValorDesconto').value = valor;
+    
+    document.getElementById('cupomLimite').value = c.limiteUso || '';
+    
+    document.getElementById('modalCupomTitulo').innerText = '✏️ Editar Cupom';
+    document.getElementById('btnSalvarCupom').innerText = 'Salvar Alterações';
+    document.getElementById('btnResetarUsos').style.display = 'block';
+    
+    selecionarTipo(tipoDescontoAtual);
+    document.getElementById('modalCupom').classList.add('ativo');
+  };
+
+  window.fecharModalCupom = function() {
+    document.getElementById('modalCupom').classList.remove('ativo');
+    limparModalCupom();
+  };
+
+  window.selecionarTipo = function(tipo) {
+    tipoDescontoAtual = tipo;
+    document.getElementById('tipoPercentual').classList.remove('ativo');
+    document.getElementById('tipoFixo').classList.remove('ativo');
+    if (tipo === 'fixo') {
+      document.getElementById('tipoFixo').classList.add('ativo');
+      document.getElementById('labelValorDesconto').innerText = 'Valor em R$ *';
+      document.getElementById('cupomValorDesconto').placeholder = '10,00';
+    } else {
+      document.getElementById('tipoPercentual').classList.add('ativo');
+      document.getElementById('labelValorDesconto').innerText = 'Desconto (%) *';
+      document.getElementById('cupomValorDesconto').placeholder = '10';
+    }
   };
 
   window.gerarCodigoAleatorio = function() {
@@ -2038,17 +2189,19 @@
     for (let i = 0; i < 4; i++) {
       codigo += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    document.getElementById('novoCupomCodigo').value = codigo;
+    document.getElementById('cupomCodigo').value = codigo;
   };
 
-  window.salvarNovoCupom = async function() {
-    const codigoInput = document.getElementById('novoCupomCodigo');
-    const pctInput = document.getElementById('novoCupomPct');
-    const limiteInput = document.getElementById('novoCupomLimite');
+  window.salvarCupom = async function() {
+    const codigoInput = document.getElementById('cupomCodigo');
+    const nomeInput = document.getElementById('cupomNome');
+    const valorInput = document.getElementById('cupomValorDesconto');
+    const limiteInput = document.getElementById('cupomLimite');
     const btn = document.getElementById('btnSalvarCupom');
     
     const codigo = codigoInput.value.trim().toUpperCase().replace(/\s+/g, '');
-    const pct = parseInt(pctInput.value);
+    const nome = nomeInput.value.trim();
+    const valor = parseFloat(valorInput.value);
     const limite = limiteInput.value.trim() === '' ? null : parseInt(limiteInput.value);
     
     if (!codigo || codigo.length < 3) {
@@ -2056,8 +2209,13 @@
       return;
     }
     
-    if (isNaN(pct) || pct < 1 || pct > 100) {
-      mostrarMsg("Desconto deve ser entre 1% e 100%.", "erro");
+    if (isNaN(valor) || valor <= 0) {
+      mostrarMsg("Valor do desconto deve ser maior que zero.", "erro");
+      return;
+    }
+    
+    if (tipoDescontoAtual === 'percentual' && (valor < 1 || valor > 100)) {
+      mostrarMsg("Percentual deve ser entre 1% e 100%.", "erro");
       return;
     }
     
@@ -2066,45 +2224,70 @@
       return;
     }
     
+    // Verifica duplicidade de código (exceto se está editando o mesmo)
     const q = query(collection(db, "cupons"), where("codigo", "==", codigo));
     const snap = await getDocs(q);
-    if (!snap.empty) {
+    let duplicado = false;
+    snap.forEach(d => {
+      if (!cupomEmEdicao || d.id !== cupomEmEdicao.id) duplicado = true;
+    });
+    if (duplicado) {
       mostrarMsg("Já existe um cupom com este código.", "erro");
       return;
     }
     
     btn.disabled = true;
-    btn.innerText = "Criando...";
+    btn.innerText = cupomEmEdicao ? "Salvando..." : "Criando...";
     
     try {
-      await addDoc(collection(db, "cupons"), {
+      const dadosCupom = {
         codigo: codigo,
-        percentual: pct,
+        nome: nome,
+        tipoDesconto: tipoDescontoAtual,
+        valorDesconto: valor,
         limiteUso: limite,
-        usos: 0,
-        ativo: true,
-        criadoEm: new Date()
-      });
-      mostrarMsg("Cupom criado: " + codigo, "sucesso");
-      fecharModalNovoCupom();
+        ativo: cupomEmEdicao ? cupomEmEdicao.ativo : true
+      };
+      
+      // Compatibilidade retroativa: se for percentual, mantém "percentual" também
+      if (tipoDescontoAtual === 'percentual') {
+        dadosCupom.percentual = valor;
+      }
+      
+      if (cupomEmEdicao) {
+        await updateDoc(doc(db, "cupons", cupomEmEdicao.id), dadosCupom);
+        mostrarMsg("Cupom atualizado: " + codigo, "sucesso");
+      } else {
+        dadosCupom.usos = 0;
+        dadosCupom.criadoEm = new Date();
+        await addDoc(collection(db, "cupons"), dadosCupom);
+        mostrarMsg("Cupom criado: " + codigo, "sucesso");
+      }
+      fecharModalCupom();
     } catch (error) {
       console.error(error);
-      mostrarMsg("Erro ao criar cupom.", "erro");
+      mostrarMsg("Erro ao salvar cupom.", "erro");
     } finally {
       btn.disabled = false;
-      btn.innerText = "Criar Cupom";
+      btn.innerText = cupomEmEdicao ? "Salvar Alterações" : "Criar Cupom";
+    }
+  };
+
+  window.resetarUsosCupom = async function() {
+    if (!cupomEmEdicao) return;
+    if (!confirm("Resetar o contador de usos do cupom " + cupomEmEdicao.codigo + " para 0?\n\nPedidos antigos que usaram este cupom NÃO serão afetados. Só o contador volta a zero.")) return;
+    
+    try {
+      await updateDoc(doc(db, "cupons", cupomEmEdicao.id), { usos: 0 });
+      mostrarMsg("Contador de usos resetado!", "sucesso");
+      fecharModalCupom();
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao resetar usos.", "erro");
     }
   };
 
   window.toggleCupom = async function(id, novoAtivo) {
-    if (novoAtivo) {
-      const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c) && c.id !== id).length;
-      if (ativos >= MAX_CUPONS_ATIVOS) {
-        mostrarMsg("Limite de " + MAX_CUPONS_ATIVOS + " cupons ativos atingido. Desative outro antes.", "erro");
-        return;
-      }
-    }
-    
     try {
       await updateDoc(doc(db, "cupons", id), { ativo: novoAtivo });
       mostrarMsg(novoAtivo ? "Cupom ativado!" : "Cupom pausado!", "sucesso");
