@@ -9,7 +9,9 @@
 <style>
   :root { --dourado: #c9a227; --dourado-claro: #f5d97a; --fundo: #0d0d0d; --card: #1a1a1a; --borda: rgba(212,175,55,0.25); --verde-whats: #25D366; }
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
-  body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: 50px; overflow-x: hidden; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: max(50px, env(safe-area-inset-bottom)); overflow-x: hidden; }
+  button, a, .menu-card, .dash-card, .tipo-opcao, .check-box { touch-action: manipulation; }
 
   #tela-login, #painel { display: none; }
   #tela-carregando { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: var(--dourado-claro); font-family: 'Playfair Display', serif; font-size: 1.2rem; }
@@ -386,14 +388,50 @@
   .btn-mac-excluir { background: rgba(201,74,74,0.15); border-color: #c94a4a; color: #ff6b6b; }
   .btn-mac-excluir:hover { background: #c94a4a; color: #fff; }
 
-  .modal-mac-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 8500; justify-content: center; align-items: center; padding: 15px; }
+  .modal-mac-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 8500; justify-content: center; align-items: center; padding: 12px; }
   .modal-mac-overlay.ativo { display: flex; }
-  .modal-mac-content { background: var(--card); padding: 25px 20px; border-radius: 12px; border: 1px solid var(--dourado); width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(212,175,55,0.3); }
+  .modal-mac-content { background: var(--card); padding: 22px 18px; border-radius: 12px; border: 1px solid var(--dourado); width: 100%; max-width: 460px; max-height: 92dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; box-shadow: 0 20px 60px rgba(212,175,55,0.3); }
   .modal-mac-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); }
   .modal-mac-header h3 { color: var(--dourado-claro); font-size: 1.15rem; }
-  .modal-mac-header button { background: none; border: none; color: var(--dourado); font-size: 1.5rem; cursor: pointer; }
+  .modal-mac-header button { background: none; border: none; color: var(--dourado); font-size: 1.5rem; cursor: pointer; min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+
+  .mac-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+  .mac-tab-btn { background: #151515; border: 1px solid #333; color: #aaa; padding: 11px 10px; border-radius: 10px; font-weight: 700; font-size: 0.78rem; cursor: pointer; transition: 0.2s; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .mac-tab-btn.active { border-color: var(--dourado); background: rgba(212,175,55,0.14); color: var(--dourado-claro); }
+
+  .mac-item-topo { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
+  .mac-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #fff; padding: 2px; flex-shrink: 0; border: 1px solid #333; }
+  .mac-selo.historico { background: rgba(37,211,102,0.12); color: #25D366; border: 1px solid #25D366; }
+  .mac-acoes.uma { grid-template-columns: 1fr; }
 
   .empty-state { text-align: center; color: #666; padding: 40px 20px; font-size: 0.9rem; font-style: italic; }
+
+  @media (max-width: 600px) {
+    .input-group input, .input-group select, .input-group textarea,
+    .search-admin, .pedido-busca, .edit-whats-group input, .edit-add-item-box select,
+    .cupom-codigo-input input, .tamanho-card input.preco-tam {
+      font-size: 16px;
+      min-height: 44px;
+    }
+    .btn-acao, .btn-pedido, .btn-cupom-acao, .btn-mac-acao, .btn-config-imgbb, .btn-sair {
+      min-height: 42px;
+    }
+    .modal-editar-content, .modal-cupom-content {
+      max-height: 92dvh;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    .edit-add-item-box { grid-template-columns: 1fr 1fr; }
+    .edit-add-item-box select:first-child { grid-column: 1 / -1; }
+    .edit-add-item-box button { min-height: 44px; }
+  }
+  @media (max-width: 440px) {
+    .grid-inputs { grid-template-columns: 1fr; }
+    .header-admin { flex-wrap: wrap; gap: 10px; }
+    .item-acoes { grid-template-columns: 1fr 1fr; }
+    .mac-info { gap: 6px; }
+    .mac-info .bloco { padding: 8px 4px; }
+  }
 </style>
 <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
 <body>
@@ -656,14 +694,26 @@
   <div class="section-content" id="section-maceracao">
     <h2 class="section-title">Perfumes em Maceração</h2>
     <p style="font-size:0.72rem; color:#888; margin-bottom:15px; line-height:1.5;">
-      ⏳ Controle aqui os perfumes que estão descansando. O cálculo de dias é automático. Aparecem no catálogo como "Em Breve".
+      ⏳ Controle aqui os perfumes que estão descansando. Ao ficar pronto, desaparece da vitrine pública e você pode incluí-lo no catálogo e mantê-lo no histórico.
     </p>
 
     <button class="btn-add-cupom" onclick="abrirModalNovaMac()" style="background: linear-gradient(180deg, #ffc107, #ff9800);">
       ➕ Adicionar Perfume em Maceração
     </button>
 
+    <div class="mac-tabs">
+      <button type="button" class="mac-tab-btn active" id="tabMacAtivos" onclick="mudarAbaMac('ativos')">
+        ⏳ Em Andamento (<span id="macCountAtivos">0</span>)
+      </button>
+      <button type="button" class="mac-tab-btn" id="tabMacHistorico" onclick="mudarAbaMac('historico')">
+        📜 Histórico (<span id="macCountHistorico">0</span>)
+      </button>
+    </div>
+
     <div id="lista-mac"></div>
+    <button type="button" class="btn-limpar-pedidos" id="btn-limpar-historico-mac" onclick="limparHistoricoMac()" style="display:none;">
+      🗑️ Limpar Todo o Histórico de Maceração
+    </button>
   </div>
 </div>
 
@@ -771,8 +821,19 @@
     </div>
 
     <div class="input-group">
-      <label>Link da Imagem (opcional)</label>
-      <input type="url" id="macImg" placeholder="https://..." maxlength="500" autocomplete="off">
+      <label>Imagem do Perfume (opcional)</label>
+      <div class="upload-area">
+        <div class="upload-btn" id="btn-upload-mac">
+          <input type="file" id="file-img-mac" accept="image/*" onchange="fazerUpload(event, 'mac')">
+          📷 Escolher Imagem (otimiza automático)
+        </div>
+        <div class="upload-status" id="upload-status-mac">Enviando...</div>
+        <div class="imgbb-status-row">
+          <span id="imgbb-status-texto-mac" class="pendente">⚠️ Chave ImgBB não configurada</span>
+          <button type="button" onclick="abrirModalImgbb()">Configurar</button>
+        </div>
+      </div>
+      <input type="url" id="macImg" placeholder="Ou cole o link: https://..." maxlength="500" autocomplete="off" style="margin-top: 8px;">
     </div>
 
     <div class="grid-inputs">
@@ -787,7 +848,7 @@
     </div>
 
     <div class="cupom-info-aviso">
-      💡 O perfume aparecerá no catálogo público com a etiqueta <strong>⏳ Em Breve</strong> e o contador de dias será atualizado automaticamente.
+      💡 O perfume aparecerá no catálogo público com a etiqueta <strong>⏳ Em Breve</strong> e sairá de lá automaticamente quando ficar pronto.
     </div>
 
     <button class="btn-salvar" id="btnSalvarMac" onclick="salvarMac()" style="margin-top:15px;">Salvar</button>
@@ -886,6 +947,7 @@
   let cupomEmEdicao = null;
   let tipoDescontoAtual = 'percentual';
   let macEmEdicao = null;
+  let abaMac = 'ativos';
 
   /* ============================================================
      UTILITÁRIOS DE SEGURANÇA, TEXTO E MOEDA
@@ -912,23 +974,23 @@
     return str.replace(/\s+/g, ' ').replace(/(^|\s)\S/g, l => l.toUpperCase());
   }
 
-  document.getElementById('nome').addEventListener('input', function(e) {
-    const pos = e.target.selectionStart;
-    const novo = capitalizeWords(e.target.value);
-    if (e.target.value !== novo) {
-      e.target.value = novo;
-      try { e.target.setSelectionRange(pos, pos); } catch (err) {}
-    }
-  });
+  function vincularCapitalize(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', function(e) {
+      const pos = e.target.selectionStart;
+      const novo = capitalizeWords(e.target.value);
+      if (e.target.value !== novo) {
+        e.target.value = novo;
+        try { e.target.setSelectionRange(pos, pos); } catch (err) {}
+      }
+    });
+  }
 
-  document.getElementById('insp').addEventListener('input', function(e) {
-    const pos = e.target.selectionStart;
-    const novo = capitalizeWords(e.target.value);
-    if (e.target.value !== novo) {
-      e.target.value = novo;
-      try { e.target.setSelectionRange(pos, pos); } catch (err) {}
-    }
-  });
+  vincularCapitalize('nome');
+  vincularCapitalize('insp');
+  vincularCapitalize('macNome');
+  vincularCapitalize('macInsp');
 
   window.mascaraMoeda = function(input) {
     let v = input.value.replace(/\D/g, '');
@@ -1062,9 +1124,15 @@
     renderizarListaAdmin();
   };
 
-  window.abrirSecao = function(secao, el) {
+  function fecharTodasSecoes() {
     document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+  }
+
+  window.abrirSecao = function(secao, el) {
+    const jaAtiva = el && el.classList.contains('active');
+    fecharTodasSecoes();
+    if (jaAtiva) return;
 
     const card = el || document.querySelector('.menu-card[data-secao="' + secao + '"]');
     if (card) card.classList.add('active');
@@ -1075,7 +1143,7 @@
       if (secao === 'estoque') renderizarEstoque();
       if (secao === 'pedidos') renderizarPedidos();
       if (secao === 'maceracao') renderizarMac();
-      secEl.scrollIntoView({ behavior: 'smooth' });
+      secEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -1116,16 +1184,18 @@
 
   function atualizarStatusImgbbUI() {
     const statusTxt = document.getElementById('imgbb-status-texto');
+    const statusTxtMac = document.getElementById('imgbb-status-texto-mac');
     const btnHeader = document.getElementById('btn-config-imgbb');
     const btnRemover = document.getElementById('btnRemoverImgbb');
     const configurada = Boolean(imgbbApiKey);
 
-    if (statusTxt) {
-      statusTxt.className = configurada ? 'ok' : 'pendente';
-      statusTxt.innerText = configurada
+    [statusTxt, statusTxtMac].forEach(el => {
+      if (!el) return;
+      el.className = configurada ? 'ok' : 'pendente';
+      el.innerText = configurada
         ? '✓ Upload ImgBB ativo (chave salva no Firestore)'
         : '⚠️ Chave ImgBB não configurada';
-    }
+    });
     if (btnHeader) {
       btnHeader.classList.toggle('pendente', !configurada);
       btnHeader.innerText = configurada ? '⚙️ ImgBB' : '⚠️ ImgBB';
@@ -1204,7 +1274,7 @@
     }
   };
 
-  window.fazerUpload = async function(event) {
+  window.fazerUpload = async function(event, alvo = 'form') {
     const file = event.target.files[0];
     if (!file) return;
 
@@ -1215,9 +1285,10 @@
       return;
     }
 
-    const btnUpload = document.getElementById('btn-upload');
-    const statusUpload = document.getElementById('upload-status');
-    const inputLink = document.getElementById('img');
+    const isMac = alvo === 'mac';
+    const btnUpload = document.getElementById(isMac ? 'btn-upload-mac' : 'btn-upload');
+    const statusUpload = document.getElementById(isMac ? 'upload-status-mac' : 'upload-status');
+    const inputLink = document.getElementById(isMac ? 'macImg' : 'img');
 
     btnUpload.style.display = 'none';
     statusUpload.style.display = 'block';
@@ -1270,6 +1341,7 @@
   onAuthStateChanged(auth, (user) => {
     telaCarregando.style.display = 'none';
     limparListeners();
+    fecharTodasSecoes();
 
     if (user && user.email === ADMIN_EMAIL && user.emailVerified) {
       telaLogin.style.display = 'none';
@@ -1279,9 +1351,6 @@
       carregarPedidos();
       carregarCupons();
       carregarMac();
-      if (!document.querySelector('.section-content.active')) {
-        abrirSecao('lista');
-      }
     } else {
       imgbbApiKey = '';
       atualizarStatusImgbbUI();
@@ -1353,14 +1422,19 @@
           estoqueInicial[tam] = (tam === "50ml") ? 5 : 0;
         });
         dadosPerfume.estoque = estoqueInicial;
-        await addDoc(collection(db, "perfumes"), dadosPerfume);
+        const novoPerfumeRef = await addDoc(collection(db, "perfumes"), dadosPerfume);
 
         if (macOrigemId.value) {
-          if (confirm("Perfume salvo no catálogo! Deseja remover este lote da lista de Maceração agora?")) {
-            await deleteDoc(doc(db, "maceracao", macOrigemId.value));
-          }
+          await updateDoc(doc(db, "maceracao", macOrigemId.value), {
+            publicadoNoCatalogo: true,
+            publicadoEm: new Date(),
+            perfumeId: novoPerfumeRef.id,
+            pausado: true
+          });
+          mostrarMsg("Perfume incluído no catálogo e salvo no Histórico de Maceração!", "sucesso");
+        } else {
+          mostrarMsg("Perfume cadastrado no catálogo!", "sucesso");
         }
-        mostrarMsg("Perfume cadastrado no catálogo!", "sucesso");
         limparFormulario();
       }
       abrirSecao('lista');
@@ -1390,8 +1464,9 @@
   }
 
   window.cancelarEdicao = function() {
+    const veioDeMac = Boolean(macOrigemId.value);
     limparFormulario();
-    abrirSecao('lista');
+    abrirSecao(veioDeMac ? 'maceracao' : 'lista');
   };
 
   window.prepararEdicao = function(id) {
@@ -2701,28 +2776,98 @@
     return { decorridos, restantes, pronto, pct };
   }
 
+  window.mudarAbaMac = function(aba) {
+    abaMac = aba === 'historico' ? 'historico' : 'ativos';
+    document.getElementById('tabMacAtivos').classList.toggle('active', abaMac === 'ativos');
+    document.getElementById('tabMacHistorico').classList.toggle('active', abaMac === 'historico');
+    renderizarMac();
+  };
+
   window.publicarMacNoCatalogo = function(id) {
     const m = todosMacAdmin.find(x => x.id === id);
     if (!m) return;
     limparFormulario();
     macOrigemId.value = m.id;
-    document.getElementById('nome').value = m.nome || '';
-    document.getElementById('insp').value = m.insp || '';
+    document.getElementById('nome').value = capitalizeWords(m.nome || '');
+    document.getElementById('insp').value = capitalizeWords(m.insp || '');
     document.getElementById('img').value = m.img || '';
-    formTitulo.innerText = "Publicar Lote no Catálogo";
+    formTitulo.innerText = "Incluir Lote no Catálogo";
     btnCancelarEdit.style.display = 'block';
     abrirSecao('form');
-    mostrarMsg("Complete categoria, preços e notas para publicar.", "sucesso");
+    mostrarMsg("Complete categoria, preços e notas para finalizar o cadastro.", "sucesso");
   };
 
+  function formatarDataHoraSimples(val) {
+    if (!val) return '-';
+    const d = val.toDate ? val.toDate() : new Date(val);
+    if (isNaN(d.getTime())) return '-';
+    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  }
+
   function renderizarMac() {
+    const ativos = todosMacAdmin.filter(m => !m.publicadoNoCatalogo);
+    const historico = todosMacAdmin
+      .filter(m => !!m.publicadoNoCatalogo)
+      .sort((a, b) => {
+        const da = a.publicadoEm?.toDate ? a.publicadoEm.toDate().getTime() : 0;
+        const dbTime = b.publicadoEm?.toDate ? b.publicadoEm.toDate().getTime() : 0;
+        return dbTime - da;
+      });
+
+    document.getElementById('macCountAtivos').innerText = ativos.length;
+    document.getElementById('macCountHistorico').innerText = historico.length;
+
+    const btnLimparHist = document.getElementById('btn-limpar-historico-mac');
+    btnLimparHist.style.display = (abaMac === 'historico' && historico.length > 0) ? 'block' : 'none';
+
     listaMac.innerHTML = '';
-    if (todosMacAdmin.length === 0) {
-      listaMac.innerHTML = '<div class="empty-state">Nenhum perfume em maceração ainda.<br>Clique em "Adicionar Perfume em Maceração" para começar.</div>';
+
+    if (abaMac === 'historico') {
+      if (historico.length === 0) {
+        listaMac.innerHTML = '<div class="empty-state">Nenhum perfume no histórico de maceração ainda.<br>Quando um lote ficar pronto e for incluído no catálogo, ele ficará registrado aqui.</div>';
+        return;
+      }
+
+      historico.forEach((m) => {
+        const d = dataMacItem(m);
+        const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
+        const dataPubFormatada = formatarDataHoraSimples(m.publicadoEm);
+        const thumbUrl = safeImgUrl(m.img);
+        const thumbHtml = thumbUrl ? `<img class="mac-thumb" src="${esc(thumbUrl)}" alt="${esc(m.nome)}">` : '';
+
+        const div = document.createElement('div');
+        div.className = 'mac-item pronto';
+        div.innerHTML = `
+          <div class="mac-header">
+            <div class="mac-item-topo">
+              ${thumbHtml}
+              <div style="flex: 1; min-width: 0;">
+                <div class="nome">${esc(m.nome)}</div>
+                <div class="insp">Inspirado em "${esc(m.insp)}"</div>
+              </div>
+            </div>
+            <span class="mac-selo historico">✅ No Catálogo</span>
+          </div>
+          <div class="mac-info">
+            <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.8rem;">${esc(dataInicioFormatada)}</div></div>
+            <div class="bloco"><div class="lbl">Macerado</div><div class="val">${m.diasTotais || 0}d</div></div>
+            <div class="bloco"><div class="lbl">Catalogado</div><div class="val" style="font-size: 0.8rem; color:#25D366;">${esc(dataPubFormatada)}</div></div>
+          </div>
+          <div class="mac-acoes uma">
+            <button class="btn-mac-acao btn-mac-excluir" onclick="excluirMac('${esc(m.id)}', true)">🗑️ Excluir do Histórico</button>
+          </div>
+        `;
+        listaMac.appendChild(div);
+      });
       return;
     }
 
-    todosMacAdmin.forEach((m) => {
+    if (ativos.length === 0) {
+      listaMac.innerHTML = '<div class="empty-state">Nenhum perfume em maceração no momento.<br>Clique em "Adicionar Perfume em Maceração" para começar.</div>';
+      return;
+    }
+
+    ativos.forEach((m) => {
       const calc = calcularDiasMac(m);
       const pausado = !!m.pausado;
       const classeStatus = pausado ? 'pausado' : (calc.pronto ? 'pronto' : '');
@@ -2737,14 +2882,16 @@
         mensagemProntoHtml = `
           <div class="mac-mensagem-pronto">
             🎉 Perfume pronto!
-            <div class="sub">Maceração concluída em ${calc.decorridos} dias.</div>
-            <button class="btn-mac-publicar" onclick="publicarMacNoCatalogo('${esc(m.id)}')">🚀 Cadastrar no Catálogo</button>
+            <div class="sub">Maceração concluída em ${calc.decorridos} dias (já removido da vitrine).</div>
+            <button class="btn-mac-publicar" onclick="publicarMacNoCatalogo('${esc(m.id)}')">🚀 Incluir no Catálogo</button>
           </div>
         `;
       }
 
       const d = dataMacItem(m);
       const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
+      const thumbUrl = safeImgUrl(m.img);
+      const thumbHtml = thumbUrl ? `<img class="mac-thumb" src="${esc(thumbUrl)}" alt="${esc(m.nome)}">` : '';
 
       const botaoPausar = pausado
         ? `<button class="btn-mac-acao btn-mac-ativar" onclick="toggleMacPausa('${esc(m.id)}', false)">▶️ Retomar</button>`
@@ -2754,9 +2901,12 @@
       div.className = 'mac-item ' + classeStatus;
       div.innerHTML = `
         <div class="mac-header">
-          <div style="flex: 1; min-width: 0;">
-            <div class="nome">${esc(m.nome)}</div>
-            <div class="insp">Inspirado em "${esc(m.insp)}"</div>
+          <div class="mac-item-topo">
+            ${thumbHtml}
+            <div style="flex: 1; min-width: 0;">
+              <div class="nome">${esc(m.nome)}</div>
+              <div class="insp">Inspirado em "${esc(m.insp)}"</div>
+            </div>
           </div>
           ${seloHtml}
         </div>
@@ -2785,6 +2935,9 @@
     document.getElementById('macNome').value = '';
     document.getElementById('macInsp').value = '';
     document.getElementById('macImg').value = '';
+    document.getElementById('file-img-mac').value = '';
+    document.getElementById('btn-upload-mac').style.display = 'block';
+    document.getElementById('upload-status-mac').style.display = 'none';
     document.getElementById('macDataInicio').value = new Date().toISOString().slice(0, 10);
     document.getElementById('macDias').value = '30';
     document.getElementById('modalMacTitulo').innerText = '⏳ Novo Perfume em Maceração';
@@ -2793,6 +2946,7 @@
 
   window.abrirModalNovaMac = function() {
     limparModalMac();
+    atualizarStatusImgbbUI();
     document.getElementById('modalMac').classList.add('ativo');
   };
 
@@ -2800,13 +2954,17 @@
     const m = todosMacAdmin.find(x => x.id === id);
     if (!m) return;
     macEmEdicao = m;
-    document.getElementById('macNome').value = m.nome || '';
-    document.getElementById('macInsp').value = m.insp || '';
+    document.getElementById('macNome').value = capitalizeWords(m.nome || '');
+    document.getElementById('macInsp').value = capitalizeWords(m.insp || '');
     document.getElementById('macImg').value = m.img || '';
+    document.getElementById('file-img-mac').value = '';
+    document.getElementById('btn-upload-mac').style.display = 'block';
+    document.getElementById('upload-status-mac').style.display = 'none';
     document.getElementById('macDataInicio').value = formatarInputDateUTC(dataMacItem(m));
     document.getElementById('macDias').value = m.diasTotais || 30;
     document.getElementById('modalMacTitulo').innerText = '✏️ Editar Maceração';
     document.getElementById('btnSalvarMac').innerText = 'Salvar Alterações';
+    atualizarStatusImgbbUI();
     document.getElementById('modalMac').classList.add('ativo');
   };
 
@@ -2849,6 +3007,7 @@
       } else {
         dados.criadoEm = new Date();
         dados.pausado = false;
+        dados.publicadoNoCatalogo = false;
         await addDoc(collection(db, "maceracao"), dados);
         mostrarMsg("Perfume em maceração cadastrado!", "sucesso");
       }
@@ -2872,14 +3031,38 @@
     }
   };
 
-  window.excluirMac = async function(id) {
-    if (!confirm("Excluir este perfume da maceração?")) return;
+  window.excluirMac = async function(id, doHistorico = false) {
+    const pergunta = doHistorico
+      ? "Excluir este registro do histórico de maceração? (O perfume continuará normalmente no catálogo.)"
+      : "Excluir este perfume da maceração?";
+    if (!confirm(pergunta)) return;
     try {
       await deleteDoc(doc(db, "maceracao", id));
-      mostrarMsg("Perfume removido da maceração.", "sucesso");
+      mostrarMsg(doHistorico ? "Registro removido do histórico." : "Perfume removido da maceração.", "sucesso");
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao excluir.", "erro");
+    }
+  };
+
+  window.limparHistoricoMac = async function() {
+    const historico = todosMacAdmin.filter(m => !!m.publicadoNoCatalogo);
+    if (historico.length === 0) return;
+    if (!confirm(`Excluir todos os ${historico.length} registros do histórico de maceração? Os perfumes cadastrados no catálogo não serão afetados.`)) return;
+    const btn = document.getElementById('btn-limpar-historico-mac');
+    btn.disabled = true;
+    btn.innerText = "Limpando...";
+    try {
+      const batch = writeBatch(db);
+      historico.forEach(m => batch.delete(doc(db, "maceracao", m.id)));
+      await batch.commit();
+      mostrarMsg("Histórico de maceração limpo!", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao limpar histórico.", "erro");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "🗑️ Limpar Todo o Histórico de Maceração";
     }
   };
 
