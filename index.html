@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
 <title>Admin - THRUST PARFUMS</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root { --dourado: #c9a227; --dourado-claro: #f5d97a; --fundo: #0d0d0d; --card: #1a1a1a; --borda: rgba(212,175,55,0.25); --verde-whats: #25D366; }
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
   body { background: var(--fundo); color: #fff; padding: 15px; padding-bottom: 50px; overflow-x: hidden; }
-  
-  #tela-login, #painel { display: none; } 
+
+  #tela-login, #painel { display: none; }
   #tela-carregando { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: var(--dourado-claro); font-family: 'Playfair Display', serif; font-size: 1.2rem; }
   .spinner { border: 3px solid rgba(212,175,55,0.3); border-top: 3px solid var(--dourado); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -19,14 +20,14 @@
   .login-box h1 { color: var(--dourado-claro); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
   .btn-google { background: #fff; color: #333; border: none; padding: 15px 20px; font-size: 1rem; font-weight: bold; border-radius: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 30px; transition: 0.3s; }
   .btn-google:hover { background: #eee; transform: scale(0.98); }
-  
-  #painel { max-width: 700px; margin: 0 auto; }
+
+  #painel { max-width: 720px; margin: 0 auto; }
   .header-admin { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--borda); padding-bottom: 15px; margin-bottom: 20px; }
-  .header-admin h1 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.3rem; }
+  .header-admin h1 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.35rem; }
   .btn-sair { background: transparent; border: 1px solid #c94a4a; color: #c94a4a; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
   .btn-sair:hover { background: #c94a4a; color: #fff; }
-  
-  .msg { padding: 12px; border-radius: 6px; margin-bottom: 15px; display: none; text-align: center; font-size: 0.85rem; font-weight: bold; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+
+  .msg { padding: 12px; border-radius: 6px; margin-bottom: 15px; display: none; text-align: center; font-size: 0.85rem; font-weight: bold; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 90%; max-width: 420px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
   .msg.sucesso { background: #111; color: #25D366; border: 1px solid #25D366; display: block; }
   .msg.erro { background: #111; color: #ff4444; border: 1px solid #ff4444; display: block; }
 
@@ -55,28 +56,26 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .section-content.active { display: block; }
 
-  .section-title { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .section-title { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.25rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--borda); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 
   .btn-cancelar-edit { background: #c94a4a; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; display: none; }
-  
+
   .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .grid-full { display: grid; grid-template-columns: 1fr; gap: 10px; }
-  
+
   .input-group { margin-bottom: 10px; }
   .input-group label { display: block; font-size: 0.7rem; color: #aaa; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
   .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; }
-  .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--dourado); }
-  
+  .input-group input:focus, .input-group textarea:focus, .input-group select:focus { outline: none; border-color: var(--dourado); }
+
   .upload-area { display: flex; flex-direction: column; gap: 8px; }
   .upload-btn { background: rgba(212,175,55,0.1); border: 1px dashed var(--dourado); color: var(--dourado-claro); padding: 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center; transition: 0.2s; position: relative; }
   .upload-btn:hover { background: rgba(212,175,55,0.2); }
   .upload-btn input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
   .upload-status { font-size: 0.75rem; color: #25D366; font-weight: 600; display: none; text-align: center; }
 
-  /* TAMANHOS - AGORA EM UMA LINHA */
   .tamanhos-box { border: 1px dashed #444; padding: 12px; border-radius: 6px; margin-bottom: 15px; background: rgba(255,255,255,0.02); }
   .tamanhos-box h3 { font-size: 0.8rem; color: var(--dourado); margin-bottom: 10px; text-transform: uppercase; }
-  
   .tamanhos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .tamanho-card { background: #222; padding: 10px 8px; border-radius: 6px; display: flex; flex-direction: column; gap: 6px; border: 2px solid transparent; transition: 0.2s; }
   .tamanho-card.ativo { border-color: var(--dourado); background: rgba(212,175,55,0.05); }
@@ -102,7 +101,7 @@
   .estoque-item .info { margin-bottom: 12px; }
   .estoque-item .info strong { color: var(--dourado-claro); display: block; font-size: 0.95rem; }
   .estoque-item .info small { color: #888; font-size: 0.7rem; }
-  
+
   .estoque-tamanhos { display: flex; flex-direction: column; gap: 8px; }
   .estoque-linha { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #111; padding: 8px 10px; border-radius: 8px; border: 1px solid #2a2a2a; }
   .estoque-linha .tam-label { font-weight: 700; color: var(--dourado); font-size: 0.85rem; min-width: 55px; }
@@ -126,10 +125,10 @@
   .aba-btn { background: none; border: 1px solid #444; color: #888; font-weight: 600; font-size: 0.75rem; cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
   .aba-btn.active { color: #0d0d0d; background: var(--dourado); border-color: var(--dourado); }
   .aba-btn.esgotados.active { background: #c94a4a; border-color: #c94a4a; color: #fff; }
-  
+
   .item-admin { display: flex; flex-direction: column; border-bottom: 1px solid #333; padding: 12px 0; gap: 10px; }
   .item-admin:last-child { border-bottom: none; }
-  
+
   .item-topo { display: flex; align-items: flex-start; gap: 12px; }
   .item-topo img { width: 45px; height: 45px; object-fit: contain; background: #fff; border-radius: 6px; padding: 2px; flex-shrink: 0; }
   .item-dados { flex: 1; min-width: 0; }
@@ -137,10 +136,10 @@
   .item-dados .detalhes { color: #888; font-size: 0.7rem; margin-top: 3px; line-height: 1.4; }
   .status-off { color: #ff6b6b; font-size: 0.65rem; font-weight: bold; background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 4px; }
   .status-estoque { color: #4a90e2; font-size: 0.7rem; font-weight: bold; margin-left: 5px; }
-  
+
   .item-acoes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
   @media (max-width: 600px) { .item-acoes { grid-template-columns: 1fr 1fr 1fr; } }
-  
+
   .btn-acao { background: transparent; padding: 8px 4px; border-radius: 6px; cursor: pointer; font-size: 0.72rem; font-weight: bold; transition: 0.2s; border: 1px solid transparent; text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .btn-copiar { border-color: #4a90e2; color: #4a90e2; }
   .btn-copiar:active { background: #4a90e2; color: #fff; }
@@ -158,7 +157,7 @@
   .btn-exportar { background: transparent; border: 1px solid #4a90e2; color: #4a90e2; padding: 10px 16px; border-radius: 8px; font-weight: bold; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%; margin-bottom: 15px; }
   .btn-exportar:hover { background: #4a90e2; color: #fff; }
 
-  .pedido-busca { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; margin-bottom: 15px; }
+  .pedido-busca { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; margin-bottom: 12px; }
   .pedido-busca:focus { outline: none; border-color: var(--dourado); }
 
   .periodo-filtros { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 3px; scrollbar-width: none; }
@@ -169,11 +168,12 @@
   .totalizador { background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(245,217,122,0.08)); border: 1px solid var(--dourado); border-radius: 10px; padding: 12px 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
   .totalizador .info-tot { display: flex; flex-direction: column; }
   .totalizador .qtd { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-  .totalizador .valor { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: var(--dourado-claro); }
+  .totalizador .valor { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: #25D366; }
+  .totalizador .valor-pendente { font-size: 0.75rem; color: #ff9800; font-weight: 700; margin-top: 2px; }
   .totalizador .mini-detalhe { font-size: 0.65rem; color: #888; margin-top: 2px; }
 
   .pedido-item { background: #151515; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; transition: 0.2s; }
-  .pedido-item.concretizado { border-color: #25D366; opacity: 0.85; }
+  .pedido-item.concretizado { border-color: #25D366; opacity: 0.9; }
   .pedido-item.cancelado { border-color: #c94a4a; opacity: 0.7; background: rgba(201,74,74,0.04); }
   .pedido-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 8px; flex-wrap: wrap; gap: 5px; }
   .pedido-data { font-size: 0.75rem; color: #888; }
@@ -212,14 +212,13 @@
   .pedido-itens .item-preco { color: var(--dourado-claro); font-weight: 700; white-space: nowrap; font-size: 0.85rem; }
 
   .pedido-totais { font-size: 0.75rem; color: #888; margin-bottom: 10px; padding-top: 8px; border-top: 1px dashed #333; line-height: 1.6; }
-  .pedido-totais span { display: block; display: flex; justify-content: space-between; }
+  .pedido-totais span { display: flex; justify-content: space-between; }
   .pedido-totais .desconto { color: #25D366; }
 
   .pedido-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
   .pedido-acoes.tres { grid-template-columns: 1fr 1fr 1fr; }
-  .pedido-acoes.quatro { grid-template-columns: 1fr 1fr 1fr 1fr; }
   .pedido-acoes.uma { grid-template-columns: 1fr; }
-  
+
   .btn-pedido { padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.75rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
   .btn-pedido:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-pedido-concretizar { background: rgba(37,211,102,0.15); border-color: #25D366; color: #25D366; }
@@ -249,6 +248,10 @@
   .edit-whats-group input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 2px solid #2a2a2a; background: #0d0d0d; color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; transition: 0.2s; letter-spacing: 0.5px; }
   .edit-whats-group input:focus { border-color: var(--verde-whats); box-shadow: 0 0 10px rgba(37,211,102,0.25); }
 
+  .edit-add-item-box { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; margin-bottom: 12px; }
+  .edit-add-item-box select { padding: 9px; border-radius: 6px; border: 1px solid #444; background: #111; color: #fff; font-size: 0.78rem; font-family: inherit; min-width: 0; }
+  .edit-add-item-box button { background: rgba(212,175,55,0.18); border: 1px solid var(--dourado); color: var(--dourado-claro); border-radius: 6px; padding: 0 12px; font-weight: 700; font-size: 0.75rem; cursor: pointer; white-space: nowrap; }
+
   .edit-item-linha { background: #111; border: 1px solid #333; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
   .edit-item-info { margin-bottom: 8px; }
   .edit-item-info strong { color: var(--dourado-claro); font-size: 0.85rem; display: block; }
@@ -261,7 +264,7 @@
   .edit-item-controles span { min-width: 24px; text-align: center; font-weight: bold; color: #fff; }
   .edit-item-controles .preco-linha { font-weight: bold; color: var(--dourado); font-size: 0.85rem; }
   .modal-editar-resumo { background: rgba(212,175,55,0.06); border: 1px dashed var(--dourado); border-radius: 8px; padding: 12px; margin: 15px 0; font-size: 0.8rem; color: #ccc; line-height: 1.6; }
-  .modal-editar-resumo span { display: block; display: flex; justify-content: space-between; }
+  .modal-editar-resumo span { display: flex; justify-content: space-between; }
   .modal-editar-resumo .total { font-weight: bold; color: var(--dourado-claro); font-size: 1rem; padding-top: 6px; margin-top: 6px; border-top: 1px solid var(--borda); }
   .modal-editar-resumo .desconto { color: #25D366; }
 
@@ -337,9 +340,7 @@
   .btn-resetar-usos { background: transparent; border: 1px dashed #ff9800; color: #ff9800; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.2s; }
   .btn-resetar-usos:hover { background: rgba(255,152,0,0.1); }
 
-  /* ============================================================
-     MACERAÇÃO
-     ============================================================ */
+  /* MACERAÇÃO */
   .mac-item { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 10px; transition: 0.2s; }
   .mac-item.pronto { border-color: #25D366; background: rgba(37,211,102,0.04); }
   .mac-item.pausado { border-color: #ff9800; opacity: 0.85; }
@@ -363,7 +364,8 @@
   .mac-progresso-barra.completa { background: linear-gradient(90deg, #25D366, #4caf50); }
 
   .mac-mensagem-pronto { background: rgba(37,211,102,0.1); border: 1px solid #25D366; border-radius: 8px; padding: 10px 14px; color: #25D366; font-weight: 700; font-size: 0.85rem; text-align: center; margin-bottom: 10px; }
-  .mac-mensagem-pronto .sub { font-size: 0.7rem; color: #888; font-weight: 500; margin-top: 4px; }
+  .mac-mensagem-pronto .sub { font-size: 0.7rem; color: #bbb; font-weight: 500; margin-top: 4px; margin-bottom: 8px; }
+  .btn-mac-publicar { background: #25D366; color: #0d0d0d; border: none; border-radius: 20px; padding: 8px 14px; font-size: 0.75rem; font-weight: 800; cursor: pointer; text-transform: uppercase; }
 
   .mac-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
   .btn-mac-acao { padding: 10px 4px; border-radius: 8px; font-weight: bold; font-size: 0.72rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
@@ -398,7 +400,7 @@
     <h1>Painel THRUST</h1>
     <p style="color:#888; font-size:0.9rem;">Acesso restrito.</p>
     <button class="btn-google" id="btn-google">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="24">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="24" alt="Google">
       Entrar com o Google
     </button>
   </div>
@@ -413,7 +415,7 @@
   <div class="msg" id="mensagem"></div>
 
   <div class="dashboard" id="dashboard">
-    <div class="dash-card" onclick="abrirSecao('lista', document.querySelectorAll('.menu-card')[1])">
+    <div class="dash-card" onclick="abrirSecao('lista')">
       <div class="num" id="dash-total">0</div>
       <div class="lbl">📦 Produtos</div>
     </div>
@@ -428,27 +430,27 @@
   </div>
 
   <div class="menu-cards">
-    <div class="menu-card" onclick="abrirSecao('form', this)">
+    <div class="menu-card" data-secao="form" onclick="abrirSecao('form', this)">
       <img src="https://img.icons8.com/color/96/add-property.png" alt="Cadastrar">
       <span>Cadastrar</span>
     </div>
-    <div class="menu-card" onclick="abrirSecao('lista', this)">
+    <div class="menu-card" data-secao="lista" onclick="abrirSecao('lista', this)">
       <img src="https://img.icons8.com/color/96/stack-of-photos.png" alt="Catálogo">
       <span>Catálogo</span>
     </div>
-    <div class="menu-card" onclick="abrirSecao('estoque', this)">
+    <div class="menu-card" data-secao="estoque" onclick="abrirSecao('estoque', this)">
       <img src="https://img.icons8.com/color/96/box.png" alt="Estoque">
       <span>Estoque</span>
     </div>
-    <div class="menu-card" onclick="abrirSecao('pedidos', this)">
+    <div class="menu-card" data-secao="pedidos" onclick="abrirSecao('pedidos', this)">
       <img src="https://img.icons8.com/color/96/shopping-cart--v1.png" alt="Pedidos">
       <span>Pedidos</span>
     </div>
-    <div class="menu-card" onclick="abrirSecao('cupons', this)">
+    <div class="menu-card" data-secao="cupons" onclick="abrirSecao('cupons', this)">
       <img src="https://img.icons8.com/color/96/discount--v1.png" alt="Cupons">
       <span>Cupons</span>
     </div>
-    <div class="menu-card" onclick="abrirSecao('maceracao', this)">
+    <div class="menu-card" data-secao="maceracao" onclick="abrirSecao('maceracao', this)">
       <img src="https://img.icons8.com/color/96/hourglass--v1.png" alt="Maceração">
       <span>Maceração</span>
     </div>
@@ -459,10 +461,11 @@
       <span id="form-titulo">Adicionar Novo Perfume</span>
       <button class="btn-cancelar-edit" id="btn-cancelar-edit" onclick="cancelarEdicao()">Cancelar</button>
     </h2>
-    
+
     <form id="form-perfume">
       <input type="hidden" id="edit-id" value="">
-      
+      <input type="hidden" id="mac-origem-id" value="">
+
       <div class="grid-inputs">
         <div class="input-group">
           <label>Nome *</label>
@@ -484,13 +487,13 @@
             <option value="compartilhado">Compartilhado</option>
           </select>
         </div>
-        
+
         <div class="input-group">
           <label>Imagem do Perfume</label>
           <div class="upload-area">
             <div class="upload-btn" id="btn-upload">
               <input type="file" id="file-img" accept="image/*" onchange="fazerUpload(event)">
-              📷 Escolher Imagem
+              📷 Escolher Imagem (otimiza automático)
             </div>
             <div class="upload-status" id="upload-status">Enviando...</div>
           </div>
@@ -566,7 +569,7 @@
 
   <div class="section-content" id="section-lista">
     <h2 class="section-title">Perfumes no Catálogo</h2>
-    
+
     <div class="lista-header-actions">
       <input type="text" class="search-admin" id="search-admin" placeholder="🔍 Buscar por nome ou inspiração...">
       <div class="abas-admin">
@@ -593,8 +596,8 @@
 
   <div class="section-content" id="section-pedidos">
     <h2 class="section-title">Histórico de Pedidos</h2>
-    <input type="text" class="pedido-busca" id="busca-pedido" placeholder="🔍 Buscar por número do pedido...">
-    
+    <input type="text" class="pedido-busca" id="busca-pedido" placeholder="🔍 Buscar por número (TH-...), perfume ou WhatsApp...">
+
     <div class="periodo-filtros">
       <button class="periodo-btn active" data-periodo="todos" onclick="mudarPeriodo('todos', this)">Todos</button>
       <button class="periodo-btn" data-periodo="hoje" onclick="mudarPeriodo('hoje', this)">Hoje</button>
@@ -608,8 +611,9 @@
         <div class="mini-detalhe" id="totDetalhe">Pendentes: 0 · Concretizados: 0</div>
       </div>
       <div style="text-align:right;">
-        <div class="qtd">Total em vendas</div>
+        <div class="qtd">Faturamento Confirmado</div>
         <div class="valor" id="totValor">R$ 0,00</div>
+        <div class="valor-pendente" id="totPendente">Em aberto: R$ 0,00</div>
       </div>
     </div>
 
@@ -621,7 +625,7 @@
 
   <div class="section-content" id="section-cupons">
     <h2 class="section-title">Cupons de Desconto</h2>
-    
+
     <div class="cupom-contador" id="cupomContador">
       <div class="num" id="cupomContadorNum">0</div>
       <div class="lbl" id="cupomContadorLbl">cupons ativos</div>
@@ -654,13 +658,20 @@
       <h3>✏️ Editar Pedido</h3>
       <button onclick="fecharModalEditar()">✕</button>
     </div>
-    
+
     <div id="editAvisoStatus" style="display:none;"></div>
 
     <div class="modal-editar-secao-titulo">📱 WhatsApp do cliente (opcional)</div>
     <div class="edit-whats-group">
       <label>Número com DDD <span>— preencha se desejar contato futuro</span></label>
       <input type="tel" id="editWhatsCliente" placeholder="(11) 99999-9999" maxlength="15" oninput="onInputEditWhats(this)">
+    </div>
+
+    <div class="modal-editar-secao-titulo">➕ Adicionar perfume ao pedido</div>
+    <div class="edit-add-item-box">
+      <select id="editAddPerfume" onchange="atualizarTamanhosAddPedido()"></select>
+      <select id="editAddTamanho"></select>
+      <button type="button" onclick="adicionarItemEdicao()">+ Add</button>
     </div>
 
     <div class="modal-editar-secao-titulo">🛒 Itens do pedido</div>
@@ -679,7 +690,7 @@
       <h3 id="modalCupomTitulo">🎟️ Novo Cupom</h3>
       <button onclick="fecharModalCupom()">✕</button>
     </div>
-    
+
     <div class="input-group">
       <label>Código do Cupom *</label>
       <div class="cupom-codigo-input">
@@ -733,7 +744,7 @@
       <h3 id="modalMacTitulo">⏳ Novo Perfume em Maceração</h3>
       <button onclick="fecharModalMac()">✕</button>
     </div>
-    
+
     <div class="input-group">
       <label>Nome do Perfume *</label>
       <input type="text" id="macNome" placeholder="Ex: Femme Fatale" maxlength="60" autocomplete="off">
@@ -771,7 +782,11 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-  import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, getDocs, where, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import {
+    getFirestore, collection, doc, addDoc, updateDoc, deleteDoc,
+    onSnapshot, query, orderBy, getDocs, where, increment,
+    runTransaction, writeBatch
+  } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtdszBtbQiaZnWcLLKBPnwo_3yHRtp2mA",
@@ -786,9 +801,10 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const ADMIN_EMAIL = "ewerton.andriel@gmail.com"; 
-  const URL_CATALOGO = "https://thrustperfumes.store/"; 
-  const IMGBB_API_KEY = "8c63b7330444870944b040c580b44ab0"; 
+  const ADMIN_EMAIL = "ewerton.andriel@gmail.com";
+  const URL_CATALOGO = "https://thrustperfumes.store/";
+  // Recomendação: migrar upload futuramente para Firebase Storage (regras isAdmin()) ou proxy Worker para não expor esta chave no GitHub público.
+  const IMGBB_API_KEY = "8c63b7330444870944b040c580b44ab0";
   const TAMANHOS = ['30ml', '50ml', '100ml'];
   const DESCONTO_MIN = 3;
   const DESCONTO_PCT = 0.05;
@@ -809,81 +825,89 @@
   const btnLimparPedidos = document.getElementById('btn-limpar-pedidos');
   const buscaPedido = document.getElementById('busca-pedido');
   const searchEstoque = document.getElementById('search-estoque');
-  
   const searchAdmin = document.getElementById('search-admin');
   const abasAdmin = document.querySelectorAll('.aba-btn');
+
   let categoriaFiltroAdmin = 'todos';
   let termoBuscaAdmin = '';
   let termoBuscaPedido = '';
   let termoBuscaEstoque = '';
   let periodoFiltro = 'todos';
-  let todosPerfumesAdmin = []; 
+  let todosPerfumesAdmin = [];
   let todosPedidosAdmin = [];
   let todosCuponsAdmin = [];
   let todosMacAdmin = [];
+  let unsubListeners = [];
 
   const editId = document.getElementById('edit-id');
+  const macOrigemId = document.getElementById('mac-origem-id');
   const formTitulo = document.getElementById('form-titulo');
   const btnCancelarEdit = document.getElementById('btn-cancelar-edit');
 
   let pedidoEmEdicao = null;
   let itensEmEdicao = [];
   let whatsEmEdicao = '';
-
   let cupomEmEdicao = null;
   let tipoDescontoAtual = 'percentual';
-
   let macEmEdicao = null;
 
   /* ============================================================
-     CAPITALIZAÇÃO E MÁSCARA DE MOEDA
+     UTILITÁRIOS DE SEGURANÇA, TEXTO E MOEDA
      ============================================================ */
+  function fmt(v) { return 'R$ ' + Number(v || 0).toFixed(2).replace('.', ','); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function safeImgUrl(url) {
+    if (!url || typeof url !== 'string') return '';
+    const trimmed = url.trim();
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    return '';
+  }
+  function normalizarTexto(s) {
+    return String(s || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
   function capitalizeWords(str) {
     if (!str) return str;
-    return str.replace(/\s+/g, ' ').replace(/(^|\s)\S/g, function(l) {
-      return l.toUpperCase();
-    });
+    return str.replace(/\s+/g, ' ').replace(/(^|\s)\S/g, l => l.toUpperCase());
   }
 
   document.getElementById('nome').addEventListener('input', function(e) {
     const pos = e.target.selectionStart;
-    const antigo = e.target.value;
-    const novo = capitalizeWords(antigo);
-    if (antigo !== novo) {
+    const novo = capitalizeWords(e.target.value);
+    if (e.target.value !== novo) {
       e.target.value = novo;
-      try { e.target.setSelectionRange(pos, pos); } catch(err) {}
+      try { e.target.setSelectionRange(pos, pos); } catch (err) {}
     }
   });
 
   document.getElementById('insp').addEventListener('input', function(e) {
     const pos = e.target.selectionStart;
-    const antigo = e.target.value;
-    const novo = capitalizeWords(antigo);
-    if (antigo !== novo) {
+    const novo = capitalizeWords(e.target.value);
+    if (e.target.value !== novo) {
       e.target.value = novo;
-      try { e.target.setSelectionRange(pos, pos); } catch(err) {}
+      try { e.target.setSelectionRange(pos, pos); } catch (err) {}
     }
   });
 
-  // Máscara de moeda: formata como R$ XX,XX
   window.mascaraMoeda = function(input) {
     let v = input.value.replace(/\D/g, '');
     if (v === '') { input.value = ''; return; }
-    // limita a 9 dígitos (até R$ 9.999.999,99)
     if (v.length > 9) v = v.slice(0, 9);
     const num = parseInt(v, 10);
     const formatado = (num / 100).toFixed(2).replace('.', ',');
-    // adiciona separador de milhar
     const partes = formatado.split(',');
     partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     input.value = 'R$ ' + partes.join(',');
   };
 
   function mascaraMoedaValor(valor) {
-    // pega número (ex: 59.9) e formata como "R$ 59,90"
     if (valor == null || isNaN(valor)) return '';
-    const num = Number(valor);
-    const formatado = num.toFixed(2).replace('.', ',');
+    const formatado = Number(valor).toFixed(2).replace('.', ',');
     const partes = formatado.split(',');
     partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     return 'R$ ' + partes.join(',');
@@ -904,10 +928,10 @@
   };
 
   function normalizarEstoque(p) {
-    if (p.estoque && typeof p.estoque === 'object') return p.estoque;
-    const num = (typeof p.estoque === 'number') ? p.estoque : 0;
+    if (p && p.estoque && typeof p.estoque === 'object') return p.estoque;
+    const num = (p && typeof p.estoque === 'number') ? p.estoque : 0;
     const obj = { "50ml": num };
-    if (p.tamanhos) Object.keys(p.tamanhos).forEach(tam => { if (tam !== "50ml") obj[tam] = 0; });
+    if (p && p.tamanhos) Object.keys(p.tamanhos).forEach(tam => { if (tam !== "50ml") obj[tam] = 0; });
     return obj;
   }
 
@@ -921,22 +945,15 @@
     return Object.keys(est).some(tam => est[tam] === 1);
   }
 
-  function fmt(v) { return 'R$ ' + Number(v).toFixed(2).replace('.', ','); }
-  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
   function formatarTelefoneInput(v) {
-    let d = String(v).replace(/\D/g, '').slice(0, 11);
+    const d = String(v).replace(/\D/g, '').slice(0, 11);
     if (d.length <= 2) return d;
     if (d.length <= 6) return '(' + d.slice(0,2) + ') ' + d.slice(2);
     if (d.length <= 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
     return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
   }
 
-  function telefoneParaWa(v) {
-    const d = String(v).replace(/\D/g, '');
-    return '55' + d;
-  }
-
+  function telefoneParaWa(v) { return '55' + String(v).replace(/\D/g, ''); }
   function telefoneValido(v) {
     const d = String(v).replace(/\D/g, '');
     return d.length === 10 || d.length === 11;
@@ -944,14 +961,9 @@
 
   function cupomUsosMostrar(c) {
     const usos = c.usos || 0;
-    if (c.limiteUso) return usos + '/' + c.limiteUso;
-    return usos + ' (ilimitado)';
+    return c.limiteUso ? (usos + '/' + c.limiteUso) : (usos + ' (ilimitado)');
   }
-
-  function cupomEsgotado(c) {
-    return c.limiteUso && (c.usos || 0) >= c.limiteUso;
-  }
-
+  function cupomEsgotado(c) { return c.limiteUso && (c.usos || 0) >= c.limiteUso; }
   function cupomBadge(c) {
     const tipo = c.tipoDesconto || 'percentual';
     const valor = c.valorDesconto != null ? c.valorDesconto : (c.percentual || 0);
@@ -967,14 +979,13 @@
   function pedidoDentroPeriodo(p, periodo) {
     if (periodo === 'todos') return true;
     const d = dataPedido(p);
-    if (!d) return false;
+    if (!d || isNaN(d.getTime())) return false;
     const agora = new Date();
     if (periodo === 'hoje') {
       return d.getDate() === agora.getDate() && d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
     }
     if (periodo === '7dias') {
-      const limite = new Date(agora.getTime() - 7 * 24 * 60 * 60 * 1000);
-      return d >= limite;
+      return d >= new Date(agora.getTime() - 7 * 24 * 60 * 60 * 1000);
     }
     if (periodo === 'mes') {
       return d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
@@ -982,17 +993,13 @@
     return true;
   }
 
+  /* ============================================================
+     NAVEGAÇÃO E DASHBOARD
+     ============================================================ */
   function atualizarDashboard() {
     const total = todosPerfumesAdmin.length;
-    const esgotados = todosPerfumesAdmin.filter(p => {
-      if (p.indisponivel) return true;
-      return totalEstoque(p) === 0;
-    }).length;
-    const baixo = todosPerfumesAdmin.filter(p => {
-      if (p.indisponivel) return false;
-      if (totalEstoque(p) === 0) return false;
-      return temTamanhoComUm(p);
-    }).length;
+    const esgotados = todosPerfumesAdmin.filter(p => p.indisponivel || totalEstoque(p) === 0).length;
+    const baixo = todosPerfumesAdmin.filter(p => !p.indisponivel && totalEstoque(p) > 0 && temTamanhoComUm(p)).length;
 
     document.getElementById('dash-total').innerText = total;
     document.getElementById('dash-esgotados').innerText = esgotados;
@@ -1002,43 +1009,74 @@
   function atualizarContadorCupons() {
     const ativos = todosCuponsAdmin.filter(c => c.ativo && !cupomEsgotado(c)).length;
     document.getElementById('cupomContadorNum').innerText = ativos;
-    const lbl = document.getElementById('cupomContadorLbl');
-    lbl.innerHTML = ativos === 1 ? 'cupom ativo' : 'cupons ativos';
+    document.getElementById('cupomContadorLbl').innerHTML = ativos === 1 ? 'cupom ativo' : 'cupons ativos';
   }
 
   window.irParaEsgotados = function() {
-    abrirSecao('lista', document.querySelectorAll('.menu-card')[1]);
+    abrirSecao('lista');
     categoriaFiltroAdmin = 'esgotados';
-    abasAdmin.forEach(b => {
-      b.classList.remove('active');
-      if (b.getAttribute('data-cat') === 'esgotados') b.classList.add('active');
-    });
+    abasAdmin.forEach(b => b.classList.toggle('active', b.getAttribute('data-cat') === 'esgotados'));
     renderizarListaAdmin();
   };
 
   window.irParaEstoqueBaixo = function() {
-    abrirSecao('lista', document.querySelectorAll('.menu-card')[1]);
+    abrirSecao('lista');
     categoriaFiltroAdmin = 'estoque-baixo';
-    abasAdmin.forEach(b => {
-      b.classList.remove('active');
-      if (b.getAttribute('data-cat') === 'estoque-baixo') b.classList.add('active');
-    });
+    abasAdmin.forEach(b => b.classList.toggle('active', b.getAttribute('data-cat') === 'estoque-baixo'));
     renderizarListaAdmin();
   };
 
   window.abrirSecao = function(secao, el) {
     document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
-    
-    if (el) el.classList.add('active');
-    document.getElementById('section-' + secao).classList.add('active');
-    
-    if (secao === 'estoque') renderizarEstoque();
-    if (secao === 'pedidos') renderizarPedidos();
-    if (secao === 'maceracao') renderizarMac();
 
-    document.getElementById('section-' + secao).scrollIntoView({ behavior: 'smooth' });
+    const card = el || document.querySelector('.menu-card[data-secao="' + secao + '"]');
+    if (card) card.classList.add('active');
+
+    const secEl = document.getElementById('section-' + secao);
+    if (secEl) {
+      secEl.classList.add('active');
+      if (secao === 'estoque') renderizarEstoque();
+      if (secao === 'pedidos') renderizarPedidos();
+      if (secao === 'maceracao') renderizarMac();
+      secEl.scrollIntoView({ behavior: 'smooth' });
+    }
   };
+
+  /* ============================================================
+     COMPRESSÃO E UPLOAD DE IMAGEM
+     ============================================================ */
+  function comprimirImagem(file, maxSide = 900, quality = 0.85) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Falha ao ler imagem'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('Imagem inválida'));
+        img.onload = () => {
+          let w = img.width;
+          let h = img.height;
+          if (w > maxSide || h > maxSide) {
+            if (w > h) { h = Math.round(h * (maxSide / w)); w = maxSide; }
+            else { w = Math.round(w * (maxSide / h)); h = maxSide; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          canvas.toBlob(blob => {
+            if (blob) resolve(blob);
+            else reject(new Error('Erro ao comprimir'));
+          }, 'image/jpeg', quality);
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   window.fazerUpload = async function(event) {
     const file = event.target.files[0];
@@ -1050,41 +1088,45 @@
 
     btnUpload.style.display = 'none';
     statusUpload.style.display = 'block';
-    statusUpload.innerText = "Fazendo upload...";
+    statusUpload.innerText = "Otimizando e enviando...";
     statusUpload.style.color = "var(--dourado)";
 
     try {
+      const blobComprimido = await comprimirImagem(file);
       const formData = new FormData();
-      formData.append("image", file);
+      formData.append("image", blobComprimido, "perfume.jpg");
 
       const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
         method: "POST",
         body: formData
       });
-
       const data = await response.json();
 
-      if (data.success) {
+      if (data.success && data.data && data.data.url) {
         inputLink.value = data.data.url;
-        statusUpload.innerText = "✓ Upload concluído!";
+        statusUpload.innerText = "✓ Upload otimizado concluído!";
         statusUpload.style.color = "#25D366";
-        setTimeout(() => {
-          btnUpload.style.display = 'block';
-          statusUpload.style.display = 'none';
-        }, 2000);
+        setTimeout(() => { btnUpload.style.display = 'block'; statusUpload.style.display = 'none'; }, 2000);
       } else {
         throw new Error("Erro no upload");
       }
     } catch (error) {
       console.error(error);
-      statusUpload.innerText = "❌ Erro ao enviar.";
+      statusUpload.innerText = "❌ Erro ao enviar imagem.";
       statusUpload.style.color = "#ff4444";
-      setTimeout(() => {
-        btnUpload.style.display = 'block';
-        statusUpload.style.display = 'none';
-      }, 3000);
+      setTimeout(() => { btnUpload.style.display = 'block'; statusUpload.style.display = 'none'; }, 3000);
+    } finally {
+      event.target.value = '';
     }
   };
+
+  /* ============================================================
+     AUTENTICAÇÃO E LISTENERS
+     ============================================================ */
+  function limparListeners() {
+    unsubListeners.forEach(unsub => { try { unsub(); } catch (e) {} });
+    unsubListeners = [];
+  }
 
   btnGoogle.addEventListener('click', () => {
     const provider = new GoogleAuthProvider();
@@ -1094,59 +1136,64 @@
 
   onAuthStateChanged(auth, (user) => {
     telaCarregando.style.display = 'none';
-    if (user) {
-      if (user.email === ADMIN_EMAIL) {
-        telaLogin.style.display = 'none';
-        painel.style.display = 'block';
-        if(todosPerfumesAdmin.length === 0) carregarListaAdmin();
-        carregarPedidos();
-        carregarCupons();
-        carregarMac();
-      } else {
-        alert("Acesso negado.");
-        signOut(auth);
-        telaLogin.style.display = 'block';
+    limparListeners();
+
+    if (user && user.email === ADMIN_EMAIL && user.emailVerified) {
+      telaLogin.style.display = 'none';
+      painel.style.display = 'block';
+      carregarListaAdmin();
+      carregarPedidos();
+      carregarCupons();
+      carregarMac();
+      if (!document.querySelector('.section-content.active')) {
+        abrirSecao('lista');
       }
     } else {
+      if (user) {
+        alert("Acesso negado.");
+        signOut(auth);
+      }
       telaLogin.style.display = 'block';
       painel.style.display = 'none';
     }
   });
 
+  /* ============================================================
+     CRUD PERFUMES
+     ============================================================ */
   formPerfume.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    let temTamanho = false;
-    if(document.getElementById('chk-30').checked && moedaParaNumero(document.getElementById('preco-30').value) > 0) temTamanho = true;
-    if(document.getElementById('chk-50').checked && moedaParaNumero(document.getElementById('preco-50').value) > 0) temTamanho = true;
-    if(document.getElementById('chk-100').checked && moedaParaNumero(document.getElementById('preco-100').value) > 0) temTamanho = true;
-    
-    if(!temTamanho) {
-      mostrarMsg("Obrigatório: Marque pelo menos um tamanho e insira o preço.", "erro");
+
+    const p30 = moedaParaNumero(document.getElementById('preco-30').value);
+    const p50 = moedaParaNumero(document.getElementById('preco-50').value);
+    const p100 = moedaParaNumero(document.getElementById('preco-100').value);
+
+    const tamanhos = {};
+    if (document.getElementById('chk-30').checked && p30 > 0) tamanhos["30ml"] = p30;
+    if (document.getElementById('chk-50').checked && p50 > 0) tamanhos["50ml"] = p50;
+    if (document.getElementById('chk-100').checked && p100 > 0) tamanhos["100ml"] = p100;
+
+    if (Object.keys(tamanhos).length === 0) {
+      mostrarMsg("Obrigatório: Marque pelo menos um tamanho e insira um preço válido.", "erro");
       return;
     }
 
     btnSubmit.innerText = "Salvando...";
     btnSubmit.disabled = true;
 
-    const tamanhos = {};
-    if(document.getElementById('chk-30').checked && moedaParaNumero(document.getElementById('preco-30').value) > 0) tamanhos["30ml"] = moedaParaNumero(document.getElementById('preco-30').value);
-    if(document.getElementById('chk-50').checked && moedaParaNumero(document.getElementById('preco-50').value) > 0) tamanhos["50ml"] = moedaParaNumero(document.getElementById('preco-50').value);
-    if(document.getElementById('chk-100').checked && moedaParaNumero(document.getElementById('preco-100').value) > 0) tamanhos["100ml"] = moedaParaNumero(document.getElementById('preco-100').value);
-
     const dadosPerfume = {
-      nome: capitalizeWords(document.getElementById('nome').value),
-      insp: capitalizeWords(document.getElementById('insp').value),
+      nome: capitalizeWords(document.getElementById('nome').value.trim()),
+      insp: capitalizeWords(document.getElementById('insp').value.trim()),
       cat: document.getElementById('cat').value,
-      img: document.getElementById('img').value || "COLE_O_LINK_AQUI",
-      tamanhos: tamanhos,
+      img: document.getElementById('img').value.trim() || "COLE_O_LINK_AQUI",
+      tamanhos,
       vendido: document.getElementById('vendido').checked,
       indisponivel: document.getElementById('indisponivel').checked,
-      desc: document.getElementById('desc').value,
+      desc: document.getElementById('desc').value.trim(),
       notas: {
-        topo: document.getElementById('topo').value,
-        coracao: document.getElementById('coracao').value,
-        fundo: document.getElementById('fundo').value
+        topo: document.getElementById('topo').value.trim(),
+        coracao: document.getElementById('coracao').value.trim(),
+        fundo: document.getElementById('fundo').value.trim()
       }
     };
 
@@ -1162,7 +1209,7 @@
 
         await updateDoc(doc(db, "perfumes", editId.value), dadosPerfume);
         mostrarMsg("Perfume atualizado!", "sucesso");
-        limparFormulario(); 
+        limparFormulario();
       } else {
         dadosPerfume.criadoEm = new Date();
         const estoqueInicial = {};
@@ -1171,13 +1218,19 @@
         });
         dadosPerfume.estoque = estoqueInicial;
         await addDoc(collection(db, "perfumes"), dadosPerfume);
-        mostrarMsg("Perfume cadastrado! Estoque inicial: 5 un. no 50ml.", "sucesso");
+
+        if (macOrigemId.value) {
+          if (confirm("Perfume salvo no catálogo! Deseja remover este lote da lista de Maceração agora?")) {
+            await deleteDoc(doc(db, "maceracao", macOrigemId.value));
+          }
+        }
+        mostrarMsg("Perfume cadastrado no catálogo!", "sucesso");
         limparFormulario();
       }
-      abrirSecao('lista', document.querySelectorAll('.menu-card')[1]); 
+      abrirSecao('lista');
     } catch (error) {
       console.error(error);
-      mostrarMsg("Erro ao salvar.", "erro");
+      mostrarMsg("Erro ao salvar perfume: " + error.message, "erro");
     } finally {
       btnSubmit.innerText = editId.value ? "Atualizar Perfume" : "Salvar no Catálogo";
       btnSubmit.disabled = false;
@@ -1194,6 +1247,7 @@
     atualizarCardTamanho('50');
     atualizarCardTamanho('100');
     editId.value = '';
+    macOrigemId.value = '';
     formTitulo.innerText = "Adicionar Novo Perfume";
     btnSubmit.innerText = "Salvar no Catálogo";
     btnCancelarEdit.style.display = 'none';
@@ -1201,18 +1255,19 @@
 
   window.cancelarEdicao = function() {
     limparFormulario();
-    abrirSecao('lista', document.querySelectorAll('.menu-card')[1]);
+    abrirSecao('lista');
   };
 
   window.prepararEdicao = function(id) {
     const p = todosPerfumesAdmin.find(item => item.id === id);
-    if(!p) return;
+    if (!p) return;
 
-    document.getElementById('nome').value = p.nome;
-    document.getElementById('insp').value = p.insp;
-    document.getElementById('cat').value = p.cat;
-    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
-    
+    macOrigemId.value = '';
+    document.getElementById('nome').value = p.nome || '';
+    document.getElementById('insp').value = p.insp || '';
+    document.getElementById('cat').value = p.cat || '';
+    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : (p.img || '');
+
     document.getElementById('chk-30').checked = !!p.tamanhos?.["30ml"];
     document.getElementById('preco-30').value = p.tamanhos?.["30ml"] ? mascaraMoedaValor(p.tamanhos["30ml"]) : '';
     document.getElementById('chk-50').checked = !!p.tamanhos?.["50ml"];
@@ -1223,8 +1278,8 @@
     atualizarCardTamanho('50');
     atualizarCardTamanho('100');
 
-    document.getElementById('vendido').checked = p.vendido || false;
-    document.getElementById('indisponivel').checked = p.indisponivel || false;
+    document.getElementById('vendido').checked = !!p.vendido;
+    document.getElementById('indisponivel').checked = !!p.indisponivel;
 
     document.getElementById('desc').value = p.desc || '';
     document.getElementById('topo').value = p.notas?.topo || '';
@@ -1232,11 +1287,11 @@
     document.getElementById('fundo').value = p.notas?.fundo || '';
 
     editId.value = id;
-    formTitulo.innerText = "Editando...";
+    formTitulo.innerText = "Editando Perfume";
     btnSubmit.innerText = "Atualizar Perfume";
     btnCancelarEdit.style.display = 'block';
 
-    abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
+    abrirSecao('form');
   };
 
   window.duplicarPerfume = function(id) {
@@ -1244,11 +1299,12 @@
     if (!p) return;
     if (!confirm('Duplicar "' + p.nome + '"?\n\nO formulário abrirá com os dados preenchidos. Altere o nome e a inspiração antes de salvar.')) return;
 
+    macOrigemId.value = '';
     document.getElementById('nome').value = p.nome + ' (Cópia)';
-    document.getElementById('insp').value = p.insp;
-    document.getElementById('cat').value = p.cat;
-    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : p.img;
-    
+    document.getElementById('insp').value = p.insp || '';
+    document.getElementById('cat').value = p.cat || '';
+    document.getElementById('img').value = p.img === 'COLE_O_LINK_AQUI' ? '' : (p.img || '');
+
     document.getElementById('chk-30').checked = !!p.tamanhos?.["30ml"];
     document.getElementById('preco-30').value = p.tamanhos?.["30ml"] ? mascaraMoedaValor(p.tamanhos["30ml"]) : '';
     document.getElementById('chk-50').checked = !!p.tamanhos?.["50ml"];
@@ -1259,8 +1315,8 @@
     atualizarCardTamanho('50');
     atualizarCardTamanho('100');
 
-    document.getElementById('vendido').checked = p.vendido || false;
-    document.getElementById('indisponivel').checked = p.indisponivel || false;
+    document.getElementById('vendido').checked = !!p.vendido;
+    document.getElementById('indisponivel').checked = !!p.indisponivel;
 
     document.getElementById('desc').value = p.desc || '';
     document.getElementById('topo').value = p.notas?.topo || '';
@@ -1272,7 +1328,7 @@
     btnSubmit.innerText = "Salvar no Catálogo";
     btnCancelarEdit.style.display = 'block';
 
-    abrirSecao('form', document.querySelectorAll('.menu-card')[0]);
+    abrirSecao('form');
     mostrarMsg("Preencha os dados novos e clique em Salvar.", "sucesso");
   };
 
@@ -1284,7 +1340,7 @@
 
     const linhas = [];
     linhas.push(['Nome', 'Inspiração', 'Categoria', 'Preço 30ml', 'Preço 50ml', 'Preço 100ml', 'Estoque 30ml', 'Estoque 50ml', 'Estoque 100ml', 'Estoque Total', 'Mais Vendido', 'Indisponível', 'Criado em']);
-    
+
     todosPerfumesAdmin.forEach(p => {
       const est = normalizarEstoque(p);
       const dataCriado = p.criadoEm && p.criadoEm.toDate ? p.criadoEm.toDate().toLocaleString('pt-BR') : (p.criadoEm ? new Date(p.criadoEm).toLocaleString('pt-BR') : '');
@@ -1305,7 +1361,7 @@
       ]);
     });
 
-    const csvContent = '\uFEFF' + linhas.map(row => 
+    const csvContent = '\uFEFF' + linhas.map(row =>
       row.map(cell => {
         const s = String(cell == null ? '' : cell);
         if (s.includes(',') || s.includes('"') || s.includes('\n')) {
@@ -1318,9 +1374,8 @@
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    const dataHoje = new Date().toISOString().slice(0, 10);
     a.href = url;
-    a.download = 'thrust-catalogo-' + dataHoje + '.csv';
+    a.download = 'thrust-catalogo-' + new Date().toISOString().slice(0, 10) + '.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1331,7 +1386,7 @@
 
   function carregarListaAdmin() {
     const q = query(collection(db, "perfumes"), orderBy("nome"));
-    onSnapshot(q, (snapshot) => {
+    const unsub = onSnapshot(q, (snapshot) => {
       todosPerfumesAdmin = [];
       snapshot.forEach((docSnap) => {
         todosPerfumesAdmin.push({ id: docSnap.id, ...docSnap.data() });
@@ -1341,7 +1396,11 @@
       if (document.getElementById('section-estoque').classList.contains('active')) {
         renderizarEstoque();
       }
+    }, (err) => {
+      console.error("Erro perfumes:", err);
+      mostrarMsg("Erro ao carregar perfumes (verifique permissões).", "erro");
     });
+    unsubListeners.push(unsub);
   }
 
   abasAdmin.forEach(btn => {
@@ -1354,41 +1413,36 @@
   });
 
   searchAdmin.addEventListener('input', (e) => {
-    termoBuscaAdmin = e.target.value.toLowerCase();
+    termoBuscaAdmin = normalizarTexto(e.target.value);
     renderizarListaAdmin();
   });
 
   buscaPedido.addEventListener('input', (e) => {
-    termoBuscaPedido = e.target.value.toLowerCase().trim();
+    termoBuscaPedido = normalizarTexto(e.target.value);
     renderizarPedidos();
   });
 
   searchEstoque.addEventListener('input', (e) => {
-    termoBuscaEstoque = e.target.value.toLowerCase().trim();
+    termoBuscaEstoque = normalizarTexto(e.target.value);
     renderizarEstoque();
   });
 
   function renderizarListaAdmin() {
     listaAdmin.innerHTML = '';
-    
     let listaFiltrada = todosPerfumesAdmin;
 
     if (categoriaFiltroAdmin === 'esgotados') {
       listaFiltrada = listaFiltrada.filter(p => p.indisponivel === true || totalEstoque(p) === 0);
     } else if (categoriaFiltroAdmin === 'estoque-baixo') {
-      listaFiltrada = listaFiltrada.filter(p => {
-        if (p.indisponivel) return false;
-        if (totalEstoque(p) === 0) return false;
-        return temTamanhoComUm(p);
-      });
+      listaFiltrada = listaFiltrada.filter(p => !p.indisponivel && totalEstoque(p) > 0 && temTamanhoComUm(p));
     } else if (categoriaFiltroAdmin !== 'todos') {
       listaFiltrada = listaFiltrada.filter(p => p.cat === categoriaFiltroAdmin);
     }
-    
+
     if (termoBuscaAdmin) {
-      listaFiltrada = listaFiltrada.filter(p => 
-        p.nome.toLowerCase().includes(termoBuscaAdmin) || 
-        (p.insp && p.insp.toLowerCase().includes(termoBuscaAdmin))
+      listaFiltrada = listaFiltrada.filter(p =>
+        normalizarTexto(p.nome).includes(termoBuscaAdmin) ||
+        normalizarTexto(p.insp).includes(termoBuscaAdmin)
       );
     }
 
@@ -1399,55 +1453,54 @@
 
     listaFiltrada.forEach((p) => {
       let precoExibir = "Preço indisponível";
-      if(p.tamanhos) {
+      if (p.tamanhos) {
         const keys = Object.keys(p.tamanhos);
         if (keys.length > 0) {
-          let tamEscolhido = p.tamanhos["50ml"] ? "50ml" : keys[0];
-          precoExibir = `R$ ${p.tamanhos[tamEscolhido].toFixed(2).replace('.', ',')} (${tamEscolhido})`;
+          const tamEscolhido = p.tamanhos["50ml"] ? "50ml" : keys[0];
+          precoExibir = `R$ ${Number(p.tamanhos[tamEscolhido]).toFixed(2).replace('.', ',')} (${tamEscolhido})`;
         }
       }
 
       const totalEst = totalEstoque(p);
-      let estoqueHtml = '';
-      if (totalEst > 0) {
-        estoqueHtml = `<span class="status-estoque">📦 ${totalEst} un.</span>`;
-      } else {
-        estoqueHtml = `<span class="status-off">Sem Estoque</span>`;
-      }
+      const estoqueHtml = totalEst > 0
+        ? `<span class="status-estoque">📦 ${totalEst} un.</span>`
+        : `<span class="status-off">Sem Estoque</span>`;
 
-      let btnStatus = '';
-      if (p.indisponivel || totalEst === 0) {
-        btnStatus = `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${p.id}', false)" title="Ativar Vendas">▶️ Ativar</button>`;
-      } else {
-        btnStatus = `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${p.id}', true)" title="Pausar Vendas">⏸️ Pausar</button>`;
-      }
+      const btnStatus = (p.indisponivel || totalEst === 0)
+        ? `<button class="btn-acao btn-ativar" onclick="toggleEstoque('${esc(p.id)}', false)" title="Ativar Vendas">▶️ Ativar</button>`
+        : `<button class="btn-acao btn-pausar" onclick="toggleEstoque('${esc(p.id)}', true)" title="Pausar Vendas">⏸️ Pausar</button>`;
+
+      const imgSafe = safeImgUrl(p.img) || 'https://via.placeholder.com/45';
 
       const div = document.createElement('div');
       div.className = 'item-admin';
       div.innerHTML = `
         <div class="item-topo">
-          <img src="${p.img !== 'COLE_O_LINK_AQUI' ? p.img : 'https://via.placeholder.com/45'}" alt="">
+          <img src="${esc(imgSafe)}" alt="${esc(p.nome)}">
           <div class="item-dados">
             <div class="nome">
-              ${esc(p.nome)} 
-              ${p.vendido ? '🔥' : ''} 
+              ${esc(p.nome)}
+              ${p.vendido ? '🔥' : ''}
               ${estoqueHtml}
             </div>
-            <div class="detalhes">Insp: ${esc(p.insp)} | ${precoExibir}</div>
+            <div class="detalhes">Insp: ${esc(p.insp)} | ${esc(precoExibir)}</div>
           </div>
         </div>
         <div class="item-acoes">
-          <button class="btn-acao btn-copiar" onclick="copiarLink('${p.id}')" title="Copiar Link">📋 Copiar</button>
-          <button class="btn-acao btn-editar" onclick="prepararEdicao('${p.id}')">✏️ Editar</button>
-          <button class="btn-acao btn-duplicar" onclick="duplicarPerfume('${p.id}')" title="Duplicar">📋 Duplicar</button>
+          <button class="btn-acao btn-copiar" onclick="copiarLink('${esc(p.id)}')" title="Copiar Link">📋 Copiar</button>
+          <button class="btn-acao btn-editar" onclick="prepararEdicao('${esc(p.id)}')">✏️ Editar</button>
+          <button class="btn-acao btn-duplicar" onclick="duplicarPerfume('${esc(p.id)}')" title="Duplicar">📋 Duplicar</button>
           ${btnStatus}
-          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${p.id}')">🗑️ Excluir</button>
+          <button class="btn-acao btn-excluir" onclick="excluirPerfume('${esc(p.id)}')">🗑️ Excluir</button>
         </div>
       `;
       listaAdmin.appendChild(div);
     });
   }
 
+  /* ============================================================
+     ESTOQUE
+     ============================================================ */
   const estoqueDebounceTimers = {};
 
   function renderizarEstoque() {
@@ -1459,9 +1512,9 @@
 
     let listaFiltrada = todosPerfumesAdmin;
     if (termoBuscaEstoque) {
-      listaFiltrada = listaFiltrada.filter(p => 
-        p.nome.toLowerCase().includes(termoBuscaEstoque) || 
-        (p.insp && p.insp.toLowerCase().includes(termoBuscaEstoque))
+      listaFiltrada = listaFiltrada.filter(p =>
+        normalizarTexto(p.nome).includes(termoBuscaEstoque) ||
+        normalizarTexto(p.insp).includes(termoBuscaEstoque)
       );
     }
 
@@ -1473,7 +1526,6 @@
     listaFiltrada.forEach((p) => {
       const est = normalizarEstoque(p);
       const tamanhosDoPerfume = p.tamanhos ? Object.keys(p.tamanhos) : [];
-      
       if (tamanhosDoPerfume.length === 0) return;
 
       tamanhosDoPerfume.sort((a, b) => TAMANHOS.indexOf(a) - TAMANHOS.indexOf(b));
@@ -1483,12 +1535,12 @@
         const qtd = (typeof est[tam] === 'number') ? est[tam] : 0;
         const zerado = qtd === 0;
         linhasHtml += `
-          <div class="estoque-linha ${zerado ? 'zerado' : ''}" data-id="${p.id}" data-tam="${tam}">
-            <span class="tam-label">${tam}</span>
+          <div class="estoque-linha ${zerado ? 'zerado' : ''}" data-id="${esc(p.id)}" data-tam="${esc(tam)}">
+            <span class="tam-label">${esc(tam)}</span>
             <div class="ctrl-tam">
-              <button onclick="alterarEstoque('${p.id}', '${tam}', -1)" ${qtd === 0 ? 'disabled' : ''} title="Diminuir">−</button>
-              <input type="number" min="0" value="${qtd}" oninput="inputEstoque('${p.id}', '${tam}', this)" onblur="inputEstoqueBlur('${p.id}', '${tam}', this)">
-              <button onclick="alterarEstoque('${p.id}', '${tam}', 1)" title="Aumentar">+</button>
+              <button onclick="alterarEstoque('${esc(p.id)}', '${esc(tam)}', -1)" ${qtd === 0 ? 'disabled' : ''} title="Diminuir">−</button>
+              <input type="number" min="0" value="${qtd}" oninput="inputEstoque('${esc(p.id)}', '${esc(tam)}', this)" onblur="inputEstoqueBlur('${esc(p.id)}', '${esc(tam)}', this)">
+              <button onclick="alterarEstoque('${esc(p.id)}', '${esc(tam)}', 1)" title="Aumentar">+</button>
             </div>
           </div>
         `;
@@ -1498,7 +1550,7 @@
       div.className = 'estoque-item';
       div.innerHTML = `
         <div class="info">
-          <strong>${esc(p.nome)} <span class="estoque-status-salvo" id="status-${p.id}" style="display:none;">✓ Salvo</span></strong>
+          <strong>${esc(p.nome)} <span class="estoque-status-salvo" id="status-${esc(p.id)}" style="display:none;">✓ Salvo</span></strong>
           <small>Insp: ${esc(p.insp)}</small>
         </div>
         <div class="estoque-tamanhos">${linhasHtml}</div>
@@ -1515,17 +1567,15 @@
   }
 
   async function salvarEstoqueTamanho(id, tamanho, novaQtd) {
-    const p = todosPerfumesAdmin.find(x => x.id === id);
-    if (!p) return;
-    
-    const estAtual = normalizarEstoque(p);
-    const novoEstoqueObj = { ...estAtual };
-    novoEstoqueObj[tamanho] = novaQtd;
-
-    p.estoque = novoEstoqueObj;
-
     try {
-      await updateDoc(doc(db, "perfumes", id), { estoque: novoEstoqueObj });
+      await runTransaction(db, async (transaction) => {
+        const ref = doc(db, "perfumes", id);
+        const snap = await transaction.get(ref);
+        if (!snap.exists()) return;
+        const estAtual = normalizarEstoque(snap.data());
+        const novoEstoqueObj = { ...estAtual, [tamanho]: Math.max(0, novaQtd) };
+        transaction.update(ref, { estoque: novoEstoqueObj });
+      });
       mostrarStatusSalvo(id);
     } catch (error) {
       console.error(error);
@@ -1537,41 +1587,41 @@
     const p = todosPerfumesAdmin.find(x => x.id === id);
     if (!p) return;
     const est = normalizarEstoque(p);
-    let atual = (typeof est[tamanho] === 'number') ? est[tamanho] : 0;
-    let novo = atual + delta;
-    if (novo < 0) novo = 0;
+    const atual = (typeof est[tamanho] === 'number') ? est[tamanho] : 0;
+    const novo = Math.max(0, atual + delta);
+    est[tamanho] = novo;
+    p.estoque = est;
 
     const linha = document.querySelector(`.estoque-linha[data-id="${id}"][data-tam="${tamanho}"]`);
     if (linha) {
       const input = linha.querySelector('input');
       const btnMenos = linha.querySelector('button');
       input.value = novo;
-      if (novo === 0) { linha.classList.add('zerado'); btnMenos.disabled = true; }
-      else { linha.classList.remove('zerado'); btnMenos.disabled = false; }
+      linha.classList.toggle('zerado', novo === 0);
+      btnMenos.disabled = (novo === 0);
     }
 
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
-    estoqueDebounceTimers[key] = setTimeout(() => { salvarEstoqueTamanho(id, tamanho, novo); }, 600);
+    estoqueDebounceTimers[key] = setTimeout(() => { salvarEstoqueTamanho(id, tamanho, novo); }, 500);
   };
 
   window.inputEstoque = function(id, tamanho, el) {
-    let val = parseInt(el.value);
+    let val = parseInt(el.value, 10);
     if (isNaN(val) || val < 0) val = 0;
-    el.value = val;
 
     const linha = el.closest('.estoque-linha');
     const btnMenos = linha.querySelector('button');
-    if (val === 0) { linha.classList.add('zerado'); btnMenos.disabled = true; }
-    else { linha.classList.remove('zerado'); btnMenos.disabled = false; }
+    linha.classList.toggle('zerado', val === 0);
+    btnMenos.disabled = (val === 0);
 
     const key = id + '_' + tamanho;
     if (estoqueDebounceTimers[key]) clearTimeout(estoqueDebounceTimers[key]);
-    estoqueDebounceTimers[key] = setTimeout(() => { salvarEstoqueTamanho(id, tamanho, val); }, 800);
+    estoqueDebounceTimers[key] = setTimeout(() => { salvarEstoqueTamanho(id, tamanho, val); }, 700);
   };
 
   window.inputEstoqueBlur = function(id, tamanho, el) {
-    let val = parseInt(el.value);
+    let val = parseInt(el.value, 10);
     if (isNaN(val) || val < 0) val = 0;
     el.value = val;
     const key = id + '_' + tamanho;
@@ -1579,6 +1629,9 @@
     salvarEstoqueTamanho(id, tamanho, val);
   };
 
+  /* ============================================================
+     PEDIDOS
+     ============================================================ */
   window.mudarPeriodo = function(periodo, el) {
     periodoFiltro = periodo;
     document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('active'));
@@ -1588,13 +1641,17 @@
 
   function carregarPedidos() {
     const q = query(collection(db, "pedidos"), orderBy("data", "desc"));
-    onSnapshot(q, (snapshot) => {
+    const unsub = onSnapshot(q, (snapshot) => {
       todosPedidosAdmin = [];
       snapshot.forEach((docSnap) => {
         todosPedidosAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
       renderizarPedidos();
+    }, (err) => {
+      console.error("Erro pedidos:", err);
+      mostrarMsg("Erro ao carregar pedidos.", "erro");
     });
+    unsubListeners.push(unsub);
   }
 
   function renderizarPedidos() {
@@ -1610,8 +1667,10 @@
 
     if (termoBuscaPedido) {
       filtrados = filtrados.filter(p => {
-        const numero = (p.numero || '').toLowerCase();
-        return numero.includes(termoBuscaPedido);
+        const numero = normalizarTexto(p.numero);
+        const whatsCliente = normalizarTexto(p.clienteWhats);
+        const nomesItens = (p.itens || []).map(i => normalizarTexto(i.nome) + ' ' + normalizarTexto(i.insp)).join(' ');
+        return numero.includes(termoBuscaPedido) || whatsCliente.includes(termoBuscaPedido) || nomesItens.includes(termoBuscaPedido);
       });
     }
 
@@ -1627,12 +1686,10 @@
 
     filtrados.forEach((pedido) => {
       const pedidoId = pedido.id;
-      
-      let dataFormatada = "Data desconhecida";
-      if (pedido.data) {
-        const d = dataPedido(pedido);
-        dataFormatada = d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-      }
+      const d = dataPedido(pedido);
+      const dataFormatada = d
+        ? d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : "Data desconhecida";
 
       let itensHtml = '';
       if (pedido.itens && Array.isArray(pedido.itens)) {
@@ -1643,7 +1700,7 @@
               <div class="item-info">
                 <span class="item-nome">${item.qtd}x ${esc(item.nome)}</span>
                 ${insp ? '<span class="item-insp">Insp. ' + esc(insp) + '</span>' : ''}
-                <span class="item-tam">${item.tamanho}</span>
+                <span class="item-tam">${esc(item.tamanho)}</span>
               </div>
               <span class="item-preco">${fmt(item.preco * item.qtd)}</span>
             </li>
@@ -1651,8 +1708,8 @@
         });
       }
 
-      const isConcretizada = pedido.concretizada || false;
-      const isCancelada = pedido.cancelada || false;
+      const isConcretizada = !!pedido.concretizada;
+      const isCancelada = !!pedido.cancelada;
       const isPendente = !isConcretizada && !isCancelada;
 
       let selosHtml = '';
@@ -1663,27 +1720,17 @@
         let badgeCupom = pedido.cupomCodigo;
         if (pedido.cupomNome) badgeCupom = pedido.cupomNome;
         else if (pedido.cupomTipo === 'fixo') badgeCupom += ' (R$ ' + Number(pedido.cupomValor || 0).toFixed(2).replace('.', ',') + ')';
-        else if (pedido.cupomPercentual) badgeCupom += ' (' + pedido.cupomPercentual + '%)';
+        else if (pedido.cupomPercentual || pedido.cupomValor) badgeCupom += ' (' + (pedido.cupomPercentual || pedido.cupomValor) + '%)';
         selosHtml += '<span class="selo-pedido selo-cupom">🎟️ ' + esc(badgeCupom) + '</span>';
       }
 
-      let numeroPedidoHtml = '';
-      if (pedido.numero) {
-        numeroPedidoHtml = `
-          <div class="numero-pedido-badge" id="badge-${pedidoId}" onclick="copiarNumeroPedido('${pedidoId}', '${esc(pedido.numero)}')">
+      const numeroPedidoHtml = pedido.numero
+        ? `<div class="numero-pedido-badge" id="badge-${esc(pedidoId)}" onclick="copiarNumeroPedido('${esc(pedidoId)}', '${esc(pedido.numero)}')">
             <span class="lbl">Pedido</span>
             <span class="num">${esc(pedido.numero)}</span>
             <span class="icone-copiar">📋</span>
-          </div>
-        `;
-      } else {
-        numeroPedidoHtml = `
-          <div class="numero-pedido-badge" style="cursor:default; opacity:0.5;">
-            <span class="lbl">Pedido</span>
-            <span class="num">—</span>
-          </div>
-        `;
-      }
+           </div>`
+        : `<div class="numero-pedido-badge" style="cursor:default; opacity:0.5;"><span class="lbl">Pedido</span><span class="num">—</span></div>`;
 
       let whatsHtml = '';
       if (pedido.clienteWhats && telefoneValido(pedido.clienteWhats)) {
@@ -1693,9 +1740,9 @@
           <div class="cliente-whats">
             <div class="cliente-whats-info">
               <small>WhatsApp do cliente</small>
-              <strong>${telExibir}</strong>
+              <strong>${esc(telExibir)}</strong>
             </div>
-            <a class="btn-whats-cliente" href="https://wa.me/${telWa}" target="_blank">
+            <a class="btn-whats-cliente" href="https://wa.me/${esc(telWa)}" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Conversar
             </a>
@@ -1705,13 +1752,11 @@
 
       let totaisHtml = `<span>Subtotal: <strong>${fmt(pedido.subtotal || 0)}</strong></span>`;
       if (pedido.desconto && pedido.desconto > 0) {
-        let label = 'Desconto:';
+        let label = 'Desconto (5%):';
         if (pedido.cupomCodigo) {
-          if (pedido.cupomNome) label = 'Desconto cupom (' + pedido.cupomNome + '):';
-          else if (pedido.cupomTipo === 'fixo') label = 'Desconto cupom (' + pedido.cupomCodigo + '):';
-          else label = 'Desconto cupom (' + (pedido.cupomPercentual || pedido.cupomValor || 0) + '%):';
-        } else {
-          label = 'Desconto (5%):';
+          if (pedido.cupomNome) label = 'Desconto cupom (' + esc(pedido.cupomNome) + '):';
+          else if (pedido.cupomTipo === 'fixo') label = 'Desconto cupom (' + esc(pedido.cupomCodigo) + '):';
+          else label = 'Desconto cupom (' + esc(pedido.cupomPercentual || pedido.cupomValor || 0) + '%):';
         }
         totaisHtml += `<span class="desconto">${label} <strong>− ${fmt(pedido.desconto)}</strong></span>`;
       }
@@ -1720,28 +1765,28 @@
       if (isPendente) {
         botoesHtml = `
           <div class="pedido-acoes tres">
-            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${pedidoId}')">✏️ Editar</button>
-            <button class="btn-pedido btn-pedido-concretizar" onclick="marcarConcretizada('${pedidoId}')">✔️ Concretizar</button>
-            <button class="btn-pedido btn-pedido-cancelar" onclick="cancelarPedido('${pedidoId}')">🚫 Cancelar</button>
+            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${esc(pedidoId)}')">✏️ Editar</button>
+            <button class="btn-pedido btn-pedido-concretizar" onclick="marcarConcretizada('${esc(pedidoId)}')">✔️ Concretizar</button>
+            <button class="btn-pedido btn-pedido-cancelar" onclick="cancelarPedido('${esc(pedidoId)}')">🚫 Cancelar</button>
           </div>
           <div class="pedido-acoes uma" style="margin-top:6px;">
-            <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${pedidoId}')">🗑️ Excluir Pedido</button>
+            <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${esc(pedidoId)}')">🗑️ Excluir Pedido</button>
           </div>
         `;
       } else if (isConcretizada) {
         botoesHtml = `
           <div class="pedido-acoes tres">
-            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${pedidoId}')">✏️ Editar</button>
-            <button class="btn-pedido btn-pedido-cancelar" onclick="cancelarPedido('${pedidoId}')">🚫 Cancelar (último recurso)</button>
-            <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${pedidoId}')">🗑️ Excluir</button>
+            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${esc(pedidoId)}')">✏️ Editar</button>
+            <button class="btn-pedido btn-pedido-cancelar" onclick="cancelarPedido('${esc(pedidoId)}')">🚫 Cancelar</button>
+            <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${esc(pedidoId)}')">🗑️ Excluir</button>
           </div>
         `;
       } else if (isCancelada) {
         botoesHtml = `
           <div class="pedido-acoes tres" style="margin-top:6px;">
-            <button class="btn-pedido btn-pedido-reativar" onclick="reativarPedido('${pedidoId}')">♻️ Reativar</button>
-            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${pedidoId}')">✏️ Editar</button>
-            <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${pedidoId}')">🗑️ Excluir</button>
+            <button class="btn-pedido btn-pedido-reativar" onclick="reativarPedido('${esc(pedidoId)}')">♻️ Reativar</button>
+            <button class="btn-pedido btn-pedido-editar" onclick="abrirEdicaoPedido('${esc(pedidoId)}')">✏️ Editar</button>
+            <button class="btn-pedido btn-pedido-excluir" onclick="excluirPedido('${esc(pedidoId)}')">🗑️ Excluir</button>
           </div>
         `;
       }
@@ -1750,7 +1795,7 @@
       div.className = 'pedido-item ' + (isConcretizada ? 'concretizado' : '') + (isCancelada ? ' cancelado' : '');
       div.innerHTML = `
         <div class="pedido-header">
-          <span class="pedido-data">📅 ${dataFormatada}</span>
+          <span class="pedido-data">📅 ${esc(dataFormatada)}</span>
           <span class="pedido-total">${fmt(pedido.total || 0)}</span>
         </div>
         <div class="pedido-selos">${selosHtml}</div>
@@ -1766,16 +1811,21 @@
 
   function atualizarTotalizador(pedidos) {
     const totalQtd = pedidos.length;
-    const totalValor = pedidos
-      .filter(p => !p.cancelada)
+    const valorConcretizado = pedidos
+      .filter(p => p.concretizada && !p.cancelada)
       .reduce((acc, p) => acc + (p.total || 0), 0);
+    const valorPendente = pedidos
+      .filter(p => !p.concretizada && !p.cancelada)
+      .reduce((acc, p) => acc + (p.total || 0), 0);
+
     const pendentes = pedidos.filter(p => !p.concretizada && !p.cancelada).length;
     const concretizados = pedidos.filter(p => p.concretizada && !p.cancelada).length;
     const cancelados = pedidos.filter(p => p.cancelada).length;
 
     document.getElementById('totQtd').innerText = totalQtd + ' ' + (totalQtd === 1 ? 'pedido' : 'pedidos') + ' no período';
     document.getElementById('totDetalhe').innerText = 'Pendentes: ' + pendentes + ' · Concretizados: ' + concretizados + (cancelados > 0 ? ' · Cancelados: ' + cancelados : '');
-    document.getElementById('totValor').innerText = fmt(totalValor);
+    document.getElementById('totValor').innerText = fmt(valorConcretizado);
+    document.getElementById('totPendente').innerText = 'Em aberto (pendentes): ' + fmt(valorPendente);
   }
 
   window.copiarNumeroPedido = function(pedidoId, numero) {
@@ -1786,24 +1836,54 @@
         const icone = badge.querySelector('.icone-copiar');
         const original = icone.textContent;
         icone.textContent = '✓';
-        setTimeout(() => {
-          badge.classList.remove('copiado');
-          icone.textContent = original;
-        }, 1500);
+        setTimeout(() => { badge.classList.remove('copiado'); icone.textContent = original; }, 1500);
       }
-    }).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = numero;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    });
+    }).catch(() => {});
   };
 
   window.onInputEditWhats = function(el) {
     whatsEmEdicao = formatarTelefoneInput(el.value);
     el.value = whatsEmEdicao;
+  };
+
+  function popularSelectAddPerfume() {
+    const sel = document.getElementById('editAddPerfume');
+    sel.innerHTML = todosPerfumesAdmin
+      .filter(p => p.tamanhos && Object.keys(p.tamanhos).length > 0)
+      .map(p => `<option value="${esc(p.id)}">${esc(p.nome)} (${esc(p.insp)})</option>`)
+      .join('');
+    atualizarTamanhosAddPedido();
+  }
+
+  window.atualizarTamanhosAddPedido = function() {
+    const id = document.getElementById('editAddPerfume').value;
+    const selTam = document.getElementById('editAddTamanho');
+    const p = todosPerfumesAdmin.find(x => x.id === id);
+    if (!p || !p.tamanhos) { selTam.innerHTML = ''; return; }
+    const keys = Object.keys(p.tamanhos).sort((a,b) => TAMANHOS.indexOf(a) - TAMANHOS.indexOf(b));
+    selTam.innerHTML = keys.map(tam => `<option value="${esc(tam)}">${esc(tam)} (${fmt(p.tamanhos[tam])})</option>`).join('');
+  };
+
+  window.adicionarItemEdicao = function() {
+    const id = document.getElementById('editAddPerfume').value;
+    const tam = document.getElementById('editAddTamanho').value;
+    const p = todosPerfumesAdmin.find(x => x.id === id);
+    if (!p || !tam || !p.tamanhos || !p.tamanhos[tam]) return;
+
+    const existente = itensEmEdicao.find(i => (i.id === p.id || i.nome === p.nome) && i.tamanho === tam);
+    if (existente) {
+      existente.qtd += 1;
+    } else {
+      itensEmEdicao.push({
+        id: p.id,
+        nome: p.nome,
+        insp: p.insp || '',
+        tamanho: tam,
+        qtd: 1,
+        preco: p.tamanhos[tam]
+      });
+    }
+    renderizarModalEditar();
   };
 
   window.abrirEdicaoPedido = function(pedidoId) {
@@ -1813,22 +1893,23 @@
     pedidoEmEdicao = pedido;
     itensEmEdicao = JSON.parse(JSON.stringify(pedido.itens || []));
     whatsEmEdicao = pedido.clienteWhats || '';
-    
     document.getElementById('editWhatsCliente').value = whatsEmEdicao;
+
+    popularSelectAddPerfume();
 
     const avisoEl = document.getElementById('editAvisoStatus');
     avisoEl.style.display = 'block';
     if (pedido.cancelada) {
       avisoEl.className = 'edit-aviso-status cancelado';
-      avisoEl.innerHTML = '⚠️ Este pedido está <strong>CANCELADO</strong>. O estoque já voltou. Se salvar com alterações, o estoque será re-ajustado conforme necessário.';
+      avisoEl.innerHTML = '⚠️ Este pedido está <strong>CANCELADO</strong>. O estoque já foi devolvido.';
     } else if (pedido.concretizada) {
       avisoEl.className = 'edit-aviso-status concretizado';
-      avisoEl.innerHTML = '✅ Este pedido está <strong>CONCRETIZADO</strong>. O estoque já foi abatido. Se alterar a quantidade ou os itens, o estoque será ajustado automaticamente.';
+      avisoEl.innerHTML = '✅ Este pedido está <strong>CONCRETIZADO</strong>. Alterar itens ou quantidades ajustará o estoque automaticamente em transação.';
     } else {
       avisoEl.className = 'edit-aviso-status';
-      avisoEl.innerHTML = '⏳ Pedido <strong>PENDENTE</strong>. Alterar os itens aqui <strong>não</strong> mexe no estoque (o abatimento só acontece ao clicar em "Concretizar").';
+      avisoEl.innerHTML = '⏳ Pedido <strong>PENDENTE</strong>. Alterar os itens aqui <strong>não</strong> mexe no estoque até que você clique em "Concretizar".';
     }
-    
+
     renderizarModalEditar();
     document.getElementById('modalEditarPedido').classList.add('ativo');
   };
@@ -1847,10 +1928,31 @@
       subtotal += item.qtd * item.preco;
       qtdTotal += item.qtd;
     });
-    let temDesconto = qtdTotal >= DESCONTO_MIN;
-    let desconto = temDesconto ? subtotal * DESCONTO_PCT : 0;
-    let total = subtotal - desconto;
-    return { subtotal, desconto, total, qtdTotal, temDesconto };
+
+    const descontoAuto = qtdTotal >= DESCONTO_MIN ? subtotal * DESCONTO_PCT : 0;
+
+    let descontoCupom = 0;
+    const temCupomPedido = !!(pedidoEmEdicao && pedidoEmEdicao.cupomCodigo);
+    if (temCupomPedido) {
+      const tipo = pedidoEmEdicao.cupomTipo || 'percentual';
+      const valor = pedidoEmEdicao.cupomValor != null ? pedidoEmEdicao.cupomValor : (pedidoEmEdicao.cupomPercentual || 0);
+      descontoCupom = tipo === 'fixo'
+        ? Math.min(subtotal, Number(valor))
+        : subtotal * (Number(valor) / 100);
+    }
+
+    const usarCupom = temCupomPedido && (descontoCupom >= descontoAuto);
+    const desconto = Math.min(subtotal, Math.max(descontoAuto, descontoCupom));
+    const total = Math.max(0, subtotal - desconto);
+
+    return {
+      subtotal,
+      desconto,
+      total,
+      qtdTotal,
+      temDesconto: desconto > 0,
+      usarCupom
+    };
   }
 
   function renderizarModalEditar() {
@@ -1858,7 +1960,7 @@
     const resumoEl = document.getElementById('modalEditarResumo');
 
     if (itensEmEdicao.length === 0) {
-      container.innerHTML = '<p style="color:#ff6b6b; text-align:center; padding:15px; font-size:0.85rem;">Todos os itens foram removidos. O pedido será cancelado ao salvar (ou cancele manualmente).</p>';
+      container.innerHTML = '<p style="color:#ff6b6b; text-align:center; padding:15px; font-size:0.85rem;">Todos os itens foram removidos. Adicione um item ou cancele o pedido.</p>';
       document.getElementById('btn-salvar-edicao').disabled = true;
     } else {
       document.getElementById('btn-salvar-edicao').disabled = false;
@@ -1866,7 +1968,7 @@
         <div class="edit-item-linha">
           <div class="edit-item-info">
             <strong>${esc(item.nome)}</strong>
-            <small>Insp: ${esc(item.insp || '-')} · ${item.tamanho} · ${fmt(item.preco)} un.</small>
+            <small>Insp: ${esc(item.insp || '-')} · ${esc(item.tamanho)} · ${fmt(item.preco)} un.</small>
           </div>
           <div class="edit-item-controles">
             <div class="ctrl-qtd">
@@ -1884,7 +1986,13 @@
     const r = calcularResumoEdicao();
     let resumoHtml = `<span>Subtotal: <strong>${fmt(r.subtotal)}</strong></span>`;
     if (r.temDesconto) {
-      resumoHtml += `<span class="desconto">Desconto (5%): <strong>− ${fmt(r.desconto)}</strong></span>`;
+      let label = 'Desconto (5%):';
+      if (r.usarCupom && pedidoEmEdicao) {
+        label = pedidoEmEdicao.cupomTipo === 'fixo'
+          ? 'Cupom (' + esc(pedidoEmEdicao.cupomNome || pedidoEmEdicao.cupomCodigo) + '):'
+          : 'Cupom (' + esc(pedidoEmEdicao.cupomValor || pedidoEmEdicao.cupomPercentual || 0) + '%):';
+      }
+      resumoHtml += `<span class="desconto">${label} <strong>− ${fmt(r.desconto)}</strong></span>`;
     }
     resumoHtml += `<span class="total">Total: <strong>${fmt(r.total)}</strong></span>`;
     resumoEl.innerHTML = resumoHtml;
@@ -1892,9 +2000,7 @@
 
   window.alterarQtdEdicao = function(idx, delta) {
     if (!itensEmEdicao[idx]) return;
-    let novo = itensEmEdicao[idx].qtd + delta;
-    if (novo < 1) novo = 1;
-    itensEmEdicao[idx].qtd = novo;
+    itensEmEdicao[idx].qtd = Math.max(1, itensEmEdicao[idx].qtd + delta);
     renderizarModalEditar();
   };
 
@@ -1905,39 +2011,45 @@
     renderizarModalEditar();
   };
 
-  async function ajustarEstoquePedido(itens, acao) {
-    if (!itens || !Array.isArray(itens)) return;
-    for (const item of itens) {
-      let perfume = null;
-      if (item.id) perfume = todosPerfumesAdmin.find(p => p.id === item.id);
-      if (!perfume) perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
-      
-      if (!perfume) continue;
-      
-      const estAtual = normalizarEstoque(perfume);
-      const tamanhoItem = item.tamanho || '50ml';
-      const estoqueAtualTam = (typeof estAtual[tamanhoItem] === 'number') ? estAtual[tamanhoItem] : 0;
-      
-      let novoEstoqueTam;
-      if (acao === 'abater') {
-        novoEstoqueTam = Math.max(0, estoqueAtualTam - item.qtd);
-      } else {
-        novoEstoqueTam = estoqueAtualTam + item.qtd;
-      }
+  // Calcula mapa de deltas de estoque por perfumeId -> { tamanho: delta }
+  function calcularDeltasEstoque(itensParaSomar, itensParaSubtrair) {
+    const mapa = {};
+    const addDelta = (itens, sinal) => {
+      (itens || []).forEach(item => {
+        let perfume = item.id ? todosPerfumesAdmin.find(p => p.id === item.id) : null;
+        if (!perfume) perfume = todosPerfumesAdmin.find(p => p.nome === item.nome);
+        if (!perfume) return;
+        const tam = item.tamanho || '50ml';
+        if (!mapa[perfume.id]) mapa[perfume.id] = {};
+        mapa[perfume.id][tam] = (mapa[perfume.id][tam] || 0) + (sinal * item.qtd);
+      });
+    };
+    addDelta(itensParaSomar, 1);
+    addDelta(itensParaSubtrair, -1);
+    return mapa;
+  }
 
-      const novoEstoqueObj = { ...estAtual };
-      novoEstoqueObj[tamanhoItem] = novoEstoqueTam;
+  async function aplicarDeltasEstoqueEmTransacao(transaction, deltasPorPerfume) {
+    const ids = Object.keys(deltasPorPerfume);
+    const refs = ids.map(id => doc(db, "perfumes", id));
+    const snaps = await Promise.all(refs.map(ref => transaction.get(ref)));
 
-      await updateDoc(doc(db, "perfumes", perfume.id), { estoque: novoEstoqueObj });
-    }
+    snaps.forEach((snap, idx) => {
+      if (!snap.exists()) return;
+      const id = ids[idx];
+      const estAtual = normalizarEstoque(snap.data());
+      const novoEst = { ...estAtual };
+      const deltas = deltasPorPerfume[id];
+      Object.keys(deltas).forEach(tam => {
+        const atual = typeof novoEst[tam] === 'number' ? novoEst[tam] : 0;
+        novoEst[tam] = Math.max(0, atual + deltas[tam]);
+      });
+      transaction.update(refs[idx], { estoque: novoEst });
+    });
   }
 
   window.salvarEdicaoPedido = async function() {
-    if (!pedidoEmEdicao) return;
-    if (itensEmEdicao.length === 0) {
-      mostrarMsg("Pedido sem itens. Use o botão de cancelar.", "erro");
-      return;
-    }
+    if (!pedidoEmEdicao || itensEmEdicao.length === 0) return;
 
     const btn = document.getElementById('btn-salvar-edicao');
     btn.disabled = true;
@@ -1945,40 +2057,29 @@
 
     try {
       const pedidoOriginal = pedidoEmEdicao;
-      const eraConcretizada = pedidoOriginal.concretizada === true;
-      const eraCancelada = pedidoOriginal.cancelada === true;
-      
-      if (eraConcretizada || eraCancelada) {
-        if (eraConcretizada) {
-          await ajustarEstoquePedido(pedidoOriginal.itens, 'devolver');
-        } else if (eraCancelada) {
-          await ajustarEstoquePedido(pedidoOriginal.itens, 'abater');
-        }
-      }
-
+      const deveAjustarEstoque = (pedidoOriginal.concretizada === true && !pedidoOriginal.cancelada);
       const r = calcularResumoEdicao();
+
       const dadosAtualizados = {
         itens: itensEmEdicao,
         subtotal: r.subtotal,
         desconto: r.desconto,
         total: r.total
       };
+      if (whatsEmEdicao && telefoneValido(whatsEmEdicao)) dadosAtualizados.clienteWhats = whatsEmEdicao;
+      else if (whatsEmEdicao === '') dadosAtualizados.clienteWhats = '';
 
-      if (whatsEmEdicao && telefoneValido(whatsEmEdicao)) {
-        dadosAtualizados.clienteWhats = whatsEmEdicao;
-      } else if (whatsEmEdicao === '') {
-        dadosAtualizados.clienteWhats = '';
-      }
+      await runTransaction(db, async (transaction) => {
+        const pedidoRef = doc(db, "pedidos", pedidoOriginal.id);
+        if (deveAjustarEstoque) {
+          // Devolve os itens antigos e abate os novos em uma única transação atômica
+          const deltas = calcularDeltasEstoque(pedidoOriginal.itens, itensEmEdicao);
+          await aplicarDeltasEstoqueEmTransacao(transaction, deltas);
+        }
+        transaction.update(pedidoRef, dadosAtualizados);
+      });
 
-      await updateDoc(doc(db, "pedidos", pedidoOriginal.id), dadosAtualizados);
-
-      if (eraConcretizada) {
-        await ajustarEstoquePedido(itensEmEdicao, 'abater');
-      } else if (eraCancelada) {
-        await ajustarEstoquePedido(itensEmEdicao, 'devolver');
-      }
-
-      mostrarMsg("Pedido atualizado!" + ((eraConcretizada || eraCancelada) ? " Estoque re-ajustado." : ""), "sucesso");
+      mostrarMsg("Pedido atualizado!" + (deveAjustarEstoque ? " Estoque reajustado." : ""), "sucesso");
       fecharModalEditar();
     } catch (error) {
       console.error(error);
@@ -1989,37 +2090,113 @@
     }
   };
 
-  window.reativarPedido = async function(pedidoId) {
+  window.marcarConcretizada = async function(pedidoId) {
     const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
-    if (!pedido) return;
-    if (!pedido.cancelada) return;
+    if (!pedido || pedido.concretizada) return;
+    if (pedido.cancelada) {
+      mostrarMsg("Pedido cancelado não pode ser concretizado. Reative primeiro.", "erro");
+      return;
+    }
+    if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
+
+    try {
+      await runTransaction(db, async (transaction) => {
+        const pedidoRef = doc(db, "pedidos", pedidoId);
+        const pSnap = await transaction.get(pedidoRef);
+        if (!pSnap.exists() || pSnap.data().concretizada || pSnap.data().cancelada) return;
+
+        const deltas = calcularDeltasEstoque([], pSnap.data().itens);
+        await aplicarDeltasEstoqueEmTransacao(transaction, deltas);
+
+        if (pSnap.data().cupomId) {
+          const cupomRef = doc(db, "cupons", pSnap.data().cupomId);
+          const cSnap = await transaction.get(cupomRef);
+          if (cSnap.exists()) {
+            transaction.update(cupomRef, { usos: increment(1) });
+          }
+        }
+        transaction.update(pedidoRef, { concretizada: true });
+      });
+      mostrarMsg("Venda concretizada! Estoque abatido.", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao concretizar venda.", "erro");
+    }
+  };
+
+  window.cancelarPedido = async function(pedidoId) {
+    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
+    if (!pedido || pedido.cancelada) return;
 
     const eraConcretizada = pedido.concretizada === true;
-    
-    let msgConfirm = '♻️ Reativar este pedido?\n\n';
-    if (eraConcretizada) {
-      msgConfirm += 'Como ele era CONCRETIZADO antes de ser cancelado, ele voltará como CONCRETIZADO e o estoque será re-abaixado automaticamente.';
-    } else {
-      msgConfirm += 'Ele era PENDENTE. Voltará como PENDENTE, sem mexer no estoque.';
-    }
-    msgConfirm += '\n\nConfirmar?';
-    
+    const msgConfirm = eraConcretizada
+      ? "🚫 CANCELAR ESTA VENDA?\n\nComo já foi CONCRETIZADA, o estoque será DEVOLVIDO automaticamente.\n\n💡 Se quer apenas corrigir quantidade/itens, use EDITAR."
+      : "🚫 Cancelar este pedido pendente?\n\n💡 Se quer apenas corrigir itens, use EDITAR.";
+
     if (!confirm(msgConfirm)) return;
 
     try {
-      if (eraConcretizada) {
-        await ajustarEstoquePedido(pedido.itens, 'abater');
-      }
+      await runTransaction(db, async (transaction) => {
+        const pedidoRef = doc(db, "pedidos", pedidoId);
+        const pSnap = await transaction.get(pedidoRef);
+        if (!pSnap.exists() || pSnap.data().cancelada) return;
 
-      if (pedido.cupomId && eraConcretizada) {
-        try {
-          await updateDoc(doc(db, "cupons", pedido.cupomId), { usos: increment(1) });
-        } catch(err) { console.error("Erro ao incrementar cupom:", err); }
-      }
+        const dados = pSnap.data();
+        if (dados.concretizada) {
+          const deltas = calcularDeltasEstoque(dados.itens, []);
+          await aplicarDeltasEstoqueEmTransacao(transaction, deltas);
 
-      await updateDoc(doc(db, "pedidos", pedidoId), { cancelada: false });
+          if (dados.cupomId) {
+            const cupomRef = doc(db, "cupons", dados.cupomId);
+            const cSnap = await transaction.get(cupomRef);
+            if (cSnap.exists()) {
+              const usosAtuais = cSnap.data().usos || 0;
+              transaction.update(cupomRef, { usos: Math.max(0, usosAtuais - 1) });
+            }
+          }
+        }
+        transaction.update(pedidoRef, { cancelada: true });
+      });
+      mostrarMsg(eraConcretizada ? "Venda cancelada! Estoque devolvido." : "Pedido cancelado.", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao cancelar pedido.", "erro");
+    }
+  };
 
-      mostrarMsg("Pedido reativado!" + (eraConcretizada ? " Estoque re-abaixado." : ""), "sucesso");
+  window.reativarPedido = async function(pedidoId) {
+    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
+    if (!pedido || !pedido.cancelada) return;
+
+    const eraConcretizada = pedido.concretizada === true;
+    const msgConfirm = eraConcretizada
+      ? '♻️ Reativar este pedido?\n\nComo era CONCRETIZADO, voltará como CONCRETIZADO e o estoque será abatido novamente.'
+      : '♻️ Reativar este pedido pendente?';
+
+    if (!confirm(msgConfirm)) return;
+
+    try {
+      await runTransaction(db, async (transaction) => {
+        const pedidoRef = doc(db, "pedidos", pedidoId);
+        const pSnap = await transaction.get(pedidoRef);
+        if (!pSnap.exists() || !pSnap.data().cancelada) return;
+
+        const dados = pSnap.data();
+        if (dados.concretizada) {
+          const deltas = calcularDeltasEstoque([], dados.itens);
+          await aplicarDeltasEstoqueEmTransacao(transaction, deltas);
+
+          if (dados.cupomId) {
+            const cupomRef = doc(db, "cupons", dados.cupomId);
+            const cSnap = await transaction.get(cupomRef);
+            if (cSnap.exists()) {
+              transaction.update(cupomRef, { usos: increment(1) });
+            }
+          }
+        }
+        transaction.update(pedidoRef, { cancelada: false });
+      });
+      mostrarMsg("Pedido reativado!" + (eraConcretizada ? " Estoque re-abatido." : ""), "sucesso");
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao reativar pedido.", "erro");
@@ -2031,13 +2208,9 @@
     if (!pedido) return;
 
     let aviso = "Excluir este pedido do histórico?\n\n";
-    if (pedido.cancelada) {
-      aviso += "O pedido está CANCELADO. O estoque já voltou. A exclusão NÃO mexe no estoque.";
-    } else if (pedido.concretizada) {
-      aviso += "ATENÇÃO: o pedido está CONCRETIZADO e o estoque já foi abatido.\n\nA exclusão NÃO devolve o estoque automaticamente.\n\nSe quiser devolver o estoque, cancele antes de excluir.";
-    } else {
-      aviso += "O pedido está PENDENTE. O estoque nunca foi abatido. Nada muda no estoque.";
-    }
+    if (pedido.cancelada) aviso += "O pedido está CANCELADO. O estoque já voltou.";
+    else if (pedido.concretizada) aviso += "ATENÇÃO: o pedido está CONCRETIZADO. A exclusão NÃO devolve o estoque automaticamente (cancele antes se quiser devolver).";
+    else aviso += "O pedido está PENDENTE. Nada muda no estoque.";
     aviso += "\n\nEssa ação NÃO pode ser desfeita. Confirmar?";
 
     if (!confirm(aviso)) return;
@@ -2051,90 +2224,25 @@
     }
   };
 
-  window.marcarConcretizada = async function(pedidoId) {
-    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
-    if (!pedido) return;
-    if (pedido.concretizada) return;
-    if (pedido.cancelada) {
-      mostrarMsg("Pedido cancelado não pode ser concretizado. Reative primeiro.", "erro");
-      return;
-    }
-    if (!confirm("Confirmar que essa venda foi concretizada? Os itens serão descontados do estoque automaticamente.")) return;
-
-    try {
-      await ajustarEstoquePedido(pedido.itens, 'abater');
-
-      if (pedido.cupomId) {
-        try {
-          await updateDoc(doc(db, "cupons", pedido.cupomId), { usos: increment(1) });
-        } catch(err) { console.error("Erro ao incrementar cupom:", err); }
-      }
-
-      await updateDoc(doc(db, "pedidos", pedidoId), { concretizada: true });
-      mostrarMsg("Venda concretizada! Estoque abatido.", "sucesso");
-    } catch (error) {
-      console.error(error);
-      mostrarMsg("Erro ao concretizar venda.", "erro");
-    }
-  };
-
-  window.cancelarPedido = async function(pedidoId) {
-    const pedido = todosPedidosAdmin.find(p => p.id === pedidoId);
-    if (!pedido) return;
-    if (pedido.cancelada) return;
-
-    const eraConcretizada = pedido.concretizada === true;
-    
-    let msgConfirm;
-    if (eraConcretizada) {
-      msgConfirm = "🚫 CANCELAR ESTA VENDA? (último recurso)\n\nComo o pedido já foi CONCRETIZADO, o estoque será DEVOLVIDO automaticamente.\n\n💡 Se só quer corrigir algo (quantidade, item errado), use EDITAR em vez de cancelar.";
-    } else {
-      msgConfirm = "🚫 Cancelar este pedido? Ele será marcado como cancelado.\n\n💡 Se só quer corrigir algo, use EDITAR em vez de cancelar.";
-    }
-    
-    if (!confirm(msgConfirm)) return;
-
-    try {
-      if (eraConcretizada) {
-        await ajustarEstoquePedido(pedido.itens, 'devolver');
-
-        if (pedido.cupomId) {
-          try {
-            const cupomRef = doc(db, "cupons", pedido.cupomId);
-            const snap = await getDocs(query(collection(db, "cupons"), where("__name__", "==", pedido.cupomId)));
-            let usosAtuais = 0;
-            snap.forEach(d => { usosAtuais = d.data().usos || 0; });
-            await updateDoc(cupomRef, { usos: Math.max(0, usosAtuais - 1) });
-          } catch(err) { console.error("Erro ao decrementar cupom:", err); }
-        }
-      }
-
-      await updateDoc(doc(db, "pedidos", pedidoId), { cancelada: true });
-
-      mostrarMsg(eraConcretizada ? "Venda cancelada! Estoque devolvido." : "Pedido cancelado.", "sucesso");
-    } catch (error) {
-      console.error(error);
-      mostrarMsg("Erro ao cancelar pedido.", "erro");
-    }
-  };
-
   window.limparPedidos = async function() {
     if (!confirm("Tem certeza que deseja apagar TODO o histórico de pedidos? Essa ação não pode ser desfeita.")) return;
-    
+
     btnLimparPedidos.innerText = "Limpando...";
     btnLimparPedidos.disabled = true;
 
     try {
       const snapshot = await getDocs(collection(db, "pedidos"));
-      for (const docSnap of snapshot.docs) {
-        await deleteDoc(doc(db, "pedidos", docSnap.id));
+      const docs = snapshot.docs;
+      for (let i = 0; i < docs.length; i += 450) {
+        const batch = writeBatch(db);
+        docs.slice(i, i + 450).forEach(d => batch.delete(d.ref));
+        await batch.commit();
       }
       mostrarMsg("Histórico limpo com sucesso!", "sucesso");
-      btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
-      btnLimparPedidos.disabled = false;
     } catch (error) {
       console.error(error);
       mostrarMsg("Erro ao limpar histórico.", "erro");
+    } finally {
       btnLimparPedidos.innerText = "🗑️ Limpar Todo o Histórico";
       btnLimparPedidos.disabled = false;
     }
@@ -2144,38 +2252,31 @@
     const linkCompleto = URL_CATALOGO + '#' + id;
     navigator.clipboard.writeText(linkCompleto).then(() => {
       mostrarMsg("Link copiado! Cole no WhatsApp.", "sucesso");
-    }).catch(err => {
-      const textarea = document.createElement('textarea');
-      textarea.value = linkCompleto;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      mostrarMsg("Link copiado!", "sucesso");
+    }).catch(() => {
+      mostrarMsg("Link: " + linkCompleto, "sucesso");
     });
   };
 
   window.toggleEstoque = async function(id, novoStatusIndisponivel) {
     try {
-      const perfumeRef = doc(db, "perfumes", id);
       const p = todosPerfumesAdmin.find(item => item.id === id);
-      let novosDados = { indisponivel: novoStatusIndisponivel };
-      
-      if (!novoStatusIndisponivel) {
+      const novosDados = { indisponivel: novoStatusIndisponivel };
+
+      if (!novoStatusIndisponivel && p) {
         const est = normalizarEstoque(p);
         const total = Object.values(est).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
-        if (total === 0) {
+        if (total === 0 && p.tamanhos) {
           const novoEstoque = { ...est };
-          if (p.tamanhos && p.tamanhos["50ml"]) novoEstoque["50ml"] = 5;
-          else if (p.tamanhos) {
+          if (p.tamanhos["50ml"]) novoEstoque["50ml"] = 5;
+          else {
             const primeiraKey = Object.keys(p.tamanhos)[0];
-            novoEstoque[primeiraKey] = 5;
+            if (primeiraKey) novoEstoque[primeiraKey] = 5;
           }
           novosDados.estoque = novoEstoque;
         }
       }
-      
-      await updateDoc(perfumeRef, novosDados);
+
+      await updateDoc(doc(db, "perfumes", id), novosDados);
       mostrarMsg(novoStatusIndisponivel ? "Produto pausado!" : "Produto ativado!", "sucesso");
     } catch (error) {
       console.error(error);
@@ -2199,14 +2300,18 @@
      ============================================================ */
   function carregarCupons() {
     const q = query(collection(db, "cupons"), orderBy("criadoEm", "desc"));
-    onSnapshot(q, (snapshot) => {
+    const unsub = onSnapshot(q, (snapshot) => {
       todosCuponsAdmin = [];
       snapshot.forEach((docSnap) => {
         todosCuponsAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
       renderizarCupons();
       atualizarContadorCupons();
+    }, (err) => {
+      console.error("Erro cupons:", err);
+      mostrarMsg("Erro ao carregar cupons.", "erro");
     });
+    unsubListeners.push(unsub);
   }
 
   function renderizarCupons() {
@@ -2219,32 +2324,29 @@
     todosCuponsAdmin.forEach((c) => {
       const esgotado = cupomEsgotado(c);
       const inativo = !c.ativo;
-      
-      let classeStatus = '';
-      if (esgotado) classeStatus = 'esgotado';
-      else if (inativo) classeStatus = 'inativo';
+      const classeStatus = esgotado ? 'esgotado' : (inativo ? 'inativo' : '');
 
       const div = document.createElement('div');
       div.className = 'cupom-item ' + classeStatus;
       div.innerHTML = `
         <div class="cupom-item-header">
-          <span class="cupom-codigo" id="cod-${c.id}" onclick="copiarCodigoCupom('${c.id}', '${esc(c.codigo)}')">
+          <span class="cupom-codigo" id="cod-${esc(c.id)}" onclick="copiarCodigoCupom('${esc(c.id)}', '${esc(c.codigo)}')">
             ${esc(c.codigo)}
             <span class="icone-copiar">📋</span>
           </span>
-          <span class="cupom-pct-badge">${cupomBadge(c)}</span>
+          <span class="cupom-pct-badge">${esc(cupomBadge(c))}</span>
         </div>
         ${c.nome ? '<div class="cupom-nome">🎁 ' + esc(c.nome) + '</div>' : ''}
         <div class="cupom-detalhes">
-          <span>📊 Usos: <strong style="color:var(--dourado-claro);">${cupomUsosMostrar(c)}</strong></span>
+          <span>📊 Usos: <strong style="color:var(--dourado-claro);">${esc(cupomUsosMostrar(c))}</strong></span>
           ${esgotado ? '<span class="esgotado">🚫 Esgotado</span>' : ''}
           ${inativo && !esgotado ? '<span class="aviso">⏸️ Pausado</span>' : ''}
           ${c.ativo && !esgotado ? '<span style="color:#25D366; font-weight:700;">● Ativo</span>' : ''}
         </div>
         <div class="cupom-acoes">
-          ${!esgotado ? `<button class="btn-cupom-acao ${c.ativo ? 'btn-cupom-pausar' : 'btn-cupom-ativar'}" onclick="toggleCupom('${c.id}', ${!c.ativo})">${c.ativo ? '⏸️ Pausar' : '▶️ Ativar'}</button>` : '<button class="btn-cupom-acao btn-cupom-ativar" disabled style="opacity:0.4;">Esgotado</button>'}
-          <button class="btn-cupom-acao btn-cupom-editar" onclick="abrirEdicaoCupom('${c.id}')">✏️ Editar</button>
-          <button class="btn-cupom-acao btn-cupom-excluir" onclick="excluirCupom('${c.id}')">🗑️ Excluir</button>
+          ${!esgotado ? `<button class="btn-cupom-acao ${c.ativo ? 'btn-cupom-pausar' : 'btn-cupom-ativar'}" onclick="toggleCupom('${esc(c.id)}', ${!c.ativo})">${c.ativo ? '⏸️ Pausar' : '▶️ Ativar'}</button>` : '<button class="btn-cupom-acao btn-cupom-ativar" disabled style="opacity:0.4;">Esgotado</button>'}
+          <button class="btn-cupom-acao btn-cupom-editar" onclick="abrirEdicaoCupom('${esc(c.id)}')">✏️ Editar</button>
+          <button class="btn-cupom-acao btn-cupom-excluir" onclick="excluirCupom('${esc(c.id)}')">🗑️ Excluir</button>
         </div>
       `;
       listaCupons.appendChild(div);
@@ -2259,21 +2361,10 @@
         const icone = el.querySelector('.icone-copiar');
         const original = icone.textContent;
         icone.textContent = '✓';
-        setTimeout(() => {
-          el.classList.remove('copiado');
-          icone.textContent = original;
-        }, 1500);
+        setTimeout(() => { el.classList.remove('copiado'); icone.textContent = original; }, 1500);
       }
       mostrarMsg("Código copiado: " + codigo, "sucesso");
-    }).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = codigo;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      mostrarMsg("Código copiado!", "sucesso");
-    });
+    }).catch(() => {});
   };
 
   function limparModalCupom() {
@@ -2297,22 +2388,18 @@
   window.abrirEdicaoCupom = function(id) {
     const c = todosCuponsAdmin.find(x => x.id === id);
     if (!c) return;
-    
+
     cupomEmEdicao = c;
     tipoDescontoAtual = c.tipoDesconto || 'percentual';
-    
     document.getElementById('cupomCodigo').value = c.codigo || '';
     document.getElementById('cupomNome').value = c.nome || '';
-    
-    const valor = c.valorDesconto != null ? c.valorDesconto : (c.percentual || 0);
-    document.getElementById('cupomValorDesconto').value = valor;
-    
+    document.getElementById('cupomValorDesconto').value = c.valorDesconto != null ? c.valorDesconto : (c.percentual || 0);
     document.getElementById('cupomLimite').value = c.limiteUso || '';
-    
+
     document.getElementById('modalCupomTitulo').innerText = '✏️ Editar Cupom';
     document.getElementById('btnSalvarCupom').innerText = 'Salvar Alterações';
     document.getElementById('btnResetarUsos').style.display = 'block';
-    
+
     selecionarTipo(tipoDescontoAtual);
     document.getElementById('modalCupom').classList.add('ativo');
   };
@@ -2324,14 +2411,12 @@
 
   window.selecionarTipo = function(tipo) {
     tipoDescontoAtual = tipo;
-    document.getElementById('tipoPercentual').classList.remove('ativo');
-    document.getElementById('tipoFixo').classList.remove('ativo');
+    document.getElementById('tipoPercentual').classList.toggle('ativo', tipo !== 'fixo');
+    document.getElementById('tipoFixo').classList.toggle('ativo', tipo === 'fixo');
     if (tipo === 'fixo') {
-      document.getElementById('tipoFixo').classList.add('ativo');
       document.getElementById('labelValorDesconto').innerText = 'Valor em R$ *';
       document.getElementById('cupomValorDesconto').placeholder = '10,00';
     } else {
-      document.getElementById('tipoPercentual').classList.add('ativo');
       document.getElementById('labelValorDesconto').innerText = 'Desconto (%) *';
       document.getElementById('cupomValorDesconto').placeholder = '10';
     }
@@ -2340,72 +2425,48 @@
   window.gerarCodigoAleatorio = function() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let codigo = 'THRUST-';
-    for (let i = 0; i < 4; i++) {
-      codigo += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
+    for (let i = 0; i < 4; i++) codigo += chars.charAt(Math.floor(Math.random() * chars.length));
     document.getElementById('cupomCodigo').value = codigo;
   };
 
   window.salvarCupom = async function() {
-    const codigoInput = document.getElementById('cupomCodigo');
-    const nomeInput = document.getElementById('cupomNome');
-    const valorInput = document.getElementById('cupomValorDesconto');
-    const limiteInput = document.getElementById('cupomLimite');
+    const codigo = document.getElementById('cupomCodigo').value.trim().toUpperCase().replace(/\s+/g, '');
+    const nome = document.getElementById('cupomNome').value.trim();
+    const valor = parseFloat(document.getElementById('cupomValorDesconto').value);
+    const limiteRaw = document.getElementById('cupomLimite').value.trim();
+    const limite = limiteRaw === '' ? null : parseInt(limiteRaw, 10);
     const btn = document.getElementById('btnSalvarCupom');
-    
-    const codigo = codigoInput.value.trim().toUpperCase().replace(/\s+/g, '');
-    const nome = nomeInput.value.trim();
-    const valor = parseFloat(valorInput.value);
-    const limite = limiteInput.value.trim() === '' ? null : parseInt(limiteInput.value);
-    
-    if (!codigo || codigo.length < 3) {
-      mostrarMsg("Código deve ter no mínimo 3 caracteres.", "erro");
-      return;
-    }
-    
-    if (isNaN(valor) || valor <= 0) {
-      mostrarMsg("Valor do desconto deve ser maior que zero.", "erro");
-      return;
-    }
-    
-    if (tipoDescontoAtual === 'percentual' && (valor < 1 || valor > 100)) {
-      mostrarMsg("Percentual deve ser entre 1% e 100%.", "erro");
-      return;
-    }
-    
-    if (limite !== null && (isNaN(limite) || limite < 1)) {
-      mostrarMsg("Limite de uso deve ser no mínimo 1 (ou vazio para ilimitado).", "erro");
-      return;
-    }
-    
-    const q = query(collection(db, "cupons"), where("codigo", "==", codigo));
-    const snap = await getDocs(q);
-    let duplicado = false;
-    snap.forEach(d => {
-      if (!cupomEmEdicao || d.id !== cupomEmEdicao.id) duplicado = true;
-    });
-    if (duplicado) {
-      mostrarMsg("Já existe um cupom com este código.", "erro");
-      return;
-    }
-    
+
+    if (!codigo || codigo.length < 3) { mostrarMsg("Código deve ter no mínimo 3 caracteres.", "erro"); return; }
+    if (isNaN(valor) || valor <= 0) { mostrarMsg("Valor do desconto deve ser maior que zero.", "erro"); return; }
+    if (tipoDescontoAtual === 'percentual' && (valor < 1 || valor > 100)) { mostrarMsg("Percentual deve ser entre 1% e 100%.", "erro"); return; }
+    if (limite !== null && (isNaN(limite) || limite < 1)) { mostrarMsg("Limite de uso deve ser no mínimo 1.", "erro"); return; }
+
     btn.disabled = true;
     btn.innerText = cupomEmEdicao ? "Salvando..." : "Criando...";
-    
+
     try {
+      const snap = await getDocs(query(collection(db, "cupons"), where("codigo", "==", codigo)));
+      let duplicado = false;
+      snap.forEach(d => {
+        if (!cupomEmEdicao || d.id !== cupomEmEdicao.id) duplicado = true;
+      });
+      if (duplicado) {
+        mostrarMsg("Já existe um cupom com este código.", "erro");
+        return;
+      }
+
       const dadosCupom = {
-        codigo: codigo,
-        nome: nome,
+        codigo,
+        nome,
+        nomeBusca: nome ? normalizarTexto(nome) : '',
         tipoDesconto: tipoDescontoAtual,
         valorDesconto: valor,
         limiteUso: limite,
         ativo: cupomEmEdicao ? cupomEmEdicao.ativo : true
       };
-      
-      if (tipoDescontoAtual === 'percentual') {
-        dadosCupom.percentual = valor;
-      }
-      
+      if (tipoDescontoAtual === 'percentual') dadosCupom.percentual = valor;
+
       if (cupomEmEdicao) {
         await updateDoc(doc(db, "cupons", cupomEmEdicao.id), dadosCupom);
         mostrarMsg("Cupom atualizado: " + codigo, "sucesso");
@@ -2427,8 +2488,7 @@
 
   window.resetarUsosCupom = async function() {
     if (!cupomEmEdicao) return;
-    if (!confirm("Resetar o contador de usos do cupom " + cupomEmEdicao.codigo + " para 0?\n\nPedidos antigos que usaram este cupom NÃO serão afetados. Só o contador volta a zero.")) return;
-    
+    if (!confirm("Resetar o contador de usos do cupom " + cupomEmEdicao.codigo + " para 0?")) return;
     try {
       await updateDoc(doc(db, "cupons", cupomEmEdicao.id), { usos: 0 });
       mostrarMsg("Contador de usos resetado!", "sucesso");
@@ -2450,7 +2510,7 @@
   };
 
   window.excluirCupom = async function(id) {
-    if (!confirm("Tem certeza que deseja excluir este cupom? Pedidos antigos que usaram ele não serão afetados.")) return;
+    if (!confirm("Tem certeza que deseja excluir este cupom?")) return;
     try {
       await deleteDoc(doc(db, "cupons", id));
       mostrarMsg("Cupom excluído!", "sucesso");
@@ -2465,13 +2525,17 @@
      ============================================================ */
   function carregarMac() {
     const q = query(collection(db, "maceracao"), orderBy("criadoEm", "desc"));
-    onSnapshot(q, (snapshot) => {
+    const unsub = onSnapshot(q, (snapshot) => {
       todosMacAdmin = [];
       snapshot.forEach((docSnap) => {
         todosMacAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
       renderizarMac();
+    }, (err) => {
+      console.error("Erro maceração:", err);
+      mostrarMsg("Erro ao carregar maceração.", "erro");
     });
+    unsubListeners.push(unsub);
   }
 
   function dataMacItem(m) {
@@ -2479,20 +2543,41 @@
     return m.dataInicio.toDate ? m.dataInicio.toDate() : new Date(m.dataInicio);
   }
 
+  function formatarInputDateUTC(date) {
+    if (!date || isNaN(date.getTime())) return new Date().toISOString().slice(0, 10);
+    const y = date.getUTCFullYear();
+    const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(date.getUTCDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   function calcularDiasMac(m) {
     const inicio = dataMacItem(m);
-    if (!inicio) return { decorridos: 0, restantes: m.diasTotais || 0, pronto: false, pct: 0 };
+    if (!inicio || isNaN(inicio.getTime())) return { decorridos: 0, restantes: m.diasTotais || 0, pronto: false, pct: 0 };
     const agora = new Date();
-    inicio.setHours(0,0,0,0);
-    agora.setHours(0,0,0,0);
-    const diffMs = agora - inicio;
-    const decorridos = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const utcInicio = Date.UTC(inicio.getUTCFullYear(), inicio.getUTCMonth(), inicio.getUTCDate());
+    const utcAgora = Date.UTC(agora.getFullYear(), agora.getMonth(), agora.getDate());
+    const decorridos = Math.max(0, Math.round((utcAgora - utcInicio) / 86400000));
     const tot = m.diasTotais || 0;
     const restantes = Math.max(0, tot - decorridos);
     const pronto = decorridos >= tot;
     const pct = tot > 0 ? Math.min(100, Math.round((decorridos / tot) * 100)) : 0;
     return { decorridos, restantes, pronto, pct };
   }
+
+  window.publicarMacNoCatalogo = function(id) {
+    const m = todosMacAdmin.find(x => x.id === id);
+    if (!m) return;
+    limparFormulario();
+    macOrigemId.value = m.id;
+    document.getElementById('nome').value = m.nome || '';
+    document.getElementById('insp').value = m.insp || '';
+    document.getElementById('img').value = m.img || '';
+    formTitulo.innerText = "Publicar Lote no Catálogo";
+    btnCancelarEdit.style.display = 'block';
+    abrirSecao('form');
+    mostrarMsg("Complete categoria, preços e notas para publicar.", "sucesso");
+  };
 
   function renderizarMac() {
     listaMac.innerHTML = '';
@@ -2503,11 +2588,8 @@
 
     todosMacAdmin.forEach((m) => {
       const calc = calcularDiasMac(m);
-      const pausado = m.pausado || false;
-      
-      let classeStatus = '';
-      if (pausado) classeStatus = 'pausado';
-      else if (calc.pronto) classeStatus = 'pronto';
+      const pausado = !!m.pausado;
+      const classeStatus = pausado ? 'pausado' : (calc.pronto ? 'pronto' : '');
 
       let seloHtml = '';
       if (pausado) seloHtml = '<span class="mac-selo pausado">⏸️ Pausado</span>';
@@ -2519,23 +2601,18 @@
         mensagemProntoHtml = `
           <div class="mac-mensagem-pronto">
             🎉 Perfume pronto!
-            <div class="sub">Maceração concluída em ${calc.decorridos} dias. Cadastre no catálogo quando quiser.</div>
+            <div class="sub">Maceração concluída em ${calc.decorridos} dias.</div>
+            <button class="btn-mac-publicar" onclick="publicarMacNoCatalogo('${esc(m.id)}')">🚀 Cadastrar no Catálogo</button>
           </div>
         `;
       }
 
-      let dataInicioFormatada = '-';
-      if (m.dataInicio) {
-        const d = dataMacItem(m);
-        dataInicioFormatada = d.toLocaleDateString('pt-BR');
-      }
+      const d = dataMacItem(m);
+      const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
 
-      let botaoPausar = '';
-      if (pausado) {
-        botaoPausar = `<button class="btn-mac-acao btn-mac-ativar" onclick="toggleMacPausa('${m.id}', false)">▶️ Retomar</button>`;
-      } else {
-        botaoPausar = `<button class="btn-mac-acao btn-mac-pausar" onclick="toggleMacPausa('${m.id}', true)">⏸️ Pausar</button>`;
-      }
+      const botaoPausar = pausado
+        ? `<button class="btn-mac-acao btn-mac-ativar" onclick="toggleMacPausa('${esc(m.id)}', false)">▶️ Retomar</button>`
+        : `<button class="btn-mac-acao btn-mac-pausar" onclick="toggleMacPausa('${esc(m.id)}', true)">⏸️ Pausar</button>`;
 
       const div = document.createElement('div');
       div.className = 'mac-item ' + classeStatus;
@@ -2548,30 +2625,19 @@
           ${seloHtml}
         </div>
         <div class="mac-info">
-          <div class="bloco">
-            <div class="lbl">Início</div>
-            <div class="val" style="font-size: 0.85rem;">${dataInicioFormatada}</div>
-          </div>
-          <div class="bloco">
-            <div class="lbl">Decorridos</div>
-            <div class="val">${calc.decorridos}d</div>
-          </div>
-          <div class="bloco">
-            <div class="lbl">Restantes</div>
-            <div class="val ${calc.pronto ? 'pronto' : 'restante'}">${calc.pronto ? 'Pronto!' : calc.restantes + 'd'}</div>
-          </div>
+          <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.85rem;">${esc(dataInicioFormatada)}</div></div>
+          <div class="bloco"><div class="lbl">Decorridos</div><div class="val">${calc.decorridos}d</div></div>
+          <div class="bloco"><div class="lbl">Restantes</div><div class="val ${calc.pronto ? 'pronto' : 'restante'}">${calc.pronto ? 'Pronto!' : calc.restantes + 'd'}</div></div>
         </div>
-        <div class="mac-progresso">
-          <div class="mac-progresso-barra ${calc.pronto ? 'completa' : ''}" style="width: ${calc.pct}%"></div>
-        </div>
+        <div class="mac-progresso"><div class="mac-progresso-barra ${calc.pronto ? 'completa' : ''}" style="width: ${calc.pct}%"></div></div>
         <div style="font-size: 0.7rem; color: #888; text-align: center; margin-bottom: 10px;">
           ${calc.decorridos} de ${m.diasTotais} dias (${calc.pct}%)
         </div>
         ${mensagemProntoHtml}
         <div class="mac-acoes">
-          <button class="btn-mac-acao btn-mac-editar" onclick="abrirEdicaoMac('${m.id}')">✏️ Editar</button>
+          <button class="btn-mac-acao btn-mac-editar" onclick="abrirEdicaoMac('${esc(m.id)}')">✏️ Editar</button>
           ${botaoPausar}
-          <button class="btn-mac-acao btn-mac-excluir" onclick="excluirMac('${m.id}')">🗑️ Excluir</button>
+          <button class="btn-mac-acao btn-mac-excluir" onclick="excluirMac('${esc(m.id)}')">🗑️ Excluir</button>
         </div>
       `;
       listaMac.appendChild(div);
@@ -2597,23 +2663,14 @@
   window.abrirEdicaoMac = function(id) {
     const m = todosMacAdmin.find(x => x.id === id);
     if (!m) return;
-    
     macEmEdicao = m;
     document.getElementById('macNome').value = m.nome || '';
     document.getElementById('macInsp').value = m.insp || '';
     document.getElementById('macImg').value = m.img || '';
-    
-    if (m.dataInicio) {
-      const d = dataMacItem(m);
-      document.getElementById('macDataInicio').value = d.toISOString().slice(0, 10);
-    } else {
-      document.getElementById('macDataInicio').value = new Date().toISOString().slice(0, 10);
-    }
-    
+    document.getElementById('macDataInicio').value = formatarInputDateUTC(dataMacItem(m));
     document.getElementById('macDias').value = m.diasTotais || 30;
     document.getElementById('modalMacTitulo').innerText = '✏️ Editar Maceração';
     document.getElementById('btnSalvarMac').innerText = 'Salvar Alterações';
-    
     document.getElementById('modalMac').classList.add('ativo');
   };
 
@@ -2627,28 +2684,29 @@
     const insp = document.getElementById('macInsp').value.trim();
     const img = document.getElementById('macImg').value.trim();
     const dataStr = document.getElementById('macDataInicio').value;
-    const dias = parseInt(document.getElementById('macDias').value);
+    const dias = parseInt(document.getElementById('macDias').value, 10);
     const btn = document.getElementById('btnSalvarMac');
-    
+
     if (!nome || nome.length < 2) { mostrarMsg("Nome é obrigatório.", "erro"); return; }
     if (!insp || insp.length < 2) { mostrarMsg("Inspiração é obrigatória.", "erro"); return; }
     if (!dataStr) { mostrarMsg("Data de início é obrigatória.", "erro"); return; }
     if (isNaN(dias) || dias < 1) { mostrarMsg("Dias deve ser pelo menos 1.", "erro"); return; }
-    
-    const dataInicio = new Date(dataStr + 'T00:00:00');
-    
+
+    // Salva em meia-noite UTC para consistência entre todos os fusos horários
+    const dataInicio = new Date(dataStr + 'T00:00:00Z');
+
     btn.disabled = true;
     btn.innerText = macEmEdicao ? "Salvando..." : "Criando...";
-    
+
     try {
       const dados = {
         nome: capitalizeWords(nome),
         insp: capitalizeWords(insp),
-        img: img,
-        dataInicio: dataInicio,
+        img,
+        dataInicio,
         diasTotais: dias
       };
-      
+
       if (macEmEdicao) {
         await updateDoc(doc(db, "maceracao", macEmEdicao.id), dados);
         mostrarMsg("Maceração atualizada!", "sucesso");
@@ -2679,7 +2737,7 @@
   };
 
   window.excluirMac = async function(id) {
-    if (!confirm("Excluir este perfume da maceração?\n\nEssa ação não pode ser desfeita.")) return;
+    if (!confirm("Excluir este perfume da maceração?")) return;
     try {
       await deleteDoc(doc(db, "maceracao", id));
       mostrarMsg("Perfume removido da maceração.", "sucesso");
