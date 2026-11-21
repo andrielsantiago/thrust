@@ -183,8 +183,9 @@
   .pedido-busca { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; font-family: inherit; font-size: 0.85rem; margin-bottom: 12px; }
   .pedido-busca:focus { outline: none; border-color: var(--dourado); }
 
-  .periodo-filtros { display: flex; gap: 6px; margin-bottom: 8px; overflow-x: auto; padding-bottom: 3px; scrollbar-width: none; }
+  .periodo-filtros { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; overflow-x: auto; padding-bottom: 3px; scrollbar-width: none; }
   .periodo-filtros::-webkit-scrollbar { display: none; }
+  .filtro-grupo-lbl { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; white-space: nowrap; flex-shrink: 0; margin-right: 2px; }
   .periodo-btn, .status-btn { background: none; border: 1px solid #444; color: #888; font-weight: 600; font-size: 0.72rem; cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
   .periodo-btn.active { color: #0d0d0d; background: var(--dourado); border-color: var(--dourado); }
   .status-btn.active { color: #0d0d0d; background: #fff; border-color: #fff; }
@@ -404,7 +405,10 @@
 
   .mac-mensagem-pronto { background: rgba(37,211,102,0.1); border: 1px solid #25D366; border-radius: 8px; padding: 10px 14px; color: #25D366; font-weight: 700; font-size: 0.85rem; text-align: center; margin-bottom: 10px; }
   .mac-mensagem-pronto .sub { font-size: 0.7rem; color: #bbb; font-weight: 500; margin-top: 4px; margin-bottom: 8px; }
-  .btn-mac-publicar { background: #25D366; color: #0d0d0d; border: none; border-radius: 20px; padding: 8px 14px; font-size: 0.75rem; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+  .mac-mensagem-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .btn-mac-publicar { background: #25D366; color: #0d0d0d; border: none; border-radius: 20px; padding: 9px 10px; font-size: 0.73rem; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+  .btn-mac-nao-incluir { background: rgba(255,255,255,0.08); color: #ddd; border: 1px solid #555; border-radius: 20px; padding: 9px 10px; font-size: 0.73rem; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+  .btn-mac-nao-incluir:hover { border-color: var(--dourado); color: var(--dourado-claro); background: rgba(212,175,55,0.12); }
 
   .mac-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
   .btn-mac-acao { padding: 10px 4px; border-radius: 8px; font-weight: bold; font-size: 0.72rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
@@ -513,6 +517,7 @@
   .mac-item-topo { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
   .mac-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #fff; padding: 2px; flex-shrink: 0; border: 1px solid #333; }
   .mac-selo.historico { background: rgba(37,211,102,0.12); color: #25D366; border: 1px solid #25D366; }
+  .mac-selo.so-historico { background: rgba(180,180,180,0.12); color: #ccc; border: 1px solid #666; }
   .mac-selo.extra { background: rgba(212,175,55,0.16); color: var(--dourado-claro); border: 1px solid var(--dourado); }
   .mac-info .bloco .val.extra { color: var(--dourado-claro); font-size: 0.95rem; }
   .mac-mensagem-pronto.pausada { background: rgba(212,175,55,0.08); border-color: var(--dourado); color: var(--dourado-claro); }
@@ -797,14 +802,16 @@
     <input type="text" class="pedido-busca" id="busca-pedido" placeholder="🔍 Buscar por número (TH-...), perfume ou WhatsApp...">
 
     <div class="periodo-filtros">
-      <button class="periodo-btn active" data-periodo="todos" onclick="mudarPeriodo('todos', this)">Todos</button>
+      <span class="filtro-grupo-lbl">Período:</span>
+      <button class="periodo-btn active" data-periodo="todos" onclick="mudarPeriodo('todos', this)">Todo período</button>
       <button class="periodo-btn" data-periodo="hoje" onclick="mudarPeriodo('hoje', this)">Hoje</button>
       <button class="periodo-btn" data-periodo="7dias" onclick="mudarPeriodo('7dias', this)">Últimos 7 dias</button>
       <button class="periodo-btn" data-periodo="mes" onclick="mudarPeriodo('mes', this)">Este mês</button>
     </div>
 
     <div class="periodo-filtros" id="statusFiltrosPedidos">
-      <button class="status-btn active" data-status="todos" onclick="mudarStatusPedido('todos', this)">Todos</button>
+      <span class="filtro-grupo-lbl">Status:</span>
+      <button class="status-btn active" data-status="todos" onclick="mudarStatusPedido('todos', this)">Todos os status</button>
       <button class="status-btn" data-status="pendentes" onclick="mudarStatusPedido('pendentes', this)">⏳ Pendentes</button>
       <button class="status-btn" data-status="concretizados" onclick="mudarStatusPedido('concretizados', this)">✅ Concretizados</button>
       <button class="status-btn" data-status="cancelados" onclick="mudarStatusPedido('cancelados', this)">❌ Cancelados</button>
@@ -1101,8 +1108,8 @@
       </div>
 
       <label class="check-box" style="margin: 4px 0 0;">
-        <input type="checkbox" id="macMostrarVitrine" checked>
-        <span>👁️ Exibir na vitrine pública como <strong>⏳ Em Breve</strong> (desmarque para controle interno privado)</span>
+        <input type="checkbox" id="macMostrarVitrine">
+        <span>👁️ Exibir na vitrine pública como <strong>⏳ Em Breve</strong> (deixe desmarcado para controle interno privado)</span>
       </label>
     </div>
 
@@ -3488,6 +3495,13 @@
       }
       return `Maceração finalizada em ${diasFinal} dias e publicada no catálogo.`;
     }
+    if (m.arquivadoHistorico) {
+      const diasFinal = m.diasMaceradosFinal || calc.decorridos || tot;
+      if (diasFinal > tot && tot > 0) {
+        return `Finalizado após ${diasFinal} dias contínuos (meta: ${tot}d) · Mantido apenas no histórico (não incluído no catálogo).`;
+      }
+      return `Finalizado em ${diasFinal} dias · Mantido apenas no histórico (não incluído no catálogo).`;
+    }
     if (!calc.pronto) {
       if (m.pausado) {
         return calc.restantes === 1
@@ -3500,9 +3514,9 @@
     }
     if (calc.noDiaMeta) {
       if (m.pausado) {
-        return `Meta de ${tot} dias atingida hoje! A contagem continua internamente até você publicar.`;
+        return `Meta de ${tot} dias atingida hoje! Deseja incluir no catálogo ou salvar só no histórico?`;
       }
-      return `Meta de ${tot} dias atingida hoje! Já foi retirado da vitrine automaticamente e segue contando dias internamente.`;
+      return `Meta de ${tot} dias atingida hoje e já retirado da vitrine! Deseja incluir no catálogo?`;
     }
     const extraTxt = calc.excedidos === 1 ? '1 dia' : `${calc.excedidos} dias`;
     if (m.pausado) {
@@ -3531,6 +3545,7 @@
       diasTotais: m.diasTotais || 30,
       diasMaceradosFinal: m.diasMaceradosFinal || null,
       publicadoNoCatalogo: !!m.publicadoNoCatalogo,
+      arquivadoHistorico: !!m.arquivadoHistorico,
       resultado: m.resultado || '',
       notaSimilaridade: m.notaSimilaridade || 0,
       notaProjecao: m.notaProjecao || 0,
@@ -3569,6 +3584,35 @@
     btnCancelarEdit.style.display = 'block';
     abrirSecao('form');
     mostrarMsg("Complete preços e notas da vitrine para finalizar o cadastro.", "sucesso");
+  };
+
+  window.arquivarMacSemCatalogo = async function(id) {
+    const m = todosMacAdmin.find(x => x.id === id);
+    if (!m) return;
+    if (!confirm(`Mover "${m.nome}" para o Histórico sem incluir no catálogo?\n\nA ficha técnica e a fórmula continuarão salvas normalmente no histórico.`)) return;
+    const diasMaceradosFinal = calcularDiasMac(m).decorridos;
+    try {
+      await updateDoc(doc(db, "maceracao", id), {
+        arquivadoHistorico: true,
+        publicadoNoCatalogo: false,
+        pausado: true,
+        arquivadoEm: new Date(),
+        diasMaceradosFinal
+      });
+      if (m.compartilhada) {
+        await setDoc(doc(db, "fichas_compartilhadas", id), montarPayloadFichaCompartilhada({
+          ...m,
+          arquivadoHistorico: true,
+          publicadoNoCatalogo: false,
+          pausado: true,
+          diasMaceradosFinal
+        }));
+      }
+      mostrarMsg("Salvo no Histórico sem incluir no catálogo!", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao mover para o histórico.", "erro");
+    }
   };
 
   function formatarDataHoraSimples(val) {
@@ -3623,13 +3667,15 @@
   }
 
   function renderizarMac() {
-    const ativos = todosMacAdmin.filter(m => !m.publicadoNoCatalogo);
+    const ativos = todosMacAdmin.filter(m => !m.publicadoNoCatalogo && !m.arquivadoHistorico);
     atualizarBadgeMacProntos(ativos);
     const historico = todosMacAdmin
-      .filter(m => !!m.publicadoNoCatalogo)
+      .filter(m => !!m.publicadoNoCatalogo || !!m.arquivadoHistorico)
       .sort((a, b) => {
-        const da = a.publicadoEm?.toDate ? a.publicadoEm.toDate().getTime() : 0;
-        const dbTime = b.publicadoEm?.toDate ? b.publicadoEm.toDate().getTime() : 0;
+        const refA = a.publicadoEm || a.arquivadoEm || a.criadoEm;
+        const refB = b.publicadoEm || b.arquivadoEm || b.criadoEm;
+        const da = refA?.toDate ? refA.toDate().getTime() : 0;
+        const dbTime = refB?.toDate ? refB.toDate().getTime() : 0;
         return dbTime - da;
       });
 
@@ -3647,20 +3693,26 @@
       if (filtradosHist.length === 0) {
         listaMac.innerHTML = termo
           ? '<div class="empty-state">Nenhum registro no histórico corresponde à busca.</div>'
-          : '<div class="empty-state">Nenhum perfume no histórico de maceração ainda.<br>Quando um lote ficar pronto e for incluído no catálogo, ele ficará registrado aqui.</div>';
+          : '<div class="empty-state">Nenhum perfume no histórico de maceração ainda.<br>Quando um lote ficar pronto, você decide se quer incluir no catálogo ou salvar só no histórico.</div>';
         return;
       }
 
       filtradosHist.forEach((m) => {
         const d = dataMacItem(m);
         const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
-        const dataPubFormatada = formatarDataHoraSimples(m.publicadoEm);
+        const noCatalogo = !!m.publicadoNoCatalogo;
+        const dataHistFormatada = formatarDataHoraSimples(noCatalogo ? m.publicadoEm : m.arquivadoEm);
         const diasFinal = m.diasMaceradosFinal || m.diasTotais || 0;
         const thumbUrl = safeImgUrl(m.img);
         const thumbHtml = thumbUrl ? `<img class="mac-thumb" src="${esc(thumbUrl)}" alt="${esc(m.nome)}">` : '';
+        const seloHistHtml = noCatalogo
+          ? '<span class="mac-selo historico">✅ No Catálogo</span>'
+          : '<span class="mac-selo so-historico">📁 Só Histórico</span>';
+        const labelCol3 = noCatalogo ? 'Catalogado' : 'Arquivado';
+        const corCol3 = noCatalogo ? '#25D366' : '#ccc';
 
         const div = document.createElement('div');
-        div.className = 'mac-item pronto';
+        div.className = noCatalogo ? 'mac-item pronto' : 'mac-item';
         div.innerHTML = `
           <div class="mac-header">
             <div class="mac-item-topo">
@@ -3670,13 +3722,13 @@
                 <div class="insp">Inspirado em "${esc(m.insp)}"</div>
               </div>
             </div>
-            <span class="mac-selo historico">✅ No Catálogo</span>
+            ${seloHistHtml}
           </div>
           ${construirTagsMac(m)}
           <div class="mac-info">
             <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.8rem;">${esc(dataInicioFormatada)}</div></div>
             <div class="bloco"><div class="lbl">Macerado</div><div class="val">${diasFinal}d</div></div>
-            <div class="bloco"><div class="lbl">Catalogado</div><div class="val" style="font-size: 0.8rem; color:#25D366;">${esc(dataPubFormatada)}</div></div>
+            <div class="bloco"><div class="lbl">${labelCol3}</div><div class="val" style="font-size: 0.8rem; color:${corCol3};">${esc(dataHistFormatada)}</div></div>
           </div>
           <div class="mac-acoes" style="grid-template-columns: 1fr 1fr 1fr;">
             <button class="btn-mac-acao btn-mac-ficha" onclick="abrirFichaMac('${esc(m.id)}')">📋 Ficha</button>
@@ -3733,13 +3785,16 @@
       let mensagemProntoHtml = '';
       if (calc.pronto) {
         const tituloPronto = calc.noDiaMeta
-          ? '🎉 Meta de maceração atingida hoje!'
+          ? '🎉 Meta de maceração atingida! Deseja incluir no catálogo?'
           : `🧪 Maturação estendida · ${calc.decorridos} dias ao todo`;
         mensagemProntoHtml = `
           <div class="mac-mensagem-pronto ${pausado ? 'pausada' : ''}">
             ${tituloPronto}
             <div class="sub">${esc(fraseSituacaoMac(m, calc))}</div>
-            <button class="btn-mac-publicar" onclick="publicarMacNoCatalogo('${esc(m.id)}')">🚀 Incluir no Catálogo</button>
+            <div class="mac-mensagem-acoes">
+              <button type="button" class="btn-mac-publicar" onclick="publicarMacNoCatalogo('${esc(m.id)}')">🚀 Incluir no Catálogo</button>
+              <button type="button" class="btn-mac-nao-incluir" onclick="arquivarMacSemCatalogo('${esc(m.id)}')">📁 Não Incluir</button>
+            </div>
           </div>
         `;
       }
@@ -3824,7 +3879,7 @@
 
     document.getElementById('macDataInicio').value = new Date().toISOString().slice(0, 10);
     document.getElementById('macDias').value = '30';
-    document.getElementById('macMostrarVitrine').checked = true;
+    document.getElementById('macMostrarVitrine').checked = false;
 
     document.getElementById('macInputNotaCustom').value = '';
     renderChipsNotasMac();
@@ -3885,7 +3940,7 @@
       ? new Date().toISOString().slice(0, 10)
       : formatarInputDateUTC(dataMacItem(m));
     document.getElementById('macDias').value = m.diasTotais || 30;
-    document.getElementById('macMostrarVitrine').checked = !m.pausado;
+    document.getElementById('macMostrarVitrine').checked = modoDuplicar ? false : !m.pausado;
 
     macNotasSel = Array.isArray(m.notasOlfativas) ? m.notasOlfativas.slice() : [];
     renderChipsNotasMac();
@@ -4376,7 +4431,7 @@
   };
 
   window.limparHistoricoMac = async function() {
-    const historico = todosMacAdmin.filter(m => !!m.publicadoNoCatalogo);
+    const historico = todosMacAdmin.filter(m => !!m.publicadoNoCatalogo || !!m.arquivadoHistorico);
     if (historico.length === 0) return;
     if (!confirm(`Excluir todos os ${historico.length} registros do histórico de maceração? Links compartilhados dessas fórmulas também serão removidos. Os perfumes do catálogo não serão afetados.`)) return;
     const btn = document.getElementById('btn-limpar-historico-mac');
