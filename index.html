@@ -513,7 +513,22 @@
   .mac-item-topo { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
   .mac-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #fff; padding: 2px; flex-shrink: 0; border: 1px solid #333; }
   .mac-selo.historico { background: rgba(37,211,102,0.12); color: #25D366; border: 1px solid #25D366; }
+  .mac-selo.extra { background: rgba(212,175,55,0.16); color: var(--dourado-claro); border: 1px solid var(--dourado); }
+  .mac-info .bloco .val.extra { color: var(--dourado-claro); font-size: 0.95rem; }
+  .mac-mensagem-pronto.pausada { background: rgba(212,175,55,0.08); border-color: var(--dourado); color: var(--dourado-claro); }
   .mac-acoes.uma { grid-template-columns: 1fr; }
+  .btn-mac-share { background: rgba(37,211,102,0.14); border-color: #25D366; color: #25D366; }
+  .btn-mac-share:hover { background: #25D366; color: #0d0d0d; }
+  .mac-share-box { background: #0f0f0f; border: 1px dashed var(--dourado); border-radius: 8px; padding: 10px; margin-top: 8px; }
+  .mac-share-box small { display: block; font-size: 0.68rem; color: #aaa; margin-bottom: 6px; line-height: 1.4; }
+  .mac-share-row { display: flex; gap: 6px; margin-bottom: 8px; }
+  .mac-share-row input { flex: 1; padding: 8px 10px; border-radius: 6px; border: 1px solid #333; background: #161616; color: var(--dourado-claro); font-size: 0.72rem; font-family: monospace; min-width: 0; }
+  .mac-share-row button { background: var(--dourado); color: #0d0d0d; border: none; border-radius: 6px; padding: 0 12px; font-weight: 800; font-size: 0.72rem; cursor: pointer; white-space: nowrap; }
+  .mac-share-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .btn-mac-revogar { background: rgba(201,74,74,0.14); border: 1px solid #c94a4a; color: #ff6b6b; padding: 8px; border-radius: 7px; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+  .btn-mac-revogar:hover { background: #c94a4a; color: #fff; }
+  .btn-mac-whats-share { background: rgba(37,211,102,0.15); border: 1px solid #25D366; color: #25D366; padding: 8px; border-radius: 7px; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+  .btn-mac-whats-share:hover { background: #25D366; color: #0d0d0d; }
 
   .empty-state { text-align: center; color: #666; padding: 40px 20px; font-size: 0.9rem; font-style: italic; }
 
@@ -966,7 +981,7 @@
       </div>
 
       <div class="input-group">
-        <label>Gênero</label>
+        <label>Gênero *</label>
         <div class="mac-pill-grupo" id="macGeneroGrupo">
           <div class="mac-pill-opcao" data-val="feminino" onclick="selecionarPillMac('genero', 'feminino')">👩 Feminino</div>
           <div class="mac-pill-opcao" data-val="masculino" onclick="selecionarPillMac('genero', 'masculino')">👨 Masculino</div>
@@ -1002,27 +1017,27 @@
       <div class="mac-form-secao-titulo">2. Essência &amp; Manipulação</div>
 
       <div class="input-group">
-        <label>Marca ou Casa da Essência</label>
+        <label>Marca ou Casa da Essência *</label>
         <input type="text" id="macCasaEssencia" list="listaCasasEssenciaMac" placeholder="Ex: Big Essências, Symrise, Paris Essências..." maxlength="80" autocomplete="off" oninput="onInputCasaMac()">
         <datalist id="listaCasasEssenciaMac"></datalist>
       </div>
 
       <div class="grid-inputs">
         <div class="input-group">
-          <label>Concentração (%)</label>
+          <label>Concentração (%) *</label>
           <div class="mac-input-sufixo">
             <input type="text" id="macConcentracao" placeholder="Ex: 30" maxlength="8" oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
             <span>%</span>
           </div>
         </div>
         <div class="input-group">
-          <label>Lote / Quantidade</label>
+          <label>Lote / Quantidade *</label>
           <input type="text" id="macVolumeLote" placeholder="Ex: 100ml ou 50g" maxlength="30" autocomplete="off">
         </div>
       </div>
 
       <div class="input-group" style="margin-bottom: 0;">
-        <label>Manipulado por</label>
+        <label>Manipulado por *</label>
         <div class="mac-pill-grupo" id="macManipuladoGrupo">
           <div class="mac-pill-opcao" data-val="peso" onclick="selecionarPillMac('manipulado', 'peso')">⚖️ Por Peso</div>
           <div class="mac-pill-opcao" data-val="volume" onclick="selecionarPillMac('manipulado', 'volume')">💧 Por Volume</div>
@@ -1031,48 +1046,48 @@
     </div>
 
     <div class="mac-form-secao">
-      <div class="mac-form-secao-titulo">3. Fornecedor (Onde Encontrar a Essência)</div>
+      <div class="mac-form-secao-titulo">3. Fornecedor (Onde Encontrar a Essência) *</div>
 
       <div class="input-group">
-        <label>Tipo de Fornecedor</label>
+        <label>Tipo de Fornecedor *</label>
         <select id="macTipoOnde" onchange="toggleMacOndeEncontrar()">
-          <option value="">— Não informado —</option>
+          <option value="">Selecione o fornecedor... *</option>
           <option value="site">🌐 Site / Loja Online</option>
           <option value="vendedor">🤝 Vendedor (WhatsApp)</option>
         </select>
       </div>
 
       <div class="input-group" id="macGrupoSite" style="display:none; margin-bottom:0;">
-        <label>Link do Site</label>
+        <label>Link do Site *</label>
         <input type="text" id="macLinkSite" placeholder="www.fornecedor.com.br" maxlength="300" autocomplete="off">
       </div>
 
       <div class="grid-inputs" id="macGrupoVendedor" style="display:none;">
         <div class="input-group" style="margin-bottom:0;">
-          <label>Nome do Vendedor</label>
+          <label>Nome do Vendedor *</label>
           <input type="text" id="macNomeVendedor" list="listaVendedoresMac" placeholder="Ex: João Silva" maxlength="80" autocomplete="off" oninput="onInputVendedorMac()">
           <datalist id="listaVendedoresMac"></datalist>
         </div>
         <div class="input-group" style="margin-bottom:0;">
-          <label>WhatsApp</label>
+          <label>WhatsApp *</label>
           <input type="tel" id="macWhatsVendedor" placeholder="11999999999" maxlength="15" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
         </div>
       </div>
     </div>
 
     <div class="mac-form-secao">
-      <div class="mac-form-secao-titulo">4. Base Usada</div>
+      <div class="mac-form-secao-titulo">4. Base Usada *</div>
       <div class="mac-base-opcoes" id="macBaseOpcoes"></div>
 
       <div id="macGrupoBaseCustom" style="display:none; margin-top:10px;">
-        <label style="display:block; font-size:0.68rem; color:#aaa; margin-bottom:6px; font-weight:700; text-transform:uppercase;">Ingredientes da sua base (%)</label>
+        <label style="display:block; font-size:0.68rem; color:#aaa; margin-bottom:6px; font-weight:700; text-transform:uppercase;">Ingredientes da sua base (%) *</label>
         <div id="macIngredientesCustom"></div>
         <button type="button" class="btn-mac-ing-add" onclick="adicionarIngredienteMac()">+ Adicionar ingrediente</button>
       </div>
     </div>
 
     <div class="mac-form-secao">
-      <div class="mac-form-secao-titulo">5. Controle de Maceração &amp; Vitrine</div>
+      <div class="mac-form-secao-titulo">5. Controle de Maceração &amp; Vitrine *</div>
 
       <div class="grid-inputs">
         <div class="input-group">
@@ -1092,7 +1107,7 @@
     </div>
 
     <div class="mac-form-secao">
-      <div class="mac-form-secao-titulo">6. Notas Olfativas, Avaliação &amp; Feedback</div>
+      <div class="mac-form-secao-titulo">6. Notas Olfativas, Avaliação &amp; Feedback (opcional)</div>
 
       <div class="input-group">
         <label>Notas Olfativas (opcional)</label>
@@ -1105,7 +1120,7 @@
       </div>
 
       <div class="input-group">
-        <label>Resultado do Lote</label>
+        <label>Resultado do Lote (opcional)</label>
         <div class="mac-pill-grupo" id="macResultadoGrupo">
           <div class="mac-pill-opcao" data-val="" onclick="selecionarPillMac('resultado', '')">⏳ Em Teste</div>
           <div class="mac-pill-opcao aprovado" data-val="aprovado" onclick="selecionarPillMac('resultado', 'aprovado')">✅ Aprovado</div>
@@ -1139,7 +1154,7 @@
       </div>
 
       <div class="input-group" style="margin-bottom:0;">
-        <label>Feedback / Anotações da Fórmula</label>
+        <label>Feedback / Anotações da Fórmula (opcional)</label>
         <textarea id="macFeedback" rows="3" maxlength="2000" placeholder="Anotações sobre evolução, cheiro na saída, rendimento, ajustes para o próximo lote..."></textarea>
       </div>
     </div>
@@ -1789,12 +1804,23 @@
         const novoPerfumeRef = await addDoc(collection(db, "perfumes"), dadosPerfume);
 
         if (macOrigemId.value) {
+          const macOrig = todosMacAdmin.find(x => x.id === macOrigemId.value);
+          const diasMaceradosFinal = macOrig ? calcularDiasMac(macOrig).decorridos : (macOrig?.diasTotais || 0);
           await updateDoc(doc(db, "maceracao", macOrigemId.value), {
             publicadoNoCatalogo: true,
             publicadoEm: new Date(),
             perfumeId: novoPerfumeRef.id,
-            pausado: true
+            pausado: true,
+            diasMaceradosFinal
           });
+          if (macOrig?.compartilhada) {
+            await setDoc(doc(db, "fichas_compartilhadas", macOrigemId.value), montarPayloadFichaCompartilhada({
+              ...macOrig,
+              publicadoNoCatalogo: true,
+              pausado: true,
+              diasMaceradosFinal
+            }));
+          }
           mostrarMsg("Perfume incluído no catálogo e salvo no Histórico de Maceração!", "sucesso");
         } else {
           mostrarMsg("Perfume cadastrado no catálogo!", "sucesso");
@@ -3436,16 +3462,88 @@
 
   function calcularDiasMac(m) {
     const inicio = dataMacItem(m);
-    if (!inicio || isNaN(inicio.getTime())) return { decorridos: 0, restantes: m.diasTotais || 0, pronto: false, pct: 0 };
+    if (!inicio || isNaN(inicio.getTime())) {
+      return { decorridos: 0, restantes: m.diasTotais || 0, excedidos: 0, pronto: false, noDiaMeta: false, passouMeta: false, pct: 0 };
+    }
     const agora = new Date();
     const utcInicio = Date.UTC(inicio.getUTCFullYear(), inicio.getUTCMonth(), inicio.getUTCDate());
     const utcAgora = Date.UTC(agora.getFullYear(), agora.getMonth(), agora.getDate());
     const decorridos = Math.max(0, Math.round((utcAgora - utcInicio) / 86400000));
     const tot = m.diasTotais || 0;
     const restantes = Math.max(0, tot - decorridos);
-    const pronto = decorridos >= tot;
+    const excedidos = Math.max(0, decorridos - tot);
+    const pronto = tot > 0 && decorridos >= tot;
+    const noDiaMeta = tot > 0 && decorridos === tot;
+    const passouMeta = tot > 0 && decorridos > tot;
     const pct = tot > 0 ? Math.min(100, Math.round((decorridos / tot) * 100)) : 0;
-    return { decorridos, restantes, pronto, pct };
+    return { decorridos, restantes, excedidos, pronto, noDiaMeta, passouMeta, pct };
+  }
+
+  function fraseSituacaoMac(m, calc) {
+    const tot = m.diasTotais || 0;
+    if (m.publicadoNoCatalogo) {
+      const diasFinal = m.diasMaceradosFinal || calc.decorridos || tot;
+      if (diasFinal > tot && tot > 0) {
+        return `Incluído no catálogo após ${diasFinal} dias contínuos (meta inicial: ${tot}d).`;
+      }
+      return `Maceração finalizada em ${diasFinal} dias e publicada no catálogo.`;
+    }
+    if (!calc.pronto) {
+      if (m.pausado) {
+        return calc.restantes === 1
+          ? `Lote privado/pausado · Falta 1 dia para atingir a meta de ${tot} dias.`
+          : `Lote privado/pausado · Faltam ${calc.restantes} dias para atingir a meta de ${tot} dias.`;
+      }
+      return calc.restantes === 1
+        ? `Exibido na vitrine como Em Breve · Falta apenas 1 dia para ficar pronto!`
+        : `Exibido na vitrine como Em Breve · Faltam ${calc.restantes} dias para completar a meta.`;
+    }
+    if (calc.noDiaMeta) {
+      if (m.pausado) {
+        return `Meta de ${tot} dias atingida hoje! A contagem continua internamente até você publicar.`;
+      }
+      return `Meta de ${tot} dias atingida hoje! Já foi retirado da vitrine automaticamente e segue contando dias internamente.`;
+    }
+    const extraTxt = calc.excedidos === 1 ? '1 dia' : `${calc.excedidos} dias`;
+    if (m.pausado) {
+      return `Em maturação estendida (${calc.decorridos} dias contínuos · +${extraTxt} após a meta de ${tot}d).`;
+    }
+    return `Em maturação estendida (${calc.decorridos} dias contínuos · +${extraTxt} após a meta de ${tot}d). Já removido da vitrine pública.`;
+  }
+
+  function montarPayloadFichaCompartilhada(m) {
+    return {
+      insp: capitalizeWords((m.insp || '').trim()),
+      genero: m.genero || '',
+      manipulado: m.manipulado || '',
+      casaEssencia: (m.casaEssencia || '').trim(),
+      concentracao: (m.concentracao || '').trim(),
+      volumeLote: (m.volumeLote || '').trim(),
+      tipoOnde: m.tipoOnde || '',
+      linkSite: m.linkSite || '',
+      nomeVendedor: m.nomeVendedor || '',
+      whatsappVendedor: m.whatsappVendedor || '',
+      baseId: m.baseId || '',
+      baseNome: m.baseNome || '',
+      ingredientesCustom: Array.isArray(m.ingredientesCustom) ? m.ingredientesCustom : null,
+      notasOlfativas: Array.isArray(m.notasOlfativas) ? m.notasOlfativas : [],
+      dataInicio: m.dataInicio || null,
+      diasTotais: m.diasTotais || 30,
+      diasMaceradosFinal: m.diasMaceradosFinal || null,
+      publicadoNoCatalogo: !!m.publicadoNoCatalogo,
+      resultado: m.resultado || '',
+      notaSimilaridade: m.notaSimilaridade || 0,
+      notaProjecao: m.notaProjecao || 0,
+      notaFixacao: m.notaFixacao || 0,
+      notaMedia: m.notaMedia || 0,
+      feedback: (m.feedback || '').trim(),
+      diario: Array.isArray(m.diario) ? m.diario : [],
+      compartilhadoEm: new Date()
+    };
+  }
+
+  function gerarLinkFichaCompartilhada(id) {
+    return URL_CATALOGO.replace(/\/$/, '') + '/?ficha=' + encodeURIComponent(id);
   }
 
   window.mudarAbaMac = function(aba) {
@@ -3509,6 +3607,7 @@
     if (m.resultado === 'aprovado') tags.push(`<span class="mac-tag green">✅ Aprovado</span>`);
     else if (m.resultado === 'reprovado') tags.push(`<span class="mac-tag red">❌ Reprovado</span>`);
     if (m.notaMedia > 0) tags.push(`<span class="mac-tag gold">⭐ ${Number(m.notaMedia).toFixed(1)}/10</span>`);
+    if (m.compartilhada) tags.push(`<span class="mac-tag blue">🔗 Link ativo</span>`);
     return tags.length ? `<div class="mac-tags-row">${tags.join('')}</div>` : '';
   }
 
@@ -3556,6 +3655,7 @@
         const d = dataMacItem(m);
         const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
         const dataPubFormatada = formatarDataHoraSimples(m.publicadoEm);
+        const diasFinal = m.diasMaceradosFinal || m.diasTotais || 0;
         const thumbUrl = safeImgUrl(m.img);
         const thumbHtml = thumbUrl ? `<img class="mac-thumb" src="${esc(thumbUrl)}" alt="${esc(m.nome)}">` : '';
 
@@ -3575,7 +3675,7 @@
           ${construirTagsMac(m)}
           <div class="mac-info">
             <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.8rem;">${esc(dataInicioFormatada)}</div></div>
-            <div class="bloco"><div class="lbl">Macerado</div><div class="val">${m.diasTotais || 0}d</div></div>
+            <div class="bloco"><div class="lbl">Macerado</div><div class="val">${diasFinal}d</div></div>
             <div class="bloco"><div class="lbl">Catalogado</div><div class="val" style="font-size: 0.8rem; color:#25D366;">${esc(dataPubFormatada)}</div></div>
           </div>
           <div class="mac-acoes" style="grid-template-columns: 1fr 1fr 1fr;">
@@ -3603,16 +3703,42 @@
       const classeStatus = pausado ? 'pausado' : (calc.pronto ? 'pronto' : '');
 
       let seloHtml = '';
-      if (pausado) seloHtml = '<span class="mac-selo pausado">⏸️ Pausado / Privado</span>';
-      else if (calc.pronto) seloHtml = '<span class="mac-selo pronto">✅ Pronto</span>';
+      if (pausado && calc.passouMeta) seloHtml = `<span class="mac-selo extra">⏸️ ${calc.decorridos}d (+${calc.excedidos}d)</span>`;
+      else if (pausado && calc.noDiaMeta) seloHtml = '<span class="mac-selo pronto">⏸️ Meta Hoje!</span>';
+      else if (pausado) seloHtml = '<span class="mac-selo pausado">⏸️ Pausado / Privado</span>';
+      else if (calc.passouMeta) seloHtml = `<span class="mac-selo extra">🔥 ${calc.decorridos}d (+${calc.excedidos}d extra)</span>`;
+      else if (calc.noDiaMeta) seloHtml = '<span class="mac-selo pronto">🎉 Meta atingida hoje!</span>';
       else seloHtml = '<span class="mac-selo em-mac">⏳ Em maceração</span>';
 
+      let bloco3Label = 'Restantes';
+      let bloco3Class = 'restante';
+      let bloco3Val = calc.restantes + 'd';
+      if (calc.passouMeta) {
+        bloco3Label = 'Após Meta';
+        bloco3Class = 'extra';
+        bloco3Val = `+${calc.excedidos}d`;
+      } else if (calc.noDiaMeta) {
+        bloco3Label = 'Status';
+        bloco3Class = 'pronto';
+        bloco3Val = 'Hoje!';
+      }
+
+      let barraInfo = `${calc.decorridos} de ${m.diasTotais} dias (${calc.pct}%)`;
+      if (calc.passouMeta) {
+        barraInfo = `Contando: ${calc.decorridos} dias contínuos (meta de ${m.diasTotais}d concluída há ${calc.excedidos} ${calc.excedidos === 1 ? 'dia' : 'dias'})`;
+      } else if (calc.noDiaMeta) {
+        barraInfo = `${calc.decorridos} de ${m.diasTotais} dias (100% — meta atingida hoje!)`;
+      }
+
       let mensagemProntoHtml = '';
-      if (calc.pronto && !pausado) {
+      if (calc.pronto) {
+        const tituloPronto = calc.noDiaMeta
+          ? '🎉 Meta de maceração atingida hoje!'
+          : `🧪 Maturação estendida · ${calc.decorridos} dias ao todo`;
         mensagemProntoHtml = `
-          <div class="mac-mensagem-pronto">
-            🎉 Perfume pronto!
-            <div class="sub">Maceração concluída em ${calc.decorridos} dias (já removido da vitrine).</div>
+          <div class="mac-mensagem-pronto ${pausado ? 'pausada' : ''}">
+            ${tituloPronto}
+            <div class="sub">${esc(fraseSituacaoMac(m, calc))}</div>
             <button class="btn-mac-publicar" onclick="publicarMacNoCatalogo('${esc(m.id)}')">🚀 Incluir no Catálogo</button>
           </div>
         `;
@@ -3644,11 +3770,11 @@
         <div class="mac-info">
           <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.85rem;">${esc(dataInicioFormatada)}</div></div>
           <div class="bloco"><div class="lbl">Decorridos</div><div class="val">${calc.decorridos}d</div></div>
-          <div class="bloco"><div class="lbl">Restantes</div><div class="val ${calc.pronto ? 'pronto' : 'restante'}">${calc.pronto ? 'Pronto!' : calc.restantes + 'd'}</div></div>
+          <div class="bloco"><div class="lbl">${bloco3Label}</div><div class="val ${bloco3Class}">${bloco3Val}</div></div>
         </div>
         <div class="mac-progresso"><div class="mac-progresso-barra ${calc.pronto ? 'completa' : ''}" style="width: ${calc.pct}%"></div></div>
         <div style="font-size: 0.7rem; color: #888; text-align: center; margin-bottom: 10px;">
-          ${calc.decorridos} de ${m.diasTotais} dias (${calc.pct}%)
+          ${barraInfo}
         </div>
         ${mensagemProntoHtml}
         <div class="mac-acoes quatro">
@@ -3823,37 +3949,59 @@
     const nome = document.getElementById('macNome').value.trim();
     const insp = document.getElementById('macInsp').value.trim();
     const img = document.getElementById('macImg').value.trim();
+    const casaEssencia = document.getElementById('macCasaEssencia').value.trim();
+    const concentracao = document.getElementById('macConcentracao').value.trim();
+    const concentracaoNum = parseFloat(concentracao.replace(',', '.'));
+    const volumeLote = document.getElementById('macVolumeLote').value.trim();
+    const tipoOnde = document.getElementById('macTipoOnde').value;
+    const linkSiteRaw = document.getElementById('macLinkSite').value.trim();
+    const nomeVendedor = document.getElementById('macNomeVendedor').value.trim();
+    const whatsappVendedor = document.getElementById('macWhatsVendedor').value.replace(/[^0-9]/g, '');
     const dataStr = document.getElementById('macDataInicio').value;
     const dias = parseInt(document.getElementById('macDias').value, 10);
     const btn = document.getElementById('btnSalvarMac');
 
-    if (!nome || nome.length < 2) { mostrarMsg("Nome é obrigatório.", "erro"); return; }
-    if (!insp || insp.length < 2) { mostrarMsg("Inspiração é obrigatória.", "erro"); return; }
-    if (!dataStr) { mostrarMsg("Data de início é obrigatória.", "erro"); return; }
-    if (isNaN(dias) || dias < 1) { mostrarMsg("Dias deve ser pelo menos 1.", "erro"); return; }
+    if (!nome || nome.length < 2) { mostrarMsg("Nome do perfume é obrigatório.", "erro"); return; }
+    if (!insp || insp.length < 2) { mostrarMsg("Perfume inspirado é obrigatório.", "erro"); return; }
+    if (!macGeneroSel) { mostrarMsg("Selecione o gênero.", "erro"); return; }
+    if (!casaEssencia || casaEssencia.length < 2) { mostrarMsg("Marca ou casa da essência é obrigatória.", "erro"); return; }
+    if (!concentracao || isNaN(concentracaoNum) || concentracaoNum <= 0) { mostrarMsg("Informe a concentração (%) válida.", "erro"); return; }
+    if (!volumeLote) { mostrarMsg("Informe o lote / quantidade (ex: 100ml).", "erro"); return; }
+    if (!macManipuladoSel) { mostrarMsg("Selecione se foi manipulado por Peso ou Volume.", "erro"); return; }
+    if (!tipoOnde) { mostrarMsg("Selecione o tipo de fornecedor.", "erro"); return; }
 
-    const tipoOnde = document.getElementById('macTipoOnde').value;
-    const linkSiteRaw = document.getElementById('macLinkSite').value.trim();
-    const linkSite = (tipoOnde === 'site' && linkSiteRaw) ? safeExternalUrl(linkSiteRaw) : '';
-    if (tipoOnde === 'site' && linkSiteRaw && !linkSite) {
-      mostrarMsg("Link do site inválido.", "erro");
-      return;
+    let linkSite = '';
+    if (tipoOnde === 'site') {
+      if (!linkSiteRaw) { mostrarMsg("Informe o link do site do fornecedor.", "erro"); return; }
+      linkSite = safeExternalUrl(linkSiteRaw);
+      if (!linkSite) { mostrarMsg("Link do site inválido.", "erro"); return; }
+    } else if (tipoOnde === 'vendedor') {
+      if (!nomeVendedor) { mostrarMsg("Informe o nome do vendedor.", "erro"); return; }
+      if (!whatsappVendedor || whatsappVendedor.length < 10) { mostrarMsg("Informe um WhatsApp válido do vendedor (DDD + número).", "erro"); return; }
     }
 
-    const nomeVendedor = (tipoOnde === 'vendedor') ? document.getElementById('macNomeVendedor').value.trim() : '';
-    const whatsappVendedor = (tipoOnde === 'vendedor') ? document.getElementById('macWhatsVendedor').value.replace(/[^0-9]/g, '') : '';
+    if (!macBaseSel) { mostrarMsg("Selecione a base usada.", "erro"); return; }
 
     let ingredientesCustom = null;
     if (macBaseSel === 'propria') {
       ingredientesCustom = [];
+      let ingredienteInvalido = false;
       document.querySelectorAll('#macIngredientesCustom .mac-ing-linha').forEach(l => {
         const ingNome = l.querySelector('.mac-ing-nome').value.trim();
         const ingPct = parseFloat(l.querySelector('.mac-ing-pct').value);
-        if (ingNome) {
-          ingredientesCustom.push({ nome: ingNome, pct: isNaN(ingPct) ? 0 : ingPct });
+        if (ingNome || !isNaN(ingPct)) {
+          if (!ingNome || isNaN(ingPct) || ingPct <= 0) ingredienteInvalido = true;
+          else ingredientesCustom.push({ nome: ingNome, pct: ingPct });
         }
       });
+      if (ingredientesCustom.length === 0 || ingredienteInvalido) {
+        mostrarMsg("Preencha ao menos 1 ingrediente com nome e % maior que zero na base própria.", "erro");
+        return;
+      }
     }
+
+    if (!dataStr) { mostrarMsg("Data de início é obrigatória.", "erro"); return; }
+    if (isNaN(dias) || dias < 1) { mostrarMsg("Dias de maceração deve ser pelo menos 1.", "erro"); return; }
 
     const incluirNotas = document.getElementById('macIncluirNotas').checked;
     const sim = incluirNotas ? parseInt(document.getElementById('macNotaSim').value, 10) : 0;
@@ -3878,16 +4026,16 @@
         dataInicio,
         diasTotais: dias,
         pausado: !mostrarVitrine,
-        genero: macGeneroSel || '',
-        manipulado: macManipuladoSel || '',
-        casaEssencia: document.getElementById('macCasaEssencia').value.trim(),
-        concentracao: document.getElementById('macConcentracao').value.trim(),
-        volumeLote: document.getElementById('macVolumeLote').value.trim(),
-        tipoOnde: tipoOnde || '',
+        genero: macGeneroSel,
+        manipulado: macManipuladoSel,
+        casaEssencia,
+        concentracao,
+        volumeLote,
+        tipoOnde,
         linkSite,
-        nomeVendedor,
-        whatsappVendedor,
-        baseId: macBaseSel || '',
+        nomeVendedor: tipoOnde === 'vendedor' ? nomeVendedor : '',
+        whatsappVendedor: tipoOnde === 'vendedor' ? whatsappVendedor : '',
+        baseId: macBaseSel,
         baseNome: baseObj ? baseObj.nome : '',
         ingredientesCustom,
         notasOlfativas: macNotasSel.slice(),
@@ -3901,11 +4049,18 @@
 
       if (macEmEdicao) {
         await updateDoc(doc(db, "maceracao", macEmEdicao.id), dados);
+        if (macEmEdicao.compartilhada) {
+          await setDoc(
+            doc(db, "fichas_compartilhadas", macEmEdicao.id),
+            montarPayloadFichaCompartilhada({ ...macEmEdicao, ...dados })
+          );
+        }
         mostrarMsg("Maceração atualizada!", "sucesso");
       } else {
         dados.criadoEm = new Date();
         dados.publicadoNoCatalogo = false;
         dados.diario = [];
+        dados.compartilhada = false;
         await addDoc(collection(db, "maceracao"), dados);
         mostrarMsg("Perfume em maceração cadastrado!", "sucesso");
       }
@@ -3916,6 +4071,59 @@
     } finally {
       btn.disabled = false;
       btn.innerText = macEmEdicao ? "Salvar Alterações" : "Salvar";
+    }
+  };
+
+  window.compartilharFichaMac = async function(id) {
+    const m = todosMacAdmin.find(x => x.id === id);
+    if (!m) return;
+    try {
+      const payload = montarPayloadFichaCompartilhada(m);
+      await setDoc(doc(db, "fichas_compartilhadas", id), payload);
+      await updateDoc(doc(db, "maceracao", id), {
+        compartilhada: true,
+        compartilhadaEm: new Date()
+      });
+      const link = gerarLinkFichaCompartilhada(id);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(link).catch(() => {});
+      }
+      mostrarMsg("🔗 Link copiado! Apenas a inspiração e a fórmula ficam visíveis.", "sucesso");
+    } catch (e) {
+      console.error(e);
+      mostrarMsg("Erro ao gerar link compartilhável.", "erro");
+    }
+  };
+
+  window.copiarLinkFichaMac = async function(id) {
+    const link = gerarLinkFichaCompartilhada(id);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(link).catch(() => {});
+      mostrarMsg("📋 Link copiado para a área de transferência!", "sucesso");
+    } else {
+      const inp = document.getElementById('inputLinkFichaShare');
+      if (inp) { inp.select(); document.execCommand('copy'); }
+      mostrarMsg("📋 Link selecionado!", "sucesso");
+    }
+  };
+
+  window.enviarFichaMacWhats = function(id) {
+    const m = todosMacAdmin.find(x => x.id === id);
+    if (!m) return;
+    const link = gerarLinkFichaCompartilhada(id);
+    const texto = `🧪 Segue a ficha da fórmula inspirada em *${m.insp || ''}* (somente leitura):\n${link}`;
+    window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank');
+  };
+
+  window.revogarCompartilhamentoMac = async function(id) {
+    if (!confirm("Desativar o link compartilhado desta fórmula?\n\nQuem abrir o link verá o aviso de que a fórmula não existe mais.")) return;
+    try {
+      await deleteDoc(doc(db, "fichas_compartilhadas", id));
+      await updateDoc(doc(db, "maceracao", id), { compartilhada: false });
+      mostrarMsg("🔒 Link compartilhado revogado.", "sucesso");
+    } catch (e) {
+      console.error(e);
+      mostrarMsg("Erro ao revogar link.", "erro");
     }
   };
 
@@ -3989,6 +4197,26 @@
 
     const hojeStr = new Date().toISOString().slice(0, 10);
     const diaDefault = `Dia ${calc.decorridos} de maceração`;
+    const linkShare = gerarLinkFichaCompartilhada(m.id);
+
+    const shareBlocoHtml = m.compartilhada
+      ? `<div class="mac-share-box">
+          <small>🔓 Link ativo (somente leitura) · Mostra apenas a inspiração <strong>"${esc(m.insp)}"</strong> — o nome da loja fica oculto.</small>
+          <div class="mac-share-row">
+            <input type="text" id="inputLinkFichaShare" readonly value="${esc(linkShare)}" onclick="this.select()">
+            <button type="button" onclick="copiarLinkFichaMac('${esc(m.id)}')">📋 Copiar</button>
+          </div>
+          <div class="mac-share-btns">
+            <button type="button" class="btn-mac-whats-share" onclick="enviarFichaMacWhats('${esc(m.id)}')">📤 Enviar WhatsApp</button>
+            <button type="button" class="btn-mac-revogar" onclick="revogarCompartilhamentoMac('${esc(m.id)}')">🔒 Revogar Link</button>
+          </div>
+        </div>`
+      : `<div style="font-size:0.74rem;color:#999;margin-bottom:8px;line-height:1.45;">Gere um link somente leitura para enviar a um amigo. O nome do seu perfume não é compartilhado — apenas a inspiração e a fórmula.</div>
+         <button type="button" class="btn-mac-acao btn-mac-share" style="width:100%;" onclick="compartilharFichaMac('${esc(m.id)}')">🔗 Gerar &amp; Copiar Link da Fórmula</button>`;
+
+    const resumoDiasFicha = m.publicadoNoCatalogo
+      ? `Início: ${esc(dataInicioFormatada)} · ${esc(fraseSituacaoMac(m, calc))}`
+      : `Início: ${esc(dataInicioFormatada)} · Dia ${calc.decorridos} (meta: ${m.diasTotais || 0}d) · ${esc(fraseSituacaoMac(m, calc))}`;
 
     document.getElementById('conteudoMacFicha').innerHTML = `
       <div class="mac-item-topo" style="margin-bottom:12px;">
@@ -3996,8 +4224,13 @@
         <div style="flex:1;min-width:0;">
           <div style="color:var(--dourado-claro);font-weight:800;font-size:1.05rem;">${esc(m.nome)}</div>
           <div style="color:#999;font-size:0.78rem;font-style:italic;">Inspirado em "${esc(m.insp)}"</div>
-          <div style="color:#bbb;font-size:0.72rem;margin-top:3px;">Início: ${esc(dataInicioFormatada)} · ${calc.decorridos} de ${m.diasTotais || 0} dias (${calc.pct}%)</div>
+          <div style="color:#bbb;font-size:0.72rem;margin-top:3px;line-height:1.4;">${resumoDiasFicha}</div>
         </div>
+      </div>
+
+      <div class="mac-ficha-bloco">
+        <h4>🔗 Compartilhar Fórmula com Amigo</h4>
+        ${shareBlocoHtml}
       </div>
 
       <div class="mac-ficha-bloco">
@@ -4088,6 +4321,9 @@
     const novos = [...(Array.isArray(m.diario) ? m.diario : []), novoItem].sort((a, b) => new Date(a.data) - new Date(b.data));
     try {
       await updateDoc(doc(db, "maceracao", id), { diario: novos });
+      if (m.compartilhada) {
+        await setDoc(doc(db, "fichas_compartilhadas", id), montarPayloadFichaCompartilhada({ ...m, diario: novos }));
+      }
       mostrarMsg("Registro adicionado ao diário!", "sucesso");
     } catch (e) {
       console.error(e);
@@ -4102,6 +4338,9 @@
     novos.splice(idx, 1);
     try {
       await updateDoc(doc(db, "maceracao", id), { diario: novos });
+      if (m.compartilhada) {
+        await setDoc(doc(db, "fichas_compartilhadas", id), montarPayloadFichaCompartilhada({ ...m, diario: novos }));
+      }
       mostrarMsg("Registro removido do diário.", "sucesso");
     } catch (e) {
       console.error(e);
@@ -4121,11 +4360,14 @@
 
   window.excluirMac = async function(id, doHistorico = false) {
     const pergunta = doHistorico
-      ? "Excluir este registro do histórico de maceração? (O perfume continuará normalmente no catálogo.)"
-      : "Excluir este perfume da maceração?";
+      ? "Excluir este registro do histórico de maceração? Se havia link compartilhado, ele deixará de funcionar. (O perfume continuará no catálogo.)"
+      : "Excluir este perfume da maceração? Se houver link compartilhado, ele também será removido.";
     if (!confirm(pergunta)) return;
     try {
-      await deleteDoc(doc(db, "maceracao", id));
+      const batch = writeBatch(db);
+      batch.delete(doc(db, "maceracao", id));
+      batch.delete(doc(db, "fichas_compartilhadas", id));
+      await batch.commit();
       mostrarMsg(doHistorico ? "Registro removido do histórico." : "Perfume removido da maceração.", "sucesso");
     } catch (error) {
       console.error(error);
@@ -4136,13 +4378,16 @@
   window.limparHistoricoMac = async function() {
     const historico = todosMacAdmin.filter(m => !!m.publicadoNoCatalogo);
     if (historico.length === 0) return;
-    if (!confirm(`Excluir todos os ${historico.length} registros do histórico de maceração? Os perfumes cadastrados no catálogo não serão afetados.`)) return;
+    if (!confirm(`Excluir todos os ${historico.length} registros do histórico de maceração? Links compartilhados dessas fórmulas também serão removidos. Os perfumes do catálogo não serão afetados.`)) return;
     const btn = document.getElementById('btn-limpar-historico-mac');
     btn.disabled = true;
     btn.innerText = "Limpando...";
     try {
       const batch = writeBatch(db);
-      historico.forEach(m => batch.delete(doc(db, "maceracao", m.id)));
+      historico.forEach(m => {
+        batch.delete(doc(db, "maceracao", m.id));
+        batch.delete(doc(db, "fichas_compartilhadas", m.id));
+      });
       await batch.commit();
       mostrarMsg("Histórico de maceração limpo!", "sucesso");
     } catch (error) {
