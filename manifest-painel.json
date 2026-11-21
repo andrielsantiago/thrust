@@ -3,7 +3,7 @@
   "name": "Painel Admin — THRUST PARFUMS",
   "short_name": "Admin THRUST",
   "description": "Painel administrativo da THRUST PARFUMS para gestão de catálogo, estoque, pedidos, cupons e maceração.",
-  "start_url": "./painel.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
