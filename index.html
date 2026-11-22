@@ -392,12 +392,14 @@
   .mac-selo.pronto { background: rgba(37,211,102,0.15); color: #25D366; border: 1px solid #25D366; }
   .mac-selo.pausado { background: rgba(255,152,0,0.15); color: #ff9800; border: 1px solid #ff9800; }
 
-  .mac-info { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-  .mac-info .bloco { background: #111; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px 10px; text-align: center; }
-  .mac-info .bloco .lbl { font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
-  .mac-info .bloco .val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; color: var(--dourado-claro); margin-top: 2px; }
+  .mac-info { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+  .mac-info .bloco { background: #111; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px 6px; text-align: center; }
+  .mac-info .bloco .lbl { font-size: 0.58rem; color: #888; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 700; }
+  .mac-info .bloco .val { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 800; color: var(--dourado-claro); margin-top: 2px; }
   .mac-info .bloco .val.restante { color: #ff9800; }
-  .mac-info .bloco .val.pronto { color: #25D366; font-size: 0.9rem; }
+  .mac-info .bloco .val.pronto { color: #25D366; font-size: 0.85rem; }
+  .mac-preview-fim { margin-top: 6px; background: #101010; border: 1px dashed rgba(212,175,55,0.45); border-radius: 8px; padding: 8px 10px; font-size: 0.74rem; color: #ccc; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .mac-preview-fim strong { color: var(--dourado-claro); }
 
   .mac-progresso { background: #111; border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 10px; border: 1px solid #2a2a2a; }
   .mac-progresso-barra { height: 100%; background: linear-gradient(90deg, #ff9800, #ffc107); transition: width 0.4s; border-radius: 20px; }
@@ -411,7 +413,7 @@
   .btn-mac-nao-incluir:hover { border-color: var(--dourado); color: var(--dourado-claro); background: rgba(212,175,55,0.12); }
 
   .mac-acoes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-  .btn-mac-acao { padding: 10px 4px; border-radius: 8px; font-weight: bold; font-size: 0.72rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; }
+  .btn-mac-acao { padding: 10px 4px; border-radius: 8px; font-weight: bold; font-size: 0.72rem; cursor: pointer; transition: 0.2s; border: 1px solid; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
   .btn-mac-editar { background: rgba(212,175,55,0.15); border-color: var(--dourado); color: var(--dourado-claro); }
   .btn-mac-editar:hover { background: var(--dourado); color: #0d0d0d; }
   .btn-mac-pausar { background: rgba(255,152,0,0.15); border-color: #ff9800; color: #ff9800; }
@@ -560,7 +562,7 @@
     .grid-inputs { grid-template-columns: 1fr; }
     .header-admin { flex-wrap: wrap; gap: 10px; }
     .item-acoes { grid-template-columns: 1fr 1fr; }
-    .mac-info { gap: 6px; }
+    .mac-info { grid-template-columns: 1fr 1fr; gap: 6px; }
     .mac-info .bloco { padding: 8px 4px; }
   }
   .offline-banner { display: none; background: #c94a4a; color: #fff; text-align: center; padding: 8px 12px; font-size: 0.74rem; font-weight: 700; border-radius: 8px; margin-bottom: 12px; }
@@ -602,7 +604,7 @@
   .menu-card-insumos-esq small { display: block; font-size: 0.67rem; color: #999; margin-top: 3px; font-weight: 500; text-transform: none; letter-spacing: 0; line-height: 1.25; }
   .menu-card-insumos-dir { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
   .menu-card-insumos-valor { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 800; color: var(--dourado-claro); }
-  .menu-card-insumos-alerta { display: none; font-size: 0.6rem; font-weight: 800; background: rgba(255,152,0,0.18); border: 1px solid #ff9800; color: #ffb74d; padding: 2px 7px; border-radius: 10px; }
+  .menu-card-insumos-qtd { font-size: 0.62rem; color: #999; font-weight: 600; text-transform: none; letter-spacing: 0; }
 
   .insumos-resumo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
   .insumo-kpi { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 11px 12px; }
@@ -620,9 +622,6 @@
   .insumos-progresso-barra { width: 100%; height: 8px; border-radius: 10px; background: #222; overflow: hidden; }
   .insumos-progresso-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--dourado), #25D366); transition: width 0.4s ease; }
 
-  .insumos-alerta-strip { display: none; align-items: center; justify-content: space-between; gap: 8px; background: rgba(255,152,0,0.12); border: 1px solid rgba(255,152,0,0.5); border-radius: 8px; padding: 9px 12px; margin-bottom: 12px; font-size: 0.74rem; color: #ffb74d; font-weight: 700; cursor: pointer; }
-  .insumos-alerta-strip.ativo { display: flex; }
-
   .insumos-cat-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .insumo-cat-chip { background: #141414; border: 1px solid #2f2f2f; color: #ccc; padding: 7px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.15s; display: inline-flex; align-items: center; gap: 6px; }
   .insumo-cat-chip:hover { border-color: var(--dourado); }
@@ -630,15 +629,34 @@
   .insumo-cat-chip span.val { color: var(--dourado-claro); font-weight: 800; }
 
   .insumo-card { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 13px; margin-bottom: 10px; }
-  .insumo-card.acabando { border-color: rgba(255,152,0,0.6); }
-  .insumo-card.esgotado { border-color: rgba(201,74,74,0.65); background: rgba(201,74,74,0.04); }
   .insumo-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
   .insumo-card-titulo { font-weight: 800; font-size: 0.92rem; color: var(--dourado-claro); line-height: 1.25; }
   .insumo-card-valor { font-family: 'Playfair Display', serif; font-size: 1.08rem; font-weight: 800; color: #fff; white-space: nowrap; }
   .insumo-card-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .insumo-recibo-lista { background: #101010; border: 1px solid #262626; border-radius: 8px; padding: 8px 10px; margin-bottom: 9px; display: flex; flex-direction: column; gap: 5px; }
+  .insumo-recibo-linha { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 0.75rem; color: #ddd; padding-bottom: 4px; border-bottom: 1px dashed #252525; }
+  .insumo-recibo-linha:last-child { border-bottom: none; padding-bottom: 0; }
+  .insumo-recibo-linha .desc { min-width: 0; flex: 1; }
+  .insumo-recibo-linha .desc small { color: #888; font-size: 0.68rem; margin-left: 4px; }
+  .insumo-recibo-linha .val { color: var(--dourado-claro); font-weight: 700; white-space: nowrap; }
+  .insumo-recibo-linha.frete { color: #7bb4f5; font-size: 0.73rem; }
+  .insumo-recibo-linha.frete .val { color: #7bb4f5; }
   .insumo-obs { font-size: 0.74rem; color: #bbb; background: #101010; border-left: 2px solid var(--dourado); padding: 6px 9px; border-radius: 4px; margin-bottom: 9px; line-height: 1.4; }
-  .insumo-acoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-  @media (max-width: 440px) { .insumo-acoes { grid-template-columns: 1fr 1fr; } }
+  .insumo-acoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .insumo-acoes.com-link { grid-template-columns: repeat(4, 1fr); }
+  .btn-insumo-link { background: rgba(74,144,226,0.14); border-color: #4a90e2; color: #7bb4f5; }
+  .btn-insumo-link:hover { background: #4a90e2; color: #fff; }
+  @media (max-width: 440px) { .insumo-acoes, .insumo-acoes.com-link { grid-template-columns: 1fr 1fr; } }
+
+  .insumo-caixa-lista { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+  .insumo-caixa-row { background: #121212; border: 1px solid #2e2e2e; border-radius: 9px; padding: 10px; }
+  .insumo-caixa-row-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .insumo-caixa-row-head span { font-size: 0.7rem; font-weight: 800; color: var(--dourado-claro); text-transform: uppercase; letter-spacing: 0.5px; }
+  .btn-add-item-caixa { width: 100%; background: rgba(212,175,55,0.1); border: 1px dashed var(--dourado); color: var(--dourado-claro); padding: 10px; border-radius: 8px; font-size: 0.76rem; font-weight: 800; cursor: pointer; margin-bottom: 12px; transition: 0.2s; }
+  .btn-add-item-caixa:hover { background: rgba(212,175,55,0.2); }
+  .insumo-caixa-resumo { background: #101010; border: 1px solid rgba(212,175,55,0.4); border-radius: 9px; padding: 10px 12px; margin-bottom: 12px; }
+  .insumo-caixa-resumo-linha { display: flex; justify-content: space-between; font-size: 0.76rem; color: #bbb; margin-bottom: 4px; }
+  .insumo-caixa-resumo-total { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #333; padding-top: 7px; margin-top: 5px; font-size: 0.9rem; font-weight: 800; color: var(--dourado-claro); }
 </style>
 <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
 <body>
@@ -733,12 +751,12 @@
         <img src="https://img.icons8.com/color/96/money-bag.png" alt="Insumos e Gastos">
         <div>
           <span>Insumos &amp; Gastos</span>
-          <small>Essências, frascos, álcool, embalagens e balanço</small>
+          <small>Compras com múltiplos itens, frete, links e balanço total</small>
         </div>
       </div>
       <div class="menu-card-insumos-dir">
         <div class="menu-card-insumos-valor" id="menuTotalInsumos">R$ 0,00</div>
-        <div class="menu-card-insumos-alerta" id="menuAlertaInsumos"></div>
+        <div class="menu-card-insumos-qtd" id="menuQtdInsumos">0 compras</div>
       </div>
     </div>
   </div>
@@ -950,7 +968,7 @@
   <div class="section-content" id="section-maceracao">
     <h2 class="section-title">Perfumes em Maceração</h2>
     <p style="font-size:0.72rem; color:#888; margin-bottom:15px; line-height:1.5;">
-      ⏳ Controle aqui os perfumes que estão descansando. Ao ficar pronto, desaparece da vitrine pública e você pode incluí-lo no catálogo e mantê-lo no histórico.
+      ⏳ Controle interno dos perfumes que estão descansando. Ao atingir a data final, você decide se quer incluir no catálogo ou manter apenas no histórico.
     </p>
 
     <button class="btn-add-cupom" onclick="abrirModalNovaMac()" style="background: linear-gradient(180deg, #ffc107, #ff9800);">
@@ -977,36 +995,26 @@
   <div class="section-content" id="section-insumos">
     <h2 class="section-title">Insumos, Custos &amp; Investimentos</h2>
     <p style="font-size:0.72rem; color:#888; margin-bottom:14px; line-height:1.5;">
-      💰 Controle todos os gastos com essências, álcool, frascos, válvulas, embalagens e fretes — com comparação direta ao faturamento das vendas confirmadas.
+      💰 Registre suas compras com múltiplos itens (como no caixa), some o frete, salve o link da loja para recompra e acompanhe o retorno sobre as vendas confirmadas.
     </p>
 
     <button type="button" class="btn-add-cupom" onclick="abrirModalNovoInsumo()" style="background: linear-gradient(180deg, var(--dourado-claro), var(--dourado));">
-      ➕ Registrar Novo Insumo / Gasto
+      ➕ Registrar Nova Compra / Gastos
     </button>
 
     <div class="insumos-resumo-grid" id="insumosResumoGrid"></div>
 
     <div class="insumos-progresso-box" id="insumosProgressoBox" style="display:none;"></div>
 
-    <div class="insumos-alerta-strip" id="insumosAlertaStrip" onclick="filtrarInsumosAlerta()"></div>
-
     <div class="insumos-cat-grid" id="insumosCatGrid"></div>
 
-    <input type="search" id="busca-insumo" class="mac-search" placeholder="🔍 Buscar por insumo, fornecedor ou anotação..." oninput="renderizarInsumos()">
+    <input type="search" id="busca-insumo" class="mac-search" placeholder="🔍 Buscar por item, fornecedor, categoria ou anotação..." oninput="renderizarInsumos()">
 
-    <div class="periodo-filtros">
+    <div class="periodo-filtros" style="margin-bottom:12px;">
       <span class="filtro-grupo-lbl">Período:</span>
       <button type="button" class="periodo-btn insumo-per-btn active" data-periodo="todos" onclick="mudarPeriodoInsumo('todos', this)">Todo período</button>
       <button type="button" class="periodo-btn insumo-per-btn" data-periodo="mes" onclick="mudarPeriodoInsumo('mes', this)">Este mês</button>
       <button type="button" class="periodo-btn insumo-per-btn" data-periodo="30dias" onclick="mudarPeriodoInsumo('30dias', this)">Últimos 30 dias</button>
-    </div>
-
-    <div class="periodo-filtros" style="margin-bottom:12px;">
-      <span class="filtro-grupo-lbl">Estoque:</span>
-      <button type="button" class="status-btn insumo-est-btn active" data-est="todos" onclick="mudarEstoqueInsumo('todos', this)">Todos</button>
-      <button type="button" class="status-btn insumo-est-btn" data-est="em_estoque" onclick="mudarEstoqueInsumo('em_estoque', this)">✅ Em estoque</button>
-      <button type="button" class="status-btn insumo-est-btn" data-est="acabando" onclick="mudarEstoqueInsumo('acabando', this)">⚠️ Acabando</button>
-      <button type="button" class="status-btn insumo-est-btn" data-est="esgotado" onclick="mudarEstoqueInsumo('esgotado', this)">🚫 Esgotado</button>
     </div>
 
     <button type="button" class="btn-exportar" onclick="exportarInsumosCSV()" style="margin-bottom:12px;">📥 Exportar Insumos e Gastos (CSV)</button>
@@ -1229,23 +1237,23 @@
     </div>
 
     <div class="mac-form-secao">
-      <div class="mac-form-secao-titulo">5. Controle de Maceração &amp; Vitrine *</div>
+      <div class="mac-form-secao-titulo">5. Controle de Maceração *</div>
 
       <div class="grid-inputs">
         <div class="input-group">
           <label>Data de Início *</label>
-          <input type="date" id="macDataInicio">
+          <input type="date" id="macDataInicio" oninput="atualizarPreviewDataFinalMac()" onchange="atualizarPreviewDataFinalMac()">
         </div>
         <div class="input-group">
           <label>Dias de Maceração *</label>
-          <input type="number" id="macDias" min="1" step="1" placeholder="30" value="30">
+          <input type="number" id="macDias" min="1" step="1" placeholder="30" value="30" oninput="atualizarPreviewDataFinalMac()" onchange="atualizarPreviewDataFinalMac()">
         </div>
       </div>
 
-      <label class="check-box" style="margin: 4px 0 0;">
-        <input type="checkbox" id="macMostrarVitrine">
-        <span>👁️ Exibir na vitrine pública como <strong>⏳ Em Breve</strong> (deixe desmarcado para controle interno privado)</span>
-      </label>
+      <div class="mac-preview-fim">
+        <span>📅 Data Final Prevista:</span>
+        <strong id="macPreviewDataFinal">--/--/----</strong>
+      </div>
     </div>
 
     <div class="mac-form-secao">
@@ -1356,38 +1364,15 @@
 <div class="modal-mac-overlay" id="modalInsumo">
   <div class="modal-mac-content largo">
     <div class="modal-mac-header">
-      <h3 id="modalInsumoTitulo">💰 Registrar Insumo / Gasto</h3>
+      <h3 id="modalInsumoTitulo">💰 Registrar Compra de Insumos</h3>
       <button type="button" onclick="fecharModalInsumo()">✕</button>
     </div>
 
-    <div class="input-group">
-      <label>Nome do Insumo / Descrição *</label>
-      <input type="text" id="insumoNome" placeholder="Ex: Essência Sauvage 100ml, 50 Frascos 50ml..." maxlength="90" autocomplete="off">
-    </div>
-
     <div class="grid-inputs">
       <div class="input-group">
-        <label>Categoria *</label>
-        <select id="insumoCategoria">
-          <option value="essencia">🧪 Essências</option>
-          <option value="base">⚗️ Álcool &amp; Bases</option>
-          <option value="frasco">🍾 Frascos &amp; Válvulas</option>
-          <option value="embalagem">🏷️ Rótulos &amp; Embalagens</option>
-          <option value="equipamento">⚖️ Equipamentos</option>
-          <option value="frete">🚚 Frete / Logística</option>
-          <option value="outros">📦 Outros</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>Valor Total Pago *</label>
-        <input type="text" id="insumoValor" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this)">
-      </div>
-    </div>
-
-    <div class="grid-inputs">
-      <div class="input-group">
-        <label>Quantidade / Medida</label>
-        <input type="text" id="insumoQuantidade" placeholder="Ex: 100ml, 5L, 50 un" maxlength="40" autocomplete="off">
+        <label>Fornecedor / Loja</label>
+        <input type="text" id="insumoFornecedor" list="listaFornecedoresInsumos" placeholder="Ex: Big Essências, Shopee, ML..." maxlength="80" autocomplete="off">
+        <datalist id="listaFornecedoresInsumos"></datalist>
       </div>
       <div class="input-group">
         <label>Data da Compra *</label>
@@ -1396,26 +1381,40 @@
     </div>
 
     <div class="input-group">
-      <label>Fornecedor</label>
-      <input type="text" id="insumoFornecedor" list="listaFornecedoresInsumos" placeholder="Ex: Big Essências, Mercado Livre, Shopee..." maxlength="80" autocomplete="off">
-      <datalist id="listaFornecedoresInsumos"></datalist>
+      <label>Link da Compra / Fornecedor (opcional)</label>
+      <input type="url" id="insumoLink" placeholder="https://... (fica clicável para recompras futuras)" maxlength="400" autocomplete="off">
     </div>
 
+    <div class="mac-form-secao-titulo" style="margin-top:4px; margin-bottom:8px;">🧾 Itens da Compra (Passando no Caixa) *</div>
+    <div class="insumo-caixa-lista" id="insumoItensContainer"></div>
+    <button type="button" class="btn-add-item-caixa" onclick="adicionarLinhaInsumoModal()">➕ Adicionar outro item nesta compra</button>
+
     <div class="input-group">
-      <label>Status do Estoque</label>
-      <div class="mac-pill-grupo" id="insumoEstoqueGrupo">
-        <div class="mac-pill-opcao aprovado ativo" data-val="em_estoque" onclick="selecionarEstoqueModalInsumo('em_estoque')">✅ Em estoque</div>
-        <div class="mac-pill-opcao" data-val="acabando" onclick="selecionarEstoqueModalInsumo('acabando')">⚠️ Acabando</div>
-        <div class="mac-pill-opcao reprovado" data-val="esgotado" onclick="selecionarEstoqueModalInsumo('esgotado')">🚫 Esgotado</div>
-      </div>
+      <label>🚚 Valor do Frete (opcional)</label>
+      <input type="text" id="insumoFrete" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this); atualizarTotalCaixaModal();">
     </div>
 
     <div class="input-group">
       <label>Observações (opcional)</label>
-      <textarea id="insumoObs" rows="2" maxlength="500" placeholder="Lote, rendimento estimado, link ou detalhes da compra..."></textarea>
+      <textarea id="insumoObs" rows="2" maxlength="500" placeholder="Número do pedido, lote ou detalhes desta compra..."></textarea>
     </div>
 
-    <button type="button" class="btn-salvar" id="btnSalvarInsumo" onclick="salvarInsumo()" style="margin-top:6px;">Salvar Gasto</button>
+    <div class="insumo-caixa-resumo">
+      <div class="insumo-caixa-resumo-linha">
+        <span id="caixaQtdItensLabel">Subtotal dos itens (1)</span>
+        <strong id="caixaSubtotalItens">R$ 0,00</strong>
+      </div>
+      <div class="insumo-caixa-resumo-linha">
+        <span>Frete</span>
+        <strong id="caixaValorFrete">R$ 0,00</strong>
+      </div>
+      <div class="insumo-caixa-resumo-total">
+        <span>Total da Compra</span>
+        <span id="caixaTotalCompra">R$ 0,00</span>
+      </div>
+    </div>
+
+    <button type="button" class="btn-salvar" id="btnSalvarInsumo" onclick="salvarInsumo()" style="margin-top:2px;">Salvar Compra</button>
   </div>
 </div>
 
@@ -1504,8 +1503,7 @@
   let insumoEmEdicao = null;
   let insumoCatFiltro = 'todas';
   let insumoPeriodoFiltro = 'todos';
-  let insumoEstoqueFiltro = 'todos';
-  let insumoEstoqueModalVal = 'em_estoque';
+  let insumoItensDraft = [];
 
   /* ============================================================
      UTILITÁRIOS DE SEGURANÇA, TEXTO E MOEDA
@@ -3682,6 +3680,31 @@
     return `${y}-${m}-${d}`;
   }
 
+  function calcularDataFinalMac(m) {
+    const inicio = dataMacItem(m);
+    const dias = Number(m?.diasTotais || 0);
+    if (!inicio || isNaN(inicio.getTime()) || dias <= 0) {
+      return { date: null, formatted: '-' };
+    }
+    const utcFinal = Date.UTC(inicio.getUTCFullYear(), inicio.getUTCMonth(), inicio.getUTCDate()) + dias * 86400000;
+    const df = new Date(utcFinal);
+    const formatted = `${String(df.getUTCDate()).padStart(2,'0')}/${String(df.getUTCMonth()+1).padStart(2,'0')}/${df.getUTCFullYear()}`;
+    return { date: df, formatted };
+  }
+
+  window.atualizarPreviewDataFinalMac = function() {
+    const el = document.getElementById('macPreviewDataFinal');
+    if (!el) return;
+    const dataStr = document.getElementById('macDataInicio')?.value;
+    const dias = parseInt(document.getElementById('macDias')?.value, 10);
+    if (!dataStr || isNaN(dias) || dias < 1) {
+      el.innerText = '--/--/----';
+      return;
+    }
+    const res = calcularDataFinalMac({ dataInicio: new Date(dataStr + 'T00:00:00Z'), diasTotais: dias });
+    el.innerText = res.formatted;
+  };
+
   function calcularDiasMac(m) {
     const inicio = dataMacItem(m);
     if (!inicio || isNaN(inicio.getTime())) {
@@ -3718,26 +3741,15 @@
       return `Finalizado em ${diasFinal} dias · Mantido apenas no histórico (não incluído no catálogo).`;
     }
     if (!calc.pronto) {
-      if (m.pausado) {
-        return calc.restantes === 1
-          ? `Lote privado/pausado · Falta 1 dia para atingir a meta de ${tot} dias.`
-          : `Lote privado/pausado · Faltam ${calc.restantes} dias para atingir a meta de ${tot} dias.`;
-      }
       return calc.restantes === 1
-        ? `Exibido na vitrine como Em Breve · Falta apenas 1 dia para ficar pronto!`
-        : `Exibido na vitrine como Em Breve · Faltam ${calc.restantes} dias para completar a meta.`;
+        ? `Falta 1 dia para atingir a meta de ${tot} dias.`
+        : `Faltam ${calc.restantes} dias para atingir a meta de ${tot} dias.`;
     }
     if (calc.noDiaMeta) {
-      if (m.pausado) {
-        return `Meta de ${tot} dias atingida hoje! Deseja incluir no catálogo ou salvar só no histórico?`;
-      }
-      return `Meta de ${tot} dias atingida hoje e já retirado da vitrine! Deseja incluir no catálogo?`;
+      return `Meta de ${tot} dias atingida hoje! Deseja incluir no catálogo ou salvar só no histórico?`;
     }
     const extraTxt = calc.excedidos === 1 ? '1 dia' : `${calc.excedidos} dias`;
-    if (m.pausado) {
-      return `Em maturação estendida (${calc.decorridos} dias contínuos · +${extraTxt} após a meta de ${tot}d).`;
-    }
-    return `Em maturação estendida (${calc.decorridos} dias contínuos · +${extraTxt} após a meta de ${tot}d). Já removido da vitrine pública.`;
+    return `Em maturação estendida (${calc.decorridos} dias contínuos · +${extraTxt} após a meta de ${tot}d).`;
   }
 
   function montarPayloadFichaCompartilhada(m) {
@@ -3840,7 +3852,7 @@
   function atualizarBadgeMacProntos(ativos) {
     const badge = document.getElementById('badge-mac-prontos');
     if (!badge) return;
-    const prontos = (ativos || []).filter(m => !m.pausado && calcularDiasMac(m).pronto).length;
+    const prontos = (ativos || []).filter(m => calcularDiasMac(m).pronto).length;
     if (prontos > 0) {
       badge.style.display = 'inline-block';
       badge.innerText = prontos === 1 ? '🔔 1 pronto' : `🔔 ${prontos} prontos`;
@@ -3915,6 +3927,7 @@
       filtradosHist.forEach((m) => {
         const d = dataMacItem(m);
         const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
+        const dataFinalFormatada = calcularDataFinalMac(m).formatted;
         const noCatalogo = !!m.publicadoNoCatalogo;
         const dataHistFormatada = formatarDataHoraSimples(noCatalogo ? m.publicadoEm : m.arquivadoEm);
         const diasFinal = m.diasMaceradosFinal || m.diasTotais || 0;
@@ -3923,8 +3936,8 @@
         const seloHistHtml = noCatalogo
           ? '<span class="mac-selo historico">✅ No Catálogo</span>'
           : '<span class="mac-selo so-historico">📁 Só Histórico</span>';
-        const labelCol3 = noCatalogo ? 'Catalogado' : 'Arquivado';
-        const corCol3 = noCatalogo ? '#25D366' : '#ccc';
+        const labelCol4 = noCatalogo ? 'Catalogado' : 'Arquivado';
+        const corCol4 = noCatalogo ? '#25D366' : '#ccc';
 
         const div = document.createElement('div');
         div.className = noCatalogo ? 'mac-item pronto' : 'mac-item';
@@ -3941,9 +3954,10 @@
           </div>
           ${construirTagsMac(m)}
           <div class="mac-info">
-            <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.8rem;">${esc(dataInicioFormatada)}</div></div>
+            <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.78rem;">${esc(dataInicioFormatada)}</div></div>
+            <div class="bloco"><div class="lbl">Data Final</div><div class="val" style="font-size: 0.78rem;">${esc(dataFinalFormatada)}</div></div>
             <div class="bloco"><div class="lbl">Macerado</div><div class="val">${diasFinal}d</div></div>
-            <div class="bloco"><div class="lbl">${labelCol3}</div><div class="val" style="font-size: 0.8rem; color:${corCol3};">${esc(dataHistFormatada)}</div></div>
+            <div class="bloco"><div class="lbl">${labelCol4}</div><div class="val" style="font-size: 0.78rem; color:${corCol4};">${esc(dataHistFormatada)}</div></div>
           </div>
           <div class="mac-acoes" style="grid-template-columns: 1fr 1fr 1fr;">
             <button class="btn-mac-acao btn-mac-ficha" onclick="abrirFichaMac('${esc(m.id)}')">📋 Ficha</button>
@@ -3966,28 +3980,24 @@
 
     filtradosAtivos.forEach((m) => {
       const calc = calcularDiasMac(m);
-      const pausado = !!m.pausado;
-      const classeStatus = pausado ? 'pausado' : (calc.pronto ? 'pronto' : '');
+      const classeStatus = calc.pronto ? 'pronto' : '';
 
       let seloHtml = '';
-      if (pausado && calc.passouMeta) seloHtml = `<span class="mac-selo extra">⏸️ ${calc.decorridos}d (+${calc.excedidos}d)</span>`;
-      else if (pausado && calc.noDiaMeta) seloHtml = '<span class="mac-selo pronto">⏸️ Meta Hoje!</span>';
-      else if (pausado) seloHtml = '<span class="mac-selo pausado">⏸️ Pausado / Privado</span>';
-      else if (calc.passouMeta) seloHtml = `<span class="mac-selo extra">🔥 ${calc.decorridos}d (+${calc.excedidos}d extra)</span>`;
+      if (calc.passouMeta) seloHtml = `<span class="mac-selo extra">🔥 ${calc.decorridos}d (+${calc.excedidos}d extra)</span>`;
       else if (calc.noDiaMeta) seloHtml = '<span class="mac-selo pronto">🎉 Meta atingida hoje!</span>';
       else seloHtml = '<span class="mac-selo em-mac">⏳ Em maceração</span>';
 
-      let bloco3Label = 'Restantes';
-      let bloco3Class = 'restante';
-      let bloco3Val = calc.restantes + 'd';
+      let bloco4Label = 'Restantes';
+      let bloco4Class = 'restante';
+      let bloco4Val = calc.restantes + 'd';
       if (calc.passouMeta) {
-        bloco3Label = 'Após Meta';
-        bloco3Class = 'extra';
-        bloco3Val = `+${calc.excedidos}d`;
+        bloco4Label = 'Após Meta';
+        bloco4Class = 'extra';
+        bloco4Val = `+${calc.excedidos}d`;
       } else if (calc.noDiaMeta) {
-        bloco3Label = 'Status';
-        bloco3Class = 'pronto';
-        bloco3Val = 'Hoje!';
+        bloco4Label = 'Status';
+        bloco4Class = 'pronto';
+        bloco4Val = 'Hoje!';
       }
 
       let barraInfo = `${calc.decorridos} de ${m.diasTotais} dias (${calc.pct}%)`;
@@ -4003,7 +4013,7 @@
           ? '🎉 Meta de maceração atingida! Deseja incluir no catálogo?'
           : `🧪 Maturação estendida · ${calc.decorridos} dias ao todo`;
         mensagemProntoHtml = `
-          <div class="mac-mensagem-pronto ${pausado ? 'pausada' : ''}">
+          <div class="mac-mensagem-pronto">
             ${tituloPronto}
             <div class="sub">${esc(fraseSituacaoMac(m, calc))}</div>
             <div class="mac-mensagem-acoes">
@@ -4016,12 +4026,9 @@
 
       const d = dataMacItem(m);
       const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
+      const dataFinalFormatada = calcularDataFinalMac(m).formatted;
       const thumbUrl = safeImgUrl(m.img);
       const thumbHtml = thumbUrl ? `<img class="mac-thumb" src="${esc(thumbUrl)}" alt="${esc(m.nome)}">` : '';
-
-      const botaoPausar = pausado
-        ? `<button class="btn-mac-acao btn-mac-ativar" onclick="toggleMacPausa('${esc(m.id)}', false)">👁️ Na Vitrine</button>`
-        : `<button class="btn-mac-acao btn-mac-pausar" onclick="toggleMacPausa('${esc(m.id)}', true)">⏸️ Pausar</button>`;
 
       const div = document.createElement('div');
       div.className = 'mac-item ' + classeStatus;
@@ -4038,19 +4045,19 @@
         </div>
         ${construirTagsMac(m)}
         <div class="mac-info">
-          <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.85rem;">${esc(dataInicioFormatada)}</div></div>
+          <div class="bloco"><div class="lbl">Início</div><div class="val" style="font-size: 0.78rem;">${esc(dataInicioFormatada)}</div></div>
+          <div class="bloco"><div class="lbl">Data Final</div><div class="val" style="font-size: 0.78rem;">${esc(dataFinalFormatada)}</div></div>
           <div class="bloco"><div class="lbl">Decorridos</div><div class="val">${calc.decorridos}d</div></div>
-          <div class="bloco"><div class="lbl">${bloco3Label}</div><div class="val ${bloco3Class}">${bloco3Val}</div></div>
+          <div class="bloco"><div class="lbl">${bloco4Label}</div><div class="val ${bloco4Class}">${bloco4Val}</div></div>
         </div>
         <div class="mac-progresso"><div class="mac-progresso-barra ${calc.pronto ? 'completa' : ''}" style="width: ${calc.pct}%"></div></div>
         <div style="font-size: 0.7rem; color: #888; text-align: center; margin-bottom: 10px;">
           ${barraInfo}
         </div>
         ${mensagemProntoHtml}
-        <div class="mac-acoes quatro">
+        <div class="mac-acoes">
           <button class="btn-mac-acao btn-mac-ficha" onclick="abrirFichaMac('${esc(m.id)}')">📋 Ficha</button>
           <button class="btn-mac-acao btn-mac-editar" onclick="abrirEdicaoMac('${esc(m.id)}')">✏️ Editar</button>
-          ${botaoPausar}
           <button class="btn-mac-acao btn-mac-excluir" onclick="excluirMac('${esc(m.id)}')">🗑️ Excluir</button>
         </div>
       `;
@@ -4094,7 +4101,7 @@
 
     document.getElementById('macDataInicio').value = new Date().toISOString().slice(0, 10);
     document.getElementById('macDias').value = '30';
-    document.getElementById('macMostrarVitrine').checked = false;
+    atualizarPreviewDataFinalMac();
 
     document.getElementById('macInputNotaCustom').value = '';
     renderChipsNotasMac();
@@ -4155,7 +4162,7 @@
       ? new Date().toISOString().slice(0, 10)
       : formatarInputDateUTC(dataMacItem(m));
     document.getElementById('macDias').value = m.diasTotais || 30;
-    document.getElementById('macMostrarVitrine').checked = modoDuplicar ? false : !m.pausado;
+    atualizarPreviewDataFinalMac();
 
     macNotasSel = Array.isArray(m.notasOlfativas) ? m.notasOlfativas.slice() : [];
     renderChipsNotasMac();
@@ -4280,7 +4287,6 @@
     const media = incluirNotas ? Number(((sim + proj + fix) / 3).toFixed(2)) : 0;
 
     const baseObj = BASES_MAC.find(b => b.id === macBaseSel);
-    const mostrarVitrine = document.getElementById('macMostrarVitrine').checked;
 
     // Salva em meia-noite UTC para consistência entre todos os fusos horários
     const dataInicio = new Date(dataStr + 'T00:00:00Z');
@@ -4295,7 +4301,7 @@
         img,
         dataInicio,
         diasTotais: dias,
-        pausado: !mostrarVitrine,
+        pausado: true,
         genero: macGeneroSel,
         manipulado: macManipuladoSel,
         casaEssencia,
@@ -4404,6 +4410,7 @@
     const calc = calcularDiasMac(m);
     const d = dataMacItem(m);
     const dataInicioFormatada = d ? `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}` : '-';
+    const dataFinalFormatada = calcularDataFinalMac(m).formatted;
 
     document.getElementById('modalMacFichaTitulo').innerText = '🧪 ' + (m.nome || 'Ficha Técnica');
 
@@ -4485,8 +4492,8 @@
          <button type="button" class="btn-mac-acao btn-mac-share" style="width:100%;" onclick="compartilharFichaMac('${esc(m.id)}')">🔗 Gerar &amp; Copiar Link da Fórmula</button>`;
 
     const resumoDiasFicha = m.publicadoNoCatalogo
-      ? `Início: ${esc(dataInicioFormatada)} · ${esc(fraseSituacaoMac(m, calc))}`
-      : `Início: ${esc(dataInicioFormatada)} · Dia ${calc.decorridos} (meta: ${m.diasTotais || 0}d) · ${esc(fraseSituacaoMac(m, calc))}`;
+      ? `Início: ${esc(dataInicioFormatada)} · Data Final: ${esc(dataFinalFormatada)} · ${esc(fraseSituacaoMac(m, calc))}`
+      : `Início: ${esc(dataInicioFormatada)} · Data Final: ${esc(dataFinalFormatada)} · Dia ${calc.decorridos} (meta: ${m.diasTotais || 0}d) · ${esc(fraseSituacaoMac(m, calc))}`;
 
     document.getElementById('conteudoMacFicha').innerHTML = `
       <div class="mac-item-topo" style="margin-bottom:12px;">
@@ -4618,16 +4625,6 @@
     }
   };
 
-  window.toggleMacPausa = async function(id, pausar) {
-    try {
-      await updateDoc(doc(db, "maceracao", id), { pausado: pausar });
-      mostrarMsg(pausar ? "Maceração pausada (oculta da vitrine)." : "Maceração retomada na vitrine.", "sucesso");
-    } catch (error) {
-      console.error(error);
-      mostrarMsg("Erro ao alterar status.", "erro");
-    }
-  };
-
   window.excluirMac = async function(id, doHistorico = false) {
     const pergunta = doHistorico
       ? "Excluir este registro do histórico de maceração? Se havia link compartilhado, ele deixará de funcionar. (O perfume continuará no catálogo.)"
@@ -4740,20 +4737,48 @@
   };
 
   /* ============================================================
-     INSUMOS, CUSTOS & INVESTIMENTOS
+     INSUMOS, CUSTOS & INVESTIMENTOS (COMPRAS MULTI-ITENS)
      ============================================================ */
-  const CATEGORIAS_INSUMO = [
+  const CATEGORIAS_INSUMO_ITEM = [
     { id: 'essencia', label: '🧪 Essências', curto: 'Essências' },
     { id: 'base', label: '⚗️ Álcool & Bases', curto: 'Álcool & Bases' },
     { id: 'frasco', label: '🍾 Frascos & Válvulas', curto: 'Frascos' },
     { id: 'embalagem', label: '🏷️ Rótulos & Embalagens', curto: 'Embalagens' },
     { id: 'equipamento', label: '⚖️ Equipamentos', curto: 'Equipamentos' },
-    { id: 'frete', label: '🚚 Frete / Logística', curto: 'Frete' },
     { id: 'outros', label: '📦 Outros', curto: 'Outros' }
+  ];
+  const CATEGORIAS_INSUMO = [
+    ...CATEGORIAS_INSUMO_ITEM,
+    { id: 'frete', label: '🚚 Frete / Logística', curto: 'Frete' }
   ];
 
   function infoCategoriaInsumo(catId) {
     return CATEGORIAS_INSUMO.find(c => c.id === catId) || CATEGORIAS_INSUMO[CATEGORIAS_INSUMO.length - 1];
+  }
+
+  function normalizarItensCompra(compra) {
+    if (Array.isArray(compra?.itens) && compra.itens.length > 0) {
+      return compra.itens.map(it => ({
+        nome: String(it.nome || 'Insumo'),
+        categoria: it.categoria || 'outros',
+        quantidade: String(it.quantidade || ''),
+        valor: Number(it.valor || 0)
+      }));
+    }
+    return [{
+      nome: String(compra?.nome || 'Insumo'),
+      categoria: compra?.categoria || 'outros',
+      quantidade: String(compra?.quantidade || ''),
+      valor: Number(compra?.valor || 0)
+    }];
+  }
+
+  function calcularTotaisCompra(compra) {
+    const itens = normalizarItensCompra(compra);
+    const subtotalItens = itens.reduce((s, it) => s + Number(it.valor || 0), 0);
+    const frete = Number(compra?.frete || 0);
+    const total = Number(compra?.valor != null ? compra.valor : (subtotalItens + frete));
+    return { itens, subtotalItens, frete, total };
   }
 
   function dataInsumoObj(item) {
@@ -4769,17 +4794,14 @@
 
   function atualizarResumoMenuInsumos() {
     const valEl = document.getElementById('menuTotalInsumos');
-    const alertaEl = document.getElementById('menuAlertaInsumos');
-    const total = todosInsumosAdmin.reduce((s, i) => s + Number(i.valor || 0), 0);
-    const qtdAlerta = todosInsumosAdmin.filter(i => i.estoqueStatus === 'acabando' || i.estoqueStatus === 'esgotado').length;
+    const qtdEl = document.getElementById('menuQtdInsumos');
+    const total = todosInsumosAdmin.reduce((s, i) => s + calcularTotaisCompra(i).total, 0);
+    const totalItens = todosInsumosAdmin.reduce((s, i) => s + normalizarItensCompra(i).length, 0);
     if (valEl) valEl.innerText = fmt(total);
-    if (alertaEl) {
-      if (qtdAlerta > 0) {
-        alertaEl.style.display = 'inline-block';
-        alertaEl.innerText = '⚠️ ' + qtdAlerta + (qtdAlerta === 1 ? ' baixo/esgotado' : ' baixos/esgotados');
-      } else {
-        alertaEl.style.display = 'none';
-      }
+    if (qtdEl) {
+      qtdEl.innerText = todosInsumosAdmin.length === 1
+        ? `1 compra (${totalItens} ${totalItens === 1 ? 'item' : 'itens'})`
+        : `${todosInsumosAdmin.length} compras (${totalItens} itens)`;
     }
   }
 
@@ -4837,42 +4859,27 @@
     renderizarInsumos();
   };
 
-  window.mudarEstoqueInsumo = function(est, el) {
-    insumoEstoqueFiltro = est;
-    document.querySelectorAll('.insumo-est-btn').forEach(b => b.classList.remove('active'));
-    if (el) el.classList.add('active');
-    renderizarInsumos();
-  };
-
   window.filtrarCatInsumo = function(catId) {
     insumoCatFiltro = (insumoCatFiltro === catId) ? 'todas' : catId;
-    renderizarInsumos();
-  };
-
-  window.filtrarInsumosAlerta = function() {
-    insumoEstoqueFiltro = 'acabando';
-    document.querySelectorAll('.insumo-est-btn').forEach(b => {
-      b.classList.toggle('active', b.getAttribute('data-est') === 'acabando');
-    });
     renderizarInsumos();
   };
 
   window.renderizarInsumos = function() {
     const resumoGrid = document.getElementById('insumosResumoGrid');
     const progBox = document.getElementById('insumosProgressoBox');
-    const alertaStrip = document.getElementById('insumosAlertaStrip');
     const catGrid = document.getElementById('insumosCatGrid');
     const listaEl = document.getElementById('lista-insumos');
     if (!resumoGrid || !listaEl) return;
 
-    const totalInvestido = todosInsumosAdmin.reduce((s, i) => s + Number(i.valor || 0), 0);
+    const totalInvestido = todosInsumosAdmin.reduce((s, i) => s + calcularTotaisCompra(i).total, 0);
+    const totalFretes = todosInsumosAdmin.reduce((s, i) => s + calcularTotaisCompra(i).frete, 0);
     const agora = new Date();
     const gastoMes = todosInsumosAdmin
       .filter(i => {
         const d = dataInsumoObj(i);
         return d && !isNaN(d.getTime()) && d.getUTCMonth() === agora.getMonth() && d.getUTCFullYear() === agora.getFullYear();
       })
-      .reduce((s, i) => s + Number(i.valor || 0), 0);
+      .reduce((s, i) => s + calcularTotaisCompra(i).total, 0);
 
     const faturamento = faturamentoConfirmadoTotal();
     const saldo = faturamento - totalInvestido;
@@ -4882,12 +4889,12 @@
       <div class="insumo-kpi">
         <small>💸 Total Investido</small>
         <strong>${fmt(totalInvestido)}</strong>
-        <span class="sub">${todosInsumosAdmin.length} ${todosInsumosAdmin.length === 1 ? 'compra registrada' : 'compras registradas'}</span>
+        <span class="sub">${todosInsumosAdmin.length} ${todosInsumosAdmin.length === 1 ? 'compra' : 'compras'} · Frete total: ${fmt(totalFretes)}</span>
       </div>
       <div class="insumo-kpi">
         <small>📅 Gasto neste Mês</small>
         <strong>${fmt(gastoMes)}</strong>
-        <span class="sub">Entradas do mês atual</span>
+        <span class="sub">Compras do mês atual</span>
       </div>
       <div class="insumo-kpi">
         <small>✅ Vendas Confirmadas</small>
@@ -4919,23 +4926,16 @@
       }
     }
 
-    const itensAlerta = todosInsumosAdmin.filter(i => i.estoqueStatus === 'acabando' || i.estoqueStatus === 'esgotado');
-    if (alertaStrip) {
-      if (itensAlerta.length > 0) {
-        alertaStrip.classList.add('ativo');
-        alertaStrip.innerHTML = `
-          <span>⚠️ ${itensAlerta.length} ${itensAlerta.length === 1 ? 'insumo acabando ou esgotado' : 'insumos acabando ou esgotados'}</span>
-          <span style="text-decoration:underline; font-size:0.7rem;">Ver agora</span>
-        `;
-      } else {
-        alertaStrip.classList.remove('ativo');
-      }
-    }
-
     const basePeriodo = todosInsumosAdmin.filter(i => insumoDentroPeriodo(i, insumoPeriodoFiltro));
     if (catGrid) {
       catGrid.innerHTML = CATEGORIAS_INSUMO.map(cat => {
-        const sub = basePeriodo.filter(i => i.categoria === cat.id).reduce((s, i) => s + Number(i.valor || 0), 0);
+        const sub = basePeriodo.reduce((s, compra) => {
+          const { itens, frete } = calcularTotaisCompra(compra);
+          if (cat.id === 'frete') {
+            return s + frete + itens.filter(it => it.categoria === 'frete').reduce((si, it) => si + Number(it.valor || 0), 0);
+          }
+          return s + itens.filter(it => it.categoria === cat.id).reduce((si, it) => si + Number(it.valor || 0), 0);
+        }, 0);
         const ativo = insumoCatFiltro === cat.id;
         return `<button type="button" class="insumo-cat-chip ${ativo ? 'ativo' : ''}" onclick="filtrarCatInsumo('${cat.id}')">
           <span>${esc(cat.label)}</span>
@@ -4947,124 +4947,234 @@
     const busca = normalizarTexto(document.getElementById('busca-insumo')?.value || '');
     let filtrados = basePeriodo.slice();
     if (insumoCatFiltro !== 'todas') {
-      filtrados = filtrados.filter(i => i.categoria === insumoCatFiltro);
-    }
-    if (insumoEstoqueFiltro !== 'todos') {
-      filtrados = filtrados.filter(i => (i.estoqueStatus || 'em_estoque') === insumoEstoqueFiltro);
+      filtrados = filtrados.filter(compra => {
+        const { itens, frete } = calcularTotaisCompra(compra);
+        if (insumoCatFiltro === 'frete') {
+          return frete > 0 || itens.some(it => it.categoria === 'frete');
+        }
+        return itens.some(it => it.categoria === insumoCatFiltro);
+      });
     }
     if (busca) {
-      filtrados = filtrados.filter(i => {
-        const blob = normalizarTexto([i.nome, i.fornecedor, i.obs, i.quantidade, infoCategoriaInsumo(i.categoria).label].join(' '));
+      filtrados = filtrados.filter(compra => {
+        const { itens } = calcularTotaisCompra(compra);
+        const itensTxt = itens.map(it => `${it.nome} ${it.quantidade} ${infoCategoriaInsumo(it.categoria).label}`).join(' ');
+        const blob = normalizarTexto([compra.fornecedor, compra.obs, compra.link, itensTxt].join(' '));
         return blob.includes(busca);
       });
     }
 
     if (filtrados.length === 0) {
       listaEl.innerHTML = todosInsumosAdmin.length === 0
-        ? '<div class="empty-state">💰 Nenhum insumo ou gasto registrado ainda. Toque no botão acima para começar!</div>'
-        : '<div class="empty-state">🔎 Nenhum gasto encontrado com esses filtros.</div>';
+        ? '<div class="empty-state">💰 Nenhuma compra ou gasto registrado ainda. Toque no botão acima para começar!</div>'
+        : '<div class="empty-state">🔎 Nenhuma compra encontrada com esses filtros.</div>';
       return;
     }
 
-    const totalFiltrado = filtrados.reduce((s, i) => s + Number(i.valor || 0), 0);
+    const totalFiltrado = filtrados.reduce((s, i) => s + calcularTotaisCompra(i).total, 0);
     const headerSubtotal = `<div style="display:flex; justify-content:space-between; align-items:center; font-size:0.74rem; color:#aaa; margin-bottom:10px; padding:0 2px;">
-      <span>Exibindo <strong>${filtrados.length}</strong> ${filtrados.length === 1 ? 'registro' : 'registros'}</span>
+      <span>Exibindo <strong>${filtrados.length}</strong> ${filtrados.length === 1 ? 'compra' : 'compras'}</span>
       <span>Soma do filtro: <strong style="color:var(--dourado-claro);">${fmt(totalFiltrado)}</strong></span>
     </div>`;
 
-    listaEl.innerHTML = headerSubtotal + filtrados.map(item => {
-      const cat = infoCategoriaInsumo(item.categoria);
-      const d = dataInsumoObj(item);
+    listaEl.innerHTML = headerSubtotal + filtrados.map(compra => {
+      const { itens, frete, total } = calcularTotaisCompra(compra);
+      const d = dataInsumoObj(compra);
       const dataStr = (d && !isNaN(d.getTime())) ? d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '—';
-      const st = item.estoqueStatus || 'em_estoque';
-      const stTag = st === 'esgotado'
-        ? '<span class="mac-tag red">🚫 Esgotado</span>'
-        : (st === 'acabando'
-          ? '<span class="mac-tag gold">⚠️ Acabando</span>'
-          : '<span class="mac-tag green">✅ Em estoque</span>');
+      const linkSeguro = safeExternalUrl(compra.link || '');
+
+      let tituloCompra = '';
+      if (compra.fornecedor) {
+        tituloCompra = `${compra.fornecedor} · ${itens.length} ${itens.length === 1 ? 'item' : 'itens'}`;
+      } else if (itens.length === 1) {
+        tituloCompra = itens[0].nome;
+      } else {
+        tituloCompra = `${itens[0].nome} (+${itens.length - 1} ${itens.length - 1 === 1 ? 'item' : 'itens'})`;
+      }
+
+      const categoriasUnicas = [...new Set(itens.map(it => it.categoria))];
+      const catTagsHtml = categoriasUnicas.map(cId => `<span class="mac-tag gold">${esc(infoCategoriaInsumo(cId).label)}</span>`).join('');
+
+      const linhasReciboHtml = itens.map(it => `
+        <div class="insumo-recibo-linha">
+          <div class="desc">
+            <span>• ${esc(it.nome)}</span>
+            ${it.quantidade ? `<small>(${esc(it.quantidade)})</small>` : ''}
+            <small>[${esc(infoCategoriaInsumo(it.categoria).curto)}]</small>
+          </div>
+          <div class="val">${fmt(it.valor)}</div>
+        </div>
+      `).join('') + (frete > 0 ? `
+        <div class="insumo-recibo-linha frete">
+          <div class="desc">🚚 Frete / Entrega</div>
+          <div class="val">${fmt(frete)}</div>
+        </div>
+      ` : '');
+
+      const linkBtnHtml = linkSeguro
+        ? `<a href="${esc(linkSeguro)}" target="_blank" rel="noopener noreferrer" class="btn-mac-acao btn-insumo-link">🔗 Abrir Link</a>`
+        : '';
 
       return `
-        <div class="insumo-card ${st === 'acabando' ? 'acabando' : (st === 'esgotado' ? 'esgotado' : '')}">
+        <div class="insumo-card">
           <div class="insumo-card-top">
-            <div class="insumo-card-titulo">${esc(item.nome)}</div>
-            <div class="insumo-card-valor">${fmt(item.valor)}</div>
+            <div class="insumo-card-titulo">${esc(tituloCompra)}</div>
+            <div class="insumo-card-valor">${fmt(total)}</div>
           </div>
           <div class="insumo-card-meta">
-            <span class="mac-tag gold">${esc(cat.label)}</span>
-            ${stTag}
-            ${item.quantidade ? `<span class="mac-tag">📦 ${esc(item.quantidade)}</span>` : ''}
+            ${catTagsHtml}
             <span class="mac-tag">📅 ${esc(dataStr)}</span>
-            ${item.fornecedor ? `<span class="mac-tag blue">🏪 ${esc(item.fornecedor)}</span>` : ''}
+            ${compra.fornecedor ? `<span class="mac-tag blue">🏪 ${esc(compra.fornecedor)}</span>` : ''}
+            ${frete > 0 ? `<span class="mac-tag">🚚 Frete ${fmt(frete)}</span>` : ''}
           </div>
-          ${item.obs ? `<div class="insumo-obs">${esc(item.obs)}</div>` : ''}
-          <div class="insumo-acoes">
-            <button type="button" class="btn-mac-acao btn-mac-editar" onclick="editarInsumo('${esc(item.id)}')">✏️ Editar</button>
-            <button type="button" class="btn-mac-acao btn-mac-duplicar" onclick="repetirInsumo('${esc(item.id)}')">📑 Repetir</button>
-            <button type="button" class="btn-mac-acao btn-mac-pausar" onclick="ciclarEstoqueInsumo('${esc(item.id)}')">🔄 Estoque</button>
-            <button type="button" class="btn-mac-acao btn-mac-excluir" onclick="excluirInsumo('${esc(item.id)}')">🗑️ Excluir</button>
+          <div class="insumo-recibo-lista">${linhasReciboHtml}</div>
+          ${compra.obs ? `<div class="insumo-obs">${esc(compra.obs)}</div>` : ''}
+          <div class="insumo-acoes ${linkSeguro ? 'com-link' : ''}">
+            ${linkBtnHtml}
+            <button type="button" class="btn-mac-acao btn-mac-editar" onclick="editarInsumo('${esc(compra.id)}')">✏️ Editar</button>
+            <button type="button" class="btn-mac-acao btn-mac-duplicar" onclick="repetirInsumo('${esc(compra.id)}')">📑 Repetir</button>
+            <button type="button" class="btn-mac-acao btn-mac-excluir" onclick="excluirInsumo('${esc(compra.id)}')">🗑️ Excluir</button>
           </div>
         </div>
       `;
     }).join('');
   };
 
-  window.selecionarEstoqueModalInsumo = function(val) {
-    insumoEstoqueModalVal = val || 'em_estoque';
-    document.querySelectorAll('#insumoEstoqueGrupo .mac-pill-opcao').forEach(el => {
-      el.classList.toggle('ativo', el.getAttribute('data-val') === insumoEstoqueModalVal);
+  function sincronizarDraftItensInsumo() {
+    const rows = document.querySelectorAll('#insumoItensContainer .insumo-caixa-row');
+    insumoItensDraft = Array.from(rows).map(row => ({
+      nome: row.querySelector('.caixa-item-nome')?.value || '',
+      categoria: row.querySelector('.caixa-item-cat')?.value || 'essencia',
+      quantidade: row.querySelector('.caixa-item-qtd')?.value || '',
+      valor: moedaParaNumero(row.querySelector('.caixa-item-val')?.value || '')
+    }));
+  }
+
+  function renderizarLinhasInsumoModal() {
+    const cont = document.getElementById('insumoItensContainer');
+    if (!cont) return;
+    if (!Array.isArray(insumoItensDraft) || insumoItensDraft.length === 0) {
+      insumoItensDraft = [{ nome: '', categoria: 'essencia', quantidade: '', valor: 0 }];
+    }
+    const podeRemover = insumoItensDraft.length > 1;
+    cont.innerHTML = insumoItensDraft.map((item, idx) => {
+      const catOpts = CATEGORIAS_INSUMO_ITEM.map(c =>
+        `<option value="${c.id}" ${item.categoria === c.id ? 'selected' : ''}>${esc(c.label)}</option>`
+      ).join('') + (item.categoria === 'frete' ? '<option value="frete" selected>🚚 Frete / Logística</option>' : '');
+
+      return `
+        <div class="insumo-caixa-row">
+          <div class="insumo-caixa-row-head">
+            <span>Item ${idx + 1}</span>
+            ${podeRemover ? `<button type="button" class="btn-mac-ing-rem" style="padding:2px 9px; font-size:0.78rem;" onclick="removerLinhaInsumoModal(${idx})" title="Remover item">✕</button>` : ''}
+          </div>
+          <div class="input-group" style="margin-bottom:8px;">
+            <label>Nome do Item *</label>
+            <input type="text" class="caixa-item-nome" value="${esc(item.nome)}" placeholder="Ex: Essência Sauvage 100ml, Frasco 50ml..." maxlength="90" autocomplete="off">
+          </div>
+          <div class="grid-inputs" style="margin-bottom:0;">
+            <div class="input-group" style="margin-bottom:8px;">
+              <label>Categoria *</label>
+              <select class="caixa-item-cat">${catOpts}</select>
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label>Valor do Item *</label>
+              <input type="text" class="caixa-item-val" value="${item.valor > 0 ? esc(mascaraMoedaValor(item.valor)) : ''}" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this); atualizarTotalCaixaModal();">
+            </div>
+          </div>
+          <div class="input-group" style="margin-bottom:0;">
+            <label>Quantidade / Medida (opcional)</label>
+            <input type="text" class="caixa-item-qtd" value="${esc(item.quantidade)}" placeholder="Ex: 100ml, 5L, 50 un" maxlength="40" autocomplete="off">
+          </div>
+        </div>
+      `;
+    }).join('');
+    atualizarTotalCaixaModal();
+  }
+
+  window.adicionarLinhaInsumoModal = function() {
+    sincronizarDraftItensInsumo();
+    const ultimaCat = insumoItensDraft.length > 0 ? insumoItensDraft[insumoItensDraft.length - 1].categoria : 'essencia';
+    insumoItensDraft.push({ nome: '', categoria: ultimaCat === 'frete' ? 'outros' : ultimaCat, quantidade: '', valor: 0 });
+    renderizarLinhasInsumoModal();
+    const inputs = document.querySelectorAll('#insumoItensContainer .caixa-item-nome');
+    if (inputs.length > 0) inputs[inputs.length - 1].focus();
+  };
+
+  window.removerLinhaInsumoModal = function(idx) {
+    sincronizarDraftItensInsumo();
+    if (insumoItensDraft.length <= 1) return;
+    insumoItensDraft.splice(idx, 1);
+    renderizarLinhasInsumoModal();
+  };
+
+  window.atualizarTotalCaixaModal = function() {
+    const rows = document.querySelectorAll('#insumoItensContainer .insumo-caixa-row');
+    let subtotal = 0;
+    rows.forEach(row => {
+      subtotal += moedaParaNumero(row.querySelector('.caixa-item-val')?.value || '');
     });
+    const frete = moedaParaNumero(document.getElementById('insumoFrete')?.value || '');
+    const total = subtotal + frete;
+    const lblQtd = document.getElementById('caixaQtdItensLabel');
+    const elSub = document.getElementById('caixaSubtotalItens');
+    const elFrete = document.getElementById('caixaValorFrete');
+    const elTot = document.getElementById('caixaTotalCompra');
+    if (lblQtd) lblQtd.innerText = `Subtotal dos itens (${rows.length})`;
+    if (elSub) elSub.innerText = fmt(subtotal);
+    if (elFrete) elFrete.innerText = fmt(frete);
+    if (elTot) elTot.innerText = fmt(total);
   };
 
   window.abrirModalNovoInsumo = function() {
     insumoEmEdicao = null;
-    document.getElementById('modalInsumoTitulo').innerText = '💰 Registrar Insumo / Gasto';
-    document.getElementById('btnSalvarInsumo').innerText = 'Salvar Gasto';
-    document.getElementById('insumoNome').value = '';
-    document.getElementById('insumoCategoria').value = 'essencia';
-    document.getElementById('insumoValor').value = '';
-    document.getElementById('insumoQuantidade').value = '';
+    document.getElementById('modalInsumoTitulo').innerText = '💰 Registrar Compra de Insumos';
+    document.getElementById('btnSalvarInsumo').innerText = 'Salvar Compra';
     document.getElementById('insumoFornecedor').value = '';
     document.getElementById('insumoData').value = new Date().toISOString().split('T')[0];
+    document.getElementById('insumoLink').value = '';
+    document.getElementById('insumoFrete').value = '';
     document.getElementById('insumoObs').value = '';
-    selecionarEstoqueModalInsumo('em_estoque');
+    insumoItensDraft = [{ nome: '', categoria: 'essencia', quantidade: '', valor: 0 }];
+    renderizarLinhasInsumoModal();
     atualizarDatalistFornecedoresInsumos();
     document.getElementById('modalInsumo').classList.add('ativo');
-    setTimeout(() => document.getElementById('insumoNome').focus(), 60);
+    setTimeout(() => document.querySelector('#insumoItensContainer .caixa-item-nome')?.focus(), 60);
   };
 
   window.editarInsumo = function(id) {
-    const item = todosInsumosAdmin.find(x => x.id === id);
-    if (!item) return;
+    const compra = todosInsumosAdmin.find(x => x.id === id);
+    if (!compra) return;
     insumoEmEdicao = id;
-    document.getElementById('modalInsumoTitulo').innerText = '✏️ Editar Insumo / Gasto';
+    const { itens, frete } = calcularTotaisCompra(compra);
+    document.getElementById('modalInsumoTitulo').innerText = '✏️ Editar Compra de Insumos';
     document.getElementById('btnSalvarInsumo').innerText = 'Salvar Alterações';
-    document.getElementById('insumoNome').value = item.nome || '';
-    document.getElementById('insumoCategoria').value = item.categoria || 'outros';
-    document.getElementById('insumoValor').value = mascaraMoedaValor(item.valor || 0);
-    document.getElementById('insumoQuantidade').value = item.quantidade || '';
-    document.getElementById('insumoFornecedor').value = item.fornecedor || '';
-    const d = dataInsumoObj(item);
+    document.getElementById('insumoFornecedor').value = compra.fornecedor || '';
+    const d = dataInsumoObj(compra);
     document.getElementById('insumoData').value = (d && !isNaN(d.getTime())) ? d.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
-    document.getElementById('insumoObs').value = item.obs || '';
-    selecionarEstoqueModalInsumo(item.estoqueStatus || 'em_estoque');
+    document.getElementById('insumoLink').value = compra.link || '';
+    document.getElementById('insumoFrete').value = frete > 0 ? mascaraMoedaValor(frete) : '';
+    document.getElementById('insumoObs').value = compra.obs || '';
+    insumoItensDraft = itens.map(it => ({ ...it }));
+    renderizarLinhasInsumoModal();
     atualizarDatalistFornecedoresInsumos();
     document.getElementById('modalInsumo').classList.add('ativo');
   };
 
   window.repetirInsumo = function(id) {
-    const item = todosInsumosAdmin.find(x => x.id === id);
-    if (!item) return;
+    const compra = todosInsumosAdmin.find(x => x.id === id);
+    if (!compra) return;
     insumoEmEdicao = null;
-    document.getElementById('modalInsumoTitulo').innerText = '📑 Repetir Compra de Insumo';
+    const { itens, frete } = calcularTotaisCompra(compra);
+    document.getElementById('modalInsumoTitulo').innerText = '📑 Repetir Compra de Insumos';
     document.getElementById('btnSalvarInsumo').innerText = 'Registrar Nova Compra';
-    document.getElementById('insumoNome').value = item.nome || '';
-    document.getElementById('insumoCategoria').value = item.categoria || 'outros';
-    document.getElementById('insumoValor').value = mascaraMoedaValor(item.valor || 0);
-    document.getElementById('insumoQuantidade').value = item.quantidade || '';
-    document.getElementById('insumoFornecedor').value = item.fornecedor || '';
+    document.getElementById('insumoFornecedor').value = compra.fornecedor || '';
     document.getElementById('insumoData').value = new Date().toISOString().split('T')[0];
-    document.getElementById('insumoObs').value = item.obs || '';
-    selecionarEstoqueModalInsumo('em_estoque');
+    document.getElementById('insumoLink').value = compra.link || '';
+    document.getElementById('insumoFrete').value = frete > 0 ? mascaraMoedaValor(frete) : '';
+    document.getElementById('insumoObs').value = compra.obs || '';
+    insumoItensDraft = itens.map(it => ({ ...it }));
+    renderizarLinhasInsumoModal();
     atualizarDatalistFornecedoresInsumos();
     document.getElementById('modalInsumo').classList.add('ativo');
     mostrarMsg("Compra pré-preenchida com a data de hoje! Confira e salve.", "sucesso");
@@ -5076,42 +5186,70 @@
   };
 
   window.salvarInsumo = async function() {
-    const nome = document.getElementById('insumoNome').value.trim();
-    const categoria = document.getElementById('insumoCategoria').value;
-    const valor = moedaParaNumero(document.getElementById('insumoValor').value);
-    const quantidade = document.getElementById('insumoQuantidade').value.trim();
+    sincronizarDraftItensInsumo();
     const fornecedor = document.getElementById('insumoFornecedor').value.trim();
     const dataStr = document.getElementById('insumoData').value;
+    const linkRaw = document.getElementById('insumoLink').value.trim();
+    const frete = moedaParaNumero(document.getElementById('insumoFrete').value);
     const obs = document.getElementById('insumoObs').value.trim();
 
-    if (!nome) {
-      mostrarMsg("Informe o nome do insumo ou gasto.", "erro");
-      document.getElementById('insumoNome').focus();
-      return;
-    }
-    if (!valor || valor <= 0) {
-      mostrarMsg("Informe um valor pago maior que zero.", "erro");
-      document.getElementById('insumoValor').focus();
-      return;
-    }
     if (!dataStr) {
       mostrarMsg("Informe a data da compra.", "erro");
       document.getElementById('insumoData').focus();
       return;
     }
 
+    let link = '';
+    if (linkRaw) {
+      link = safeExternalUrl(linkRaw);
+      if (!link) {
+        mostrarMsg("Link inválido. Informe uma URL válida ou deixe em branco.", "erro");
+        document.getElementById('insumoLink').focus();
+        return;
+      }
+    }
+
+    const itensLimpos = [];
+    for (let idx = 0; idx < insumoItensDraft.length; idx++) {
+      const it = insumoItensDraft[idx];
+      const nomeIt = (it.nome || '').trim();
+      const valIt = Number(it.valor || 0);
+      if (!nomeIt) {
+        mostrarMsg(`Informe o nome do Item ${idx + 1}.`, "erro");
+        document.querySelectorAll('#insumoItensContainer .caixa-item-nome')[idx]?.focus();
+        return;
+      }
+      if (isNaN(valIt) || valIt <= 0) {
+        mostrarMsg(`Informe um valor maior que zero para o Item ${idx + 1}.`, "erro");
+        document.querySelectorAll('#insumoItensContainer .caixa-item-val')[idx]?.focus();
+        return;
+      }
+      itensLimpos.push({
+        nome: nomeIt,
+        categoria: it.categoria || 'outros',
+        quantidade: (it.quantidade || '').trim(),
+        valor: valIt
+      });
+    }
+
+    const subtotalItens = itensLimpos.reduce((s, it) => s + it.valor, 0);
+    const totalCompra = subtotalItens + (frete || 0);
+
     const btn = document.getElementById('btnSalvarInsumo');
     btn.disabled = true;
     btn.innerText = 'Salvando...';
 
     const dados = {
-      nome,
-      categoria,
-      valor,
-      quantidade,
+      itens: itensLimpos,
+      frete: frete || 0,
+      subtotalItens,
+      valor: totalCompra,
+      nome: itensLimpos[0].nome + (itensLimpos.length > 1 ? ` (+${itensLimpos.length - 1})` : ''),
+      categoria: itensLimpos[0].categoria,
+      quantidade: itensLimpos[0].quantidade,
       fornecedor,
+      link,
       dataCompra: new Date(dataStr + 'T12:00:00Z'),
-      estoqueStatus: insumoEstoqueModalVal || 'em_estoque',
       obs,
       atualizadoEm: new Date()
     };
@@ -5119,71 +5257,61 @@
     try {
       if (insumoEmEdicao) {
         await updateDoc(doc(db, "insumos", insumoEmEdicao), dados);
-        mostrarMsg("Insumo atualizado!", "sucesso");
+        mostrarMsg("Compra atualizada!", "sucesso");
       } else {
         dados.criadoEm = new Date();
         await addDoc(collection(db, "insumos"), dados);
-        mostrarMsg("Gasto registrado em Insumos!", "sucesso");
+        mostrarMsg("Compra registrada em Insumos!", "sucesso");
       }
       fecharModalInsumo();
     } catch (error) {
       console.error(error);
-      mostrarMsg("Erro ao salvar insumo. Verifique as firestore.rules.", "erro");
+      mostrarMsg("Erro ao salvar compra. Verifique as firestore.rules.", "erro");
     } finally {
       btn.disabled = false;
-      btn.innerText = insumoEmEdicao ? 'Salvar Alterações' : 'Salvar Gasto';
-    }
-  };
-
-  window.ciclarEstoqueInsumo = async function(id) {
-    const item = todosInsumosAdmin.find(x => x.id === id);
-    if (!item) return;
-    const ordem = ['em_estoque', 'acabando', 'esgotado'];
-    const atual = item.estoqueStatus || 'em_estoque';
-    const prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
-    const nomes = { em_estoque: '✅ Em estoque', acabando: '⚠️ Acabando', esgotado: '🚫 Esgotado' };
-    try {
-      await updateDoc(doc(db, "insumos", id), { estoqueStatus: prox, atualizadoEm: new Date() });
-      mostrarMsg(`Estoque alterado para: ${nomes[prox]}`, "sucesso");
-    } catch (error) {
-      console.error(error);
-      mostrarMsg("Erro ao atualizar estoque do insumo.", "erro");
+      btn.innerText = insumoEmEdicao ? 'Salvar Alterações' : 'Salvar Compra';
     }
   };
 
   window.excluirInsumo = async function(id) {
-    const item = todosInsumosAdmin.find(x => x.id === id);
-    if (!item) return;
-    if (!confirm(`Excluir "${item.nome}" (${fmt(item.valor)}) dos registros de gastos?`)) return;
+    const compra = todosInsumosAdmin.find(x => x.id === id);
+    if (!compra) return;
+    const { itens, total } = calcularTotaisCompra(compra);
+    const resumoNome = compra.fornecedor ? `${compra.fornecedor} (${itens.length} itens)` : itens[0].nome;
+    if (!confirm(`Excluir "${resumoNome}" (${fmt(total)}) dos registros de gastos?`)) return;
     try {
       await deleteDoc(doc(db, "insumos", id));
-      mostrarMsg("Insumo removido.", "sucesso");
+      mostrarMsg("Compra removida.", "sucesso");
     } catch (error) {
       console.error(error);
-      mostrarMsg("Erro ao excluir insumo.", "erro");
+      mostrarMsg("Erro ao excluir compra.", "erro");
     }
   };
 
   window.exportarInsumosCSV = function() {
     if (todosInsumosAdmin.length === 0) {
-      mostrarMsg("Nenhum insumo registrado para exportar.", "erro");
+      mostrarMsg("Nenhuma compra registrada para exportar.", "erro");
       return;
     }
-    const linhas = [['Nome', 'Categoria', 'Valor (R$)', 'Quantidade', 'Fornecedor', 'Data da Compra', 'Estoque', 'Observações']];
-    const nomesEst = { em_estoque: 'Em estoque', acabando: 'Acabando', esgotado: 'Esgotado' };
-    todosInsumosAdmin.forEach(i => {
-      const d = dataInsumoObj(i);
+    const linhas = [['Data da Compra', 'Fornecedor', 'Item', 'Categoria', 'Quantidade', 'Valor Item (R$)', 'Frete da Compra (R$)', 'Total da Compra (R$)', 'Link', 'Observações']];
+    todosInsumosAdmin.forEach(compra => {
+      const d = dataInsumoObj(compra);
       const dataStr = (d && !isNaN(d.getTime())) ? d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '';
-      linhas.push([
-        i.nome || '',
-        infoCategoriaInsumo(i.categoria).curto,
-        Number(i.valor || 0).toFixed(2).replace('.', ','),
-        i.quantidade || '',
-        i.fornecedor || '',
-        dataStr,
-        nomesEst[i.estoqueStatus || 'em_estoque'] || 'Em estoque',
-        i.obs || ''
-      ]);
+      const { itens, frete, total } = calcularTotaisCompra(compra);
+      itens.forEach((it, idx) => {
+        linhas.push([
+          dataStr,
+          compra.fornecedor || '',
+          it.nome || '',
+          infoCategoriaInsumo(it.categoria).curto,
+          it.quantidade || '',
+          Number(it.valor || 0).toFixed(2).replace('.', ','),
+          idx === 0 ? Number(frete || 0).toFixed(2).replace('.', ',') : '0,00',
+          idx === 0 ? Number(total || 0).toFixed(2).replace('.', ',') : '',
+          idx === 0 ? (compra.link || '') : '',
+          idx === 0 ? (compra.obs || '') : ''
+        ]);
+      });
     });
     const csvContent = '\uFEFF' + linhas.map(row =>
       row.map(cell => {
