@@ -571,6 +571,74 @@
   .ios-steps { text-align: left; color: #ccc; font-size: 0.82rem; line-height: 1.65; margin: 12px 0 18px; background: #111; border: 1px solid var(--borda); border-radius: 10px; padding: 12px 14px; }
   .ios-steps li { margin-left: 18px; margin-bottom: 6px; }
   .ios-steps strong { color: var(--dourado-claro); }
+
+  /* INTERRUPTOR ON/OFF VENDAS DA LOJA */
+  .loja-status-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #151515; border: 1px solid #333; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; transition: 0.25s; }
+  .loja-status-bar.on { border-color: rgba(37,211,102,0.5); background: linear-gradient(135deg, rgba(37,211,102,0.08), rgba(21,21,21,0.95)); }
+  .loja-status-bar.off { border-color: rgba(255,152,0,0.6); background: linear-gradient(135deg, rgba(201,74,74,0.14), rgba(255,152,0,0.08)); }
+  .loja-status-info { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+  .loja-status-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .loja-status-bar.on .loja-status-dot { background: #25D366; box-shadow: 0 0 10px rgba(37,211,102,0.8); animation: pulsoOn 1.8s infinite; }
+  .loja-status-bar.off .loja-status-dot { background: #ff9800; box-shadow: 0 0 10px rgba(255,152,0,0.8); }
+  @keyframes pulsoOn { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+  .loja-status-txt strong { display: block; font-size: 0.82rem; font-weight: 800; color: #fff; line-height: 1.2; }
+  .loja-status-bar.on .loja-status-txt strong { color: #25D366; }
+  .loja-status-bar.off .loja-status-txt strong { color: #ffb74d; }
+  .loja-status-txt small { display: block; font-size: 0.68rem; color: #aaa; margin-top: 2px; line-height: 1.3; }
+  .loja-toggle-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #444; background: #101010; color: #fff; border-radius: 30px; padding: 6px 12px 6px 8px; cursor: pointer; font-weight: 800; font-size: 0.75rem; min-height: 44px; flex-shrink: 0; transition: 0.2s; }
+  .loja-toggle-btn:hover { transform: scale(1.02); }
+  .loja-toggle-btn:disabled { opacity: 0.55; cursor: wait; }
+  .loja-toggle-track { width: 38px; height: 22px; border-radius: 20px; background: #444; position: relative; transition: 0.25s; flex-shrink: 0; }
+  .loja-toggle-knob { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+  .loja-toggle-btn.on { border-color: #25D366; color: #25D366; background: rgba(37,211,102,0.12); }
+  .loja-toggle-btn.on .loja-toggle-track { background: #25D366; }
+  .loja-toggle-btn.on .loja-toggle-knob { transform: translateX(16px); }
+  .loja-toggle-btn.off { border-color: #ff9800; color: #ffb74d; background: rgba(255,152,0,0.12); }
+  .loja-toggle-btn.off .loja-toggle-track { background: #c94a4a; }
+
+  /* CARD E SEÇÃO DE INSUMOS & GASTOS */
+  .menu-card.menu-card-insumos { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; text-align: left; padding: 14px 16px; min-height: 76px; background: linear-gradient(135deg, rgba(212,175,55,0.1), #151515); border-color: rgba(212,175,55,0.35); }
+  .menu-card-insumos-esq { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .menu-card-insumos-esq small { display: block; font-size: 0.67rem; color: #999; margin-top: 3px; font-weight: 500; text-transform: none; letter-spacing: 0; line-height: 1.25; }
+  .menu-card-insumos-dir { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .menu-card-insumos-valor { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 800; color: var(--dourado-claro); }
+  .menu-card-insumos-alerta { display: none; font-size: 0.6rem; font-weight: 800; background: rgba(255,152,0,0.18); border: 1px solid #ff9800; color: #ffb74d; padding: 2px 7px; border-radius: 10px; }
+
+  .insumos-resumo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .insumo-kpi { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 11px 12px; }
+  .insumo-kpi small { display: block; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; font-weight: 700; margin-bottom: 4px; }
+  .insumo-kpi strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; color: var(--dourado-claro); line-height: 1.15; }
+  .insumo-kpi .sub { display: block; font-size: 0.65rem; color: #888; margin-top: 3px; }
+  .insumo-kpi.positivo { border-color: rgba(37,211,102,0.45); background: rgba(37,211,102,0.06); }
+  .insumo-kpi.positivo strong { color: #25D366; }
+  .insumo-kpi.negativo { border-color: rgba(255,152,0,0.45); background: rgba(255,152,0,0.06); }
+  .insumo-kpi.negativo strong { color: #ffb74d; }
+
+  .insumos-progresso-box { background: #141414; border: 1px solid #2b2b2b; border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; }
+  .insumos-progresso-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: #ccc; margin-bottom: 6px; gap: 8px; }
+  .insumos-progresso-top strong { color: var(--dourado-claro); }
+  .insumos-progresso-barra { width: 100%; height: 8px; border-radius: 10px; background: #222; overflow: hidden; }
+  .insumos-progresso-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--dourado), #25D366); transition: width 0.4s ease; }
+
+  .insumos-alerta-strip { display: none; align-items: center; justify-content: space-between; gap: 8px; background: rgba(255,152,0,0.12); border: 1px solid rgba(255,152,0,0.5); border-radius: 8px; padding: 9px 12px; margin-bottom: 12px; font-size: 0.74rem; color: #ffb74d; font-weight: 700; cursor: pointer; }
+  .insumos-alerta-strip.ativo { display: flex; }
+
+  .insumos-cat-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .insumo-cat-chip { background: #141414; border: 1px solid #2f2f2f; color: #ccc; padding: 7px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .insumo-cat-chip:hover { border-color: var(--dourado); }
+  .insumo-cat-chip.ativo { border-color: var(--dourado); background: rgba(212,175,55,0.16); color: var(--dourado-claro); }
+  .insumo-cat-chip span.val { color: var(--dourado-claro); font-weight: 800; }
+
+  .insumo-card { background: #151515; border: 1px solid #333; border-radius: 10px; padding: 13px; margin-bottom: 10px; }
+  .insumo-card.acabando { border-color: rgba(255,152,0,0.6); }
+  .insumo-card.esgotado { border-color: rgba(201,74,74,0.65); background: rgba(201,74,74,0.04); }
+  .insumo-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .insumo-card-titulo { font-weight: 800; font-size: 0.92rem; color: var(--dourado-claro); line-height: 1.25; }
+  .insumo-card-valor { font-family: 'Playfair Display', serif; font-size: 1.08rem; font-weight: 800; color: #fff; white-space: nowrap; }
+  .insumo-card-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .insumo-obs { font-size: 0.74rem; color: #bbb; background: #101010; border-left: 2px solid var(--dourado); padding: 6px 9px; border-radius: 4px; margin-bottom: 9px; line-height: 1.4; }
+  .insumo-acoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  @media (max-width: 440px) { .insumo-acoes { grid-template-columns: 1fr 1fr; } }
 </style>
 <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
 <body>
@@ -604,6 +672,20 @@
   </div>
 
   <div class="msg" id="mensagem"></div>
+
+  <div class="loja-status-bar on" id="lojaStatusBar">
+    <div class="loja-status-info">
+      <span class="loja-status-dot"></span>
+      <div class="loja-status-txt">
+        <strong id="lojaStatusTitulo">Vendas do Catálogo: LIBERADAS (ON)</strong>
+        <small id="lojaStatusSub">Clientes podem comprar e finalizar pedidos normalmente</small>
+      </div>
+    </div>
+    <button type="button" class="loja-toggle-btn on" id="btnToggleVendasLoja" onclick="toggleVendasLoja()" aria-pressed="true">
+      <span class="loja-toggle-track"><span class="loja-toggle-knob"></span></span>
+      <span id="lojaToggleLabel">ON</span>
+    </button>
+  </div>
 
   <div class="dashboard" id="dashboard">
     <div class="dash-card" onclick="abrirSecao('lista')">
@@ -645,6 +727,19 @@
       <span class="menu-badge-pronto" id="badge-mac-prontos" style="display:none;"></span>
       <img src="https://img.icons8.com/color/96/hourglass--v1.png" alt="Maceração">
       <span>Maceração</span>
+    </div>
+    <div class="menu-card menu-card-insumos" data-secao="insumos" onclick="abrirSecao('insumos', this)">
+      <div class="menu-card-insumos-esq">
+        <img src="https://img.icons8.com/color/96/money-bag.png" alt="Insumos e Gastos">
+        <div>
+          <span>Insumos &amp; Gastos</span>
+          <small>Essências, frascos, álcool, embalagens e balanço</small>
+        </div>
+      </div>
+      <div class="menu-card-insumos-dir">
+        <div class="menu-card-insumos-valor" id="menuTotalInsumos">R$ 0,00</div>
+        <div class="menu-card-insumos-alerta" id="menuAlertaInsumos"></div>
+      </div>
     </div>
   </div>
 
@@ -877,6 +972,46 @@
     <button type="button" class="btn-limpar-pedidos" id="btn-limpar-historico-mac" onclick="limparHistoricoMac()" style="display:none;">
       🗑️ Limpar Todo o Histórico de Maceração
     </button>
+  </div>
+
+  <div class="section-content" id="section-insumos">
+    <h2 class="section-title">Insumos, Custos &amp; Investimentos</h2>
+    <p style="font-size:0.72rem; color:#888; margin-bottom:14px; line-height:1.5;">
+      💰 Controle todos os gastos com essências, álcool, frascos, válvulas, embalagens e fretes — com comparação direta ao faturamento das vendas confirmadas.
+    </p>
+
+    <button type="button" class="btn-add-cupom" onclick="abrirModalNovoInsumo()" style="background: linear-gradient(180deg, var(--dourado-claro), var(--dourado));">
+      ➕ Registrar Novo Insumo / Gasto
+    </button>
+
+    <div class="insumos-resumo-grid" id="insumosResumoGrid"></div>
+
+    <div class="insumos-progresso-box" id="insumosProgressoBox" style="display:none;"></div>
+
+    <div class="insumos-alerta-strip" id="insumosAlertaStrip" onclick="filtrarInsumosAlerta()"></div>
+
+    <div class="insumos-cat-grid" id="insumosCatGrid"></div>
+
+    <input type="search" id="busca-insumo" class="mac-search" placeholder="🔍 Buscar por insumo, fornecedor ou anotação..." oninput="renderizarInsumos()">
+
+    <div class="periodo-filtros">
+      <span class="filtro-grupo-lbl">Período:</span>
+      <button type="button" class="periodo-btn insumo-per-btn active" data-periodo="todos" onclick="mudarPeriodoInsumo('todos', this)">Todo período</button>
+      <button type="button" class="periodo-btn insumo-per-btn" data-periodo="mes" onclick="mudarPeriodoInsumo('mes', this)">Este mês</button>
+      <button type="button" class="periodo-btn insumo-per-btn" data-periodo="30dias" onclick="mudarPeriodoInsumo('30dias', this)">Últimos 30 dias</button>
+    </div>
+
+    <div class="periodo-filtros" style="margin-bottom:12px;">
+      <span class="filtro-grupo-lbl">Estoque:</span>
+      <button type="button" class="status-btn insumo-est-btn active" data-est="todos" onclick="mudarEstoqueInsumo('todos', this)">Todos</button>
+      <button type="button" class="status-btn insumo-est-btn" data-est="em_estoque" onclick="mudarEstoqueInsumo('em_estoque', this)">✅ Em estoque</button>
+      <button type="button" class="status-btn insumo-est-btn" data-est="acabando" onclick="mudarEstoqueInsumo('acabando', this)">⚠️ Acabando</button>
+      <button type="button" class="status-btn insumo-est-btn" data-est="esgotado" onclick="mudarEstoqueInsumo('esgotado', this)">🚫 Esgotado</button>
+    </div>
+
+    <button type="button" class="btn-exportar" onclick="exportarInsumosCSV()" style="margin-bottom:12px;">📥 Exportar Insumos e Gastos (CSV)</button>
+
+    <div id="lista-insumos"></div>
   </div>
 </div>
 
@@ -1218,6 +1353,72 @@
   </div>
 </div>
 
+<div class="modal-mac-overlay" id="modalInsumo">
+  <div class="modal-mac-content largo">
+    <div class="modal-mac-header">
+      <h3 id="modalInsumoTitulo">💰 Registrar Insumo / Gasto</h3>
+      <button type="button" onclick="fecharModalInsumo()">✕</button>
+    </div>
+
+    <div class="input-group">
+      <label>Nome do Insumo / Descrição *</label>
+      <input type="text" id="insumoNome" placeholder="Ex: Essência Sauvage 100ml, 50 Frascos 50ml..." maxlength="90" autocomplete="off">
+    </div>
+
+    <div class="grid-inputs">
+      <div class="input-group">
+        <label>Categoria *</label>
+        <select id="insumoCategoria">
+          <option value="essencia">🧪 Essências</option>
+          <option value="base">⚗️ Álcool &amp; Bases</option>
+          <option value="frasco">🍾 Frascos &amp; Válvulas</option>
+          <option value="embalagem">🏷️ Rótulos &amp; Embalagens</option>
+          <option value="equipamento">⚖️ Equipamentos</option>
+          <option value="frete">🚚 Frete / Logística</option>
+          <option value="outros">📦 Outros</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Valor Total Pago *</label>
+        <input type="text" id="insumoValor" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this)">
+      </div>
+    </div>
+
+    <div class="grid-inputs">
+      <div class="input-group">
+        <label>Quantidade / Medida</label>
+        <input type="text" id="insumoQuantidade" placeholder="Ex: 100ml, 5L, 50 un" maxlength="40" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label>Data da Compra *</label>
+        <input type="date" id="insumoData">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Fornecedor</label>
+      <input type="text" id="insumoFornecedor" list="listaFornecedoresInsumos" placeholder="Ex: Big Essências, Mercado Livre, Shopee..." maxlength="80" autocomplete="off">
+      <datalist id="listaFornecedoresInsumos"></datalist>
+    </div>
+
+    <div class="input-group">
+      <label>Status do Estoque</label>
+      <div class="mac-pill-grupo" id="insumoEstoqueGrupo">
+        <div class="mac-pill-opcao aprovado ativo" data-val="em_estoque" onclick="selecionarEstoqueModalInsumo('em_estoque')">✅ Em estoque</div>
+        <div class="mac-pill-opcao" data-val="acabando" onclick="selecionarEstoqueModalInsumo('acabando')">⚠️ Acabando</div>
+        <div class="mac-pill-opcao reprovado" data-val="esgotado" onclick="selecionarEstoqueModalInsumo('esgotado')">🚫 Esgotado</div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Observações (opcional)</label>
+      <textarea id="insumoObs" rows="2" maxlength="500" placeholder="Lote, rendimento estimado, link ou detalhes da compra..."></textarea>
+    </div>
+
+    <button type="button" class="btn-salvar" id="btnSalvarInsumo" onclick="salvarInsumo()" style="margin-top:6px;">Salvar Gasto</button>
+  </div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -1284,6 +1485,8 @@
   let todosPedidosAdmin = [];
   let todosCuponsAdmin = [];
   let todosMacAdmin = [];
+  let todosInsumosAdmin = [];
+  let vendasAtivasAdmin = true;
   let unsubListeners = [];
 
   const editId = document.getElementById('edit-id');
@@ -1298,6 +1501,11 @@
   let tipoDescontoAtual = 'percentual';
   let macEmEdicao = null;
   let abaMac = 'ativos';
+  let insumoEmEdicao = null;
+  let insumoCatFiltro = 'todas';
+  let insumoPeriodoFiltro = 'todos';
+  let insumoEstoqueFiltro = 'todos';
+  let insumoEstoqueModalVal = 'em_estoque';
 
   /* ============================================================
      UTILITÁRIOS DE SEGURANÇA, TEXTO E MOEDA
@@ -1521,6 +1729,7 @@
       if (secao === 'estoque') renderizarEstoque();
       if (secao === 'pedidos') renderizarPedidos();
       if (secao === 'maceracao') renderizarMac();
+      if (secao === 'insumos') renderizarInsumos();
       secEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
@@ -1733,10 +1942,12 @@
       telaLogin.style.display = 'none';
       painel.style.display = 'block';
       carregarConfigImgbb();
+      carregarLojaStatus();
       carregarListaAdmin();
       carregarPedidos();
       carregarCupons();
       carregarMac();
+      carregarInsumos();
     } else {
       imgbbApiKey = '';
       atualizarStatusImgbbUI();
@@ -2265,6 +2476,10 @@
         todosPedidosAdmin.push({ id: docSnap.id, ...docSnap.data() });
       });
       renderizarPedidos();
+      atualizarResumoMenuInsumos();
+      if (document.getElementById('section-insumos')?.classList.contains('active')) {
+        renderizarInsumos();
+      }
     }, (err) => {
       console.error("Erro pedidos:", err);
       mostrarMsg("Erro ao carregar pedidos.", "erro");
@@ -4461,6 +4676,534 @@
   }
 
   /* ============================================================
+     CONTROLE DE VENDAS DA LOJA (ON / OFF)
+     ============================================================ */
+  function atualizarUiStatusLoja() {
+    const bar = document.getElementById('lojaStatusBar');
+    const titulo = document.getElementById('lojaStatusTitulo');
+    const sub = document.getElementById('lojaStatusSub');
+    const btn = document.getElementById('btnToggleVendasLoja');
+    const lbl = document.getElementById('lojaToggleLabel');
+    if (!bar || !titulo || !sub || !btn || !lbl) return;
+
+    bar.classList.toggle('on', vendasAtivasAdmin);
+    bar.classList.toggle('off', !vendasAtivasAdmin);
+    btn.classList.toggle('on', vendasAtivasAdmin);
+    btn.classList.toggle('off', !vendasAtivasAdmin);
+    btn.setAttribute('aria-pressed', String(vendasAtivasAdmin));
+    lbl.innerText = vendasAtivasAdmin ? 'ON' : 'OFF';
+
+    if (vendasAtivasAdmin) {
+      titulo.innerText = 'Vendas do Catálogo: LIBERADAS (ON)';
+      sub.innerText = 'Clientes podem comprar e finalizar pedidos normalmente';
+    } else {
+      titulo.innerText = 'Vendas do Catálogo: PAUSADAS (OFF)';
+      sub.innerText = 'Vitrine exibe aviso de pausa e bloqueia novas compras';
+    }
+  }
+
+  function carregarLojaStatus() {
+    const unsub = onSnapshot(doc(db, "loja_status", "geral"), (snap) => {
+      vendasAtivasAdmin = (snap.exists() && snap.data().vendasAtivas === false) ? false : true;
+      atualizarUiStatusLoja();
+    }, (err) => {
+      console.error("Erro status loja:", err);
+      vendasAtivasAdmin = true;
+      atualizarUiStatusLoja();
+    });
+    unsubListeners.push(unsub);
+  }
+
+  window.toggleVendasLoja = async function() {
+    const btn = document.getElementById('btnToggleVendasLoja');
+    const novoEstado = !vendasAtivasAdmin;
+    if (btn) btn.disabled = true;
+    try {
+      await setDoc(doc(db, "loja_status", "geral"), {
+        vendasAtivas: novoEstado,
+        atualizadoEm: new Date()
+      }, { merge: true });
+      vendasAtivasAdmin = novoEstado;
+      atualizarUiStatusLoja();
+      mostrarMsg(
+        novoEstado
+          ? "🟢 Vendas liberadas no catálogo (ON)!"
+          : "⏸️ Vendas pausadas no catálogo (OFF)!",
+        "sucesso"
+      );
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao atualizar status de vendas. Verifique as firestore.rules.", "erro");
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  };
+
+  /* ============================================================
+     INSUMOS, CUSTOS & INVESTIMENTOS
+     ============================================================ */
+  const CATEGORIAS_INSUMO = [
+    { id: 'essencia', label: '🧪 Essências', curto: 'Essências' },
+    { id: 'base', label: '⚗️ Álcool & Bases', curto: 'Álcool & Bases' },
+    { id: 'frasco', label: '🍾 Frascos & Válvulas', curto: 'Frascos' },
+    { id: 'embalagem', label: '🏷️ Rótulos & Embalagens', curto: 'Embalagens' },
+    { id: 'equipamento', label: '⚖️ Equipamentos', curto: 'Equipamentos' },
+    { id: 'frete', label: '🚚 Frete / Logística', curto: 'Frete' },
+    { id: 'outros', label: '📦 Outros', curto: 'Outros' }
+  ];
+
+  function infoCategoriaInsumo(catId) {
+    return CATEGORIAS_INSUMO.find(c => c.id === catId) || CATEGORIAS_INSUMO[CATEGORIAS_INSUMO.length - 1];
+  }
+
+  function dataInsumoObj(item) {
+    if (!item || !item.dataCompra) return null;
+    return item.dataCompra.toDate ? item.dataCompra.toDate() : new Date(item.dataCompra);
+  }
+
+  function faturamentoConfirmadoTotal() {
+    return todosPedidosAdmin
+      .filter(p => p.concretizada && !p.cancelada)
+      .reduce((soma, p) => soma + Number(p.total || 0), 0);
+  }
+
+  function atualizarResumoMenuInsumos() {
+    const valEl = document.getElementById('menuTotalInsumos');
+    const alertaEl = document.getElementById('menuAlertaInsumos');
+    const total = todosInsumosAdmin.reduce((s, i) => s + Number(i.valor || 0), 0);
+    const qtdAlerta = todosInsumosAdmin.filter(i => i.estoqueStatus === 'acabando' || i.estoqueStatus === 'esgotado').length;
+    if (valEl) valEl.innerText = fmt(total);
+    if (alertaEl) {
+      if (qtdAlerta > 0) {
+        alertaEl.style.display = 'inline-block';
+        alertaEl.innerText = '⚠️ ' + qtdAlerta + (qtdAlerta === 1 ? ' baixo/esgotado' : ' baixos/esgotados');
+      } else {
+        alertaEl.style.display = 'none';
+      }
+    }
+  }
+
+  function atualizarDatalistFornecedoresInsumos() {
+    const dl = document.getElementById('listaFornecedoresInsumos');
+    if (!dl) return;
+    const set = new Set();
+    todosInsumosAdmin.forEach(i => {
+      if (i.fornecedor && i.fornecedor.trim()) set.add(i.fornecedor.trim());
+    });
+    todosMacAdmin.forEach(m => {
+      if (m.casaEssencia && m.casaEssencia.trim()) set.add(m.casaEssencia.trim());
+      if (m.nomeVendedor && m.nomeVendedor.trim()) set.add(m.nomeVendedor.trim());
+    });
+    dl.innerHTML = Array.from(set).sort().map(f => `<option value="${esc(f)}"></option>`).join('');
+  }
+
+  function carregarInsumos() {
+    const q = query(collection(db, "insumos"), orderBy("dataCompra", "desc"));
+    const unsub = onSnapshot(q, (snapshot) => {
+      todosInsumosAdmin = [];
+      snapshot.forEach((docSnap) => {
+        todosInsumosAdmin.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      atualizarResumoMenuInsumos();
+      atualizarDatalistFornecedoresInsumos();
+      if (document.getElementById('section-insumos')?.classList.contains('active')) {
+        renderizarInsumos();
+      }
+    }, (err) => {
+      console.error("Erro insumos:", err);
+      mostrarMsg("Erro ao carregar insumos (verifique as firestore.rules).", "erro");
+    });
+    unsubListeners.push(unsub);
+  }
+
+  function insumoDentroPeriodo(item, periodo) {
+    if (periodo === 'todos') return true;
+    const d = dataInsumoObj(item);
+    if (!d || isNaN(d.getTime())) return false;
+    const agora = new Date();
+    if (periodo === 'mes') {
+      return d.getUTCMonth() === agora.getMonth() && d.getUTCFullYear() === agora.getFullYear();
+    }
+    if (periodo === '30dias') {
+      return d >= new Date(agora.getTime() - 30 * 24 * 60 * 60 * 1000);
+    }
+    return true;
+  }
+
+  window.mudarPeriodoInsumo = function(periodo, el) {
+    insumoPeriodoFiltro = periodo;
+    document.querySelectorAll('.insumo-per-btn').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderizarInsumos();
+  };
+
+  window.mudarEstoqueInsumo = function(est, el) {
+    insumoEstoqueFiltro = est;
+    document.querySelectorAll('.insumo-est-btn').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderizarInsumos();
+  };
+
+  window.filtrarCatInsumo = function(catId) {
+    insumoCatFiltro = (insumoCatFiltro === catId) ? 'todas' : catId;
+    renderizarInsumos();
+  };
+
+  window.filtrarInsumosAlerta = function() {
+    insumoEstoqueFiltro = 'acabando';
+    document.querySelectorAll('.insumo-est-btn').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-est') === 'acabando');
+    });
+    renderizarInsumos();
+  };
+
+  window.renderizarInsumos = function() {
+    const resumoGrid = document.getElementById('insumosResumoGrid');
+    const progBox = document.getElementById('insumosProgressoBox');
+    const alertaStrip = document.getElementById('insumosAlertaStrip');
+    const catGrid = document.getElementById('insumosCatGrid');
+    const listaEl = document.getElementById('lista-insumos');
+    if (!resumoGrid || !listaEl) return;
+
+    const totalInvestido = todosInsumosAdmin.reduce((s, i) => s + Number(i.valor || 0), 0);
+    const agora = new Date();
+    const gastoMes = todosInsumosAdmin
+      .filter(i => {
+        const d = dataInsumoObj(i);
+        return d && !isNaN(d.getTime()) && d.getUTCMonth() === agora.getMonth() && d.getUTCFullYear() === agora.getFullYear();
+      })
+      .reduce((s, i) => s + Number(i.valor || 0), 0);
+
+    const faturamento = faturamentoConfirmadoTotal();
+    const saldo = faturamento - totalInvestido;
+    const saldoPositivo = saldo >= 0;
+
+    resumoGrid.innerHTML = `
+      <div class="insumo-kpi">
+        <small>💸 Total Investido</small>
+        <strong>${fmt(totalInvestido)}</strong>
+        <span class="sub">${todosInsumosAdmin.length} ${todosInsumosAdmin.length === 1 ? 'compra registrada' : 'compras registradas'}</span>
+      </div>
+      <div class="insumo-kpi">
+        <small>📅 Gasto neste Mês</small>
+        <strong>${fmt(gastoMes)}</strong>
+        <span class="sub">Entradas do mês atual</span>
+      </div>
+      <div class="insumo-kpi">
+        <small>✅ Vendas Confirmadas</small>
+        <strong style="color:#25D366;">${fmt(faturamento)}</strong>
+        <span class="sub">Faturamento concretizado</span>
+      </div>
+      <div class="insumo-kpi ${saldoPositivo ? 'positivo' : 'negativo'}">
+        <small>${saldoPositivo ? '📈 Lucro / Saldo' : '⏳ Falta Recuperar'}</small>
+        <strong>${saldoPositivo ? '+' + fmt(saldo) : fmt(Math.abs(saldo))}</strong>
+        <span class="sub">${saldoPositivo ? 'Investimento já pago!' : 'Vendas vs insumos'}</span>
+      </div>
+    `;
+
+    if (progBox) {
+      if (totalInvestido > 0) {
+        const pctRec = Math.min(100, Math.round((faturamento / totalInvestido) * 100));
+        progBox.style.display = 'block';
+        progBox.innerHTML = `
+          <div class="insumos-progresso-top">
+            <span>Retorno sobre insumos investidos</span>
+            <strong>${pctRec}% recuperado</strong>
+          </div>
+          <div class="insumos-progresso-barra">
+            <div class="insumos-progresso-fill" style="width:${pctRec}%;"></div>
+          </div>
+        `;
+      } else {
+        progBox.style.display = 'none';
+      }
+    }
+
+    const itensAlerta = todosInsumosAdmin.filter(i => i.estoqueStatus === 'acabando' || i.estoqueStatus === 'esgotado');
+    if (alertaStrip) {
+      if (itensAlerta.length > 0) {
+        alertaStrip.classList.add('ativo');
+        alertaStrip.innerHTML = `
+          <span>⚠️ ${itensAlerta.length} ${itensAlerta.length === 1 ? 'insumo acabando ou esgotado' : 'insumos acabando ou esgotados'}</span>
+          <span style="text-decoration:underline; font-size:0.7rem;">Ver agora</span>
+        `;
+      } else {
+        alertaStrip.classList.remove('ativo');
+      }
+    }
+
+    const basePeriodo = todosInsumosAdmin.filter(i => insumoDentroPeriodo(i, insumoPeriodoFiltro));
+    if (catGrid) {
+      catGrid.innerHTML = CATEGORIAS_INSUMO.map(cat => {
+        const sub = basePeriodo.filter(i => i.categoria === cat.id).reduce((s, i) => s + Number(i.valor || 0), 0);
+        const ativo = insumoCatFiltro === cat.id;
+        return `<button type="button" class="insumo-cat-chip ${ativo ? 'ativo' : ''}" onclick="filtrarCatInsumo('${cat.id}')">
+          <span>${esc(cat.label)}</span>
+          <span class="val">${fmt(sub)}</span>
+        </button>`;
+      }).join('');
+    }
+
+    const busca = normalizarTexto(document.getElementById('busca-insumo')?.value || '');
+    let filtrados = basePeriodo.slice();
+    if (insumoCatFiltro !== 'todas') {
+      filtrados = filtrados.filter(i => i.categoria === insumoCatFiltro);
+    }
+    if (insumoEstoqueFiltro !== 'todos') {
+      filtrados = filtrados.filter(i => (i.estoqueStatus || 'em_estoque') === insumoEstoqueFiltro);
+    }
+    if (busca) {
+      filtrados = filtrados.filter(i => {
+        const blob = normalizarTexto([i.nome, i.fornecedor, i.obs, i.quantidade, infoCategoriaInsumo(i.categoria).label].join(' '));
+        return blob.includes(busca);
+      });
+    }
+
+    if (filtrados.length === 0) {
+      listaEl.innerHTML = todosInsumosAdmin.length === 0
+        ? '<div class="empty-state">💰 Nenhum insumo ou gasto registrado ainda. Toque no botão acima para começar!</div>'
+        : '<div class="empty-state">🔎 Nenhum gasto encontrado com esses filtros.</div>';
+      return;
+    }
+
+    const totalFiltrado = filtrados.reduce((s, i) => s + Number(i.valor || 0), 0);
+    const headerSubtotal = `<div style="display:flex; justify-content:space-between; align-items:center; font-size:0.74rem; color:#aaa; margin-bottom:10px; padding:0 2px;">
+      <span>Exibindo <strong>${filtrados.length}</strong> ${filtrados.length === 1 ? 'registro' : 'registros'}</span>
+      <span>Soma do filtro: <strong style="color:var(--dourado-claro);">${fmt(totalFiltrado)}</strong></span>
+    </div>`;
+
+    listaEl.innerHTML = headerSubtotal + filtrados.map(item => {
+      const cat = infoCategoriaInsumo(item.categoria);
+      const d = dataInsumoObj(item);
+      const dataStr = (d && !isNaN(d.getTime())) ? d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '—';
+      const st = item.estoqueStatus || 'em_estoque';
+      const stTag = st === 'esgotado'
+        ? '<span class="mac-tag red">🚫 Esgotado</span>'
+        : (st === 'acabando'
+          ? '<span class="mac-tag gold">⚠️ Acabando</span>'
+          : '<span class="mac-tag green">✅ Em estoque</span>');
+
+      return `
+        <div class="insumo-card ${st === 'acabando' ? 'acabando' : (st === 'esgotado' ? 'esgotado' : '')}">
+          <div class="insumo-card-top">
+            <div class="insumo-card-titulo">${esc(item.nome)}</div>
+            <div class="insumo-card-valor">${fmt(item.valor)}</div>
+          </div>
+          <div class="insumo-card-meta">
+            <span class="mac-tag gold">${esc(cat.label)}</span>
+            ${stTag}
+            ${item.quantidade ? `<span class="mac-tag">📦 ${esc(item.quantidade)}</span>` : ''}
+            <span class="mac-tag">📅 ${esc(dataStr)}</span>
+            ${item.fornecedor ? `<span class="mac-tag blue">🏪 ${esc(item.fornecedor)}</span>` : ''}
+          </div>
+          ${item.obs ? `<div class="insumo-obs">${esc(item.obs)}</div>` : ''}
+          <div class="insumo-acoes">
+            <button type="button" class="btn-mac-acao btn-mac-editar" onclick="editarInsumo('${esc(item.id)}')">✏️ Editar</button>
+            <button type="button" class="btn-mac-acao btn-mac-duplicar" onclick="repetirInsumo('${esc(item.id)}')">📑 Repetir</button>
+            <button type="button" class="btn-mac-acao btn-mac-pausar" onclick="ciclarEstoqueInsumo('${esc(item.id)}')">🔄 Estoque</button>
+            <button type="button" class="btn-mac-acao btn-mac-excluir" onclick="excluirInsumo('${esc(item.id)}')">🗑️ Excluir</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  window.selecionarEstoqueModalInsumo = function(val) {
+    insumoEstoqueModalVal = val || 'em_estoque';
+    document.querySelectorAll('#insumoEstoqueGrupo .mac-pill-opcao').forEach(el => {
+      el.classList.toggle('ativo', el.getAttribute('data-val') === insumoEstoqueModalVal);
+    });
+  };
+
+  window.abrirModalNovoInsumo = function() {
+    insumoEmEdicao = null;
+    document.getElementById('modalInsumoTitulo').innerText = '💰 Registrar Insumo / Gasto';
+    document.getElementById('btnSalvarInsumo').innerText = 'Salvar Gasto';
+    document.getElementById('insumoNome').value = '';
+    document.getElementById('insumoCategoria').value = 'essencia';
+    document.getElementById('insumoValor').value = '';
+    document.getElementById('insumoQuantidade').value = '';
+    document.getElementById('insumoFornecedor').value = '';
+    document.getElementById('insumoData').value = new Date().toISOString().split('T')[0];
+    document.getElementById('insumoObs').value = '';
+    selecionarEstoqueModalInsumo('em_estoque');
+    atualizarDatalistFornecedoresInsumos();
+    document.getElementById('modalInsumo').classList.add('ativo');
+    setTimeout(() => document.getElementById('insumoNome').focus(), 60);
+  };
+
+  window.editarInsumo = function(id) {
+    const item = todosInsumosAdmin.find(x => x.id === id);
+    if (!item) return;
+    insumoEmEdicao = id;
+    document.getElementById('modalInsumoTitulo').innerText = '✏️ Editar Insumo / Gasto';
+    document.getElementById('btnSalvarInsumo').innerText = 'Salvar Alterações';
+    document.getElementById('insumoNome').value = item.nome || '';
+    document.getElementById('insumoCategoria').value = item.categoria || 'outros';
+    document.getElementById('insumoValor').value = mascaraMoedaValor(item.valor || 0);
+    document.getElementById('insumoQuantidade').value = item.quantidade || '';
+    document.getElementById('insumoFornecedor').value = item.fornecedor || '';
+    const d = dataInsumoObj(item);
+    document.getElementById('insumoData').value = (d && !isNaN(d.getTime())) ? d.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+    document.getElementById('insumoObs').value = item.obs || '';
+    selecionarEstoqueModalInsumo(item.estoqueStatus || 'em_estoque');
+    atualizarDatalistFornecedoresInsumos();
+    document.getElementById('modalInsumo').classList.add('ativo');
+  };
+
+  window.repetirInsumo = function(id) {
+    const item = todosInsumosAdmin.find(x => x.id === id);
+    if (!item) return;
+    insumoEmEdicao = null;
+    document.getElementById('modalInsumoTitulo').innerText = '📑 Repetir Compra de Insumo';
+    document.getElementById('btnSalvarInsumo').innerText = 'Registrar Nova Compra';
+    document.getElementById('insumoNome').value = item.nome || '';
+    document.getElementById('insumoCategoria').value = item.categoria || 'outros';
+    document.getElementById('insumoValor').value = mascaraMoedaValor(item.valor || 0);
+    document.getElementById('insumoQuantidade').value = item.quantidade || '';
+    document.getElementById('insumoFornecedor').value = item.fornecedor || '';
+    document.getElementById('insumoData').value = new Date().toISOString().split('T')[0];
+    document.getElementById('insumoObs').value = item.obs || '';
+    selecionarEstoqueModalInsumo('em_estoque');
+    atualizarDatalistFornecedoresInsumos();
+    document.getElementById('modalInsumo').classList.add('ativo');
+    mostrarMsg("Compra pré-preenchida com a data de hoje! Confira e salve.", "sucesso");
+  };
+
+  window.fecharModalInsumo = function() {
+    document.getElementById('modalInsumo').classList.remove('ativo');
+    insumoEmEdicao = null;
+  };
+
+  window.salvarInsumo = async function() {
+    const nome = document.getElementById('insumoNome').value.trim();
+    const categoria = document.getElementById('insumoCategoria').value;
+    const valor = moedaParaNumero(document.getElementById('insumoValor').value);
+    const quantidade = document.getElementById('insumoQuantidade').value.trim();
+    const fornecedor = document.getElementById('insumoFornecedor').value.trim();
+    const dataStr = document.getElementById('insumoData').value;
+    const obs = document.getElementById('insumoObs').value.trim();
+
+    if (!nome) {
+      mostrarMsg("Informe o nome do insumo ou gasto.", "erro");
+      document.getElementById('insumoNome').focus();
+      return;
+    }
+    if (!valor || valor <= 0) {
+      mostrarMsg("Informe um valor pago maior que zero.", "erro");
+      document.getElementById('insumoValor').focus();
+      return;
+    }
+    if (!dataStr) {
+      mostrarMsg("Informe a data da compra.", "erro");
+      document.getElementById('insumoData').focus();
+      return;
+    }
+
+    const btn = document.getElementById('btnSalvarInsumo');
+    btn.disabled = true;
+    btn.innerText = 'Salvando...';
+
+    const dados = {
+      nome,
+      categoria,
+      valor,
+      quantidade,
+      fornecedor,
+      dataCompra: new Date(dataStr + 'T12:00:00Z'),
+      estoqueStatus: insumoEstoqueModalVal || 'em_estoque',
+      obs,
+      atualizadoEm: new Date()
+    };
+
+    try {
+      if (insumoEmEdicao) {
+        await updateDoc(doc(db, "insumos", insumoEmEdicao), dados);
+        mostrarMsg("Insumo atualizado!", "sucesso");
+      } else {
+        dados.criadoEm = new Date();
+        await addDoc(collection(db, "insumos"), dados);
+        mostrarMsg("Gasto registrado em Insumos!", "sucesso");
+      }
+      fecharModalInsumo();
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao salvar insumo. Verifique as firestore.rules.", "erro");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = insumoEmEdicao ? 'Salvar Alterações' : 'Salvar Gasto';
+    }
+  };
+
+  window.ciclarEstoqueInsumo = async function(id) {
+    const item = todosInsumosAdmin.find(x => x.id === id);
+    if (!item) return;
+    const ordem = ['em_estoque', 'acabando', 'esgotado'];
+    const atual = item.estoqueStatus || 'em_estoque';
+    const prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
+    const nomes = { em_estoque: '✅ Em estoque', acabando: '⚠️ Acabando', esgotado: '🚫 Esgotado' };
+    try {
+      await updateDoc(doc(db, "insumos", id), { estoqueStatus: prox, atualizadoEm: new Date() });
+      mostrarMsg(`Estoque alterado para: ${nomes[prox]}`, "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao atualizar estoque do insumo.", "erro");
+    }
+  };
+
+  window.excluirInsumo = async function(id) {
+    const item = todosInsumosAdmin.find(x => x.id === id);
+    if (!item) return;
+    if (!confirm(`Excluir "${item.nome}" (${fmt(item.valor)}) dos registros de gastos?`)) return;
+    try {
+      await deleteDoc(doc(db, "insumos", id));
+      mostrarMsg("Insumo removido.", "sucesso");
+    } catch (error) {
+      console.error(error);
+      mostrarMsg("Erro ao excluir insumo.", "erro");
+    }
+  };
+
+  window.exportarInsumosCSV = function() {
+    if (todosInsumosAdmin.length === 0) {
+      mostrarMsg("Nenhum insumo registrado para exportar.", "erro");
+      return;
+    }
+    const linhas = [['Nome', 'Categoria', 'Valor (R$)', 'Quantidade', 'Fornecedor', 'Data da Compra', 'Estoque', 'Observações']];
+    const nomesEst = { em_estoque: 'Em estoque', acabando: 'Acabando', esgotado: 'Esgotado' };
+    todosInsumosAdmin.forEach(i => {
+      const d = dataInsumoObj(i);
+      const dataStr = (d && !isNaN(d.getTime())) ? d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '';
+      linhas.push([
+        i.nome || '',
+        infoCategoriaInsumo(i.categoria).curto,
+        Number(i.valor || 0).toFixed(2).replace('.', ','),
+        i.quantidade || '',
+        i.fornecedor || '',
+        dataStr,
+        nomesEst[i.estoqueStatus || 'em_estoque'] || 'Em estoque',
+        i.obs || ''
+      ]);
+    });
+    const csvContent = '\uFEFF' + linhas.map(row =>
+      row.map(cell => {
+        const s = String(cell == null ? '' : cell);
+        return (s.includes(',') || s.includes('"') || s.includes('\n')) ? '"' + s.replace(/"/g, '""') + '"' : s;
+      }).join(',')
+    ).join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'thrust-insumos-gastos-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    mostrarMsg("CSV de insumos exportado!", "sucesso");
+  };
+
+  /* ============================================================
      FECHAMENTO DE MODAIS (BACKDROP E ESCAPE) + VISIBILITY + PWA
      ============================================================ */
   const modaisConfig = [
@@ -4468,6 +5211,7 @@
     { id: 'modalCupom', fechar: () => window.fecharModalCupom() },
     { id: 'modalMac', fechar: () => window.fecharModalMac() },
     { id: 'modalMacFicha', fechar: () => window.fecharFichaMac() },
+    { id: 'modalInsumo', fechar: () => window.fecharModalInsumo() },
     { id: 'modalImgbb', fechar: () => window.fecharModalImgbb() },
     { id: 'modalInstalarIOSAdmin', fechar: () => window.fecharModalInstalarIOSAdmin() }
   ];
