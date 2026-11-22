@@ -641,6 +641,8 @@
   .insumo-recibo-linha .val { color: var(--dourado-claro); font-weight: 700; white-space: nowrap; }
   .insumo-recibo-linha.frete { color: #7bb4f5; font-size: 0.73rem; }
   .insumo-recibo-linha.frete .val { color: #7bb4f5; }
+  .insumo-recibo-linha.desconto { color: #25D366; font-size: 0.73rem; }
+  .insumo-recibo-linha.desconto .val { color: #25D366; }
   .insumo-obs { font-size: 0.74rem; color: #bbb; background: #101010; border-left: 2px solid var(--dourado); padding: 6px 9px; border-radius: 4px; margin-bottom: 9px; line-height: 1.4; }
   .insumo-acoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .insumo-acoes.com-link { grid-template-columns: repeat(4, 1fr); }
@@ -654,8 +656,11 @@
   .insumo-caixa-row-head span { font-size: 0.7rem; font-weight: 800; color: var(--dourado-claro); text-transform: uppercase; letter-spacing: 0.5px; }
   .btn-add-item-caixa { width: 100%; background: rgba(212,175,55,0.1); border: 1px dashed var(--dourado); color: var(--dourado-claro); padding: 10px; border-radius: 8px; font-size: 0.76rem; font-weight: 800; cursor: pointer; margin-bottom: 12px; transition: 0.2s; }
   .btn-add-item-caixa:hover { background: rgba(212,175,55,0.2); }
+  .insumo-pgto-box { background: #121212; border: 1px solid #2e2e2e; border-radius: 9px; padding: 11px; margin-bottom: 12px; }
   .insumo-caixa-resumo { background: #101010; border: 1px solid rgba(212,175,55,0.4); border-radius: 9px; padding: 10px 12px; margin-bottom: 12px; }
   .insumo-caixa-resumo-linha { display: flex; justify-content: space-between; font-size: 0.76rem; color: #bbb; margin-bottom: 4px; }
+  .insumo-caixa-resumo-linha.desconto { color: #25D366; }
+  .insumo-caixa-resumo-parcela { font-size: 0.74rem; color: #7bb4f5; text-align: right; margin-top: 4px; font-weight: 700; }
   .insumo-caixa-resumo-total { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #333; padding-top: 7px; margin-top: 5px; font-size: 0.9rem; font-weight: 800; color: var(--dourado-claro); }
 </style>
 <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
@@ -1389,9 +1394,69 @@
     <div class="insumo-caixa-lista" id="insumoItensContainer"></div>
     <button type="button" class="btn-add-item-caixa" onclick="adicionarLinhaInsumoModal()">➕ Adicionar outro item nesta compra</button>
 
-    <div class="input-group">
-      <label>🚚 Valor do Frete (opcional)</label>
-      <input type="text" id="insumoFrete" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this); atualizarTotalCaixaModal();">
+    <div class="grid-inputs">
+      <div class="input-group">
+        <label>🚚 Valor do Frete (opcional)</label>
+        <input type="text" id="insumoFrete" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this); atualizarTotalCaixaModal();">
+      </div>
+      <div class="input-group">
+        <label>🏷️ Desconto Recebido (opcional)</label>
+        <input type="text" id="insumoDesconto" placeholder="R$ 0,00" inputmode="numeric" oninput="mascaraMoeda(this); atualizarTotalCaixaModal();">
+      </div>
+    </div>
+
+    <div class="insumo-pgto-box">
+      <div class="input-group" style="margin-bottom:10px;">
+        <label>💳 Forma de Pagamento *</label>
+        <div class="mac-pill-grupo" id="insumoPagamentoGrupo">
+          <div class="mac-pill-opcao ativo" data-val="pix" onclick="selecionarPagamentoInsumo('pix')">⚡ PIX</div>
+          <div class="mac-pill-opcao" data-val="cartao" onclick="selecionarPagamentoInsumo('cartao')">💳 Cartão</div>
+        </div>
+      </div>
+
+      <div id="insumoCartaoBox" style="display:none;">
+        <div class="input-group" style="margin-bottom:10px;">
+          <label>Qual Cartão? *</label>
+          <select id="insumoCartaoBanco">
+            <option value="">Selecione o cartão...</option>
+            <option value="Nubank">💜 Nubank</option>
+            <option value="C6 Bank">🖤 C6 Bank</option>
+            <option value="Inter">🧡 Inter</option>
+            <option value="Santander">❤️ Santander</option>
+            <option value="Mercado Pago">💙 Mercado Pago</option>
+            <option value="Neon">🩵 Neon</option>
+            <option value="Digio">💎 Digio</option>
+          </select>
+        </div>
+
+        <div class="input-group" style="margin-bottom:0;">
+          <label>Modalidade no Cartão *</label>
+          <div class="mac-pill-grupo" id="insumoCartaoModalidadeGrupo">
+            <div class="mac-pill-opcao ativo" data-val="avista" onclick="selecionarModalidadeCartaoInsumo('avista')">💵 À Vista (1x)</div>
+            <div class="mac-pill-opcao" data-val="parcelado" onclick="selecionarModalidadeCartaoInsumo('parcelado')">🗓️ Parcelado</div>
+          </div>
+        </div>
+
+        <div class="input-group" id="insumoParcelasBox" style="display:none; margin-top:10px; margin-bottom:0;">
+          <label>Quantidade de Parcelas *</label>
+          <select id="insumoParcelas" onchange="atualizarTotalCaixaModal()">
+            <option value="2">2x</option>
+            <option value="3">3x</option>
+            <option value="4">4x</option>
+            <option value="5">5x</option>
+            <option value="6">6x</option>
+            <option value="7">7x</option>
+            <option value="8">8x</option>
+            <option value="9">9x</option>
+            <option value="10">10x</option>
+            <option value="11">11x</option>
+            <option value="12">12x</option>
+            <option value="15">15x</option>
+            <option value="18">18x</option>
+            <option value="24">24x</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <div class="input-group">
@@ -1408,10 +1473,15 @@
         <span>Frete</span>
         <strong id="caixaValorFrete">R$ 0,00</strong>
       </div>
+      <div class="insumo-caixa-resumo-linha desconto" id="caixaLinhaDesconto" style="display:none;">
+        <span>Desconto recebido</span>
+        <strong id="caixaValorDesconto">- R$ 0,00</strong>
+      </div>
       <div class="insumo-caixa-resumo-total">
         <span>Total da Compra</span>
         <span id="caixaTotalCompra">R$ 0,00</span>
       </div>
+      <div class="insumo-caixa-resumo-parcela" id="caixaResumoParcela" style="display:none;"></div>
     </div>
 
     <button type="button" class="btn-salvar" id="btnSalvarInsumo" onclick="salvarInsumo()" style="margin-top:2px;">Salvar Compra</button>
@@ -1504,6 +1574,8 @@
   let insumoCatFiltro = 'todas';
   let insumoPeriodoFiltro = 'todos';
   let insumoItensDraft = [];
+  let insumoPagamentoSel = 'pix';
+  let insumoCartaoModSel = 'avista';
 
   /* ============================================================
      UTILITÁRIOS DE SEGURANÇA, TEXTO E MOEDA
@@ -4777,8 +4849,26 @@
     const itens = normalizarItensCompra(compra);
     const subtotalItens = itens.reduce((s, it) => s + Number(it.valor || 0), 0);
     const frete = Number(compra?.frete || 0);
-    const total = Number(compra?.valor != null ? compra.valor : (subtotalItens + frete));
-    return { itens, subtotalItens, frete, total };
+    const desconto = Number(compra?.desconto || 0);
+    const total = Number(compra?.valor != null ? compra.valor : Math.max(0, subtotalItens + frete - desconto));
+    return { itens, subtotalItens, frete, desconto, total };
+  }
+
+  function textoPagamentoCompra(compra) {
+    const fp = compra?.formaPagamento || '';
+    if (!fp) return '';
+    if (fp === 'pix') return '⚡ PIX';
+    if (fp === 'cartao') {
+      const banco = compra.cartaoBanco || 'Cartão';
+      const mod = compra.cartaoModalidade === 'parcelado' ? 'parcelado' : 'avista';
+      const parc = parseInt(compra.parcelas || 1, 10);
+      const { total } = calcularTotaisCompra(compra);
+      if (mod === 'parcelado' && parc >= 2) {
+        return `💳 ${banco} · ${parc}x de ${fmt(total / parc)}`;
+      }
+      return `💳 ${banco} · À vista`;
+    }
+    return '';
   }
 
   function dataInsumoObj(item) {
@@ -4873,6 +4963,7 @@
 
     const totalInvestido = todosInsumosAdmin.reduce((s, i) => s + calcularTotaisCompra(i).total, 0);
     const totalFretes = todosInsumosAdmin.reduce((s, i) => s + calcularTotaisCompra(i).frete, 0);
+    const totalDescontos = todosInsumosAdmin.reduce((s, i) => s + calcularTotaisCompra(i).desconto, 0);
     const agora = new Date();
     const gastoMes = todosInsumosAdmin
       .filter(i => {
@@ -4889,7 +4980,7 @@
       <div class="insumo-kpi">
         <small>💸 Total Investido</small>
         <strong>${fmt(totalInvestido)}</strong>
-        <span class="sub">${todosInsumosAdmin.length} ${todosInsumosAdmin.length === 1 ? 'compra' : 'compras'} · Frete total: ${fmt(totalFretes)}</span>
+        <span class="sub">${todosInsumosAdmin.length} ${todosInsumosAdmin.length === 1 ? 'compra' : 'compras'} · Frete: ${fmt(totalFretes)}${totalDescontos > 0 ? ` · Desc: -${fmt(totalDescontos)}` : ''}</span>
       </div>
       <div class="insumo-kpi">
         <small>📅 Gasto neste Mês</small>
@@ -4959,7 +5050,12 @@
       filtrados = filtrados.filter(compra => {
         const { itens } = calcularTotaisCompra(compra);
         const itensTxt = itens.map(it => `${it.nome} ${it.quantidade} ${infoCategoriaInsumo(it.categoria).label}`).join(' ');
-        const blob = normalizarTexto([compra.fornecedor, compra.obs, compra.link, itensTxt].join(' '));
+        const pgtoTxt = textoPagamentoCompra(compra);
+        const blob = normalizarTexto([
+          compra.fornecedor, compra.obs, compra.link,
+          compra.formaPagamento, compra.cartaoBanco, compra.cartaoModalidade,
+          pgtoTxt, itensTxt
+        ].join(' '));
         return blob.includes(busca);
       });
     }
@@ -4978,10 +5074,11 @@
     </div>`;
 
     listaEl.innerHTML = headerSubtotal + filtrados.map(compra => {
-      const { itens, frete, total } = calcularTotaisCompra(compra);
+      const { itens, frete, desconto, total } = calcularTotaisCompra(compra);
       const d = dataInsumoObj(compra);
       const dataStr = (d && !isNaN(d.getTime())) ? d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '—';
       const linkSeguro = safeExternalUrl(compra.link || '');
+      const pgtoLabel = textoPagamentoCompra(compra);
 
       let tituloCompra = '';
       if (compra.fornecedor) {
@@ -5007,7 +5104,12 @@
       `).join('') + (frete > 0 ? `
         <div class="insumo-recibo-linha frete">
           <div class="desc">🚚 Frete / Entrega</div>
-          <div class="val">${fmt(frete)}</div>
+          <div class="val">+ ${fmt(frete)}</div>
+        </div>
+      ` : '') + (desconto > 0 ? `
+        <div class="insumo-recibo-linha desconto">
+          <div class="desc">🏷️ Desconto Recebido</div>
+          <div class="val">- ${fmt(desconto)}</div>
         </div>
       ` : '');
 
@@ -5025,7 +5127,9 @@
             ${catTagsHtml}
             <span class="mac-tag">📅 ${esc(dataStr)}</span>
             ${compra.fornecedor ? `<span class="mac-tag blue">🏪 ${esc(compra.fornecedor)}</span>` : ''}
+            ${pgtoLabel ? `<span class="mac-tag ${compra.formaPagamento === 'pix' ? 'green' : 'purple'}">${esc(pgtoLabel)}</span>` : ''}
             ${frete > 0 ? `<span class="mac-tag">🚚 Frete ${fmt(frete)}</span>` : ''}
+            ${desconto > 0 ? `<span class="mac-tag green">🏷️ Desc. -${fmt(desconto)}</span>` : ''}
           </div>
           <div class="insumo-recibo-lista">${linhasReciboHtml}</div>
           ${compra.obs ? `<div class="insumo-obs">${esc(compra.obs)}</div>` : ''}
@@ -5108,6 +5212,26 @@
     renderizarLinhasInsumoModal();
   };
 
+  window.selecionarPagamentoInsumo = function(forma) {
+    insumoPagamentoSel = (forma === 'cartao') ? 'cartao' : 'pix';
+    document.querySelectorAll('#insumoPagamentoGrupo .mac-pill-opcao').forEach(el => {
+      el.classList.toggle('ativo', el.getAttribute('data-val') === insumoPagamentoSel);
+    });
+    const cartaoBox = document.getElementById('insumoCartaoBox');
+    if (cartaoBox) cartaoBox.style.display = insumoPagamentoSel === 'cartao' ? 'block' : 'none';
+    atualizarTotalCaixaModal();
+  };
+
+  window.selecionarModalidadeCartaoInsumo = function(mod) {
+    insumoCartaoModSel = (mod === 'parcelado') ? 'parcelado' : 'avista';
+    document.querySelectorAll('#insumoCartaoModalidadeGrupo .mac-pill-opcao').forEach(el => {
+      el.classList.toggle('ativo', el.getAttribute('data-val') === insumoCartaoModSel);
+    });
+    const parcBox = document.getElementById('insumoParcelasBox');
+    if (parcBox) parcBox.style.display = insumoCartaoModSel === 'parcelado' ? 'block' : 'none';
+    atualizarTotalCaixaModal();
+  };
+
   window.atualizarTotalCaixaModal = function() {
     const rows = document.querySelectorAll('#insumoItensContainer .insumo-caixa-row');
     let subtotal = 0;
@@ -5115,16 +5239,52 @@
       subtotal += moedaParaNumero(row.querySelector('.caixa-item-val')?.value || '');
     });
     const frete = moedaParaNumero(document.getElementById('insumoFrete')?.value || '');
-    const total = subtotal + frete;
+    const desconto = moedaParaNumero(document.getElementById('insumoDesconto')?.value || '');
+    const total = Math.max(0, subtotal + frete - desconto);
+
     const lblQtd = document.getElementById('caixaQtdItensLabel');
     const elSub = document.getElementById('caixaSubtotalItens');
     const elFrete = document.getElementById('caixaValorFrete');
+    const elLinhaDesc = document.getElementById('caixaLinhaDesconto');
+    const elDesc = document.getElementById('caixaValorDesconto');
     const elTot = document.getElementById('caixaTotalCompra');
+    const elParc = document.getElementById('caixaResumoParcela');
+
     if (lblQtd) lblQtd.innerText = `Subtotal dos itens (${rows.length})`;
     if (elSub) elSub.innerText = fmt(subtotal);
     if (elFrete) elFrete.innerText = fmt(frete);
+    if (elLinhaDesc && elDesc) {
+      if (desconto > 0) {
+        elLinhaDesc.style.display = 'flex';
+        elDesc.innerText = '- ' + fmt(desconto);
+      } else {
+        elLinhaDesc.style.display = 'none';
+      }
+    }
     if (elTot) elTot.innerText = fmt(total);
+
+    if (elParc) {
+      if (insumoPagamentoSel === 'cartao' && insumoCartaoModSel === 'parcelado') {
+        const parc = Math.max(2, parseInt(document.getElementById('insumoParcelas')?.value || '2', 10));
+        elParc.style.display = 'block';
+        elParc.innerText = `💳 ${parc}x de ${fmt(total / parc)} sem acréscimo`;
+      } else {
+        elParc.style.display = 'none';
+      }
+    }
   };
+
+  function preencherPagamentoNoModal(compra) {
+    const fp = compra?.formaPagamento === 'cartao' ? 'cartao' : 'pix';
+    const banco = compra?.cartaoBanco || '';
+    const mod = compra?.cartaoModalidade === 'parcelado' ? 'parcelado' : 'avista';
+    const parc = String(Math.max(2, parseInt(compra?.parcelas || 2, 10)));
+
+    document.getElementById('insumoCartaoBanco').value = banco;
+    document.getElementById('insumoParcelas').value = parc;
+    selecionarModalidadeCartaoInsumo(mod);
+    selecionarPagamentoInsumo(fp);
+  }
 
   window.abrirModalNovoInsumo = function() {
     insumoEmEdicao = null;
@@ -5134,7 +5294,9 @@
     document.getElementById('insumoData').value = new Date().toISOString().split('T')[0];
     document.getElementById('insumoLink').value = '';
     document.getElementById('insumoFrete').value = '';
+    document.getElementById('insumoDesconto').value = '';
     document.getElementById('insumoObs').value = '';
+    preencherPagamentoNoModal(null);
     insumoItensDraft = [{ nome: '', categoria: 'essencia', quantidade: '', valor: 0 }];
     renderizarLinhasInsumoModal();
     atualizarDatalistFornecedoresInsumos();
@@ -5146,7 +5308,7 @@
     const compra = todosInsumosAdmin.find(x => x.id === id);
     if (!compra) return;
     insumoEmEdicao = id;
-    const { itens, frete } = calcularTotaisCompra(compra);
+    const { itens, frete, desconto } = calcularTotaisCompra(compra);
     document.getElementById('modalInsumoTitulo').innerText = '✏️ Editar Compra de Insumos';
     document.getElementById('btnSalvarInsumo').innerText = 'Salvar Alterações';
     document.getElementById('insumoFornecedor').value = compra.fornecedor || '';
@@ -5154,7 +5316,9 @@
     document.getElementById('insumoData').value = (d && !isNaN(d.getTime())) ? d.toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
     document.getElementById('insumoLink').value = compra.link || '';
     document.getElementById('insumoFrete').value = frete > 0 ? mascaraMoedaValor(frete) : '';
+    document.getElementById('insumoDesconto').value = desconto > 0 ? mascaraMoedaValor(desconto) : '';
     document.getElementById('insumoObs').value = compra.obs || '';
+    preencherPagamentoNoModal(compra);
     insumoItensDraft = itens.map(it => ({ ...it }));
     renderizarLinhasInsumoModal();
     atualizarDatalistFornecedoresInsumos();
@@ -5165,14 +5329,16 @@
     const compra = todosInsumosAdmin.find(x => x.id === id);
     if (!compra) return;
     insumoEmEdicao = null;
-    const { itens, frete } = calcularTotaisCompra(compra);
+    const { itens, frete, desconto } = calcularTotaisCompra(compra);
     document.getElementById('modalInsumoTitulo').innerText = '📑 Repetir Compra de Insumos';
     document.getElementById('btnSalvarInsumo').innerText = 'Registrar Nova Compra';
     document.getElementById('insumoFornecedor').value = compra.fornecedor || '';
     document.getElementById('insumoData').value = new Date().toISOString().split('T')[0];
     document.getElementById('insumoLink').value = compra.link || '';
     document.getElementById('insumoFrete').value = frete > 0 ? mascaraMoedaValor(frete) : '';
+    document.getElementById('insumoDesconto').value = desconto > 0 ? mascaraMoedaValor(desconto) : '';
     document.getElementById('insumoObs').value = compra.obs || '';
+    preencherPagamentoNoModal(compra);
     insumoItensDraft = itens.map(it => ({ ...it }));
     renderizarLinhasInsumoModal();
     atualizarDatalistFornecedoresInsumos();
@@ -5190,7 +5356,8 @@
     const fornecedor = document.getElementById('insumoFornecedor').value.trim();
     const dataStr = document.getElementById('insumoData').value;
     const linkRaw = document.getElementById('insumoLink').value.trim();
-    const frete = moedaParaNumero(document.getElementById('insumoFrete').value);
+    const frete = moedaParaNumero(document.getElementById('insumoFrete').value) || 0;
+    const desconto = moedaParaNumero(document.getElementById('insumoDesconto').value) || 0;
     const obs = document.getElementById('insumoObs').value.trim();
 
     if (!dataStr) {
@@ -5233,7 +5400,34 @@
     }
 
     const subtotalItens = itensLimpos.reduce((s, it) => s + it.valor, 0);
-    const totalCompra = subtotalItens + (frete || 0);
+    if (desconto > subtotalItens + frete) {
+      mostrarMsg("O desconto recebido não pode ser maior que o valor da compra + frete.", "erro");
+      document.getElementById('insumoDesconto').focus();
+      return;
+    }
+
+    let cartaoBanco = '';
+    let cartaoModalidade = '';
+    let parcelas = 1;
+    if (insumoPagamentoSel === 'cartao') {
+      cartaoBanco = document.getElementById('insumoCartaoBanco').value;
+      if (!cartaoBanco) {
+        mostrarMsg("Selecione qual cartão foi utilizado.", "erro");
+        document.getElementById('insumoCartaoBanco').focus();
+        return;
+      }
+      cartaoModalidade = insumoCartaoModSel === 'parcelado' ? 'parcelado' : 'avista';
+      if (cartaoModalidade === 'parcelado') {
+        parcelas = parseInt(document.getElementById('insumoParcelas').value, 10);
+        if (isNaN(parcelas) || parcelas < 2) {
+          mostrarMsg("Informe a quantidade de parcelas (mínimo 2x).", "erro");
+          document.getElementById('insumoParcelas').focus();
+          return;
+        }
+      }
+    }
+
+    const totalCompra = Math.max(0, subtotalItens + frete - desconto);
 
     const btn = document.getElementById('btnSalvarInsumo');
     btn.disabled = true;
@@ -5241,9 +5435,14 @@
 
     const dados = {
       itens: itensLimpos,
-      frete: frete || 0,
+      frete,
+      desconto,
       subtotalItens,
       valor: totalCompra,
+      formaPagamento: insumoPagamentoSel,
+      cartaoBanco,
+      cartaoModalidade,
+      parcelas,
       nome: itensLimpos[0].nome + (itensLimpos.length > 1 ? ` (+${itensLimpos.length - 1})` : ''),
       categoria: itensLimpos[0].categoria,
       quantidade: itensLimpos[0].quantidade,
@@ -5293,11 +5492,18 @@
       mostrarMsg("Nenhuma compra registrada para exportar.", "erro");
       return;
     }
-    const linhas = [['Data da Compra', 'Fornecedor', 'Item', 'Categoria', 'Quantidade', 'Valor Item (R$)', 'Frete da Compra (R$)', 'Total da Compra (R$)', 'Link', 'Observações']];
+    const linhas = [['Data da Compra', 'Fornecedor', 'Item', 'Categoria', 'Quantidade', 'Valor Item (R$)', 'Frete da Compra (R$)', 'Desconto (R$)', 'Total da Compra (R$)', 'Pagamento', 'Cartão', 'Modalidade', 'Parcelas', 'Link', 'Observações']];
     todosInsumosAdmin.forEach(compra => {
       const d = dataInsumoObj(compra);
       const dataStr = (d && !isNaN(d.getTime())) ? d.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '';
-      const { itens, frete, total } = calcularTotaisCompra(compra);
+      const { itens, frete, desconto, total } = calcularTotaisCompra(compra);
+      const pgtoNome = compra.formaPagamento === 'pix' ? 'PIX' : (compra.formaPagamento === 'cartao' ? 'Cartão' : '');
+      const modNome = compra.formaPagamento === 'cartao'
+        ? (compra.cartaoModalidade === 'parcelado' ? 'Parcelado' : 'À vista')
+        : '';
+      const parcNome = (compra.formaPagamento === 'cartao' && compra.cartaoModalidade === 'parcelado')
+        ? `${compra.parcelas || 2}x`
+        : '';
       itens.forEach((it, idx) => {
         linhas.push([
           dataStr,
@@ -5307,7 +5513,12 @@
           it.quantidade || '',
           Number(it.valor || 0).toFixed(2).replace('.', ','),
           idx === 0 ? Number(frete || 0).toFixed(2).replace('.', ',') : '0,00',
+          idx === 0 ? Number(desconto || 0).toFixed(2).replace('.', ',') : '0,00',
           idx === 0 ? Number(total || 0).toFixed(2).replace('.', ',') : '',
+          idx === 0 ? pgtoNome : '',
+          idx === 0 ? (compra.cartaoBanco || '') : '',
+          idx === 0 ? modNome : '',
+          idx === 0 ? parcNome : '',
           idx === 0 ? (compra.link || '') : '',
           idx === 0 ? (compra.obs || '') : ''
         ]);
