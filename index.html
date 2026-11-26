@@ -3505,9 +3505,9 @@
      ============================================================ */
   const BASES_MAC = [
     {
-      id: "turbo-nickson",
+      id: "turbo-nickson-v2",
       nome: "Base Turbo - Nickson",
-      detalhes: "90% Álcool 96 GL\n5% Água Deionizada\n2% Propanediol (Propilenoglicol)\n2% Iso-e Super\n1% Ambroxan 10%"
+      detalhes: "92% Álcool 96 GL\n4% Água Deionizada\n1% Propanediol (Propilenoglicol)\n2% Iso-e Super\n1% Ambroxan 10%"
     },
     {
       id: "turbo-leandro",
@@ -3530,6 +3530,19 @@
       detalhes: "Monte sua própria fórmula de base abaixo"
     }
   ];
+
+  const BASES_MAC_LEGADO = [
+    {
+      id: "turbo-nickson",
+      nome: "Base Turbo - Nickson (Fórmula anterior)",
+      nomeFicha: "Base Turbo - Nickson",
+      detalhes: "90% Álcool 96 GL\n5% Água Deionizada\n2% Propanediol (Propilenoglicol)\n2% Iso-e Super\n1% Ambroxan 10%"
+    }
+  ];
+
+  function buscarBaseMacPorId(baseId) {
+    return BASES_MAC.find(b => b.id === baseId) || BASES_MAC_LEGADO.find(b => b.id === baseId) || null;
+  }
 
   const CASAS_FIXAS_MAC = [
     "Atenas", "AZ Fragrâncias", "Big Essências", "Essencial Essências", "Empório das Essências",
@@ -3579,7 +3592,10 @@
   function renderBasesMac() {
     const cont = document.getElementById('macBaseOpcoes');
     if (!cont) return;
-    cont.innerHTML = BASES_MAC.map(b => `
+    const opcoes = BASES_MAC.slice();
+    const legadoSel = BASES_MAC_LEGADO.find(b => b.id === macBaseSel);
+    if (legadoSel) opcoes.unshift(legadoSel);
+    cont.innerHTML = opcoes.map(b => `
       <div class="mac-base-opcao ${b.id === macBaseSel ? 'selecionada' : ''}" onclick="selecionarBaseMac('${b.id}')">
         <strong>${esc(b.nome)}</strong>
         <small>${esc(b.detalhes)}</small>
@@ -3838,6 +3854,7 @@
       whatsappVendedor: m.whatsappVendedor || '',
       baseId: m.baseId || '',
       baseNome: m.baseNome || '',
+      baseDetalhes: m.baseDetalhes || '',
       ingredientesCustom: Array.isArray(m.ingredientesCustom) ? m.ingredientesCustom : null,
       notasOlfativas: Array.isArray(m.notasOlfativas) ? m.notasOlfativas : [],
       dataInicio: m.dataInicio || null,
@@ -4217,7 +4234,7 @@
     document.getElementById('macNomeVendedor').value = m.nomeVendedor || '';
     document.getElementById('macWhatsVendedor').value = m.whatsappVendedor || '';
 
-    macBaseSel = m.baseId || '';
+    macBaseSel = (modoDuplicar && m.baseId === 'turbo-nickson') ? 'turbo-nickson-v2' : (m.baseId || '');
     renderBasesMac();
     const ingCont = document.getElementById('macIngredientesCustom');
     ingCont.innerHTML = '';
@@ -4358,7 +4375,7 @@
     const fix = incluirNotas ? parseInt(document.getElementById('macNotaFix').value, 10) : 0;
     const media = incluirNotas ? Number(((sim + proj + fix) / 3).toFixed(2)) : 0;
 
-    const baseObj = BASES_MAC.find(b => b.id === macBaseSel);
+    const baseObj = buscarBaseMacPorId(macBaseSel);
 
     // Salva em meia-noite UTC para consistência entre todos os fusos horários
     const dataInicio = new Date(dataStr + 'T00:00:00Z');
@@ -4384,7 +4401,8 @@
         nomeVendedor: tipoOnde === 'vendedor' ? nomeVendedor : '',
         whatsappVendedor: tipoOnde === 'vendedor' ? whatsappVendedor : '',
         baseId: macBaseSel,
-        baseNome: baseObj ? baseObj.nome : '',
+        baseNome: baseObj ? (baseObj.nomeFicha || baseObj.nome) : '',
+        baseDetalhes: (baseObj && macBaseSel !== 'propria') ? baseObj.detalhes : '',
         ingredientesCustom,
         notasOlfativas: macNotasSel.slice(),
         resultado: macResultadoSel || '',
@@ -4509,9 +4527,13 @@
       const linhas = m.ingredientesCustom.map(i => `• ${i.pct}% — ${esc(i.nome)}`).join('\n');
       formulaHtml = `<div class="mac-formula-pre"><strong>${esc(m.baseNome || 'Base Própria')}</strong>\n${linhas}</div>`;
     } else if (m.baseId) {
-      const baseObj = BASES_MAC.find(b => b.id === m.baseId);
-      if (baseObj) {
-        formulaHtml = `<div class="mac-formula-pre"><strong>${esc(baseObj.nome)}</strong>\n${esc(baseObj.detalhes)}</div>`;
+      const baseObj = buscarBaseMacPorId(m.baseId);
+      const nomeExib = m.baseNome || (baseObj ? (baseObj.nomeFicha || baseObj.nome) : 'Base');
+      const detExib = m.baseDetalhes || (baseObj ? baseObj.detalhes : '');
+      if (detExib) {
+        formulaHtml = `<div class="mac-formula-pre"><strong>${esc(nomeExib)}</strong>\n${esc(detExib)}</div>`;
+      } else if (m.baseNome) {
+        formulaHtml = `<div class="mac-formula-pre"><strong>${esc(m.baseNome)}</strong></div>`;
       }
     }
 
